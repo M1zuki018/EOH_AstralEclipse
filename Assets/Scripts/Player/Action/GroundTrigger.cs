@@ -10,11 +10,11 @@ public class GroundTrigger : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.CompareTag("Ground"))
         {
             _playerMovement.IsGround = true;
         }
-        else if (other.gameObject.tag == "Wall")
+        else if (other.gameObject.CompareTag("Wall"))
         {
             _playerMovement.IsWall = true;
         }
@@ -22,11 +22,11 @@ public class GroundTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.CompareTag("Ground"))
         {
             _playerMovement.IsGround = false;
         }
-        else if (other.gameObject.tag == "Wall")
+        else if (other.gameObject.CompareTag("Wall"))
         {
             _playerMovement.IsWall = false;
         }

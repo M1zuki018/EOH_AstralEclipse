@@ -6,9 +6,9 @@ using UnityEngine;
 /// </summary>
 public class CinemachineDollyInputProvider : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera = null;
+    [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
     
-    [SerializeField] private CinemachineInputProvider _cinemachineInputProvider = null;
+    [SerializeField] private CinemachineInputProvider _cinemachineInputProvider;
     
     [SerializeField] private float _sensitivity = 1f;
     

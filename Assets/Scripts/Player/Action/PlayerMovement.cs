@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 { 
     [SerializeField] private float _runSpeed = 5f, _warkSpeed = 2f; // 移動速度
     [SerializeField] private float _jumpPower = 5f;
+    [SerializeField] private StepFunction _stepFunction; 
     private Rigidbody _rb; // Rigidbodyコンポーネント
     private Vector3 _moveDirection; // 入力された方向
     private float _moveSpeed; // 移動する速度
@@ -72,6 +73,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// ジャンプ
+    /// </summary>
     public void OnJump(InputAction.CallbackContext context)
     {
         // 入力されたとき地面にいるときのみジャンプ可能
@@ -79,6 +83,18 @@ public class PlayerMovement : MonoBehaviour
         {
             _rb.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
             _isGround = false;
+        }
+    }
+
+    /// <summary>
+    /// ステップ
+    /// </summary>
+    public void OnStep(InputAction.CallbackContext context)
+    {
+        if (context.performed && _stepFunction.TryUseStep())
+        {
+            _stepFunction.TryUseStep();
+            _rb.AddForce(new Vector3(100,0,0), ForceMode.Impulse);
         }
     }
 
