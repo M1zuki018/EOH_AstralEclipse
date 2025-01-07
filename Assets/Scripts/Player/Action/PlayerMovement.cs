@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _runSpeed = 5f, _warkSpeed = 2f; // 移動速度
     [SerializeField] private float _jumpPower = 5f;
     [SerializeField] private StepFunction _stepFunction; 
+    [SerializeField] private LockOnFunction _lockOnFunction; 
     private Rigidbody _rb; // Rigidbodyコンポーネント
     private Vector3 _moveDirection; // 入力された方向
     private float _moveSpeed; // 移動する速度
@@ -117,6 +118,17 @@ public class PlayerMovement : MonoBehaviour
         if (context.canceled)
         {
             _isGuard = false;
+        }
+    }
+
+    /// <summary>
+    /// ロックオン機能
+    /// </summary>
+    public void OnLockOn(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _lockOnFunction.LockOnToEnemy();
         }
     }
 
