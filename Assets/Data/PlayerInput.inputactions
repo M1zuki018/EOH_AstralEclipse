@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Wark",
+                    "type": "Button",
+                    "id": "292f9264-86c0-44b1-8a2b-ea6e02248df0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "b02c783a-14bd-498c-84f7-ae54f420e6e4",
@@ -180,15 +189,6 @@
                     "name": "Skill4",
                     "type": "Button",
                     "id": "4457fb37-2420-4990-82d0-06280197a8c8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Wark",
-                    "type": "Button",
-                    "id": "292f9264-86c0-44b1-8a2b-ea6e02248df0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",

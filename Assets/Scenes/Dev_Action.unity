@@ -216,7 +216,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.23, z: -3.412001}
+  m_LocalPosition: {x: 0, y: -1.23, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -485,7 +485,7 @@ Transform:
   m_GameObject: {fileID: 543142661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.23, z: -3.412001}
+  m_LocalPosition: {x: 0, y: -1.23, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -577,7 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 23a392d5fc9920d49b50d83a46fd05a8,
     type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -588,7 +588,139 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 591953654}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 053243da-1753-48e9-8b22-e901937ac9bb
+    m_ActionName: Action/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 591953654}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b02c783a-14bd-498c-84f7-ae54f420e6e4
+    m_ActionName: Action/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 591953654}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnCrouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 22f60484-c501-4b8b-a343-b055d40464e6
+    m_ActionName: Action/Crouch[/Keyboard/leftCtrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 119197b2-f75a-42b6-ae57-639bc3ec5799
+    m_ActionName: Action/Step[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 512cae34-c867-484d-8cc1-9fda6b26914d
+    m_ActionName: Action/Guard[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 569f5b3c-8a62-49d9-a958-b853b058de0c
+    m_ActionName: Action/ParkourAction1[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e40a2f96-5e2f-4eb7-a37b-e53f1c14b9dd
+    m_ActionName: Action/ParkourAction2[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ef13d0b0-add5-4f9c-a5f3-c9d3cc9a1612
+    m_ActionName: Action/LockOn[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e567ebe-9396-4396-970d-fa76fd4229c8
+    m_ActionName: Action/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5aeabd34-b0b3-4185-86e7-ad9eadb352d7
+    m_ActionName: Action/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1ff2b480-8fd8-4738-ab7a-122aebb2a355
+    m_ActionName: Action/LookDorry[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 769ea494-5beb-48ad-afc6-766393eea148
+    m_ActionName: Action/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 003682ca-3d79-428b-ab46-9da844a4b0b2
+    m_ActionName: Action/SkillSet1[/Keyboard/f1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4fa3016d-058a-4686-a645-d2873efa23ae
+    m_ActionName: Action/SkillSet2[/Keyboard/f2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ccfbc74c-3742-423c-8dbe-396131941f82
+    m_ActionName: Action/SkillSet3[/Keyboard/f3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ab0ab499-76b5-4859-907f-7a9cc5bb8561
+    m_ActionName: Action/SkillSet4[/Keyboard/f4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b85e190-5baf-495f-9b3d-5c646529913f
+    m_ActionName: Action/Skill1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 13126edd-d133-4729-a4c3-6d3a5642c5cf
+    m_ActionName: Action/Skill2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e13b5812-71a5-40cf-96c7-985953997907
+    m_ActionName: Action/Skill3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4457fb37-2420-4990-82d0-06280197a8c8
+    m_ActionName: Action/Skill4[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 591953654}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnWark
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 292f9264-86c0-44b1-8a2b-ea6e02248df0
+    m_ActionName: Action/Wark[/Keyboard/leftAlt]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Action
@@ -1042,7 +1174,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 3.412001
+  m_CameraDistance: 5
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -1128,7 +1260,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.19, z: 0.3}
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
