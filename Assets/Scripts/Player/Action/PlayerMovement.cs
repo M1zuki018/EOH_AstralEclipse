@@ -1,35 +1,48 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
-using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 { 
     [SerializeField] private Transform _playerTransform; // プレイヤーのTransform
     [SerializeField] private CinemachineVirtualCamera _playerCamera; // カメラ（任意のカメラ）
+    [SerializeField] private Animator _animator;
+    private CharacterController _characterController;
     
+    [Header("キャラクター設定")]
     [SerializeField] private float _runSpeed = 5f, _warkSpeed = 2f; // 移動速度
-    [SerializeField] private float _jumpPower = 5f;
+    [SerializeField] private float _jumpPower = 5f; //ジャンプの高さ
+    [SerializeField] private float _gravity = -9.81f; //重力
+    [SerializeField] private float _rotationSpeed = 10f; //回転速度
+    
+    [Header("各種機能")]
     [SerializeField] private StepFunction _stepFunction; 
     [SerializeField] private LockOnFunction _lockOnFunction; 
-    private Rigidbody _rb; // Rigidbodyコンポーネント
+    
     private Vector3 _moveDirection; // 入力された方向
+    private Vector3 _velocity; //垂直方向の速度
     private float _moveSpeed; // 移動する速度
+    
 
     private bool _isWarking = true; //歩いているか
-    private bool _isGround; //地面についているか（検討）
+    private bool _isGround; //地面についているか
     private bool _isCrouching; //しゃがんでいるか
+    private bool _isJumping;
     private bool _canMove = true; //動けるか
-    private bool _isWall; //壁に足をついているか（検討）
+    private bool _isWall; //壁に足をついているか
     private bool _isGuard; //ガード状態か
     
     public bool IsGround{set => _isGround = value; }
     public bool IsWall { set => _isWall = value; }
     
-    private void Start()
+    /// <summary>ヴォルトできるか</summary>
+    public bool IsVault { get; set; }
+    
+    private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();// Rigidbodyを取得
+        _characterController = GetComponent<CharacterController>();
+        
+        _animator.applyRootMotion = false; //ルートモーションを有効化
         _moveSpeed = _warkSpeed; //デフォルトは歩き状態
     }
 
@@ -86,8 +99,10 @@ public class PlayerMovement : MonoBehaviour
         // 入力されたとき地面にいるときのみジャンプ可能
         if (context.performed && _isGround)
         {
-            _rb.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
+            _isJumping = true;
             _isGround = false;
+            _velocity.y = Mathf.Sqrt(_jumpPower * -2f * _gravity); // 初速度を計算
+            _animator.SetTrigger("Jump"); // ジャンプアニメーションをトリガー
         }
     }
 
@@ -99,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed && _stepFunction.TryUseStep())
         {
             _stepFunction.TryUseStep();
-            _rb.AddForce(new Vector3(100,0,0), ForceMode.Impulse);
+            //_rb.AddForce(new Vector3(100,0,0), ForceMode.Impulse);
         }
     }
     
@@ -132,25 +147,85 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// パルクールアクションキー
+    /// </summary>
+    public void OnParkourAction(InputAction.CallbackContext context)
+    {
+        if (context.performed && IsVault)
+        {
+            Debug.Log("Vault 発動");
+        }
+    }
+    
     private void FixedUpdate()
+    {
+        HandleGroundedCheck();
+        HandleMovement();
+        ApplyGravity();
+        HandleJump();
+    }
+
+    /// <summary>
+    /// 入力に元っづいて移動処理を行う
+    /// </summary>
+    private void HandleMovement()
     {
         if (_moveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
         {
-            // カメラの正面方向を取得（Y軸を無視して水平面に投影）
+            // カメラ基準で移動方向を計算
             Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
-            Vector3 cameraRight = Vector3.ProjectOnPlane(Camera.main.transform.right, Vector3.up).normalized;
-        
-            // 入力方向をカメラの向きに回転
-            Vector3 adjustedMoveDirection = cameraForward * _moveDirection.z + cameraRight * _moveDirection.x;
-        
-            _rb.velocity = adjustedMoveDirection * _moveSpeed + new Vector3(0, _rb.velocity.y, 0); // プレイヤーを動かす
-        
-            Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
-            _playerTransform.rotation = Quaternion.Slerp(_playerTransform.rotation, targetRotation, Time.deltaTime * 10f); // スムーズな回転
+            Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
+            Vector3 moveDirection = cameraForward * _moveDirection.z + cameraRight * _moveDirection.x;
+            
+            // CharacterControllerで移動
+            _characterController.Move(moveDirection * _moveSpeed * Time.deltaTime);
+
+            // 回転をカメラの向きに合わせる
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            
+            // Animatorの速度を設定
+            _animator.SetFloat("Speed", moveDirection.sqrMagnitude * _moveSpeed, 0.1f, Time.deltaTime);
         }
         else
         {
-            _rb.velocity = new Vector3(0, _rb.velocity.y, 0);　// 入力がない場合は移動速度をゼロにする
+            _animator.SetFloat("Speed", 0);　// 入力がない場合は停止
+        }
+    }
+
+    /// <summary>
+    /// 地面にいるときの処理
+    /// </summary>
+    private void HandleGroundedCheck()
+    {
+        if (_isGround && _velocity.y < 0)
+        {
+            _isJumping = false;
+            _velocity.y = 0f; //地面にいる場合、垂直速度をリセットする
+        }
+    }
+    
+    /// <summary>
+    /// 重力を適用する
+    /// </summary>
+    private void ApplyGravity()
+    {
+        if (!_isGround)
+        {
+            _velocity.y += _gravity * Time.deltaTime;
+            _characterController.Move(_velocity * Time.deltaTime); // 垂直方向の速度を反映
+        }
+    }
+    
+    /// <summary>
+    /// ジャンプ処理
+    /// </summary>
+    private void HandleJump()
+    {
+        if (_isJumping)
+        {
+            _characterController.Move(_velocity * Time.deltaTime);
         }
     }
 }
