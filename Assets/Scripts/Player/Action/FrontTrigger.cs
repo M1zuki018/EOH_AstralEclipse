@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// パルクールアクション「ヴォルト」の判定に使用するTriggerを管理するスクリプト
+/// 前方の判定に使用するTriggerを管理するスクリプト
 /// </summary>
 public class VaultTrigger : MonoBehaviour
 {
