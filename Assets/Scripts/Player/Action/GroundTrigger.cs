@@ -27,7 +27,7 @@ public class GroundTrigger : MonoBehaviour
         if (Physics.Raycast(transform.position + Vector3.up * _rayOffset, Vector3.down,
                 out _hit, _rayLength, _layerMask, QueryTriggerInteraction.Ignore))
         {
-            if (_hit.collider.gameObject.CompareTag("Ground"))
+            if (_hit.collider.gameObject.CompareTag("Ground") || _hit.collider.gameObject.CompareTag("JumpObject"))
             {
                 _playerMovement.IsGround = true;
                 _playerMovement.IsWall = false;

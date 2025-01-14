@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Enemy
   - VaultObject
+  - JumpObject
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Obstacles
   - 
   - 
   - 

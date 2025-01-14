@@ -3,14 +3,20 @@ using UnityEngine;
 /// <summary>
 /// 前方の判定に使用するTriggerを管理するスクリプト
 /// </summary>
-public class VaultTrigger : MonoBehaviour
+public class FrontTrigger : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _playerMovement;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("VaultObject"))
         {
-            _playerMovement.IsVault = true; //使用可能にする
+            _playerMovement.CanVault = true; //ヴォルトアクションを使用可能にする
+            _playerMovement._valutTargetObjects.Add(other.gameObject.transform);
+        }
+        else if (other.gameObject.CompareTag("Wall"))
+        {
+            _playerMovement.CanClimb = true;
+            _playerMovement.WallNormal = other.transform.forward;
         }
     }
 
@@ -18,7 +24,11 @@ public class VaultTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("VaultObject"))
         {
-            _playerMovement.IsVault = false; //使用不能にする
+            _playerMovement.CanVault = false; //使用不能にする
+        }
+        else if (other.gameObject.CompareTag("Wall"))
+        {
+            _playerMovement.CanClimb = false;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
@@ -6,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 { 
     [SerializeField] private Transform _playerTransform; // プレイヤーのTransform
     [SerializeField] private CinemachineVirtualCamera _playerCamera; // カメラ（任意のカメラ）
-    [SerializeField] private Animator _animator;
+    public Animator _animator;
     private CharacterController _characterController;
     
     [Header("キャラクター設定")]
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private StepFunction _stepFunction; 
     [SerializeField] private LockOnFunction _lockOnFunction; 
     [SerializeField] private WallRunFunction _wallRunFunction;
+    [SerializeField] private VaultFunction _vaultFunction;
+    [SerializeField] private BigJumpFunction _bigJumpFunction;
     
     private Vector3 _moveDirection; // 入力された方向
     private Vector3 _velocity; //垂直方向の速度
@@ -42,8 +45,12 @@ public class PlayerMovement : MonoBehaviour
     //壁走り用の変数
     private bool _isWallRunning; //壁走り中かどうか
     
+    //障害物乗り越え用の変数
+    [HideInInspector] public List<Transform> _valutTargetObjects = new List<Transform>();
+    public bool IsVault { get; set; }
+    
     private bool _canMove = true; //動けるか
-    private bool _isWall; //壁に足をついているか
+    private bool _isWall; //壁にいるか
     private bool _isGuard; //ガード状態か
     
     public bool IsGround
@@ -56,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 WallNormal { set => _wallNormal = value; }
     
     /// <summary>ヴォルトできるか</summary>
-    public bool IsVault { get; set; }
+    public bool CanVault { get; set; }
     
     private void Awake()
     {
@@ -66,6 +73,11 @@ public class PlayerMovement : MonoBehaviour
         _moveSpeed = _warkSpeed; //デフォルトは歩き状態
     }
 
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        _animator.SetTrigger("Idle");
+    }
+    
     /// <summary>
     /// 移動処理
     /// </summary>
@@ -136,6 +148,8 @@ public class PlayerMovement : MonoBehaviour
             _isGround = false;
             _velocity.y = Mathf.Sqrt(_jumpPower * -2f * _gravity); // 初速度を計算
             _animator.SetTrigger("Jump"); // ジャンプアニメーションをトリガー
+            _animator.SetBool("IsJumping", true);
+            _animator.applyRootMotion = false;
         }
     }
 
@@ -186,10 +200,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            if (IsVault) 
+            if (CanVault) 
             {
-                //ヴォルトアクション
-                _animator.SetTrigger("Vault"); 
+                _vaultFunction.HandleVault(this);//ヴォルトアクション
             }
             else if (_canClimb)
             {
@@ -198,6 +211,7 @@ public class PlayerMovement : MonoBehaviour
                 
                 if (_isClimbing) //壁のぼり開始なら
                 {
+                    _isJumping = false;
                     _animator.SetTrigger("Climb");
                     _animator.SetBool("IsClimbing", true);
                     _animator.applyRootMotion = false; //ルートモーションを使用しない
@@ -205,11 +219,15 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else //壁のぼり終了なら
                 {
-                    Debug.Log("終了");
                     _animator.SetBool("IsClimbing", false);
                     _isClimbingStopped = false; //停止フラグをリセット
-                    _animator.applyRootMotion = true;
+                    //_animator.applyRootMotion = true;
+                    _isGround = false;
                 }
+            }
+            else if (_bigJumpFunction.CanJump)
+            {
+                _bigJumpFunction.HandleBigJump(this);
             }
         }
     }
@@ -226,6 +244,7 @@ public class PlayerMovement : MonoBehaviour
             HandleMovement();
             ApplyGravity();
             HandleJump();
+            HandleFalling();
         }
     }
 
@@ -236,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_moveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
         {
+            
             // カメラ基準で移動方向を計算
             Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
             Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
@@ -244,9 +264,18 @@ public class PlayerMovement : MonoBehaviour
             // 回転をカメラの向きに合わせる
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+
+            if (_animator.applyRootMotion)
+            {
+                // Animatorの速度を設定
+                _animator.SetFloat("Speed", moveDirection.sqrMagnitude * _moveSpeed, 0.1f, Time.deltaTime);
+            }
+            else
+            {
+                //ルートモーションがオンじゃなければ、CharacterControllerのMoveメソッドを使用する
+                _characterController.Move(moveDirection * _moveSpeed * Time.deltaTime);
+            }
             
-            // Animatorの速度を設定
-            _animator.SetFloat("Speed", moveDirection.sqrMagnitude * _moveSpeed, 0.1f, Time.deltaTime);
         }
         else
         {
@@ -263,6 +292,28 @@ public class PlayerMovement : MonoBehaviour
         {
             _isJumping = false;
             _velocity.y = 0f; //地面にいる場合、垂直速度をリセットする
+            _animator.SetBool("IsJumping", false);
+            _animator.applyRootMotion = true;
+        }
+    }
+
+    /// <summary>
+    /// 落下中かどうかの判定を行う
+    /// </summary>
+    private void HandleFalling()
+    {
+        //接地判定はfalseだが、落下中と判定しない例外
+        //ジャンプ中/壁登り中/乗り越え中
+        if (!_isJumping && !_isClimbing && !IsVault)
+        {
+            if (_isGround)
+            {
+                _animator.SetBool("IsFalling", false);
+            }
+            else
+            {
+                _animator.SetBool("IsFalling", true);
+            }
         }
     }
     
@@ -298,13 +349,14 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 climbDirection = Quaternion.LookRotation(-_wallNormal) * _moveDirection;
             _characterController.Move(climbDirection * _climbSpeed * Time.deltaTime);
-            
+        
             _animator.SetFloat("ClimbSpeed", climbDirection.magnitude, 0.1f, Time.deltaTime);
         }
         else
         {
             //停止中の処理
             _animator.SetFloat("ClimbSpeed",0);
+            
             if (!_isClimbingStopped)
             {
                 _isClimbingStopped = true;
