@@ -1079,7 +1079,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.48, y: 0.1476981, z: 4.6500006}
+  m_LocalPosition: {x: -3.48, y: -0.08134121, z: 6.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1830,7 +1830,7 @@ Transform:
   m_GameObject: {fileID: 543142661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.48, y: 0.1476981, z: 4.6500006}
+  m_LocalPosition: {x: -3.48, y: -0.08134121, z: 6.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2023,9 +2023,9 @@ GameObject:
   m_Component:
   - component: {fileID: 591953650}
   - component: {fileID: 591953651}
+  - component: {fileID: 591953658}
   - component: {fileID: 591953654}
   - component: {fileID: 591953656}
-  - component: {fileID: 591953658}
   - component: {fileID: 591953659}
   - component: {fileID: 591953660}
   - component: {fileID: 591953655}
@@ -2284,6 +2284,8 @@ MonoBehaviour:
   _playerTransform: {fileID: 591953650}
   _playerCamera: {fileID: 543142662}
   _animator: {fileID: 591953659}
+  _speed: 111.37599
+  _sceneName: Dev_Action
   _runSpeed: 10
   _warkSpeed: 2
   _jumpPower: 2
@@ -2411,7 +2413,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591953649}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8617a3210485ad549b3f9aa531a807bf, type: 3}
   m_Name: 
@@ -5720,7 +5722,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.759999
+  m_CameraDistance: 1.6
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0

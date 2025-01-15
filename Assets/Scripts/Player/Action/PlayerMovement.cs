@@ -5,10 +5,12 @@ using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 { 
-    [SerializeField] private Transform _playerTransform; // プレイヤーのTransform
-    [SerializeField] private CinemachineVirtualCamera _playerCamera; // カメラ（任意のカメラ）
-    public Animator _animator;
+    [SerializeField][ReadOnlyOnRuntime] private Transform _playerTransform; // プレイヤーのTransform
+    [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ（任意のカメラ）
+    [ReadOnlyOnRuntime] public Animator _animator;
     private CharacterController _characterController;
+    [Disable] public float _speed;
+    [SceneName] public string _sceneName;
     
     [Header("キャラクター設定")]
     [SerializeField] private float _runSpeed = 5f, _warkSpeed = 2f; // 移動速度
