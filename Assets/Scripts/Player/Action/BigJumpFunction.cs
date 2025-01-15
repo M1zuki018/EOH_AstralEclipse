@@ -24,14 +24,16 @@ public class BigJumpFunction : MonoBehaviour
 
     private void Update()
     {
-        if (_isJumping)
+        if (_isJumping && !_playerMovement._animator.IsInTransition(0))
         {
             BigJumpMatchTarget();
+            Time.timeScale = 0.3f;
         }
         else
         {
             //判定はジャンプ中は行わない
             CanBigJumpCheck();
+            Time.timeScale = 1f;
         }
     }
 
@@ -68,8 +70,9 @@ public class BigJumpFunction : MonoBehaviour
     /// </summary>
     private void BigJumpMatchTarget()
     {
+        var tmp = new Vector3(_targetObj.position.x, _targetObj.position.y + 10, _targetObj.position.z);
         _playerMovement._animator.MatchTarget(
-            _targetObj.position,
+            tmp,
             _targetObj.rotation,
             AvatarTarget.LeftFoot,
             _mask,
