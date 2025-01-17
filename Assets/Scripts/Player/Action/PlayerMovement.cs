@@ -9,15 +9,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ（任意のカメラ）
     [ReadOnlyOnRuntime] public Animator _animator;
     private CharacterController _characterController;
-    [Disable] public float _speed;
-    [SceneName] public string _sceneName;
     
     [Header("キャラクター設定")]
-    [SerializeField] private float _runSpeed = 5f, _warkSpeed = 2f; // 移動速度
-    [SerializeField] private float _jumpPower = 5f; //ジャンプの高さ
-    [SerializeField] private float _gravity = -9.81f; //重力
-    [SerializeField] private float _rotationSpeed = 10f; //回転速度
-    [SerializeField] private float _climbSpeed = 3f; //壁を登る速さ
+    [SerializeField, Comment("走っているときの移動速度")] private float _runSpeed = 5f;
+    [SerializeField, Comment("歩いているときの移動速度")] private float _warkSpeed = 2f;
+    [SerializeField, Comment("ジャンプの高さ")] private float _jumpPower = 5f;
+    [SerializeField, Comment("重力")] private float _gravity = -9.81f;
+    [SerializeField, Comment("回転速度")] private float _rotationSpeed = 10f;
+    [SerializeField, Comment("壁を登る速さ")] private float _climbSpeed = 3f;
     
     [Header("各種機能")]
     [SerializeField] private StepFunction _stepFunction; 
@@ -26,15 +25,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private VaultFunction _vaultFunction;
     [SerializeField] private BigJumpFunction _bigJumpFunction;
     
+    [SerializeField, HighlightIfNull] private WallChecker _wallChecker;
+    
     private Vector3 _moveDirection; // 入力された方向
     private Vector3 _velocity; //垂直方向の速度
     private float _moveSpeed; // 移動する速度
-    
 
     private bool _isWarking = true; //歩いているか
     private bool _isGround; //地面についているか
     private bool _isCrouching; //しゃがんでいるか
     private bool _isJumping; //ジャンプ中か
+    private bool _isHanding; //よじのぼり中か
     
     //壁のぼり用の変数
     private Vector3 _wallNormal; // 壁の法線
@@ -51,17 +52,16 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public List<Transform> _valutTargetObjects = new List<Transform>();
     public bool IsVault { get; set; }
     
-    private bool _canMove = true; //動けるか
-    private bool _isWall; //壁にいるか
     private bool _isGuard; //ガード状態か
     
     public bool IsGround
     {
         get { return _isGround;}
         set => _isGround = value; }
-    public bool IsWall { set => _isWall = value; }
+    public bool IsWall { get; set; }
     
-    public bool CanClimb { set => _canClimb = value; }
+    public bool CanClimb { get; set; }
+    public bool IsClimbing { get {return _isClimbing;} }
     public Vector3 WallNormal { set => _wallNormal = value; }
     
     /// <summary>ヴォルトできるか</summary>
@@ -206,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _vaultFunction.HandleVault(this);//ヴォルトアクション
             }
-            else if (_canClimb)
+            else if (CanClimb)
             {
                 //壁のぼりアクション
                 _isClimbing = !_isClimbing;
@@ -236,7 +236,11 @@ public class PlayerMovement : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (_isClimbing) //壁のぼり中
+        if (_isHanding) 
+        {
+            //
+        }
+        else if (_isClimbing)//壁のぼり中
         {
             HandleClimbing();
         }
@@ -347,23 +351,38 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void HandleClimbing()
     {
-        if (_moveDirection.sqrMagnitude > 0.01f)
+        if (_wallChecker.IsGrab)
         {
-            Vector3 climbDirection = Quaternion.LookRotation(-_wallNormal) * _moveDirection;
-            _characterController.Move(climbDirection * _climbSpeed * Time.deltaTime);
-        
-            _animator.SetFloat("ClimbSpeed", climbDirection.magnitude, 0.1f, Time.deltaTime);
+            //動きを停止する
+            _animator.SetFloat("ClimbSpeed",0);
+            if (_moveDirection.sqrMagnitude > 0.01f)
+            {
+                _animator.applyRootMotion = true;
+                _isHanding = true;
+                _animator.SetTrigger("Hang");
+            }
         }
         else
         {
-            //停止中の処理
-            _animator.SetFloat("ClimbSpeed",0);
-            
-            if (!_isClimbingStopped)
+            if (_moveDirection.sqrMagnitude > 0.01f)
             {
-                _isClimbingStopped = true;
+                Vector3 climbDirection = Quaternion.LookRotation(-_wallNormal) * _moveDirection;
+                _characterController.Move(climbDirection * _climbSpeed * Time.deltaTime);
+        
+                _animator.SetFloat("ClimbSpeed", climbDirection.magnitude, 0.1f, Time.deltaTime);
+            }
+            else
+            {
+                //停止中の処理
+                _animator.SetFloat("ClimbSpeed",0);
+            
+                if (!_isClimbingStopped)
+                {
+                    _isClimbingStopped = true;
+                }
             }
         }
+        
     }
     
     /// <summary>

@@ -9,8 +9,6 @@ public class HighlightIfNullDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        HighlightIfNullAttribute highlightAttribute = (HighlightIfNullAttribute)attribute;
-        
         Color defaultColor = GUI.backgroundColor; // デフォルトの背景色を保存
         
         bool isUnassigned = property.propertyType switch // 未割り当て（null）かどうかをチェック
