@@ -2,13 +2,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using PlayerSystem.Input;
+using PlayerSystem.Movement;
+using PlayerSystem.State;
 
 public class PlayerMovement : MonoBehaviour
 { 
+    [Header("コンポーネント")]
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerTransform; // プレイヤーのTransform
     [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ（任意のカメラ）
     [ReadOnlyOnRuntime] public Animator _animator;
     private CharacterController _characterController;
+    
+    private PlayerState _playerState;
+    private IMovable _mover;
+    private IJumpable _jumper;
+    private IInputHandler _inputHandler;
     
     [Header("キャラクター設定")]
     [SerializeField, Comment("走っているときの移動速度")] private float _runSpeed = 5f;
@@ -19,12 +28,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Comment("壁を登る速さ")] private float _climbSpeed = 3f;
     
     [Header("各種機能")]
-    [SerializeField] private StepFunction _stepFunction; 
-    [SerializeField] private LockOnFunction _lockOnFunction; 
-    [SerializeField] private WallRunFunction _wallRunFunction;
-    [SerializeField] private VaultFunction _vaultFunction;
-    [SerializeField] private BigJumpFunction _bigJumpFunction;
-    
+    [SerializeField, HighlightIfNull] private StepFunction _stepFunction; 
+    [SerializeField, HighlightIfNull] private LockOnFunction _lockOnFunction; 
+    [SerializeField, HighlightIfNull] private WallRunFunction _wallRunFunction;
+    [SerializeField, HighlightIfNull] private VaultFunction _vaultFunction;
+    [SerializeField, HighlightIfNull] private BigJumpFunction _bigJumpFunction;
     [SerializeField, HighlightIfNull] private WallChecker _wallChecker;
     
     private Vector3 _moveDirection; // 入力された方向
@@ -71,6 +79,12 @@ public class PlayerMovement : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         
+        //インスタンスを生成
+        _playerState = new PlayerState();
+        _mover = new PlayerMover(_characterController, _animator, _playerState, _playerCamera);
+        _jumper = (IJumpable) _mover;
+        _inputHandler = new PlayerInputHandler(_playerState, _mover, _jumper);
+        
         _animator.applyRootMotion = true; //ルートモーションを有効化
         _moveSpeed = _warkSpeed; //デフォルトは歩き状態
     }
@@ -80,6 +94,19 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetTrigger("Idle");
     }
     
+    /// <summary>移動処理</summary>
+    /// <param name="context"></param>
+    public void OnMove(InputAction.CallbackContext context) => _inputHandler.HandleMoveInput(context.ReadValue<Vector2>());
+
+    /// <summary>ジャンプ処理</summary>
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _inputHandler.HandleJumpInput();
+        }
+    }
+    /*
     /// <summary>
     /// 移動処理
     /// </summary>
@@ -87,9 +114,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!context.performed && !context.canceled)
             return;
-        
+
         Vector2 inputVector = context.ReadValue<Vector2>();
-        
+
         if (_isClimbing) //壁のぼり中
         {
             _moveDirection = new Vector3(0, inputVector.y, -inputVector.x);
@@ -99,6 +126,7 @@ public class PlayerMovement : MonoBehaviour
             _moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
         }
     }
+    */
 
     /// <summary>
     /// 歩きと走り状態を切り替える
@@ -138,6 +166,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
+    /*
     /// <summary>
     /// ジャンプ
     /// </summary>
@@ -154,7 +183,8 @@ public class PlayerMovement : MonoBehaviour
             _animator.applyRootMotion = false;
         }
     }
-
+*/
+    
     /// <summary>
     /// ステップ
     /// </summary>
@@ -246,48 +276,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            _mover.Move();
             HandleGroundedCheck();
-            HandleMovement();
-            ApplyGravity();
             HandleJump();
             HandleFalling();
         }
     }
 
-    /// <summary>
-    /// 入力に基づいて移動処理を行う
-    /// </summary>
-    private void HandleMovement()
-    {
-        if (_moveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
-        {
-            
-            // カメラ基準で移動方向を計算
-            Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
-            Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
-            Vector3 moveDirection = cameraForward * _moveDirection.z + cameraRight * _moveDirection.x;
-            
-            // 回転をカメラの向きに合わせる
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-
-            if (_animator.applyRootMotion)
-            {
-                // Animatorの速度を設定
-                _animator.SetFloat("Speed", moveDirection.sqrMagnitude * _moveSpeed, 0.1f, Time.deltaTime);
-            }
-            else
-            {
-                //ルートモーションがオンじゃなければ、CharacterControllerのMoveメソッドを使用する
-                _characterController.Move(moveDirection * _moveSpeed * Time.deltaTime);
-            }
-            
-        }
-        else
-        {
-            _animator.SetFloat("Speed", 0);　// 入力がない場合は停止
-        }
-    }
+    
 
     /// <summary>
     /// 地面にいるときの処理
