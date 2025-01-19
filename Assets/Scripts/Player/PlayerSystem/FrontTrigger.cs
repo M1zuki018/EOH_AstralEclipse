@@ -10,13 +10,13 @@ public class FrontTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("VaultObject"))
         {
-            _playerMovement.CanVault = true; //ヴォルトアクションを使用可能にする
+            _playerMovement.PlayerState.CanVault = true; //ヴォルトアクションを使用可能にする
             _playerMovement._valutTargetObjects.Add(other.gameObject.transform);
         }
         else if (other.gameObject.CompareTag("Wall"))
         {
-            _playerMovement.CanClimb = true;
-            _playerMovement.WallNormal = other.transform.forward;
+            _playerMovement.PlayerState.CanClimb = true;
+            _playerMovement.PlayerState.WallNormal = other.transform.forward;
         }
     }
 
@@ -24,11 +24,11 @@ public class FrontTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("VaultObject"))
         {
-            _playerMovement.CanVault = false; //使用不能にする
+            _playerMovement.PlayerState.CanVault = false; //使用不能にする
         }
         else if (other.gameObject.CompareTag("Wall"))
         {
-            _playerMovement.CanClimb = false;
+            _playerMovement.PlayerState.CanClimb = false;
         }
     }
 }

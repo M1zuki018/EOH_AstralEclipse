@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -11,7 +10,7 @@ public class GroundTrigger : MonoBehaviour
     [SerializeField] private LayerMask _layerMask = default; // Rayの判定に用いるLayer
     [SerializeField] PlayerMovement _playerMovement;
     private RaycastHit _hit;
-
+    
     private void FixedUpdate()
     {
         CheckGrounded();
@@ -29,29 +28,31 @@ public class GroundTrigger : MonoBehaviour
         {
             if (_hit.collider.gameObject.CompareTag("Ground") || _hit.collider.gameObject.CompareTag("JumpObject"))
             {
-                _playerMovement.IsGround = true;
-                _playerMovement.IsWall = false;
+                _playerMovement.PlayerState.IsGrounded = true;
+                //_playerMovement.PlayerState.IsClimbing = false;
             }
             else if (_hit.collider.gameObject.CompareTag("Wall"))
             {
-                _playerMovement.IsWall = true;
-                _playerMovement.IsGround = false;
+                //_playerMovement.IsWall = true;
+                _playerMovement.PlayerState.IsGrounded = false;
             }
         }
         else
         {
-            _playerMovement.IsGround = false;
-            _playerMovement.IsWall = false;
+            _playerMovement.PlayerState.IsGrounded = false;
+            //_playerMovement.IsWall = false;
         }
     }
 
+    /*
     /// <summary>
     /// デバッグ用
     /// </summary>
     private void OnDrawGizmos()
     {
         // 接地判定時は緑、空中にいるときは赤にする
-        Gizmos.color = _playerMovement.IsGround ? Color.green : Color.red;
+        Gizmos.color = _playerMovement.PlayerState.IsGrounded ? Color.green : Color.red; 
         Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
     }
+    */
 }

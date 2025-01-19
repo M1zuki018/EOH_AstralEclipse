@@ -27,6 +27,8 @@ namespace PlayerSystem.State
         public bool CanClimb { get; set; } //壁のぼりできるか
         public bool CanBigJump { get; set; } //大ジャンプできるか
         public bool CanVault { get; set; } //乗り越えできるか
+        
+        public Vector3 WallNormal { get; set; } //壁の法線
     }
 }
 

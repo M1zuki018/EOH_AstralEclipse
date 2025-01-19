@@ -21,7 +21,7 @@ public class WallChecker : MonoBehaviour
     
     private void Update()
     {
-        if (_playerMovement.IsClimbing) //壁のぼり中だけ処理を行う
+        if (_playerMovement.PlayerState.IsClimbing) //壁のぼり中だけ処理を行う
         {
             //  壁判定に使用するRay
             Ray wallCheckRay = new Ray(transform.position + Vector3.up * _wallCheckOffset, transform.forward);
@@ -32,7 +32,7 @@ public class WallChecker : MonoBehaviour
             _isUpperWall = Physics.Raycast(upperCheckRay, _wallCheckDistance);
             
             _isGrab = _isForwardWall && !_isUpperWall;
-            _climbingIK.IkActive = _playerMovement.IsClimbing;
+            _climbingIK.IkActive = _playerMovement.PlayerState.IsClimbing;
             
             /*
             // IKにターゲットをセットする

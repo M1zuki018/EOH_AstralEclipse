@@ -1841,11 +1841,11 @@ GameObject:
   - component: {fileID: 591953656}
   - component: {fileID: 591953659}
   - component: {fileID: 591953660}
+  - component: {fileID: 591953663}
   - component: {fileID: 591953655}
   - component: {fileID: 591953657}
   - component: {fileID: 591953661}
   - component: {fileID: 591953662}
-  - component: {fileID: 591953663}
   - component: {fileID: 591953664}
   - component: {fileID: 591953665}
   m_Layer: 0
@@ -2100,6 +2100,7 @@ MonoBehaviour:
   _playerTransform: {fileID: 591953650}
   _playerCamera: {fileID: 543142662}
   _animator: {fileID: 591953659}
+  _characterController: {fileID: 591953658}
   _jumpPower: 2
   _gravity: -14.88
   _rotationSpeed: 10

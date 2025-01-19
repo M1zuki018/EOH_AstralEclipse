@@ -18,7 +18,7 @@ public class VaultFunction : MonoBehaviour, IVaultable
         _playerMovement = playerMovement;
         _targetTransform = _playerMovement._valutTargetObjects[0];
         playerMovement._animator.SetTrigger("Vault");//アニメーション再生 
-        playerMovement.IsVault = true;
+        playerMovement.PlayerState.IsVaulting = true;
     }
 
     private void Update()
@@ -28,7 +28,7 @@ public class VaultFunction : MonoBehaviour, IVaultable
             return;
         }
         
-        if (_playerMovement.IsVault)
+        if (_playerMovement.PlayerState.IsVaulting)
         {
             _playerMovement._animator.MatchTarget(
                 _targetTransform.position,
@@ -43,7 +43,7 @@ public class VaultFunction : MonoBehaviour, IVaultable
         //アニメーションの終了判定
         if (_timer >= _endAnimTime)
         {
-            _playerMovement.IsVault = false;
+            _playerMovement.PlayerState.IsVaulting = false;
             _timer = 0;
         }
     }
