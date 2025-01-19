@@ -7,21 +7,21 @@ namespace PlayerSystem.Input
 {
     public class PlayerInputHandler : IInputHandler
     {
-        #region 初期化と構造体
+        #region フィールドと初期化
         
-        private PlayerState _state;
-        private PlayerMover _playerMover;
-        private IMovable _mover;
-        private IJumpable _jumper;
-        private IWalkable _walker;
-        private ICrouchable _croucher;
-        private ISteppable _stepper;
-        private IGaudeable _gauder;
-        private ILockOnable _locker;
-        private IWallRunable _wallruner;
-        private IClimbale _climber;
-        private IBigJumpable _bigjumper;
-        private IVaultable _vaulter;
+        private readonly PlayerState _state;
+        private readonly PlayerMover _playerMover;
+        private readonly IMovable _mover;
+        private readonly IJumpable _jumper;
+        private readonly IWalkable _walker;
+        private readonly ICrouchable _croucher;
+        private readonly ISteppable _stepper;
+        private readonly IGaudeable _gauder;
+        private readonly ILockOnable _locker;
+        private readonly IWallRunable _wallruner;
+        private readonly IClimbale _climber;
+        private readonly IBigJumpable _bigjumper;
+        private readonly IVaultable _vaulter;
 
         public PlayerInputHandler(PlayerState state, IMovable mover, IJumpable jumper, IWalkable walker, ICrouchable croucher, 
             ISteppable steppable, IGaudeable gauder, ILockOnable locker, IWallRunable wallruner,
@@ -42,21 +42,23 @@ namespace PlayerSystem.Input
         }
         #endregion
         
-        /// 以降、動作はインターフェースを介して行う
+        // 以降、動作はインターフェースを介して行う
         
+        /// <summary>移動入力処理</summary>
         public void HandleMoveInput(Vector2 input)
         {
             if (_state.IsClimbing) //壁のぼり中なら
             {
                 _state.MoveDirection = new Vector3(0, input.y, input.x);
             }
-            else
+            else //通常時
             {
                 _state.MoveDirection = new Vector3(input.x, 0, input.y);
             }
             _mover.Move();
         }
 
+        /// <summary>ジャンプ入力処理</summary>
         public void HandleJumpInput()
         {
             if (_state.IsGrounded)
@@ -66,16 +68,19 @@ namespace PlayerSystem.Input
             }
         }
         
+        /// <summary>歩き状態にする入力処理</summary>
         public void HandleWalkInput()
         {
             _walker.Walk();
         }
 
+        /// <summary>しゃがみ入力処理</summary>
         public void HandleCrouchInput(bool input)
         {
             _croucher.Crouch(input);
         }
 
+        /// <summary>ステップ入力処理</summary>
         public void HandleStepInput()
         {
             if (_stepper.TryUseStep())
@@ -84,43 +89,54 @@ namespace PlayerSystem.Input
             }
         }
 
+        /// <summary>ガード入力処理</summary>
         public void HandleGaudeInput(bool input)
         {
             _gauder.Gaude(input);
         }
 
+        /// <summary>ロックオン入力処理</summary>
         public void HandleLockOnInput()
         {
             _locker.LockOn();
         }
 
+        /// <summary>乗り越え入力処理</summary>
         public void HandleVaultInput()
         {
+            //TODO:実装を書く
             throw new System.NotImplementedException();
         }
 
+        /// <summary>大ジャンプ入力処理</summary>
         public void HandleBigJumpInput()
         {
+            //TODO:実装を書く
             throw new System.NotImplementedException();
         }
 
+        /// <summary>壁のぼり開始の入力処理</summary>
         public void HandleClimbStartInput()
         {
             _climber.StartClimbing();
         }
         
+        /// <summary>壁のぼり中の入力処理</summary>
         public void HandleClimbInput()
         {
             _climber.HandleClimbing();
         }
 
+        /// <summary>壁のぼり終了の入力処理</summary>
         public void HandleClimbEndInput()
         {
             _climber.EndClimbing();
         }
 
+        /// <summary>ウォールランの入力処理</summary>
         public void HandleWallRunInput()
         {
+            //TODO:実装を書く
             throw new System.NotImplementedException();
         }
     }
