@@ -19,18 +19,18 @@ public class PlayerMovement : MonoBehaviour
     public PlayerState PlayerState => _playerState; //公開
 
     #region 各種機能
-    private IMovable _mover;
-    private IJumpable _jumper;
-    private IWalkable _walker;
-    private ICrouchable _croucher;
-    private IInputHandler _inputHandler;
-    private ISteppable _stepFunction; 
-    private IGaudeable _gaudeFunction;
-    private ILockOnable _lockOnFunction; 
-    private IWallRunable _wallRunFunction;
-    private IVaultable _vaultFunction;
-    private IBigJumpable _bigJumpFunction;
-    private IClimbale _climbFunction;
+    private IMovable _mover; //動き
+    private IJumpable _jumper; //ジャンプ
+    private IWalkable _walker; //歩きと走り状態の切り替え
+    private ICrouchable _croucher; //しゃがみ
+    private IInputHandler _inputHandler; //入力情報
+    private ISteppable _stepFunction; //ステップ
+    private IGaudeable _gaudeFunction; //ガード
+    private ILockOnable _lockOnFunction; //ロックオン
+    private IWallRunable _wallRunFunction; //ウォールラン
+    private IClimbale _climbFunction; //壁のぼり
+    private IBigJumpable _bigJumpFunction; //大ジャンプ
+    private IVaultable _vaultFunction; //乗り越え
     #endregion
     
     [SerializeField, HighlightIfNull] private WallChecker _wallChecker;
@@ -43,92 +43,104 @@ public class PlayerMovement : MonoBehaviour
     
     private void Awake()
     {
-        _stepFunction = GetComponent<StepFunction>();
-        _gaudeFunction = GetComponent<GaudeFunction>();
-        _lockOnFunction = GetComponent<LockOnFunction>();
-        _wallRunFunction = GetComponent<WallRunFunction>();
-        _bigJumpFunction = GetComponent<BigJumpFunction>();
-        _vaultFunction = GetComponent<VaultFunction>();
-        _climbFunction = new ClimbFunction(_animator, _characterController, transform, this);
-        
-        //インスタンスを生成
+        InitializeState();
+        InitializeComponents();
+    }
+
+    private void InitializeState()
+    {
         _playerState = new PlayerState();
+    }
+    
+    private void InitializeComponents()
+    {
+        //インスタンスを生成
         _mover = new PlayerMover(_characterController, _animator, _playerState, _playerCamera);
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
         _croucher = (ICrouchable) _mover;
+        _climbFunction = new ClimbFunction(_animator, _characterController, transform, this);
         
-        _inputHandler = new PlayerInputHandler(_playerState, _mover, _jumper, _walker, _croucher, 
-            _stepFunction, _gaudeFunction, _lockOnFunction, _wallRunFunction, _climbFunction, _bigJumpFunction, _vaultFunction);
+        _inputHandler = new PlayerInputHandler(_playerState, _mover, _jumper, _walker, _croucher,
+            GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
+            GetComponent<WallRunFunction>(), _climbFunction, GetComponent<BigJumpFunction>(),
+            GetComponent<VaultFunction>());
         
         _animator.applyRootMotion = true; //ルートモーションを有効化
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
-    {
-        _animator.SetTrigger("Idle");
-    }
+    #region 入力されたときのメソッド一覧
+    
+    public void OnAttack(InputAction.CallbackContext context) => _animator.SetTrigger("Idle");
     
     /// <summary>移動処理</summary>
-    /// <param name="context"></param>
     public void OnMove(InputAction.CallbackContext context) => _inputHandler.HandleMoveInput(context.ReadValue<Vector2>());
 
     /// <summary>ジャンプ処理</summary>
-    public void OnJump(InputAction.CallbackContext context) { if (context.performed) _inputHandler.HandleJumpInput(); }
+    public void OnJump(InputAction.CallbackContext context) => HandleJumpInput(context);
     
     /// <summary>歩きと走り状態を切り替える</summary>
-    public void OnWalk(InputAction.CallbackContext context) { if (context.performed) _inputHandler.HandleWalkInput(); }
+    public void OnWalk(InputAction.CallbackContext context) => _inputHandler.HandleWalkInput();
     
     /// <summary>しゃがみ状態を切り替える</summary>
-    public void OnCrouch(InputAction.CallbackContext context)
-    {
-        if (context.performed) _inputHandler.HandleCrouchInput(true); //ボタンが押されたとき
-        if (context.canceled) _inputHandler.HandleCrouchInput(false); //ボタンが放されたとき
-    }
+    public void OnCrouch(InputAction.CallbackContext context) => HandleCrouchInput(context);
     
     /// <summary>ステップ</summary>
-    public void OnStep(InputAction.CallbackContext context) { if (context.performed) _inputHandler.HandleStepInput(); }
+    public void OnStep(InputAction.CallbackContext context) => _inputHandler.HandleStepInput(); 
     
     /// <summary>ガード状態を切り替える</summary>
-    public void OnGuard(InputAction.CallbackContext context)
-    {
-        if (context.performed) _inputHandler.HandleGaudeInput(true); //ボタンが押されたとき
-        if (context.canceled) _inputHandler.HandleGaudeInput(false); //ボタンが放されたとき
-    }
+    public void OnGuard(InputAction.CallbackContext context) => HandleGuardInput(context);
 
     /// <summary>ロックオン機能</summary>
-    public void OnLockOn(InputAction.CallbackContext context) { if (context.performed) _inputHandler.HandleLockOnInput(); }
+    public void OnLockOn(InputAction.CallbackContext context) => _inputHandler.HandleLockOnInput();
+    
+    /// <summary>パルクールアクションキー</summary>
+    public void OnParkourAction(InputAction.CallbackContext context) => HandleParkourAction(context);
+    
+    #endregion
 
-    /// <summary>
-    /// パルクールアクションキー
-    /// </summary>
-    public void OnParkourAction(InputAction.CallbackContext context)
+    #region 入力の条件文
+
+    private void HandleJumpInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) _inputHandler.HandleJumpInput();
+    }
+
+    private void HandleCrouchInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) _inputHandler.HandleCrouchInput(true);
+        if (context.canceled) _inputHandler.HandleCrouchInput(false);
+    }
+
+    private void HandleGuardInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) _inputHandler.HandleGaudeInput(true);
+        if (context.canceled) _inputHandler.HandleGaudeInput(false);
+    }
+
+    private void HandleParkourAction(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             if (_playerState.CanVault) //優先１.ヴォルトアクション
-            {
                 _inputHandler.HandleVaultInput();
-            }
             else if (_playerState.CanClimb) //優先２.壁のぼり
-            {
-                _playerState.IsClimbing = !_playerState.IsClimbing; //ステートの切り替え
-                
-                if (_playerState.IsClimbing) //壁のぼり開始なら
-                {
-                    _inputHandler.HandleClimbStartInput();
-                }
-                else //壁のぼり終了なら
-                {
-                    _inputHandler.HandleClimbEndInput();
-                }
-            }
+                ToggleClimbState();
             else if (_playerState.CanBigJump) //優先３.大ジャンプ
-            {
                 _inputHandler.HandleBigJumpInput();
-            }
         }
     }
+
+    private void ToggleClimbState()
+    {
+        _playerState.IsClimbing = !_playerState.IsClimbing; //ステートの切り替え
+        if (_playerState.IsClimbing) 
+            _inputHandler.HandleClimbStartInput();　//壁のぼり開始処理
+        else 
+            _inputHandler.HandleClimbEndInput(); //壁のぼり終了処理
+    }
+
+    #endregion
     
     private void FixedUpdate()
     {
@@ -138,14 +150,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (_playerState.IsClimbing)//壁のぼり中
         {
-            _inputHandler.HandleClimbInput();
+            _inputHandler.HandleClimbInput(); //壁のぼり処理
         }
         else
         {
-            _mover.Move();
-            _jumper.Jumping();
+            _mover.Move(); //移動処理
+            _jumper.Jumping(); //ジャンプ処理
             HandleGroundedCheck();
-            HandleFalling();
+            HandleFalling(); //落下中の判定
         }
     }
     
@@ -174,14 +186,7 @@ public class PlayerMovement : MonoBehaviour
         //ジャンプ中/壁登り中/乗り越え中
         if (!_playerState.IsJumping && !_playerState.IsClimbing && !_playerState.IsVaulting)
         {
-            if (_playerState.IsGrounded)
-            {
-                _animator.SetBool("IsFalling", false);
-            }
-            else
-            {
-                _animator.SetBool("IsFalling", true);
-            }
+            _animator.SetBool("IsFalling", !_playerState.IsGrounded);
         }
     }
 }
