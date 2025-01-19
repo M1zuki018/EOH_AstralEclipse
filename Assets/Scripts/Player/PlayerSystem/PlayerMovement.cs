@@ -17,12 +17,6 @@ public class PlayerMovement : MonoBehaviour
     
     private PlayerState _playerState;
     public PlayerState PlayerState => _playerState; //公開
-    
-    [Header("キャラクター設定")]
-    [SerializeField, Comment("ジャンプの高さ")] private float _jumpPower = 5f;
-    [SerializeField, Comment("重力")] private float _gravity = -9.81f;
-    [SerializeField, Comment("回転速度")] private float _rotationSpeed = 10f;
-    [SerializeField, Comment("壁を登る速さ")] private float _climbSpeed = 3f;
 
     #region 各種機能
     private IMovable _mover;
@@ -41,11 +35,9 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField, HighlightIfNull] private WallChecker _wallChecker;
 
+    //未リファクタリング
     private bool _isHanding; //よじのぼり中か
-    
-    //壁走り用の変数
     private bool _isWallRunning; //壁走り中かどうか
-    
     //障害物乗り越え用の変数
     [HideInInspector] public List<Transform> _valutTargetObjects = new List<Transform>();
     
@@ -57,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         _wallRunFunction = GetComponent<WallRunFunction>();
         _bigJumpFunction = GetComponent<BigJumpFunction>();
         _vaultFunction = GetComponent<VaultFunction>();
-        _climbFunction = new ClimbFunction(_animator, _characterController, transform, _climbSpeed, this);
+        _climbFunction = new ClimbFunction(_animator, _characterController, transform, this);
         
         //インスタンスを生成
         _playerState = new PlayerState();
@@ -124,12 +116,11 @@ public class PlayerMovement : MonoBehaviour
                 
                 if (_playerState.IsClimbing) //壁のぼり開始なら
                 {
-                    _playerState.IsJumping = false; //ジャンプの途中で壁を掴んだ時、ジャンプフラグをオフにする
-                    _climbFunction.StartClimbing();
+                    _inputHandler.HandleClimbStartInput();
                 }
                 else //壁のぼり終了なら
                 {
-                    _climbFunction.EndClimbing();
+                    _inputHandler.HandleClimbEndInput();
                 }
             }
             else if (_playerState.CanBigJump) //優先３.大ジャンプ
@@ -143,11 +134,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isHanding) 
         {
-            //
+            //TODO:崖つかまりの処理
         }
         else if (_playerState.IsClimbing)//壁のぼり中
         {
-            _climbFunction.HandleClimbing(PlayerState.MoveDirection);
+            _inputHandler.HandleClimbInput();
         }
         else
         {

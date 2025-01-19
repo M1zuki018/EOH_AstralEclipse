@@ -6,7 +6,6 @@ namespace PlayerSystem.ActionFunction
     {
         void StartClimbing();
         void EndClimbing();
-        void HandleClimbing(Vector3 moveDirection);
-        bool IsClimbing { get; }
+        void HandleClimbing();
     }
 }

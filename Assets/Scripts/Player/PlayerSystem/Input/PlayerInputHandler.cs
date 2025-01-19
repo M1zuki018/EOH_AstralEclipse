@@ -48,7 +48,7 @@ namespace PlayerSystem.Input
         {
             if (_state.IsClimbing) //壁のぼり中なら
             {
-                _state.MoveDirection = new Vector3(0, input.y, -input.x);
+                _state.MoveDirection = new Vector3(0, input.y, input.x);
             }
             else
             {
@@ -104,9 +104,19 @@ namespace PlayerSystem.Input
             throw new System.NotImplementedException();
         }
 
+        public void HandleClimbStartInput()
+        {
+            _climber.StartClimbing();
+        }
+        
         public void HandleClimbInput()
         {
-            throw new System.NotImplementedException();
+            _climber.HandleClimbing();
+        }
+
+        public void HandleClimbEndInput()
+        {
+            _climber.EndClimbing();
         }
 
         public void HandleWallRunInput()

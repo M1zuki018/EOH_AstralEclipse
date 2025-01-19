@@ -21,7 +21,9 @@ namespace PlayerSystem.Input
         void HandleLockOnInput();
         void HandleVaultInput();
         void HandleBigJumpInput();
+        void HandleClimbStartInput();
         void HandleClimbInput();
+        void HandleClimbEndInput();
         void HandleWallRunInput();
         #endregion
 

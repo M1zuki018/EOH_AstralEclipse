@@ -2101,10 +2101,6 @@ MonoBehaviour:
   _playerCamera: {fileID: 543142662}
   _animator: {fileID: 591953659}
   _characterController: {fileID: 591953658}
-  _jumpPower: 2
-  _gravity: -14.88
-  _rotationSpeed: 10
-  _climbSpeed: 1
   _wallChecker: {fileID: 591953663}
   _valutTargetObjects: []
 --- !u!114 &591953655
