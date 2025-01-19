@@ -6,6 +6,10 @@ namespace PlayerSystem.Movement
     /// </summary>
     public interface IJumpable
     {
+        /// <summary>飛び上がるときの処理</summary>
         void Jump();
+
+        /// <summary>ジャンプ中の処理</summary>
+        void Jumping();
     }
 }

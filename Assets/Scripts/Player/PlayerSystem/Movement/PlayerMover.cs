@@ -1,23 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using PlayerSystem.State;
 using UnityEngine;
 
 namespace PlayerSystem.Movement
 {
-    public class PlayerMover : IMovable, IJumpable
+    public class PlayerMover : IMovable, IJumpable, IWalkable, ICrouchable
     {
         private CharacterController _characterController;
         private Animator _animator;
         private PlayerState _state;
         private CinemachineVirtualCamera _playerCamera;
 
-        private readonly float _runSpeed = 5f;
+        private readonly float _runSpeed = 10f;
         private readonly float _walkSpeed = 2f;
         private readonly float _jumpPower = 5f;
         private readonly float _gravity = -9.81f;
         private readonly float _rotationSpeed = 10f;
+        private readonly float _climbSpeed = 3f;
         
         public PlayerMover(CharacterController characterController, Animator animator, PlayerState state, CinemachineVirtualCamera playerCamera)
         {
@@ -42,16 +41,57 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jump()
         {
-            
-                if (_state.IsGrounded)
-                {
-                    _state.IsJumping = true;
-                    Vector3 velocity = _state.Velocity;
-                    velocity.y += Mathf.Sqrt(_jumpPower * -2f * _gravity);
-                    _state.Velocity = velocity;
-                    _animator.SetTrigger("Jump");
-                }
+            if (_state.IsGrounded)
+            {
+                _state.IsJumping = true;
+                _state.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
+                Vector3 velocity = _state.Velocity;
+                velocity.y += Mathf.Sqrt(_jumpPower * -2f * _gravity); //初速度を計算
+                _state.Velocity = velocity;
+                _animator.SetTrigger("Jump");
+                _animator.SetBool("IsJumping", true);
+                _animator.applyRootMotion = false;
+            }
                 
+        }
+
+        /// <summary>
+        /// ジャンプ中の処理の実装
+        /// </summary>
+        public void Jumping()
+        {
+            _characterController.Move(_state.Velocity * Time.deltaTime);
+        }
+
+        /// <summary>
+        /// 動きの速度を切り替える実装
+        /// </summary>
+        public void Walk()
+        {
+            if (!_state.IsClimbing) //壁のぼり中以外
+            {
+                _state.IsWalking = !_state.IsWalking;
+                _state.MoveSpeed = _state.IsWalking ? _walkSpeed : _runSpeed;
+            }
+            else
+            {
+                _state.MoveSpeed = _climbSpeed; //壁を登っている時は、moveSpeedに壁のぼりの速度を代入する
+            }
+        }
+
+        /// <summary>
+        /// しゃがみ機能の実装
+        /// </summary>
+        public void Crouch(bool input)
+        {
+            if (input) //ボタンが押されたとき
+            {
+                _state.IsCrouching = true;
+            }
+            else //ボタンが離されたとき
+            {
+                _state.IsCrouching = false;
+            }
         }
         
         /// <summary>
@@ -102,6 +142,7 @@ namespace PlayerSystem.Movement
                 _characterController.Move(_state.Velocity * Time.deltaTime); // 垂直方向の速度を反映
             }
         }
+        
     }
     
 }

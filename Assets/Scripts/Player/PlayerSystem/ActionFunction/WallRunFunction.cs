@@ -1,9 +1,10 @@
+using PlayerSystem.ActionFunction;
 using UnityEngine;
 
 /// <summary>
 /// ウォールラン機能
 /// </summary>
-public class WallRunFunction : MonoBehaviour
+public class WallRunFunction : MonoBehaviour, IWallRunable
 {
     [SerializeField] private float _runForceMultiplier = 1.7f; //壁走り中の加速倍率
     [SerializeField] private float _characterRotationZ = 20f; //キャラクターを傾ける量
@@ -24,5 +25,10 @@ public class WallRunFunction : MonoBehaviour
     private void RotateCharacterForWallRun(Vector3 direction, bool isLeft)
     {
         float angleZ = isLeft ? -_characterRotationZ : _characterRotationZ;
+    }
+
+    public void WallRun()
+    {
+        throw new System.NotImplementedException();
     }
 }

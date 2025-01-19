@@ -2068,7 +2068,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 591953654}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnWark
+        m_MethodName: OnWalk
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2100,17 +2100,10 @@ MonoBehaviour:
   _playerTransform: {fileID: 591953650}
   _playerCamera: {fileID: 543142662}
   _animator: {fileID: 591953659}
-  _runSpeed: 10
-  _warkSpeed: 2
   _jumpPower: 2
   _gravity: -14.88
   _rotationSpeed: 10
   _climbSpeed: 1
-  _stepFunction: {fileID: 591953655}
-  _lockOnFunction: {fileID: 591953657}
-  _wallRunFunction: {fileID: 0}
-  _vaultFunction: {fileID: 591953661}
-  _bigJumpFunction: {fileID: 591953662}
   _wallChecker: {fileID: 591953663}
   _valutTargetObjects: []
 --- !u!114 &591953655

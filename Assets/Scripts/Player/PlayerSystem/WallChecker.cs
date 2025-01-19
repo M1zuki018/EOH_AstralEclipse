@@ -1,4 +1,5 @@
 using UnityEngine;
+using PlayerSystem.State;
 
 /// <summary>
 /// 壁のぼり中の判定を行う

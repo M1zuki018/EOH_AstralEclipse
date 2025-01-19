@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using PlayerSystem.ActionFunction;
 using PlayerSystem.Input;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
@@ -17,29 +18,30 @@ public class PlayerMovement : MonoBehaviour
     private PlayerState _playerState;
     private IMovable _mover;
     private IJumpable _jumper;
+    private IWalkable _walker;
+    private ICrouchable _croucher;
     private IInputHandler _inputHandler;
     
     [Header("キャラクター設定")]
-    [SerializeField, Comment("走っているときの移動速度")] private float _runSpeed = 5f;
-    [SerializeField, Comment("歩いているときの移動速度")] private float _warkSpeed = 2f;
     [SerializeField, Comment("ジャンプの高さ")] private float _jumpPower = 5f;
     [SerializeField, Comment("重力")] private float _gravity = -9.81f;
     [SerializeField, Comment("回転速度")] private float _rotationSpeed = 10f;
     [SerializeField, Comment("壁を登る速さ")] private float _climbSpeed = 3f;
     
     [Header("各種機能")]
-    [SerializeField, HighlightIfNull] private StepFunction _stepFunction; 
-    [SerializeField, HighlightIfNull] private LockOnFunction _lockOnFunction; 
-    [SerializeField, HighlightIfNull] private WallRunFunction _wallRunFunction;
-    [SerializeField, HighlightIfNull] private VaultFunction _vaultFunction;
-    [SerializeField, HighlightIfNull] private BigJumpFunction _bigJumpFunction;
+    private ISteppable _stepFunction; 
+    private IGaudeable _gaudeFunction;
+    private ILockOnable _lockOnFunction; 
+    private IWallRunable _wallRunFunction;
+    private IVaultable _vaultFunction;
+    private IBigJumpable _bigJumpFunction;
+    private IClimbale _climbFunction;
     [SerializeField, HighlightIfNull] private WallChecker _wallChecker;
     
     private Vector3 _moveDirection; // 入力された方向
     private Vector3 _velocity; //垂直方向の速度
     private float _moveSpeed; // 移動する速度
 
-    private bool _isWarking = true; //歩いているか
     private bool _isGround; //地面についているか
     private bool _isCrouching; //しゃがんでいるか
     private bool _isJumping; //ジャンプ中か
@@ -60,8 +62,6 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public List<Transform> _valutTargetObjects = new List<Transform>();
     public bool IsVault { get; set; }
     
-    private bool _isGuard; //ガード状態か
-    
     public bool IsGround
     {
         get { return _isGround;}
@@ -78,15 +78,24 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _stepFunction = GetComponent<StepFunction>();
+        _gaudeFunction = GetComponent<GaudeFunction>();
+        _lockOnFunction = GetComponent<LockOnFunction>();
+        _wallRunFunction = GetComponent<WallRunFunction>();
+        _bigJumpFunction = GetComponent<BigJumpFunction>();
+        _vaultFunction = GetComponent<VaultFunction>();
+        _climbFunction = GetComponent<ClimbFunction>();
         
         //インスタンスを生成
         _playerState = new PlayerState();
         _mover = new PlayerMover(_characterController, _animator, _playerState, _playerCamera);
         _jumper = (IJumpable) _mover;
-        _inputHandler = new PlayerInputHandler(_playerState, _mover, _jumper);
+        _walker = (IWalkable) _mover;
+        _croucher = (ICrouchable) _mover;
+        _inputHandler = new PlayerInputHandler(_playerState, _mover, _jumper, _walker, _croucher, 
+            _stepFunction, _gaudeFunction, _lockOnFunction, _wallRunFunction, _climbFunction, _bigJumpFunction, _vaultFunction);
         
         _animator.applyRootMotion = true; //ルートモーションを有効化
-        _moveSpeed = _warkSpeed; //デフォルトは歩き状態
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -99,131 +108,30 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context) => _inputHandler.HandleMoveInput(context.ReadValue<Vector2>());
 
     /// <summary>ジャンプ処理</summary>
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            _inputHandler.HandleJumpInput();
-        }
-    }
-    /*
-    /// <summary>
-    /// 移動処理
-    /// </summary>
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        if (!context.performed && !context.canceled)
-            return;
-
-        Vector2 inputVector = context.ReadValue<Vector2>();
-
-        if (_isClimbing) //壁のぼり中
-        {
-            _moveDirection = new Vector3(0, inputVector.y, -inputVector.x);
-        }
-        else
-        {
-            _moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
-        }
-    }
-    */
-
-    /// <summary>
-    /// 歩きと走り状態を切り替える
-    /// </summary>
-    public void OnWark(InputAction.CallbackContext context)
-    {
-        //ボタンが押されたとき
-        if (context.performed)
-        {
-            if (!_isClimbing) //壁のぼり中以外
-            {
-                _isWarking = !_isWarking;
-                _moveSpeed = _isWarking ? _warkSpeed : _runSpeed;
-            }
-            else
-            {
-                _moveSpeed = _climbSpeed; //壁を登っている時は、moveSpeedに壁のぼりの速度を代入する
-            }
-        }
-    }
-
-    /// <summary>
-    /// しゃがみ状態を切り替える
-    /// </summary>
+    public void OnJump(InputAction.CallbackContext context) { if (context.performed) _inputHandler.HandleJumpInput(); }
+    
+    /// <summary>歩きと走り状態を切り替える</summary>
+    public void OnWalk(InputAction.CallbackContext context) { if (context.performed) _inputHandler.HandleWalkInput(); }
+    
+    /// <summary>しゃがみ状態を切り替える</summary>
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        //ボタンが押されたとき
-        if (context.performed)
-        {
-            _isCrouching = true;
-        }
-        
-        //ボタンが放されたとき
-        if (context.canceled)
-        {
-            _isCrouching = false;
-        }
+        if (context.performed) _inputHandler.HandleCrouchInput(true); //ボタンが押されたとき
+        if (context.canceled) _inputHandler.HandleCrouchInput(false); //ボタンが放されたとき
     }
     
-    /*
-    /// <summary>
-    /// ジャンプ
-    /// </summary>
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        // 入力されたとき地面にいるときのみジャンプ可能
-        if (context.performed && _isGround)
-        {
-            _isJumping = true;
-            _isGround = false;
-            _velocity.y = Mathf.Sqrt(_jumpPower * -2f * _gravity); // 初速度を計算
-            _animator.SetTrigger("Jump"); // ジャンプアニメーションをトリガー
-            _animator.SetBool("IsJumping", true);
-            _animator.applyRootMotion = false;
-        }
-    }
-*/
+    /// <summary>ステップ</summary>
+    public void OnStep(InputAction.CallbackContext context) { if (context.performed) _inputHandler.HandleStepInput(); }
     
-    /// <summary>
-    /// ステップ
-    /// </summary>
-    public void OnStep(InputAction.CallbackContext context)
-    {
-        if (context.performed && _stepFunction.TryUseStep())
-        {
-            _stepFunction.TryUseStep();
-        }
-    }
-    
-    /// <summary>
-    /// ガード状態を切り替える
-    /// </summary>
+    /// <summary>ガード状態を切り替える</summary>
     public void OnGuard(InputAction.CallbackContext context)
     {
-        //ボタンが押されたとき
-        if (context.performed)
-        {
-            _isGuard = true;
-        }
-        
-        //ボタンが放されたとき
-        if (context.canceled)
-        {
-            _isGuard = false;
-        }
+        if (context.performed) _inputHandler.HandleGaudeInput(true); //ボタンが押されたとき
+        if (context.canceled) _inputHandler.HandleGaudeInput(false); //ボタンが放されたとき
     }
 
-    /// <summary>
-    /// ロックオン機能
-    /// </summary>
-    public void OnLockOn(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            _lockOnFunction.LockOnToEnemy();
-        }
-    }
+    /// <summary>ロックオン機能</summary>
+    public void OnLockOn(InputAction.CallbackContext context) { if (context.performed) _inputHandler.HandleLockOnInput(); }
 
     /// <summary>
     /// パルクールアクションキー
@@ -232,18 +140,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            if (CanVault) 
+            if (_playerState.CanVault) //優先１.ヴォルトアクション
             {
-                _vaultFunction.HandleVault(this);//ヴォルトアクション
+                _inputHandler.HandleVaultInput();
             }
-            else if (CanClimb)
+            else if (_playerState.CanClimb) //優先２.壁のぼり
             {
-                //壁のぼりアクション
-                _isClimbing = !_isClimbing;
+                _playerState.IsClimbing = !_playerState.IsClimbing;
                 
-                if (_isClimbing) //壁のぼり開始なら
+                if (_playerState.IsClimbing) //壁のぼり開始なら
                 {
-                    _isJumping = false;
+                    _playerState.IsJumping = false; //ジャンプの途中で壁を掴んだ時、ジャンプフラグをオフにする
                     _animator.SetTrigger("Climb");
                     _animator.SetBool("IsClimbing", true);
                     _animator.applyRootMotion = false; //ルートモーションを使用しない
@@ -254,12 +161,12 @@ public class PlayerMovement : MonoBehaviour
                     _animator.SetBool("IsClimbing", false);
                     _isClimbingStopped = false; //停止フラグをリセット
                     //_animator.applyRootMotion = true;
-                    _isGround = false;
+                    _playerState.IsGrounded = false;
                 }
             }
-            else if (_bigJumpFunction.CanJump)
+            else if (_playerState.CanBigJump) //優先３.大ジャンプ
             {
-                _bigJumpFunction.HandleBigJump(this);
+                _inputHandler.HandleBigJumpInput();
             }
         }
     }
@@ -270,30 +177,30 @@ public class PlayerMovement : MonoBehaviour
         {
             //
         }
-        else if (_isClimbing)//壁のぼり中
+        else if (_playerState.IsClimbing)//壁のぼり中
         {
             HandleClimbing();
         }
         else
         {
             _mover.Move();
+            _jumper.Jumping();
             HandleGroundedCheck();
-            HandleJump();
             HandleFalling();
         }
     }
-
     
-
     /// <summary>
     /// 地面にいるときの処理
     /// </summary>
     private void HandleGroundedCheck()
     {
-        if (_isGround && _velocity.y < 0)
+        if (_playerState.IsGrounded && _playerState.Velocity.y < 0)
         {
-            _isJumping = false;
-            _velocity.y = 0f; //地面にいる場合、垂直速度をリセットする
+            _playerState.IsJumping = false;
+            Vector3 velocity = _playerState.Velocity;
+            velocity.y = 0f; //地面にいる場合、垂直速度をリセットする
+            _playerState.Velocity = velocity;
             _animator.SetBool("IsJumping", false);
             _animator.applyRootMotion = true;
         }
@@ -306,9 +213,9 @@ public class PlayerMovement : MonoBehaviour
     {
         //接地判定はfalseだが、落下中と判定しない例外
         //ジャンプ中/壁登り中/乗り越え中
-        if (!_isJumping && !_isClimbing && !IsVault)
+        if (!_playerState.IsJumping && !_playerState.IsClimbing && !_playerState.IsVaulting)
         {
-            if (_isGround)
+            if (_playerState.IsGrounded)
             {
                 _animator.SetBool("IsFalling", false);
             }
@@ -319,28 +226,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-    /// <summary>
-    /// 重力を適用する
-    /// </summary>
-    private void ApplyGravity()
-    {
-        if (!_isGround)
-        {
-            _velocity.y += _gravity * Time.deltaTime;
-            _characterController.Move(_velocity * Time.deltaTime); // 垂直方向の速度を反映
-        }
-    }
-    
-    /// <summary>
-    /// ジャンプ処理
-    /// </summary>
-    private void HandleJump()
-    {
-        if (_isJumping)
-        {
-            _characterController.Move(_velocity * Time.deltaTime);
-        }
-    }
     
     /// <summary>
     /// 壁のぼり処理

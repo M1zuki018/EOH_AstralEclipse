@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using PlayerSystem.ActionFunction;
 using UnityEngine;
 
 /// <summary>
 /// ロックオン機能
 /// </summary>
-public class LockOnFunction : MonoBehaviour
+public class LockOnFunction : MonoBehaviour, ILockOnable
 {
     [SerializeField] private Camera _camera; //Unityのカメラ
     [SerializeField] private float _lockOnRadius = 0.5f; //カメラ中心からのロックオン範囲
@@ -41,7 +42,7 @@ public class LockOnFunction : MonoBehaviour
     /// <summary>
     /// ロックオン機能
     /// </summary>
-    public void LockOnToEnemy()
+    public void LockOn()
     {
         _lockedOnEnemy = null;
         float closestDistance = float.MaxValue;

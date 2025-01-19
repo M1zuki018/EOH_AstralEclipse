@@ -1,9 +1,10 @@
+using PlayerSystem.ActionFunction;
 using UnityEngine;
 
 /// <summary>
 /// 大ジャンプ機能を提供する
 /// </summary>
-public class BigJumpFunction : MonoBehaviour
+public class BigJumpFunction : MonoBehaviour, IBigJumpable
 {
     [SerializeField] private float _maxDistance = 10f;
     [SerializeField] private string _targetTag = "JumpTarget";
@@ -78,5 +79,10 @@ public class BigJumpFunction : MonoBehaviour
             _mask,
             _startAnimTime,
             _endAnimTime);
+    }
+
+    public void BigJump()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -1,19 +1,23 @@
 using UnityEngine;
 using UniRx;
 using System;
+using PlayerSystem.ActionFunction;
 
 /// <summary>
 /// ステップ機能を提供する
 /// </summary>
-public class StepFunction : MonoBehaviour
+public class StepFunction : MonoBehaviour, ISteppable
 {
-    [SerializeField] private int _maxSteps = 10; // ステップの最大数
-    [SerializeField] private float _recoveryTime = 5f; // 回復間隔（秒）
+    [SerializeField, Comment("ステップの最大数")] private int _maxSteps = 10;
+    [SerializeField, Comment("回復間隔（秒）")] private float _recoveryTime = 5f;
     private int _currentSteps; // 現在のステップ数
+
+    public int CurrentSteps => _currentSteps; //現在のステップ数（読み取り専用）
+    public int MaxSteps => _maxSteps; //最大ステップ数（読み取り専用）
 
     private void Start()
     {
-        _currentSteps = _maxSteps; // ステップの初期化
+        _currentSteps = _maxSteps; // ステップ数の初期化
 
         // 一定間隔でステップを回復する
         Observable.Interval(TimeSpan.FromSeconds(_recoveryTime))
@@ -21,7 +25,7 @@ public class StepFunction : MonoBehaviour
             .Subscribe(_ =>
             {
                 _currentSteps++;
-                Debug.Log($"Steps recovered: {_currentSteps}/{_maxSteps}");
+                Debug.Log($"ステップ回数が回復しました: {_currentSteps}/{_maxSteps}");
             })
             .AddTo(this); // GameObjectが破棄されるときに購読を解除
     }
@@ -39,5 +43,13 @@ public class StepFunction : MonoBehaviour
         }
         Debug.Log("No steps available!");
         return false;
+    }
+    
+    /// <summary>
+    /// ステップ機能
+    /// </summary>
+    public void Step()
+    {
+        throw new NotImplementedException(); //TODO:ステップ機能を実装する
     }
 }
