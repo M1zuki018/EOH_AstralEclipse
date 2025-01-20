@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using PlayerSystem.Fight;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,7 +17,7 @@ public class EnemyBrain : MonoBehaviour
     //コンポーネント
     private NavMeshAgent _agent;
     private ICombat _combat;
-    private IHealth _health;
+    private EnemyHealth _health;
         
     [Header("パラメーター")]
     [SerializeField, Comment("プレイヤーを発見できる距離")] private float _detectionRange = 10f;
@@ -32,10 +30,13 @@ public class EnemyBrain : MonoBehaviour
     {
         //コンポーネントを取得する
         _agent = GetComponent<NavMeshAgent>();
-        _combat = GetComponent<ICombat>();
-        _health = GetComponent<IHealth>();
+        _combat = GetComponent<EnemyCombat>();
+        _health = GetComponent<EnemyHealth>();
 
-        Debug.Log("呼ばれてる");
+        if (_health == null)
+        {
+            Debug.LogWarning("EnemyHealthコンポーネントが見つかりません");
+        }
     }
 
     private void Update()

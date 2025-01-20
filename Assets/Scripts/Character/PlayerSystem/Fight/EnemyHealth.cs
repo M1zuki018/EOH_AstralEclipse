@@ -6,17 +6,13 @@ using UnityEngine;
 /// </summary>
 public class EnemyHealth : MonoBehaviour, IHealth
 {
-    public int MaxHP { get; private set; } //最大HP
+    public int MaxHP { get; private set; } = 100;//最大HP
     public int CurrentHP { get; private set; } //現在のHP
     public bool IsDead => CurrentHP <= 0; //HPが0以下になったら死亡する
-
-    /// <summary>
-    /// 初期化
-    /// </summary>
-    public EnemyHealth(int maxHP)
+    
+    public void Awake()
     {
-        MaxHP = maxHP;
-        CurrentHP = MaxHP;
+        CurrentHP = MaxHP; //初期化
     }
     
     /// <summary>
