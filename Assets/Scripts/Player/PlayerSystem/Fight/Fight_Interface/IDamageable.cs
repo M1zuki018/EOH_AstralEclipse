@@ -7,6 +7,6 @@ namespace PlayerSystem.Fight
     /// </summary>
     public interface IDamageable
     {
-        void TakeDamage(float damage, GameObject attacker);
+        void TakeDamage(int damage, GameObject attacker);
     }
 }
