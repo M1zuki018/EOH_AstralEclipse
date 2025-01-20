@@ -41,6 +41,9 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget
         {
             Debug.LogWarning("EnemyHealthコンポーネントが見つかりません");
         }
+
+        MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
+        smb._target = this;
     }
 
     private void Update()
