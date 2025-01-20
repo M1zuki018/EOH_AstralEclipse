@@ -11,8 +11,8 @@ namespace PlayerSystem.Movement
         private PlayerState _state;
         private CinemachineVirtualCamera _playerCamera;
 
-        private readonly float _runSpeed = 10f;
-        private readonly float _walkSpeed = 2f;
+        private readonly float _runSpeed = 2f;
+        private readonly float _walkSpeed = 1f;
         private readonly float _jumpPower = 5f;
         private readonly float _gravity = -9.81f;
         private readonly float _rotationSpeed = 10f;
@@ -106,6 +106,7 @@ namespace PlayerSystem.Movement
                 Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
                 Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
                 Vector3 moveDirection = cameraForward *_state.MoveDirection.z + cameraRight * _state.MoveDirection.x;
+                Vector3 moveNormal = moveDirection.normalized;
             
                 // 回転をカメラの向きに合わせる
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
@@ -114,7 +115,7 @@ namespace PlayerSystem.Movement
                 if (_animator.applyRootMotion)
                 {
                     // Animatorの速度を設定
-                    _animator.SetFloat("Speed", moveDirection.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
+                    _animator.SetFloat("Speed", moveNormal.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
                 }
                 else
                 {

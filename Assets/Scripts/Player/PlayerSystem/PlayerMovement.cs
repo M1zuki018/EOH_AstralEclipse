@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region 入力されたときのメソッド一覧
     
-    public void OnAttack(InputAction.CallbackContext context) => _animator.SetTrigger("Idle");
+    public void OnAttack(InputAction.CallbackContext context) => _animator.SetTrigger("Attack");
     
     /// <summary>移動処理</summary>
     public void OnMove(InputAction.CallbackContext context) => _inputHandler.HandleMoveInput(context.ReadValue<Vector2>());
@@ -182,11 +182,14 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void HandleFalling()
     {
+        _animator.SetBool("IsGround", _playerState.IsGrounded);
+        /*
         //接地判定はfalseだが、落下中と判定しない例外
         //ジャンプ中/壁登り中/乗り越え中
         if (!_playerState.IsJumping && !_playerState.IsClimbing && !_playerState.IsVaulting)
         {
-            _animator.SetBool("IsFalling", !_playerState.IsGrounded);
+            _animator.SetBool("IsGround", !_playerState.IsGrounded);
         }
+        */
     }
 }
