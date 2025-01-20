@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// ステートマシンから抜けたらTriggerをOffにする
+/// </summary>
 public class ResetTriggerOnStateMachineExit : StateMachineBehaviour
 {
     [SerializeField] string _triggerName;

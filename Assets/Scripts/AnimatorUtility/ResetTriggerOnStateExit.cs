@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// TriggerがOffになる前に遷移した場合にもTriggerをOffにする
+/// ステートから抜けたらTriggerをOffにする
 /// </summary>
 public class ResetTriggerOnStateExit : StateMachineBehaviour
 {

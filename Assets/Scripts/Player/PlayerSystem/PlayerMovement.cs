@@ -7,7 +7,7 @@ using PlayerSystem.Input;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IMatchTarget
 { 
     [Header("コンポーネント")]
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerTransform; // プレイヤーのTransform
@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     private PlayerState _playerState;
     public PlayerState PlayerState => _playerState; //公開
 
+    private Collider _targetCollider;
+    [SerializeField] private Transform _targetTransform;
+    
     #region 各種機能
     private IMovable _mover; //動き
     private IJumpable _jumper; //ジャンプ
@@ -45,6 +48,13 @@ public class PlayerMovement : MonoBehaviour
     {
         InitializeState();
         InitializeComponents();
+        
+        TryGetComponent(out _targetCollider);
+        _animator.keepAnimatorStateOnDisable = true;
+        foreach (var smb in _animator.GetBehaviours<MatchPositionSMB>())
+        {
+            smb._target = this;
+        }
     }
 
     private void InitializeState()
@@ -192,4 +202,6 @@ public class PlayerMovement : MonoBehaviour
         }
         */
     }
+
+    public Vector3 TargetPosition => _targetCollider.ClosestPoint(_targetTransform.position);
 }
