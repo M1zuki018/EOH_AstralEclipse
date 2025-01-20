@@ -26,6 +26,10 @@ namespace PlayerSystem.Input
         void HandleWallRunInput();
         #endregion
 
-
+        #region 戦闘（PlayerSystem.Fight）
+        void HandleAttackInput();
+        void HandleSkillInput();
+        #endregion
+        
     }
 }

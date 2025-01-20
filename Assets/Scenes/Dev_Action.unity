@@ -1837,9 +1837,9 @@ GameObject:
   - component: {fileID: 591953650}
   - component: {fileID: 591953651}
   - component: {fileID: 591953658}
+  - component: {fileID: 591953659}
   - component: {fileID: 591953654}
   - component: {fileID: 591953656}
-  - component: {fileID: 591953659}
   - component: {fileID: 591953660}
   - component: {fileID: 591953663}
   - component: {fileID: 591953655}
@@ -2061,7 +2061,19 @@ MonoBehaviour:
     m_ActionId: ab0ab499-76b5-4859-907f-7a9cc5bb8561
     m_ActionName: Action/SkillSet4[/Keyboard/f4]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 591953654}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnSkill1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 5b85e190-5baf-495f-9b3d-5c646529913f
     m_ActionName: Action/Skill1[/Keyboard/1]
   - m_PersistentCalls:
@@ -2113,6 +2125,7 @@ MonoBehaviour:
   _playerCamera: {fileID: 543142662}
   _animator: {fileID: 591953659}
   _characterController: {fileID: 591953658}
+  _targetTransform: {fileID: 0}
   _wallChecker: {fileID: 591953663}
   _valutTargetObjects: []
 --- !u!114 &591953655
@@ -2296,7 +2309,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 591953649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f07c7b8ed61b5547b3a2168733eebd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 1baf6cb1eb9f1a443bc465d2744eb318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &597576623

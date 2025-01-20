@@ -74,14 +74,18 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         _inputHandler = new PlayerInputHandler(_playerState, _mover, _jumper, _walker, _croucher,
             GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
             GetComponent<WallRunFunction>(), _climbFunction, GetComponent<BigJumpFunction>(),
-            GetComponent<VaultFunction>());
+            GetComponent<VaultFunction>(), GetComponent<PlayerCombat>());
         
         _animator.applyRootMotion = true; //ルートモーションを有効化
     }
 
     #region 入力されたときのメソッド一覧
     
-    public void OnAttack(InputAction.CallbackContext context) => _animator.SetTrigger("Attack");
+    /// <summary>攻撃処理</summary>
+    public void OnAttack(InputAction.CallbackContext context) => HandleAttackInput(context);
+
+    /// <summary>スキル処理</summary>
+    public void OnSkill1(InputAction.CallbackContext context) => HandleSkill1Input(context);
     
     /// <summary>移動処理</summary>
     public void OnMove(InputAction.CallbackContext context) => _inputHandler.HandleMoveInput(context.ReadValue<Vector2>());
@@ -111,6 +115,15 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
 
     #region 入力の条件文
 
+    private void HandleAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) _inputHandler.HandleAttackInput();
+    }
+    
+    private void HandleSkill1Input(InputAction.CallbackContext context)
+    {
+        if (context.performed) _inputHandler.HandleSkillInput();
+    }
     private void HandleJumpInput(InputAction.CallbackContext context)
     {
         if (context.performed) _inputHandler.HandleJumpInput();

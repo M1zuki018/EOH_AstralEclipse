@@ -1,4 +1,5 @@
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Fight;
 using UnityEngine;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
@@ -22,10 +23,11 @@ namespace PlayerSystem.Input
         private readonly IClimbale _climber;
         private readonly IBigJumpable _bigjumper;
         private readonly IVaultable _vaulter;
+        private readonly PlayerCombat _combat;
 
         public PlayerInputHandler(PlayerState state, IMovable mover, IJumpable jumper, IWalkable walker, ICrouchable croucher, 
             ISteppable steppable, IGaudeable gauder, ILockOnable locker, IWallRunable wallruner,
-            IClimbale climbale, IBigJumpable bigjumper, IVaultable vaulter)
+            IClimbale climbale, IBigJumpable bigjumper, IVaultable vaulter, PlayerCombat combat)
         {
             _state = state;
             _mover = mover;
@@ -39,6 +41,7 @@ namespace PlayerSystem.Input
             _climber = climbale;
             _bigjumper = bigjumper;
             _vaulter = vaulter;
+            _combat = combat;
         }
         #endregion
         
@@ -138,6 +141,18 @@ namespace PlayerSystem.Input
         {
             //TODO:実装を書く
             throw new System.NotImplementedException();
+        }
+
+        /// <summary>通常攻撃の入力処理</summary>
+        public void HandleAttackInput()
+        {
+            _combat.Attack();
+        }
+
+        /// <summary>スキル攻撃の入力処理</summary>
+        public void HandleSkillInput()
+        {
+            _combat.UseSkill("0");
         }
     }
 }

@@ -7,12 +7,19 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour, ICombat
 {
     public int AttackDamage { get; private set; } = 10; //攻撃力
+    private PlayerMovement _playerMovement;
+
+    private void Start()
+    {
+        _playerMovement = GetComponent<PlayerMovement>();
+    }
 
     /// <summary>
     /// 攻撃処理
     /// </summary>
     public void Attack()
     {
+        _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         Debug.Log("攻撃した");
         //TODO: 処理を実装する
     }
