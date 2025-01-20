@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ターゲットマッチングのための
+/// ターゲットマッチングのためのステートマシンビヘイビア
 /// </summary>
 public class MatchPositionSMB : StateMachineBehaviour
 {
