@@ -20,7 +20,6 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public void Attack()
     {
         _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
-        Debug.Log("攻撃した");
         //TODO: 処理を実装する
     }
 

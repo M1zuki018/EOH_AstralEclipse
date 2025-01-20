@@ -55,7 +55,6 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget
         }
         
         Animator.SetInteger("HP", _health.CurrentHP);
-        
         ChackState();
     }
 
