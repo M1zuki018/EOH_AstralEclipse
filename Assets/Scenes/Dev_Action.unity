@@ -121,7 +121,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 4f74f4e5c25a2814d815fe14ff5cf3cd, type: 2}
 --- !u!1 &24676763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,7 +2444,7 @@ GameObject:
   m_TagString: JumpObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &704370611
 Transform:
@@ -2549,7 +2549,7 @@ GameObject:
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &719354446
 Transform:
@@ -2700,6 +2700,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arissa (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fba07939b4d08aa4aabf1a796c2009ea, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2720,6 +2725,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1356416355}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1356416360}
   m_SourcePrefab: {fileID: 100100000, guid: d3a35bd7954599146b7fd2c0e4f45084, type: 3}
 --- !u!1 &759496825
 GameObject:
@@ -3631,6 +3640,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arissa
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fba07939b4d08aa4aabf1a796c2009ea, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3651,6 +3665,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1768764319}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1768764324}
   m_SourcePrefab: {fileID: 100100000, guid: d3a35bd7954599146b7fd2c0e4f45084, type: 3}
 --- !u!1 &976648289
 GameObject:
@@ -3744,7 +3762,7 @@ GameObject:
   m_TagString: VaultObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &998146535
 Transform:
@@ -3895,6 +3913,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arissa (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fba07939b4d08aa4aabf1a796c2009ea, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3915,6 +3938,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1508597858}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1508597863}
   m_SourcePrefab: {fileID: 100100000, guid: d3a35bd7954599146b7fd2c0e4f45084, type: 3}
 --- !u!1 &1146775787
 GameObject:
@@ -4532,7 +4559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 591953650}
   _detectionRange: 10
-  _attackRange: 2
+  _attackRange: 3
   _attackCooldown: 1.5
 --- !u!114 &1356416356
 MonoBehaviour:
@@ -4580,6 +4607,32 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!143 &1356416360
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356416353}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.76
+  m_Radius: 0.23
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.94, z: 0}
 --- !u!1 &1387186406
 GameObject:
   m_ObjectHideFlags: 0
@@ -4816,7 +4869,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!65 &1419541162
 BoxCollider:
@@ -5254,7 +5307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 591953650}
   _detectionRange: 10
-  _attackRange: 2
+  _attackRange: 3
   _attackCooldown: 1.5
 --- !u!114 &1508597859
 MonoBehaviour:
@@ -5302,6 +5355,32 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!143 &1508597863
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508597856}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.76
+  m_Radius: 0.23
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.94, z: 0}
 --- !u!1 &1514123547
 GameObject:
   m_ObjectHideFlags: 0
@@ -5981,8 +6060,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 591953650}
-  _detectionRange: 10
-  _attackRange: 2
+  _detectionRange: 5
+  _attackRange: 3
   _attackCooldown: 1.5
 --- !u!114 &1768764320
 MonoBehaviour:
@@ -6030,6 +6109,32 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!143 &1768764324
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768764317}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.76
+  m_Radius: 0.23
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.94, z: 0}
 --- !u!1 &1913257829
 GameObject:
   m_ObjectHideFlags: 0
@@ -6358,7 +6463,7 @@ GameObject:
   m_TagString: JumpObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 95
   m_IsActive: 1
 --- !u!4 &2141824020
 Transform:

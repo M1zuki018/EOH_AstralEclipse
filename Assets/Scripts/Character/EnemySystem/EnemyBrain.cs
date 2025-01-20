@@ -6,7 +6,7 @@ using UnityEngine.AI;
 /// エネミーの中心となるクラス
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealth), typeof(EnemyCombat))]
-public class EnemyBrain : MonoBehaviour
+public class EnemyBrain : MonoBehaviour, IMatchTarget
 {
     [SerializeField][HighlightIfNull] private Transform _player; //プレイヤーの参照
     
@@ -18,6 +18,8 @@ public class EnemyBrain : MonoBehaviour
     private NavMeshAgent _agent;
     private ICombat _combat;
     private EnemyHealth _health;
+    private Collider _collider;
+    public Animator Animator { get; private set; }
         
     [Header("パラメーター")]
     [SerializeField, Comment("プレイヤーを発見できる距離")] private float _detectionRange = 10f;
@@ -32,7 +34,9 @@ public class EnemyBrain : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _combat = GetComponent<EnemyCombat>();
         _health = GetComponent<EnemyHealth>();
-
+        _collider = GetComponent<Collider>();
+        Animator = GetComponent<Animator>();
+        
         if (_health == null)
         {
             Debug.LogWarning("EnemyHealthコンポーネントが見つかりません");
@@ -46,6 +50,8 @@ public class EnemyBrain : MonoBehaviour
             TransitionToState(State.Dead);
             return; //死亡していたらこれ以降の処理を行わない
         }
+        
+        Animator.SetInteger("HP", _health.CurrentHP);
         
         ChackState();
     }
@@ -91,6 +97,7 @@ public class EnemyBrain : MonoBehaviour
         {
             TransitionToState(State.Chase);
         }
+        Animator.SetFloat("Speed", 0); //idle状態の時は、Speedはゼロに固定する
     }
 
     /// <summary>
@@ -100,6 +107,11 @@ public class EnemyBrain : MonoBehaviour
     {
         _agent.SetDestination(_player.position); //移動先の目的地点を更新する
 
+        //Animatorを制御する
+        Vector3 velocity = _agent.velocity.normalized;
+        Animator.SetFloat("Speed", velocity.magnitude, 0.1f, Time.deltaTime);
+        
+        //プレイヤーと自身の距離をはかる
         float distanceToPlayer = Vector3.Distance(transform.position, _player.position);
         
         if (distanceToPlayer <= _attackRange)
@@ -146,4 +158,6 @@ public class EnemyBrain : MonoBehaviour
         _agent.isStopped = true;
         Destroy(gameObject, 2f); // 2秒後にオブジェクトを破壊
     }
+
+    public Vector3 TargetPosition => _collider.ClosestPoint(transform.position);
 }

@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     private PlayerState _playerState;
     public PlayerState PlayerState => _playerState; //公開
 
-    private Collider _targetCollider;
+    private Collider _collider;
     [SerializeField] private Transform _targetTransform;
     
     #region 各種機能
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         InitializeState();
         InitializeComponents();
         
-        TryGetComponent(out _targetCollider);
+        TryGetComponent(out _collider);
         _animator.keepAnimatorStateOnDisable = true;
         foreach (var smb in _animator.GetBehaviours<MatchPositionSMB>())
         {
@@ -216,5 +216,5 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         */
     }
 
-    public Vector3 TargetPosition => _targetCollider.ClosestPoint(_targetTransform.position);
+    public Vector3 TargetPosition => _collider.ClosestPoint(_targetTransform.position);
 }

@@ -7,13 +7,20 @@ using UnityEngine;
 public class EnemyCombat : MonoBehaviour, ICombat
 {
     public int AttackDamage { get; private set; } = 5; //攻撃力
+    private EnemyBrain _brain;
 
+    private void Awake()
+    {
+        _brain = GetComponent<EnemyBrain>();
+    }
+    
     /// <summary>
     /// 攻撃処理
     /// </summary>
     public void Attack()
     {
         Debug.Log($"{gameObject.name} が攻撃した");
+        _brain.Animator.SetTrigger("Attack");
         //TODO: 攻撃処理を実装する
     }
 

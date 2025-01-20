@@ -9,10 +9,13 @@ public class EnemyHealth : MonoBehaviour, IHealth
     public int MaxHP { get; private set; } = 100;//最大HP
     public int CurrentHP { get; private set; } //現在のHP
     public bool IsDead => CurrentHP <= 0; //HPが0以下になったら死亡する
+
+    private EnemyBrain _brain;
     
     public void Awake()
     {
         CurrentHP = MaxHP; //初期化
+        _brain = GetComponent<EnemyBrain>();
     }
     
     /// <summary>
@@ -23,6 +26,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
         CurrentHP -= amount;
+        _brain.Animator.SetTrigger("Damage"); //ダメージアニメーションをトリガー
 
         if (IsDead)
         {
