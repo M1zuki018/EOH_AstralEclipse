@@ -85,7 +85,10 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     public void OnAttack(InputAction.CallbackContext context) => HandleAttackInput(context);
 
     /// <summary>スキル処理</summary>
-    public void OnSkill1(InputAction.CallbackContext context) => HandleSkill1Input(context);
+    public void OnSkill1(InputAction.CallbackContext context) => HandleSkillInput(context, 1); 
+    public void OnSkill2(InputAction.CallbackContext context) => HandleSkillInput(context, 2);
+    public void OnSkill3(InputAction.CallbackContext context) => HandleSkillInput(context, 3);
+    public void OnSkill4(InputAction.CallbackContext context) => HandleSkillInput(context, 4);
     
     /// <summary>移動処理</summary>
     public void OnMove(InputAction.CallbackContext context) => _inputHandler.HandleMoveInput(context.ReadValue<Vector2>());
@@ -110,6 +113,8 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     
     /// <summary>パルクールアクションキー</summary>
     public void OnParkourAction(InputAction.CallbackContext context) => HandleParkourAction(context);
+
+    public void OnPause(InputAction.CallbackContext context) => _inputHandler.HandlePauseInput();
     
     #endregion
 
@@ -120,9 +125,10 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         if (context.performed) _inputHandler.HandleAttackInput();
     }
     
-    private void HandleSkill1Input(InputAction.CallbackContext context)
+    private void HandleSkillInput(InputAction.CallbackContext context, int index)
     {
-        if (context.performed) _inputHandler.HandleSkillInput();
+        //index で スキル1~4のどのボタンを押されたか判断する
+        if (context.performed) _inputHandler.HandleSkillInput(index);
     }
     private void HandleJumpInput(InputAction.CallbackContext context)
     {

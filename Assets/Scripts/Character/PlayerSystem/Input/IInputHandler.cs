@@ -12,6 +12,7 @@ namespace PlayerSystem.Input
         void HandleJumpInput();
         void HandleWalkInput();
         void HandleCrouchInput(bool input);
+        void HandlePauseInput();
         #endregion
 
         #region アクション（PlayerSystem.ActionFunction）
@@ -28,7 +29,7 @@ namespace PlayerSystem.Input
 
         #region 戦闘（PlayerSystem.Fight）
         void HandleAttackInput();
-        void HandleSkillInput();
+        void HandleSkillInput(int index);
         #endregion
         
     }

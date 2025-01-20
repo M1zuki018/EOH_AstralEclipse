@@ -83,6 +83,13 @@ namespace PlayerSystem.Input
             _croucher.Crouch(input);
         }
 
+        /// <summary>ポーズ入力処理</summary>
+        public void HandlePauseInput()
+        {
+            //TODO: ポーズ機能の実装を書く
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>ステップ入力処理</summary>
         public void HandleStepInput()
         {
@@ -150,9 +157,9 @@ namespace PlayerSystem.Input
         }
 
         /// <summary>スキル攻撃の入力処理</summary>
-        public void HandleSkillInput()
+        public void HandleSkillInput(int index)
         {
-            _combat.UseSkill("0");
+            _combat.UseSkill(index);
         }
     }
 }

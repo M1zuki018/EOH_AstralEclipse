@@ -9,6 +9,6 @@ namespace PlayerSystem.Fight
         void Attack();
         
         /// <summary>特殊スキル</summary>
-        void UseSkill(string skillID);
+        void UseSkill(int index);
     }
 }

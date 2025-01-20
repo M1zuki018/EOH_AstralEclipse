@@ -26,9 +26,9 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// <summary>
     /// スキル処理
     /// </summary>
-    public void UseSkill(string skillID)
+    public void UseSkill(int index)
     {
-        Debug.Log($"スキルを使った　発動：{skillID}");
+        Debug.Log($"スキルを使った　発動：{index}");
         //TODO: 処理を実装する
     }
 }
