@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+using UI.Base;
+using UI.Interface;
 
-public class GaugeUI : MonoBehaviour
+namespace UI.View
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// ゲージUIのFillを操作する
+    /// </summary>
+    public class GaugeUI : UIElementBase, IGaugeUI
     {
-        
-    }
+        [SerializeField] private Image _gaugeImage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        /// <summary>
+        /// ゲージUIのFillを操作する
+        /// </summary>
+        public void SetValue(float normalizedValue)
+        {
+            _gaugeImage.DOFillAmount(normalizedValue, 0.5f).SetEase(Ease.OutQuad);
+        }
     }
 }

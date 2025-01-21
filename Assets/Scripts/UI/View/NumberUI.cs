@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using UI.Base;
+using UI.Interface;
+using UnityEngine.UI;
 
-public class NumberUI : MonoBehaviour
+namespace UI.View
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 数値UIの値を書き換える
+    /// </summary>
+    public class NumberUI : UIElementBase, INumberUI
     {
-        
-    }
+        [SerializeField] private Text _numberText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        /// <summary>
+        /// 数字を少しずつ変更する
+        /// </summary>
+        /// <param name="value">書き換え完了後の数字</param>
+        public void SetNumber(int value)
+        {
+            int startValue = int.Parse(_numberText.text);
+            DOTween.To(() => startValue, x => _numberText.text = x.ToString(), value, 0.5f)
+                .SetEase(Ease.Linear);
+        }
     }
 }
