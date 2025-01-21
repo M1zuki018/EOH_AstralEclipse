@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 全UIを管理するクラス
+/// </summary>
 public class UIManager : MonoBehaviour
 {
     // Start is called before the first frame update
