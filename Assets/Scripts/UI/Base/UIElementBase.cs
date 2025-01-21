@@ -1,18 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
+using UI.Interface;
 using UnityEngine;
 
-public class UIElementBase : MonoBehaviour
+namespace UI.Base
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 全UIの基底クラス
+    /// </summary>
+    public class UIElementBase : MonoBehaviour, IUIElement
     {
-        
-    }
+        protected CanvasGroup _canvasGroup;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected virtual void Awake()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        /// <summary>
+        /// UIを出現させる
+        /// </summary>
+        public virtual void Show()
+        {
+            _canvasGroup.DOFade(1, 0.3f).SetEase(Ease.OutQuad);
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
+        }
+
+        /// <summary>
+        /// UIを隠す
+        /// </summary>
+        public virtual void Hide()
+        {
+            _canvasGroup.DOFade(0, 0.3f).SetEase(Ease.OutQuad);
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+        }
     }
 }
