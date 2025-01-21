@@ -1,18 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class IIconUI : MonoBehaviour
+namespace UI.Interface
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// アイコンUIのインターフェース
+    /// </summary>
+    public interface IIconUI : IUIElement
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Select();
+        void Deselect();
     }
 }
+
+

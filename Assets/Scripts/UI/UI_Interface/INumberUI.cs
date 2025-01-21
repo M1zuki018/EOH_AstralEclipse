@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class INumberUI : MonoBehaviour
+namespace UI.Interface
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 数値表示のインターフェース
+    /// </summary>
+    public interface INumberUI : IUIElement
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void SetNumber(int number);
     }
 }
+

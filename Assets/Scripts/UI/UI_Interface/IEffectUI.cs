@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class IEffectUI : MonoBehaviour
+namespace UI.Interface
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// UIエフェクトのインターフェース
+    /// </summary>
+    public interface IEffectUI : IUIElement
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void PlayEffect();
     }
 }

@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class IUIElement : MonoBehaviour
+namespace UI.Interface
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// UI共通のインターフェース
+    /// </summary>
+    public interface IUIElement
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Show();
+        void Hide();
     }
 }
+
