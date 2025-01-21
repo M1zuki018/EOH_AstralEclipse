@@ -13,7 +13,7 @@ namespace UI.View
     /// </summary>
     public class SliderUI : UIElementBase, ISliderUI
     {
-        [SerializeField] private Slider _slider;
+        [SerializeField, HighlightIfNull] private Slider _slider;
         [SerializeField] private float _updateDuration = 0.5f; //アニメーションの時間
 
         protected override void Awake()
