@@ -1435,7 +1435,10 @@ GameObject:
   - component: {fileID: 591953651}
   - component: {fileID: 591953658}
   - component: {fileID: 591953659}
+  - component: {fileID: 591953667}
   - component: {fileID: 591953654}
+  - component: {fileID: 591953666}
+  - component: {fileID: 591953665}
   - component: {fileID: 591953656}
   - component: {fileID: 591953660}
   - component: {fileID: 591953663}
@@ -1444,9 +1447,6 @@ GameObject:
   - component: {fileID: 591953661}
   - component: {fileID: 591953662}
   - component: {fileID: 591953664}
-  - component: {fileID: 591953665}
-  - component: {fileID: 591953666}
-  - component: {fileID: 591953667}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1959,6 +1959,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHP: 100
+  _currentHP: 0
 --- !u!114 &591953667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1971,6 +1973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86cd7cccb02c0ba4185eb4b8a07463cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defense: 0
 --- !u!1 &597576623
 GameObject:
   m_ObjectHideFlags: 0
@@ -3962,7 +3965,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35d22bef3eb84f4ab045171d3056172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defense: 0
   _player: {fileID: 591953650}
+  _maxHP: 100
   _detectionRange: 10
   _attackRange: 3
   _attackCooldown: 1.5
@@ -4038,6 +4043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHP: 100
+  _currentHP: 0
 --- !u!1 &1407820369
 GameObject:
   m_ObjectHideFlags: 0
@@ -4452,7 +4459,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35d22bef3eb84f4ab045171d3056172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defense: 0
   _player: {fileID: 591953650}
+  _maxHP: 100
   _detectionRange: 10
   _attackRange: 3
   _attackCooldown: 1.5
@@ -4528,6 +4537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHP: 100
+  _currentHP: 0
 --- !u!1 &1514123547
 GameObject:
   m_ObjectHideFlags: 0
@@ -4957,7 +4968,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35d22bef3eb84f4ab045171d3056172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defense: 0
   _player: {fileID: 591953650}
+  _maxHP: 100
   _detectionRange: 5
   _attackRange: 3
   _attackCooldown: 1.5
@@ -5033,6 +5046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHP: 100
+  _currentHP: 0
 --- !u!1 &1913257829
 GameObject:
   m_ObjectHideFlags: 0
