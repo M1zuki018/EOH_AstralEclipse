@@ -1,5 +1,7 @@
+using System;
 using PlayerSystem.Fight;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// 敵の攻撃に関する処理
@@ -7,7 +9,9 @@ using UnityEngine;
 public class EnemyCombat : MonoBehaviour, ICombat
 {
     public int AttackDamage { get; private set; } = 5; //攻撃力
+    [SerializeField, Comment("攻撃間隔")] private float _attackCooldown = 1.5f;
     private EnemyBrain _brain;
+    private float _attackTimer;
 
     private void Awake()
     {
@@ -17,13 +21,38 @@ public class EnemyCombat : MonoBehaviour, ICombat
     public int BaseAttackPower { get; }
     
     /// <summary>
+    /// 攻撃状態の処理
+    /// </summary>
+    public void HandleAttackState(Transform target, Action OnAttackEnd, float attackRange)
+    {
+        float distanceToPlayer = Vector3.Distance(transform.position, target.position);
+        
+        if (distanceToPlayer > attackRange)
+        {
+            OnAttackEnd?.Invoke(); //攻撃状態から追跡状態に遷移する
+            return;
+        }
+        
+        // 攻撃処理
+        _attackTimer -= Time.deltaTime; //クールタイムをTime.deltaTimeごとに減らしていくような計算方法
+        if (_attackTimer <= 0f)
+        {
+            Attack(target.GetComponent<IDamageable>());
+            _attackTimer = _attackCooldown;
+        }
+    }
+
+    
+    /// <summary>
     /// 攻撃処理
     /// </summary>
     public void Attack(IDamageable target)
     {
+        if(target == null) return;
+        
         Debug.Log($"{gameObject.name} が攻撃した");
         _brain.Animator.SetTrigger("Attack");
-        //TODO: 攻撃処理を実装する
+        target.TakeDamage(AttackDamage, this.gameObject);
     }
 
     /// <summary>

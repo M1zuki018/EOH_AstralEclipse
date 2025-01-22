@@ -5,7 +5,8 @@ using UnityEngine.AI;
 /// <summary>
 /// エネミーの中心となるクラス
 /// </summary>
-[RequireComponent(typeof(NavMeshAgent),  typeof(EnemyCombat))]
+[RequireComponent(typeof(EnemyMovement),typeof(Health),typeof(EnemyCombat))]
+[RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class EnemyBrain : CharacterBase, IMatchTarget
 {
     [SerializeField] private int _maxHP = 100;
@@ -16,21 +17,14 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     private EnemyMovement _enemyMovement;
     private Collider _collider;
     public Animator Animator { get; private set; }
-        
-    
-    [SerializeField, Comment("攻撃間隔")] private float _attackCooldown = 1.5f;
-    
-    private float _attackTimer;
 
-    private void Awake()
+    private void Start()
     {
         //コンポーネントを取得する
 
         _enemyMovement = GetComponent<EnemyMovement>();
         _combat = GetComponent<EnemyCombat>();
-        _health = GetComponent<IHealth>();
         _collider = GetComponent<Collider>();
-        _uiManager = GetComponent<UIManager>();
         Animator = GetComponent<Animator>();
 
         _health.OnDamaged += HandleDamage; //ダメージ時イベント登録
@@ -58,7 +52,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     
     protected override void HandleDamage(int damage, GameObject attacker)
     {
-        _uiManager.UpdateEnemyHP(damage, 0);
+        //_uiManager.UpdateEnemyHP(damage, 0);
         //TODO:エネミーHPバーの管理方法を考える
     }
 
@@ -67,5 +61,6 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
         //TODO:死亡エフェクト等の処理
         //Destroy(gameObject, 1.0f);
+        // 死亡時の処理（アニメーション、消滅など）
     }
 }

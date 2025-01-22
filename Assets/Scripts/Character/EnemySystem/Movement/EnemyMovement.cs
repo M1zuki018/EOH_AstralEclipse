@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Enemy.State;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,22 +5,25 @@ using UnityEngine.AI;
 /// <summary>
 /// エネミーの移動クラス（NavMeshの制御）
 /// </summary>
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyMovement : MonoBehaviour
 {
     private NavMeshAgent _agent;
     [SerializeField] [HighlightIfNull] private Transform _target; //プレイヤーの参照
     private EnemyState _currentState = EnemyState.Idle; //状態
+    private EnemyCombat _combat; //戦闘クラスを参照
 
     public Vector3 Velocity { get; private set; }
 
-    [Header("パラメーター")] [SerializeField, Comment("プレイヤーを発見できる距離")]
-    private float _detectionRange = 10f;
-
+    [Header("パラメーター")]
+    [SerializeField, Comment("プレイヤーを発見できる距離")] private float _detectionRange = 10f;
     [SerializeField, Comment("攻撃を開始する距離")] private float _attackRange = 2f;
+    
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _combat = GetComponent<EnemyCombat>();
     }
 
     private void Update()
@@ -36,13 +37,13 @@ public class EnemyMovement : MonoBehaviour
 
         if (_target == null) return; //ターゲットがいない場合、これ以降の処理は行わない
         
-        ChackState(); //現在のステートをチェック
+        CheckState(); //現在のステートをチェック
     }
     
     /// <summary>
     /// 現在のステートに合わせて行動を行うメソッドを呼び出す
     /// </summary>
-    private void ChackState()
+    private void CheckState()
     {
         switch (_currentState)
         {
@@ -53,10 +54,7 @@ public class EnemyMovement : MonoBehaviour
                 HandleChaseState();
                 break;
             case EnemyState.Attack:
-                HandleAttackState();
-                break;
-            case EnemyState.Dead:
-                HandleDeadState();
+                _combat.HandleAttackState(_target, () => TransitionToState(EnemyState.Chase), _attackRange);
                 break;
         }
     }
@@ -76,7 +74,6 @@ public class EnemyMovement : MonoBehaviour
     private void HandleIdleState()
     {
         Velocity = Vector3.zero; //idle状態の時は、Speedはゼロに固定する
-        
         //プレイヤーとの距離が、発見できる距離より短かったら追跡状態に移行する
         if (Vector3.Distance(_target.position, transform.position) <= _detectionRange)
         {
@@ -106,44 +103,7 @@ public class EnemyMovement : MonoBehaviour
             TransitionToState(EnemyState.Idle); //発見できる距離より離れたらidle状態に移行
         }
     }
-
-    /// <summary>
-    /// 攻撃状態の処理
-    /// </summary>
-    private void HandleAttackState()
-    {
-        _agent.SetDestination(transform.position); //現在の位置で停止
-
-        float distanceToPlayer = Vector3.Distance(transform.position, _target.position);
-        
-        if (distanceToPlayer > _attackRange)
-        {
-            TransitionToState(EnemyState.Chase); //攻撃できる距離より離れたら追跡状態に移行する
-            return;
-        }
-
-        /*
-        // 攻撃処理
-        _attackTimer -= Time.deltaTime; //クールタイムをTime.deltaTimeごとに減らしていくような計算方法
-        if (_attackTimer <= 0f)
-        {
-            _combat.Attack(this);
-            _attackTimer = _attackCooldown;
-        }
-        */
-    }
-
-    /// <summary>
-    /// 死亡状態の処理
-    /// </summary>
-    private void HandleDeadState()
-    {
-        // 死亡時の処理（アニメーション、消滅など）
-        Debug.Log($"{gameObject.name} を倒した");
-        _agent.isStopped = true;
-        Destroy(gameObject, 2f); // 2秒後にオブジェクトを破壊
-    }
-
+    
     public EnemyState GetState() => _currentState;
 
 }
