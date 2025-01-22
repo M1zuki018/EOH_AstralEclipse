@@ -5,8 +5,8 @@ using UnityEngine.AI;
 /// <summary>
 /// エネミーの中心となるクラス
 /// </summary>
-[RequireComponent(typeof(NavMeshAgent), typeof(EnemyHealth), typeof(EnemyCombat))]
-public class EnemyBrain : MonoBehaviour, IMatchTarget
+[RequireComponent(typeof(NavMeshAgent),  typeof(EnemyCombat))]
+public class EnemyBrain : MonoBehaviour, IMatchTarget, IDamageable
 {
     [SerializeField][HighlightIfNull] private Transform _player; //プレイヤーの参照
     
@@ -17,8 +17,9 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget
     //コンポーネント
     private NavMeshAgent _agent;
     private ICombat _combat;
-    private EnemyHealth _health;
+    private Health _health;
     private Collider _collider;
+    private UIManager _uiManager;
     public Animator Animator { get; private set; }
         
     [Header("パラメーター")]
@@ -33,15 +34,15 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget
         //コンポーネントを取得する
         _agent = GetComponent<NavMeshAgent>();
         _combat = GetComponent<EnemyCombat>();
-        _health = GetComponent<EnemyHealth>();
+        _health = GetComponent<Health>();
         _collider = GetComponent<Collider>();
+        _uiManager = GetComponent<UIManager>();
         Animator = GetComponent<Animator>();
-        
-        if (_health == null)
-        {
-            Debug.LogWarning("EnemyHealthコンポーネントが見つかりません");
-        }
 
+        _health.OnDamaged += HandleDamage; //ダメージ時イベント登録
+        _health.OnDeath += HandleDeath; //死亡時イベント登録
+
+        //ターゲットマッチング用
         MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
         smb._target = this;
     }
@@ -56,6 +57,12 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget
         
         Animator.SetInteger("HP", _health.CurrentHP);
         ChackState();
+    }
+
+    private void OnDestroy()
+    {
+        _health.OnDamaged -= HandleDamage; //ダメージ時イベント解除
+        _health.OnDeath -= HandleDeath; //死亡時イベント解除
     }
 
     /// <summary>
@@ -162,4 +169,21 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget
     }
 
     public Vector3 TargetPosition => _collider.ClosestPoint(transform.position);
+    public void TakeDamage(int damage, GameObject attacker)
+    {
+        _health.TakeDamage(damage, attacker);
+    }
+    
+    private void HandleDamage(int damage, GameObject attacker)
+    {
+        _uiManager.UpdateEnemyHP(damage, 0);
+        //TODO:エネミーHPバーの管理方法を考える
+    }
+    
+    private void HandleDeath(GameObject attacker)
+    {
+        Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
+        //TODO:死亡エフェクト等の処理
+        //Destroy(gameObject, 1.0f);
+    }
 }

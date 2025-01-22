@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace PlayerSystem.Fight
 {
     /// <summary>
@@ -15,10 +17,10 @@ namespace PlayerSystem.Fight
         bool IsDead { get; }
 
         /// <summary>ダメージを受ける</summary>
-        void TakeDamage(int amount);
+        void TakeDamage(int amount, GameObject attacker);
         
         /// <summary>回復する</summary>
-        void Heal(int amount);
+        void Heal(int amount, GameObject healer);
 
         /// <summary>死亡処理</summary>
         void Die();

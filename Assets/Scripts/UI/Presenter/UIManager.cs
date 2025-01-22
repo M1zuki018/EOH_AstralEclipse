@@ -25,5 +25,5 @@ public class UIManager : MonoBehaviour
     public void UpdatePlayerTP(float value) => _playerTP.SetValue(value);
 
     /// <summary>エネミーのHPスライダーを更新する</summary>
-    public void UpdateEnemyHP(float value, int index) => _enemyHPSliders[index].SetValue(value);
+    public void UpdateEnemyHP(int value, int index) => _enemyHPSliders[index].SetValue(value);
 }
