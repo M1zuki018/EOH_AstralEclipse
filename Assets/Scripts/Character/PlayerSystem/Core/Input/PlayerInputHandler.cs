@@ -11,19 +11,18 @@ namespace PlayerSystem.Input
         #region フィールドと初期化
         
         private readonly PlayerState _state;
-        private readonly PlayerMover _playerMover;
-        private readonly IMovable _mover;
-        private readonly IJumpable _jumper;
-        private readonly IWalkable _walker;
-        private readonly ICrouchable _croucher;
-        private readonly ISteppable _stepper;
-        private readonly IGaudeable _gauder;
-        private readonly ILockOnable _locker;
-        private readonly IWallRunable _wallruner;
-        private readonly IClimbale _climber;
-        private readonly IBigJumpable _bigjumper;
-        private readonly IVaultable _vaulter;
-        private readonly PlayerCombat _combat;
+        private readonly IMovable _mover; //移動
+        private readonly IJumpable _jumper;　//ジャンプ
+        private readonly IWalkable _walker; //歩きと走りの切り替え
+        private readonly ICrouchable _croucher; //しゃがみ
+        private readonly ISteppable _stepper; //ステップ
+        private readonly IGaudeable _gauder; //ガード
+        private readonly ILockOnable _locker; //ロックオン
+        private readonly IWallRunable _wallruner; //ウォールラン
+        private readonly IClimbale _climber; //壁のぼり
+        private readonly IBigJumpable _bigjumper; //大ジャンプ
+        private readonly IVaultable _vaulter; //乗り越え
+        private readonly PlayerCombat _combat; //アクション
 
         public PlayerInputHandler(PlayerState state, IMovable mover, IJumpable jumper, IWalkable walker, ICrouchable croucher, 
             ISteppable steppable, IGaudeable gauder, ILockOnable locker, IWallRunable wallruner,
@@ -153,6 +152,7 @@ namespace PlayerSystem.Input
         /// <summary>通常攻撃の入力処理</summary>
         public void HandleAttackInput()
         {
+            //TODO:修正
             //_combat.Attack();
         }
 

@@ -1,8 +1,10 @@
 using UnityEngine;
 
 /// <summary>
-/// プレイヤーの中心となるクラス
+/// プレイヤーの中心となるクラス（体力・死亡管理）
 /// </summary>
+[RequireComponent(typeof(PlayerMovement), typeof(Health), typeof(PlayerCombat))]
+[RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerBrain : CharacterBase
 {
     protected override void HandleDamage(int damage, GameObject attacker)

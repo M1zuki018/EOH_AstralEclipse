@@ -7,6 +7,9 @@ using PlayerSystem.Input;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
 
+/// <summary>
+/// プレイヤーの移動機能
+/// </summary>
 public class PlayerMovement : MonoBehaviour, IMatchTarget
 { 
     [Header("コンポーネント")]
@@ -22,11 +25,11 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     [SerializeField] private Transform _targetTransform;
     
     #region 各種機能
+    private IInputHandler _inputHandler; //入力情報
     private IMovable _mover; //動き
     private IJumpable _jumper; //ジャンプ
     private IWalkable _walker; //歩きと走り状態の切り替え
     private ICrouchable _croucher; //しゃがみ
-    private IInputHandler _inputHandler; //入力情報
     private ISteppable _stepFunction; //ステップ
     private IGaudeable _gaudeFunction; //ガード
     private ILockOnable _lockOnFunction; //ロックオン
