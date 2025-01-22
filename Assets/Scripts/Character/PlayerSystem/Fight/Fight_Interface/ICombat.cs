@@ -5,10 +5,15 @@ namespace PlayerSystem.Fight
     /// </summary>
     public interface ICombat
     {
+        /// <summary>攻撃力</summary>
+        int BaseAttackPower { get; }
+
         /// <summary>通常攻撃</summary>
-        void Attack();
+        /// <param name="target">攻撃対象</param>
+        void Attack(IDamageable target);
         
         /// <summary>特殊スキル</summary>
-        void UseSkill(int index);
+        /// <param name="target">攻撃対象</param>
+        void UseSkill(int index, IDamageable target);
     }
 }

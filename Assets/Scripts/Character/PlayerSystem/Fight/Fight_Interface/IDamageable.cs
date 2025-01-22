@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PlayerSystem.Fight
 {
     /// <summary>
-    /// ダメージを受けるもの全てが継承する
+    /// ダメージを受けるもの全てに適用する
     /// </summary>
     public interface IDamageable
     {

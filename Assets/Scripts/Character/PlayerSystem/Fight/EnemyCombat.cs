@@ -13,11 +13,13 @@ public class EnemyCombat : MonoBehaviour, ICombat
     {
         _brain = GetComponent<EnemyBrain>();
     }
+
+    public int BaseAttackPower { get; }
     
     /// <summary>
     /// 攻撃処理
     /// </summary>
-    public void Attack()
+    public void Attack(IDamageable target)
     {
         Debug.Log($"{gameObject.name} が攻撃した");
         _brain.Animator.SetTrigger("Attack");
@@ -27,7 +29,7 @@ public class EnemyCombat : MonoBehaviour, ICombat
     /// <summary>
     /// スキル処理
     /// </summary>
-    public void UseSkill(int index)
+    public void UseSkill(int index, IDamageable target)
     {
         Debug.Log($"{gameObject.name} がスキルを使った　発動： {index}");
         //TODO: スキルの処理を実装する

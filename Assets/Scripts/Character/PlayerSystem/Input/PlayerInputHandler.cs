@@ -153,13 +153,13 @@ namespace PlayerSystem.Input
         /// <summary>通常攻撃の入力処理</summary>
         public void HandleAttackInput()
         {
-            _combat.Attack();
+            //_combat.Attack();
         }
 
         /// <summary>スキル攻撃の入力処理</summary>
         public void HandleSkillInput(int index)
         {
-            _combat.UseSkill(index);
+            //_combat.UseSkill(index);
         }
     }
 }

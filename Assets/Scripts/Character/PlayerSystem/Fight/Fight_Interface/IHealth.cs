@@ -7,12 +7,6 @@ namespace PlayerSystem.Fight
     /// </summary>
     public interface IHealth
     {
-        /// <summary>最大HP</summary>
-        int MaxHP { get; } 
-        
-        /// <summary>現在のHP</summary>
-        int CurrentHP { get; } 
-        
         /// <summary>死亡状態</summary>
         bool IsDead { get; }
 

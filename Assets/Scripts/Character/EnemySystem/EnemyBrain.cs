@@ -6,9 +6,11 @@ using UnityEngine.AI;
 /// エネミーの中心となるクラス
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent),  typeof(EnemyCombat))]
-public class EnemyBrain : MonoBehaviour, IMatchTarget, IDamageable
+public class EnemyBrain : CharacterBase, IMatchTarget
 {
     [SerializeField][HighlightIfNull] private Transform _player; //プレイヤーの参照
+    [SerializeField] private int _maxHP = 100;
+    private int _currentHP;
     
     //ステート管理
     private enum State{ Idle, Chase, Attack, Dead }
@@ -17,9 +19,9 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget, IDamageable
     //コンポーネント
     private NavMeshAgent _agent;
     private ICombat _combat;
-    private Health _health;
+    //private Health _health;
     private Collider _collider;
-    private UIManager _uiManager;
+    //private UIManager _uiManager;
     public Animator Animator { get; private set; }
         
     [Header("パラメーター")]
@@ -55,7 +57,7 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget, IDamageable
             return; //死亡していたらこれ以降の処理を行わない
         }
         
-        Animator.SetInteger("HP", _health.CurrentHP);
+        Animator.SetInteger("HP", _currentHP);
         ChackState();
     }
 
@@ -64,6 +66,8 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget, IDamageable
         _health.OnDamaged -= HandleDamage; //ダメージ時イベント解除
         _health.OnDeath -= HandleDeath; //死亡時イベント解除
     }
+
+    
 
     /// <summary>
     /// 現在のステートに合わせて行動を行うメソッドを呼び出す
@@ -152,7 +156,7 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget, IDamageable
         _attackTimer -= Time.deltaTime; //クールタイムをTime.deltaTimeごとに減らしていくような計算方法
         if (_attackTimer <= 0f)
         {
-            _combat.Attack();
+            _combat.Attack(this);
             _attackTimer = _attackCooldown;
         }
     }
@@ -167,20 +171,16 @@ public class EnemyBrain : MonoBehaviour, IMatchTarget, IDamageable
         _agent.isStopped = true;
         Destroy(gameObject, 2f); // 2秒後にオブジェクトを破壊
     }
-
-    public Vector3 TargetPosition => _collider.ClosestPoint(transform.position);
-    public void TakeDamage(int damage, GameObject attacker)
-    {
-        _health.TakeDamage(damage, attacker);
-    }
     
-    private void HandleDamage(int damage, GameObject attacker)
+    public Vector3 TargetPosition { get; }
+    
+    protected override void HandleDamage(int damage, GameObject attacker)
     {
         _uiManager.UpdateEnemyHP(damage, 0);
         //TODO:エネミーHPバーの管理方法を考える
     }
-    
-    private void HandleDeath(GameObject attacker)
+
+    protected override void HandleDeath(GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
         //TODO:死亡エフェクト等の処理
