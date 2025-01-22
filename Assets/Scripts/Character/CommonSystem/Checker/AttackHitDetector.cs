@@ -66,15 +66,15 @@ public class AttackHitDetector : MonoBehaviour
     /// <summary>
     /// 攻撃した時に呼び出す
     /// </summary>
-    public void PerformAttack()
+    public List<IDamageable> PerformAttack()
     {
-        DetectCollisions();
+        return DetectCollisions();
     }
 
     /// <summary>
     /// 判定検出を実行する
     /// </summary>
-    private void DetectCollisions()
+    private List<IDamageable> DetectCollisions()
     {
         //処理開始時にリストをクリア
         hitCollidersInThisFrame.Clear();
@@ -84,6 +84,7 @@ public class AttackHitDetector : MonoBehaviour
         Vector3 position = _transform.position;
         Quaternion rotation = _transform.rotation;
         Collider[] hitResults = new Collider[50];
+        List<IDamageable> damageables = new();
 
         foreach (var data in _hitPositions)
         {
@@ -115,9 +116,13 @@ public class AttackHitDetector : MonoBehaviour
             
             if (hitObjectsInThisFrame.Count > 0)
             {
-                OnHitObjects?.Invoke(hitObjectsInThisFrame); //イベントを発火
+                foreach (var hit in hitObjectsInThisFrame)
+                {
+                    damageables.Add(hit.GetComponent<IDamageable>());
+                }
             }
         }
+        return damageables;
     }
 
     private int CalculateSphereCast(Collider[] hitColliders, Data data, int index, Vector3 position,

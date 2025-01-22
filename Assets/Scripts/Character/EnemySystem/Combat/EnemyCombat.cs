@@ -37,22 +37,29 @@ public class EnemyCombat : MonoBehaviour, ICombat
         _attackTimer -= Time.deltaTime; //クールタイムをTime.deltaTimeごとに減らしていくような計算方法
         if (_attackTimer <= 0f)
         {
-            Attack(target.GetComponent<IDamageable>());
+            //Attack();
             _attackTimer = _attackCooldown;
         }
     }
 
     
+    /*
     /// <summary>
     /// 攻撃処理
     /// </summary>
-    public void Attack(IDamageable target)
+    public void Attack()
     {
         if(target == null) return;
         
         Debug.Log($"{gameObject.name} が攻撃した");
         _brain.Animator.SetTrigger("Attack");
         target.TakeDamage(AttackDamage, this.gameObject);
+    }
+    */
+
+    public void Attack()
+    {
+        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -63,4 +70,6 @@ public class EnemyCombat : MonoBehaviour, ICombat
         Debug.Log($"{gameObject.name} がスキルを使った　発動： {index}");
         //TODO: スキルの処理を実装する
     }
+
+    public AttackHitDetector Detector { get; }
 }

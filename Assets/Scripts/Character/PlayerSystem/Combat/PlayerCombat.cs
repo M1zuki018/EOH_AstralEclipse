@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using PlayerSystem.Fight;
 using UnityEngine;
 
@@ -7,23 +8,29 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour, ICombat
 {
     public int BaseAttackPower { get; private set; } = 10; //攻撃力
+    public AttackHitDetector Detector { get; private set; }
     private PlayerMovement _playerMovement;
     private DamageHandler _damageHandler;
 
     private void Start()
     {
+        //コンポーネントを取得する
         _playerMovement = GetComponent<PlayerMovement>();
         _damageHandler = new DamageHandler();
+        Detector = GetComponentInChildren<AttackHitDetector>();
     }
     
     /// <summary>
-    /// 攻撃処理
+    /// 攻撃入力を受けた時に呼び出される処理
     /// </summary>
-    public void Attack(IDamageable target)
+    public void Attack()
     {
         _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
-        //TODO: 処理を実装する
-        _damageHandler.ApplyDamage(target, BaseAttackPower, 0, gameObject);
+        List<IDamageable> damageables = Detector.PerformAttack();
+        foreach (IDamageable damageable in damageables)
+        {
+            _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
+        }
     }
 
     /// <summary>

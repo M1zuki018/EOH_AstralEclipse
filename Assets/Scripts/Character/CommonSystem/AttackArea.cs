@@ -20,7 +20,7 @@ public class AttackArea : MonoBehaviour
     {
         if (other.TryGetComponent(out Health health))
         {
-            _me.Attack(health as IDamageable);
+           // _me.Attack(health as IDamageable);
         }
     }
 }

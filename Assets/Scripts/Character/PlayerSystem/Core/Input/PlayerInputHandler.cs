@@ -152,8 +152,7 @@ namespace PlayerSystem.Input
         /// <summary>通常攻撃の入力処理</summary>
         public void HandleAttackInput()
         {
-            //TODO:修正
-            //_combat.Attack();
+            _combat.Attack();
         }
 
         /// <summary>スキル攻撃の入力処理</summary>

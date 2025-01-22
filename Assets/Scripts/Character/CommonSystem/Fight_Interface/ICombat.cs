@@ -9,11 +9,13 @@ namespace PlayerSystem.Fight
         int BaseAttackPower { get; }
 
         /// <summary>通常攻撃</summary>
-        /// <param name="target">攻撃対象</param>
-        void Attack(IDamageable target);
+        void Attack();
         
         /// <summary>特殊スキル</summary>
         /// <param name="target">攻撃対象</param>
         void UseSkill(int index, IDamageable target);
+        
+        /// <summary>攻撃判定の検知</summary>
+        AttackHitDetector Detector { get; }
     }
 }
