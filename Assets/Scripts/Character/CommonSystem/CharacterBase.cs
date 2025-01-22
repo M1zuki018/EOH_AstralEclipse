@@ -30,6 +30,9 @@ public abstract class CharacterBase : MonoBehaviour, IDamageable
     { 
         _health.TakeDamage(damage, attacker);
     }
+    
+    public int GetCurrentHP() => _health.CurrentHP; // HP を取得
+    public int GetMaxHP() => _health.MaxHP; // 最大 HP を取得
 
     /// <summary>ダメージを受けた時の処理</summary>
     protected abstract void HandleDamage(int damage, GameObject attacker);

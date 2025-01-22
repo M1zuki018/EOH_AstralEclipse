@@ -1,22 +1,26 @@
 using System;
 using PlayerSystem.Fight;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// すべてのエンティティのHPを管理するクラス
 /// </summary>
 public class Health : MonoBehaviour, IHealth
 {
-    [SerializeField] private int _maxHP = 100; //最大HP
-    [SerializeField, ReadOnlyOnRuntime] private int _currentHP; //現在のHP
-    public bool IsDead => _currentHP <= 0; //HPが0以下になったら死亡する
+    [SerializeField] private int _maxHPData = 100;
+    public int MaxHP { get; private set; } = 100; //最大HP
+    public int CurrentHP { get; private set; } //現在のHP
+    public bool IsDead => CurrentHP <= 0; //HPが0以下になったら死亡する
     public event Action<int, GameObject> OnDamaged; //ダメージを受けた時のイベント
     public event Action<int, GameObject> OnHealed; //回復イベント
     public event Action<GameObject> OnDeath; //死亡イベント
 
-    private void Start()
+    
+    private void Awake()
     {
-        _currentHP = _maxHP; //HPを初期化する
+        MaxHP = _maxHPData;
+        CurrentHP = _maxHPData; //HPを初期化する
     }
     
     /// <summary>
@@ -26,7 +30,7 @@ public class Health : MonoBehaviour, IHealth
     {
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
-        _currentHP -= amount;
+        CurrentHP -= amount;
         OnDamaged?.Invoke(amount, attacker); //ダメージイベント発火
 
         if (IsDead)
@@ -42,7 +46,7 @@ public class Health : MonoBehaviour, IHealth
     {
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
-        _currentHP += amount;
+        CurrentHP += amount;
         OnHealed?.Invoke(amount, healer);
     }
 
