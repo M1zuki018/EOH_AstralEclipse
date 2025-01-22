@@ -29,7 +29,7 @@ namespace UI.View
         /// <summary>
         /// スライダーの初期化を行う 
         /// </summary>
-        public void InitializeValue(float maxValue, float defaultValue)
+        public void InitializeValue(int maxValue, int defaultValue)
         {
             _slider.maxValue = maxValue;
             _slider.value = defaultValue;
@@ -38,10 +38,9 @@ namespace UI.View
         /// <summary>
         /// スライダーを滑らかに更新する
         /// </summary>
-        /// <param name="normalizedValue">0-1の間に正規化した状態の値</param>
-        public void SetValue(float normalizedValue)
+        public void SetValue(int value)
         {
-            _slider.DOValue(normalizedValue, _updateDuration).SetEase(Ease.OutQuad);
+            _slider.DOValue(value, _updateDuration).SetEase(Ease.OutQuad);
         }
     }
 

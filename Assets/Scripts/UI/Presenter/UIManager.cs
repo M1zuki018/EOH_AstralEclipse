@@ -7,23 +7,50 @@ using UnityEngine;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    [SerializeField, Comment("UIの親")] private Transform _uiCanvas;
     [SerializeField] private SliderUI _playerHP; //プレイヤーのHPゲージ
     [SerializeField] private SliderUI _playerWill; //プレイヤーのWillゲージ
     [SerializeField] private SliderUI _playerTP; //プレイヤーのTPゲージ
-    private List<SliderUI> _enemyHPSliders = new List<SliderUI>(); //エネミーのHPゲージのリスト
+    [SerializeField] private GameObject _enemyHPPrefab; //エネミーのHPゲージのプレハブ
+
+    private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
+    
 
     /// <summary>プレイヤーのHPゲージを更新する</summary>
-    public void UpdatePlayerHP(float currentHP) => _playerHP.SetValue(currentHP);
+    public void UpdatePlayerHP(int currentHP) => _playerHP.SetValue(currentHP);
     
     /// <summary>プレイヤーのHPゲージを初期化する</summary>
-    public void InitializePlayerHP(float maxValue, float defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);
+    public void InitializePlayerHP(int maxValue, int defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);
 
     /// <summary>プレイヤーのWillゲージを更新する</summary>
-    public void UpdatePlayerWill(float value) => _playerWill.SetValue(value);
+    public void UpdatePlayerWill(int value) => _playerWill.SetValue(value);
 
     /// <summary>プレイヤーのTPゲージを更新する</summary>
-    public void UpdatePlayerTP(float value) => _playerTP.SetValue(value);
+    public void UpdatePlayerTP(int value) => _playerTP.SetValue(value);
 
-    /// <summary>エネミーのHPスライダーを更新する</summary>
-    public void UpdateEnemyHP(int value, int index) => _enemyHPSliders[index].SetValue(value);
+    /// <summary>エネミーのHPゲージを更新する</summary>
+    public void UpdateEnemyHP(EnemyBrain enemy, int currentHP) => _enemyHpSliders[enemy].SetValue(currentHP);
+
+    /// <summary>エネミーのHPスライダーのUIを作成する</summary>
+    public void RegisterEnemy(EnemyBrain enemy, int maxHP)
+    {
+        if (!_enemyHpSliders.ContainsKey(enemy)) //まだディクショナリに未登録だった場合
+        {
+            GameObject uiObject = Instantiate(_enemyHPPrefab, _uiCanvas); //親のCanvasの子にスライダーを生成
+            EnemyHPSliderUI healthUI = uiObject.GetComponent<EnemyHPSliderUI>();
+            healthUI.SetTarget(enemy.transform); //対象のエネミーのトランスフォームを渡す
+            _enemyHpSliders.Add(enemy, healthUI); //ディクショナリに追加
+            healthUI.InitializeValue(maxHP, maxHP); //初期化
+        }
+    }
+
+    /// <summary>エネミーのHPスライダーのUIを削除する</summary>
+    public void UnregisterEnemy(EnemyBrain enemy)
+    {
+        if (_enemyHpSliders.TryGetValue(enemy, out EnemyHPSliderUI healthUI))
+        {
+            Destroy(healthUI.gameObject);
+            _enemyHpSliders.Remove(enemy);
+        }
+    }
 }
