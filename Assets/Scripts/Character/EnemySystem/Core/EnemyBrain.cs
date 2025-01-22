@@ -36,7 +36,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         //コンポーネントを取得する
         _agent = GetComponent<NavMeshAgent>();
         _combat = GetComponent<EnemyCombat>();
-        _health = GetComponent<Health>();
+        _health = GetComponent<IHealth>();
         _collider = GetComponent<Collider>();
         _uiManager = GetComponent<UIManager>();
         Animator = GetComponent<Animator>();

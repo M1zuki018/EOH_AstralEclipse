@@ -5,14 +5,13 @@ using PlayerSystem.Fight;
 /// 全キャラクターの基底クラス
 /// </summary>
 public abstract class CharacterBase : MonoBehaviour, IDamageable
-{ 
-    [SerializeField] protected int _defense; // 防御力
-    protected Health _health;
-    protected UIManager _uiManager;
+{
+    protected IHealth _health; //体力の管理
+    protected UIManager _uiManager; //UIの管理
     
     protected virtual void Awake() 
     { 
-        _health = GetComponent<Health>(); 
+        _health = GetComponent<IHealth>(); 
         _uiManager = FindObjectOfType<UIManager>(); 
         _health.OnDamaged += HandleDamage; //イベント登録
         _health.OnDeath += HandleDeath;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PlayerSystem.Fight
@@ -19,6 +20,14 @@ namespace PlayerSystem.Fight
         /// <summary>死亡処理</summary>
         void Die();
 
+        /// <summary>ダメージを受けたときのイベント</summary>
+        event Action<int, GameObject> OnDamaged;
+        
+        /// <summary>回復時のイベント</summary>
+        event Action<int, GameObject> OnHealed;
+        
+        /// <summary>死亡時のイベント</summary>
+        event Action<GameObject> OnDeath;
     }
 
 }
