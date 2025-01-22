@@ -49,12 +49,4 @@ public class Health : MonoBehaviour, IHealth
         CurrentHP += amount;
         OnHealed?.Invoke(amount, healer);
     }
-
-    /// <summary>
-    /// 死亡処理
-    /// </summary>
-    public void Die()
-    {
-        Debug.Log("死んでしまった！！！！");
-    }
 }

@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     private List<SliderUI> _enemyHPSliders = new List<SliderUI>(); //エネミーのHPゲージのリスト
 
     /// <summary>プレイヤーのHPゲージを更新する</summary>
-    public void UpdatePlayerHP(float value) => _playerHP.SetValue(value);
+    public void UpdatePlayerHP(float currentHP) => _playerHP.SetValue(currentHP);
     
     /// <summary>プレイヤーのHPゲージを初期化する</summary>
     public void InitializePlayerHP(float maxValue, float defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);

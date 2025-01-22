@@ -7,9 +7,15 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerBrain : CharacterBase
 {
+    private void Start()
+    {
+        _uiManager.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
+    }
+
     protected override void HandleDamage(int damage, GameObject attacker)
     {
-        _uiManager.UpdatePlayerHP(damage);
+        TakeDamage(damage, attacker); //IHealthのダメージを食らう処理が呼ばれる
+        _uiManager.UpdatePlayerHP(GetCurrentHP());
         //TODO:エネミーHPバーの管理方法を考える
     }
 

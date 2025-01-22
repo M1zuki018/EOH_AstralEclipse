@@ -20,9 +20,6 @@ namespace PlayerSystem.Fight
         /// <summary>回復する</summary>
         void Heal(int amount, GameObject healer);
 
-        /// <summary>死亡処理</summary>
-        void Die();
-
         /// <summary>ダメージを受けたときのイベント</summary>
         event Action<int, GameObject> OnDamaged;
         

@@ -1959,8 +1959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 100
-  _currentHP: 0
+  _maxHPData: 10000
 --- !u!114 &591953667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2574,6 +2573,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Arissa (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d3a35bd7954599146b7fd2c0e4f45084,
         type: 3}
@@ -3219,6 +3223,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arissa
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d3a35bd7954599146b7fd2c0e4f45084,
         type: 3}
       propertyPath: m_Controller
@@ -3495,6 +3504,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Arissa (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d3a35bd7954599146b7fd2c0e4f45084,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d3a35bd7954599146b7fd2c0e4f45084,
         type: 3}
@@ -4037,8 +4051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 100
-  _currentHP: 0
+  _maxHPData: 100
 --- !u!114 &1356416364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4542,8 +4555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 100
-  _currentHP: 0
+  _maxHPData: 100
 --- !u!114 &1508597867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5062,8 +5074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 100
-  _currentHP: 0
+  _maxHPData: 100
 --- !u!114 &1768764328
 MonoBehaviour:
   m_ObjectHideFlags: 0
