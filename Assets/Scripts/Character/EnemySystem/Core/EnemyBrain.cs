@@ -1,3 +1,4 @@
+using Enemy.State;
 using PlayerSystem.Fight;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,15 +14,12 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     private int _currentHP;
     
     //ステート管理
-    private enum State{ Idle, Chase, Attack, Dead }
-    private State _currentState = State.Idle;
+    private EnemyState _currentState = EnemyState.Idle;
     
     //コンポーネント
     private NavMeshAgent _agent;
     private ICombat _combat;
-    //private Health _health;
     private Collider _collider;
-    //private UIManager _uiManager;
     public Animator Animator { get; private set; }
         
     [Header("パラメーター")]
@@ -53,7 +51,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     {
         if(_health.IsDead)
         {
-            TransitionToState(State.Dead);
+            TransitionToState(EnemyState.Dead);
             return; //死亡していたらこれ以降の処理を行わない
         }
         
@@ -76,16 +74,16 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     {
         switch (_currentState)
         {
-            case State.Idle:
+            case EnemyState.Idle:
                 HandleIdleState();
                 break;
-            case State.Chase:
+            case EnemyState.Chase:
                 HandleChaseState();
                 break;
-            case State.Attack:
+            case EnemyState.Attack:
                 HandleAttackState();
                 break;
-            case State.Dead:
+            case EnemyState.Dead:
                 HandleDeadState();
                 break;
         }
@@ -94,7 +92,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     /// <summary>
     /// 現在のステートを変更する
     /// </summary>
-    private void TransitionToState(State newState)
+    private void TransitionToState(EnemyState newState)
     {
         if(_currentState == newState) return; //ステートが変わらない場合これ以降の処理を行わない
         _currentState = newState;
@@ -108,7 +106,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         //プレイヤーとの距離が、発見できる距離より短かったら追跡状態に移行する
         if (Vector3.Distance(_player.position, transform.position) <= _detectionRange)
         {
-            TransitionToState(State.Chase);
+            TransitionToState(EnemyState.Chase);
         }
         Animator.SetFloat("Speed", 0); //idle状態の時は、Speedはゼロに固定する
     }
@@ -129,11 +127,11 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         
         if (distanceToPlayer <= _attackRange)
         {
-            TransitionToState(State.Attack); //攻撃範囲に到達したら攻撃状態に移行する
+            TransitionToState(EnemyState.Attack); //攻撃範囲に到達したら攻撃状態に移行する
         }
         else if (distanceToPlayer > _detectionRange)
         {
-            TransitionToState(State.Idle); //発見できる距離より離れたらidle状態に移行
+            TransitionToState(EnemyState.Idle); //発見できる距離より離れたらidle状態に移行
         }
     }
 
@@ -148,7 +146,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         
         if (distanceToPlayer > _attackRange)
         {
-            TransitionToState(State.Chase); //攻撃できる距離より離れたら追跡状態に移行する
+            TransitionToState(EnemyState.Chase); //攻撃できる距離より離れたら追跡状態に移行する
             return;
         }
 
