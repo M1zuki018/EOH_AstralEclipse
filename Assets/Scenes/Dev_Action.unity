@@ -2045,18 +2045,6 @@ Transform:
   - {fileID: 719354446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2017175007 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5777550406998585245, guid: 61b5c3d1d439235478cb934b8c6599cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1329028571411787957}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86cd7cccb02c0ba4185eb4b8a07463cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2141824019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,36 +2217,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065331270525496237, guid: 61b5c3d1d439235478cb934b8c6599cc,
-        type: 3}
-      propertyPath: _frame
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065331270525496237, guid: 61b5c3d1d439235478cb934b8c6599cc,
-        type: 3}
-      propertyPath: _owner
-      value: 
-      objectReference: {fileID: 2017175007}
-    - target: {fileID: 7065331270525496237, guid: 61b5c3d1d439235478cb934b8c6599cc,
-        type: 3}
-      propertyPath: _hitLayer.m_Bits
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065331270525496237, guid: 61b5c3d1d439235478cb934b8c6599cc,
-        type: 3}
-      propertyPath: _hitTags.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065331270525496237, guid: 61b5c3d1d439235478cb934b8c6599cc,
-        type: 3}
-      propertyPath: _hitTags.Array.data[0]
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065331270525496237, guid: 61b5c3d1d439235478cb934b8c6599cc,
-        type: 3}
-      propertyPath: _data.Collisions.Array.size
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8494996535144275585, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}

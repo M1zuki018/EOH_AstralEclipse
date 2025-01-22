@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6327138422854167743}
   - component: {fileID: 3858541705135791720}
-  - component: {fileID: 7376232604454189913}
   - component: {fileID: 7065331270525496237}
   m_Layer: 0
   m_Name: AttackArea
@@ -55,18 +54,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.48, z: 1}
   m_Center: {x: 0, y: 1.05, z: 0.83}
---- !u!114 &7376232604454189913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70361066916407660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6cf327e618b4a46bd1f4f92a59f929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7065331270525496237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +66,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c894297beec76924c9786fc5f7d3db55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _owner: {fileID: 5777550406998585245}
+  _hitLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  _hitTags:
+  - Untagged
   _frame: 0
   _hitPositions:
   - Range: {x: 0, y: 1}
@@ -86,12 +79,6 @@ MonoBehaviour:
     - Offset: {x: 0, y: 0.78, z: 0.77}
       Rotation: {x: 0, y: 0, z: 0}
       Scale: {x: 1, y: 1, z: 1}
-  hitLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  hitTags:
-  - Enemy
-  animator: {fileID: 2516049074992321550}
 --- !u!1 &2948384498827725439
 GameObject:
   m_ObjectHideFlags: 0
