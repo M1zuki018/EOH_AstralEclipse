@@ -6,16 +6,13 @@ namespace PlayerSystem.Fight
     /// <summary>
     /// HPの増減や現在のHP状態を管理します
     /// </summary>
-    public interface IHealth
+    public interface IHealth : IDamageable
     {
         int CurrentHP { get; } // HP の取得
         int MaxHP { get; }
         
         /// <summary>死亡状態</summary>
         bool IsDead { get; }
-
-        /// <summary>ダメージを受ける</summary>
-        void TakeDamage(int amount, GameObject attacker);
         
         /// <summary>回復する</summary>
         void Heal(int amount, GameObject healer);

@@ -14,7 +14,6 @@ public class PlayerBrain : CharacterBase
 
     protected override void HandleDamage(int damage, GameObject attacker)
     {
-        TakeDamage(damage, attacker); //IHealthのダメージを食らう処理が呼ばれる
         _uiManager.UpdatePlayerHP(GetCurrentHP());
         //TODO:エネミーHPバーの管理方法を考える
     }

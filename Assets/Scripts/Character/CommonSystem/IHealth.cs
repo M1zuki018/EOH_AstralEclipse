@@ -1,7 +1,6 @@
 using System;
 using PlayerSystem.Fight;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// すべてのエンティティのHPを管理するクラス
@@ -24,7 +23,7 @@ public class Health : MonoBehaviour, IHealth
     }
     
     /// <summary>
-    /// ダメージを受ける処理
+    /// ダメージを受ける処理の実装
     /// </summary>
     public void TakeDamage(int amount, GameObject attacker)
     {

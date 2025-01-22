@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// 対象にダメージを与える処理
 /// </summary>
-public class DamageHandler : MonoBehaviour
+public class DamageHandler
 {
     /// <summary>
     /// ダメージを与える
