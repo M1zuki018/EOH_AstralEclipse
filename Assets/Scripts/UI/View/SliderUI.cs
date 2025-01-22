@@ -25,6 +25,15 @@ namespace UI.View
                 _slider = GetComponent<Slider>();
             }
         }
+
+        /// <summary>
+        /// スライダーの初期化を行う 
+        /// </summary>
+        public void InitializeValue(float maxValue, float defaultValue)
+        {
+            _slider.maxValue = maxValue;
+            _slider.value = defaultValue;
+        }
         
         /// <summary>
         /// スライダーを滑らかに更新する

@@ -9,10 +9,12 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public int MaxHP { get; private set; } = 100; //最大HP
     public int CurrentHP { get; private set; } //現在のHP
     public bool IsDead => CurrentHP <= 0; //HPが0以下になったら死亡する
+    public UIManager UIManager;
 
     private void Start()
     {
         CurrentHP = MaxHP; //HPを初期化する
+        UIManager.InitializePlayerHP(MaxHP, CurrentHP); //スライダーを初期化する
     }
     
     /// <summary>
@@ -23,6 +25,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
         CurrentHP -= amount;
+        UIManager.UpdatePlayerHP(CurrentHP);
 
         if (IsDead)
         {
@@ -38,6 +41,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
         CurrentHP += amount;
+        UIManager.UpdatePlayerHP(CurrentHP);
     }
 
     /// <summary>

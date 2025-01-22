@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
 
     /// <summary>プレイヤーのHPゲージを更新する</summary>
     public void UpdatePlayerHP(float value) => _playerHP.SetValue(value);
+    
+    /// <summary>プレイヤーのHPゲージを初期化する</summary>
+    public void InitializePlayerHP(float maxValue, float defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);
 
     /// <summary>プレイヤーのWillゲージを更新する</summary>
     public void UpdatePlayerWill(float value) => _playerWill.SetValue(value);
