@@ -14,8 +14,8 @@ public class PlayerBrain : CharacterBase
 
     protected override void HandleDamage(int damage, GameObject attacker)
     {
+        Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
         _uiManager.UpdatePlayerHP(GetCurrentHP());
-        //TODO:エネミーHPバーの管理方法を考える
     }
 
     protected override void HandleDeath(GameObject attacker)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using PlayerSystem.Fight;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -9,13 +10,17 @@ using UnityEngine.TextCore.Text;
 public class EnemyCombat : MonoBehaviour, ICombat
 {
     public int AttackDamage { get; private set; } = 5; //攻撃力
+    public AttackHitDetector Detector { get; private set; }
     [SerializeField, Comment("攻撃間隔")] private float _attackCooldown = 1.5f;
     private EnemyBrain _brain;
+    private DamageHandler _damageHandler;
     private float _attackTimer;
 
     private void Awake()
     {
         _brain = GetComponent<EnemyBrain>();
+        _damageHandler = new DamageHandler();
+        Detector = GetComponentInChildren<AttackHitDetector>();
     }
 
     public int BaseAttackPower { get; }
@@ -37,29 +42,22 @@ public class EnemyCombat : MonoBehaviour, ICombat
         _attackTimer -= Time.deltaTime; //クールタイムをTime.deltaTimeごとに減らしていくような計算方法
         if (_attackTimer <= 0f)
         {
-            //Attack();
+            Attack();
             _attackTimer = _attackCooldown;
         }
     }
-
     
-    /*
     /// <summary>
     /// 攻撃処理
     /// </summary>
     public void Attack()
     {
-        if(target == null) return;
-        
-        Debug.Log($"{gameObject.name} が攻撃した");
-        _brain.Animator.SetTrigger("Attack");
-        target.TakeDamage(AttackDamage, this.gameObject);
-    }
-    */
-
-    public void Attack()
-    {
-        throw new NotImplementedException();
+        _brain.Animator.SetTrigger("Attack");　//アニメーションのAttackをトリガーする
+        List<IDamageable> damageables = Detector.PerformAttack();
+        foreach (IDamageable damageable in damageables)
+        {
+            _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
+        }
     }
 
     /// <summary>
@@ -70,6 +68,4 @@ public class EnemyCombat : MonoBehaviour, ICombat
         Debug.Log($"{gameObject.name} がスキルを使った　発動： {index}");
         //TODO: スキルの処理を実装する
     }
-
-    public AttackHitDetector Detector { get; }
 }
