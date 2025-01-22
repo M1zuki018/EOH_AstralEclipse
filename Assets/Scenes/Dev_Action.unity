@@ -2045,6 +2045,43 @@ Transform:
   - {fileID: 719354446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2017174992 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2948384498827725439, guid: 61b5c3d1d439235478cb934b8c6599cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1329028571411787957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2017174997 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2516049074992321550, guid: 61b5c3d1d439235478cb934b8c6599cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1329028571411787957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2017174998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017174992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c894297beec76924c9786fc5f7d3db55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frame: 0
+  _hitPositions:
+  - Range: {x: 0, y: 1}
+    Collisions:
+    - Offset: {x: 0, y: 0.78, z: 0.77}
+      Rotation: {x: 0, y: 0, z: 0}
+      Scale: {x: 1, y: 1, z: 1}
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  hitTags:
+  - Enemy
+  animator: {fileID: 2017174997}
 --- !u!1 &2141824019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,7 +2263,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2948384498827725439, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2017174998}
   m_SourcePrefab: {fileID: 100100000, guid: 61b5c3d1d439235478cb934b8c6599cc, type: 3}
 --- !u!1001 &2032435735333513482
 PrefabInstance:
