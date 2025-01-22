@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using PlayerSystem.Fight;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 /// <summary>
@@ -8,13 +10,20 @@ using UnityEngine;
 /// </summary>
 public class AttackHitDetector : MonoBehaviour
 {
+    //TODO: システム基盤を変更していく場合、Updateのタイミングを指定できるようにする
+
+    [Header("設定")] 
+    [SerializeField, Comment("衝突検出の所有者")] private CharacterBase _owner; 
+    [SerializeField, Comment("衝突検出を行うレイヤー")] private LayerMask _hitLayer;
+    [SerializeField, Comment("衝突するタグ")] private string[] _hitTags;
+    
     [Header("検出フレームの範囲")] 
     [Range(0, 1)] [ReadOnlyOnRuntime] [SerializeField] private float _frame;
 
     [Header("検出位置と有効範囲の設定")]
     [SerializeField] private Data[] _hitPositions =
     {
-        new()
+        new() //初期設定
         {
             Range = new Vector2(0, 1), //範囲
             Collisions = new[]
@@ -28,10 +37,6 @@ public class AttackHitDetector : MonoBehaviour
             }
         }
     };
-    
-    [SerializeField] private LayerMask hitLayer;
-    [SerializeField] private string[] hitTags;
-    [SerializeField] private Animator animator;
     
     private Transform _transform;
     
@@ -51,7 +56,6 @@ public class AttackHitDetector : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out _transform);
-        if(!animator) TryGetComponent(out animator);
     }
 
     private void OnEnable()
@@ -124,7 +128,7 @@ public class AttackHitDetector : MonoBehaviour
         var worldPosition = position + _transform.TransformVector(data.Collisions[index].Offset);
         var colRotation = rotation * Quaternion.Euler(col.Rotation);
         var count = Physics.OverlapBoxNonAlloc(worldPosition, col.Scale * 0.5f,
-            hitColliders, colRotation, hitLayer, QueryTriggerInteraction.Ignore);
+            hitColliders, colRotation, _hitLayer, QueryTriggerInteraction.Ignore);
         return count;
     }
 
@@ -133,11 +137,11 @@ public class AttackHitDetector : MonoBehaviour
     /// </summary>
     private bool IsValidTarget(GameObject target)
     {
-        foreach (var tag in hitTags)
+        foreach (var tag in _hitTags)
         {
             if (target.CompareTag(tag)) return true;
         }
-        return hitTags.Length == 0;
+        return _hitTags.Length == 0;
     }
     
     /// <summary>
@@ -173,43 +177,5 @@ public class AttackHitDetector : MonoBehaviour
                 }
             }
         }
-    }
-    
-
-    /// <summary>
-    /// 検出のタイミングと範囲
-    /// </summary>
-    [Serializable]
-    private struct Data
-    {
-        /// <summary>検出範囲</summary>
-        public Vector2 Range;
-
-        /// <summary>衝突検出用の衝突データ</summary>
-        [NonReorderable] public CollisionData[] Collisions;
-
-        /// <summary>検出範囲内かどうかを確認</summary>
-        /// <param name="frame">現在のフレーム</param>
-        /// <returns>検出範囲内の場合はtrue</returns>
-        public bool IsInRange(float frame)
-        {
-            return frame >= Range.x && frame <= Range.y;
-        }
-    }
-
-    /// <summary>
-    /// 衝突検出範囲
-    /// </summary>
-    [Serializable]
-    private struct CollisionData
-    {
-        /// <summary>相対座標</summary>
-        public Vector3 Offset;
-
-        /// <summary>検出ボックスの角度（オイラー角）</summary>
-        public Vector3 Rotation;
-
-        /// <summary>コライダーのサイズ。デフォルトは(1m, 1m, 1m)</summary>
-        public Vector3 Scale;
     }
 }
