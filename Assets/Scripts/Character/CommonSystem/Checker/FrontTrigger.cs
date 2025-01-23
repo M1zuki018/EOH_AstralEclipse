@@ -6,6 +6,7 @@ using UnityEngine;
 public class FrontTrigger : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _playerMovement;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("VaultObject"))
@@ -18,6 +19,11 @@ public class FrontTrigger : MonoBehaviour
             _playerMovement.PlayerState.CanClimb = true;
             _playerMovement.PlayerState.WallNormal = other.transform.forward;
         }
+        else if (other.gameObject.CompareTag("Interactable")) //インタラクトできるオブジェクトが範囲内にあったら
+        {
+            Debug.Log("取得できた");
+            _playerMovement.InteractableItem = other.transform.GetComponentInChildren<InteractableItemBase>(); //インタラクトできるオブジェクトの情報を渡す
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -29,6 +35,10 @@ public class FrontTrigger : MonoBehaviour
         else if (other.gameObject.CompareTag("Wall"))
         {
             _playerMovement.PlayerState.CanClimb = false;
+        }
+        else if (other.gameObject.CompareTag("Interactable")) //インタラクトできるオブジェクトが範囲内から出たら
+        {
+            _playerMovement.InteractableItem = null; //情報を削除する
         }
     }
 }

@@ -10,6 +10,7 @@ namespace PlayerSystem.Input
     {
         #region フィールドと初期化
         
+        private readonly PlayerMovement _playerMovement;
         private readonly PlayerState _state;
         private readonly IMovable _mover; //移動
         private readonly IJumpable _jumper;　//ジャンプ
@@ -24,10 +25,11 @@ namespace PlayerSystem.Input
         private readonly IVaultable _vaulter; //乗り越え
         private readonly PlayerCombat _combat; //アクション
 
-        public PlayerInputHandler(PlayerState state, IMovable mover, IJumpable jumper, IWalkable walker, ICrouchable croucher, 
-            ISteppable steppable, IGaudeable gauder, ILockOnable locker, IWallRunable wallruner,
+        public PlayerInputHandler(PlayerMovement playerMovement, PlayerState state, IMovable mover, IJumpable jumper, 
+            IWalkable walker, ICrouchable croucher, ISteppable steppable, IGaudeable gauder, ILockOnable locker, IWallRunable wallruner,
             IClimbale climbale, IBigJumpable bigjumper, IVaultable vaulter, PlayerCombat combat)
         {
+            _playerMovement = playerMovement;
             _state = state;
             _mover = mover;
             _jumper = jumper;
@@ -152,7 +154,14 @@ namespace PlayerSystem.Input
         /// <summary>通常攻撃の入力処理</summary>
         public void HandleAttackInput()
         {
-            _combat.Attack();
+            if (_playerMovement.InteractableItem != null && _playerMovement.InteractableItem.CanGet)
+            {
+                _playerMovement.InteractableItem.Interact(); //インタラクトできるものがあればそれを呼ぶ
+            }
+            else
+            {
+                _combat.Attack();
+            }
         }
 
         /// <summary>スキル攻撃の入力処理</summary>

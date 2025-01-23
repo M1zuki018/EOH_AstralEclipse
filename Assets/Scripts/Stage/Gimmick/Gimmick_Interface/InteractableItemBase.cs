@@ -43,4 +43,6 @@ public abstract class InteractableItemBase : MonoBehaviour
     /// TODO: インタラクトはこのメソッドを呼び出す
     /// </summary>
     public abstract void Interact();
+
+    public InteractableItemBase GetInteractableItem() => this;
 }

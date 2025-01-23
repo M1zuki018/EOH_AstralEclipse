@@ -12,7 +12,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] [HighlightIfNull] private Transform _target; //プレイヤーの参照
     private EnemyState _currentState = EnemyState.Idle; //状態
     private EnemyCombat _combat; //戦闘クラスを参照
-
+    private ReadyForBattleChecker _readyForBattleChecker; //臨戦態勢を管理
+    
     public Vector3 Velocity { get; private set; }
 
     [Header("パラメーター")]
@@ -24,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _combat = GetComponent<EnemyCombat>();
+        _readyForBattleChecker = GetComponentInChildren<ReadyForBattleChecker>();
     }
 
     private void Update()

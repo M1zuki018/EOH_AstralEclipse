@@ -9,7 +9,7 @@ public class KeyItem : InteractableItemBase
         if (inventory != null)
         {
             inventory.AddKey(gameObject.name);
-            Destroy(gameObject.transform.parent); //キーを追加したらオブジェクトを削除する
+            Destroy(gameObject.transform.parent.gameObject); //キーを追加したらオブジェクトを削除する
         }
     }
 }

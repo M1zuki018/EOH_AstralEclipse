@@ -1,5 +1,73 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &103121091418558991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3149824730159195828}
+  - component: {fileID: 2457925751938542292}
+  - component: {fileID: 8673215406431878732}
+  m_Layer: 0
+  m_Name: ReadyForBattleCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3149824730159195828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103121091418558991}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.180798, y: 0.23, z: -19.423151}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8280839130511044178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2457925751938542292
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103121091418558991}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 9
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8673215406431878732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103121091418558991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d895ac5e6fe43d347aced8a24047ebb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _radius: 6
+  _tag: Enemy
 --- !u!1 &5957478605852209290
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,12 +216,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6358346556732802457, guid: 0cc65954127eda9458915203ff1b6837,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 3149824730159195828}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cc65954127eda9458915203ff1b6837, type: 3}
 --- !u!4 &3522467535673195796 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1888204917118965471, guid: 0cc65954127eda9458915203ff1b6837,
+    type: 3}
+  m_PrefabInstance: {fileID: 3086674186649791435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8280839130511044178 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6358346556732802457, guid: 0cc65954127eda9458915203ff1b6837,
     type: 3}
   m_PrefabInstance: {fileID: 3086674186649791435}
   m_PrefabAsset: {fileID: 0}

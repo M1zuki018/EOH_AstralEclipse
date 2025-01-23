@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     
     private PlayerState _playerState;
     public PlayerState PlayerState => _playerState; //公開
+    
+    public InteractableItemBase InteractableItem { get; set; } //インタラクト可能なアイテム
 
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
@@ -40,6 +42,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     #endregion
     
     [SerializeField, HighlightIfNull] private WallChecker _wallChecker;
+    private ReadyForBattleChecker _readyForBattleChecker; //臨戦態勢の判定
 
     //未リファクタリング
     private bool _isHanding; //よじのぼり中か
@@ -74,12 +77,15 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         _croucher = (ICrouchable) _mover;
         _climbFunction = new ClimbFunction(_animator, _characterController, transform, this);
         
-        _inputHandler = new PlayerInputHandler(_playerState, _mover, _jumper, _walker, _croucher,
+        _inputHandler = new PlayerInputHandler(this, _playerState, _mover, _jumper, _walker, _croucher,
             GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
             GetComponent<WallRunFunction>(), _climbFunction, GetComponent<BigJumpFunction>(),
             GetComponent<VaultFunction>(), GetComponent<PlayerCombat>());
         
         _animator.applyRootMotion = true; //ルートモーションを有効化
+        
+        _readyForBattleChecker = GetComponentInChildren<ReadyForBattleChecker>();
+
     }
 
     #region 入力されたときのメソッド一覧
@@ -125,7 +131,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
 
     private void HandleAttackInput(InputAction.CallbackContext context)
     {
-        if (context.performed) _inputHandler.HandleAttackInput();
+        if (context.performed)_inputHandler.HandleAttackInput();
     }
     
     private void HandleSkillInput(InputAction.CallbackContext context, int index)
@@ -190,6 +196,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
             _jumper.Jumping(); //ジャンプ処理
             HandleGroundedCheck();
             HandleFalling(); //落下中の判定
+            _animator.SetBool("ReadyForBattle", _readyForBattleChecker.ReadyForBattle);
         }
     }
     

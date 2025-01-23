@@ -21,7 +21,6 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     private void Start()
     {
         //コンポーネントを取得する
-
         _enemyMovement = GetComponent<EnemyMovement>();
         _combat = GetComponent<EnemyCombat>();
         _collider = GetComponent<Collider>();
