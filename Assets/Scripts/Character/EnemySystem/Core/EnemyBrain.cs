@@ -29,7 +29,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         _health.OnDamaged += HandleDamage; //ダメージ時イベント登録
         _health.OnDeath += HandleDeath; //死亡時イベント登録
         
-        _uiManager.RegisterEnemy(this, _maxHP);
+        _uiManager.RegisterEnemy(this, _maxHP); //HPバーを頭上に生成する
 
         //ターゲットマッチング用
         MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
@@ -60,6 +60,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     protected override void HandleDeath(GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
+        _uiManager.UnregisterEnemy(this); //HPスライダーを削除する
         //TODO:死亡エフェクト等の処理
         //Destroy(gameObject, 1.0f);
         // 死亡時の処理（アニメーション、消滅など）
