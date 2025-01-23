@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - VaultObject
   - JumpObject
+  - Interactable
   layers:
   - Default
   - TransparentFX
