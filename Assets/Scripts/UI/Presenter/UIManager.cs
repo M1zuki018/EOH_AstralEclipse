@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private SliderUI _playerHP; //プレイヤーのHPゲージ
     [SerializeField] private SliderUI _playerWill; //プレイヤーのWillゲージ
     [SerializeField] private SliderUI _playerTP; //プレイヤーのTPゲージ
+    [SerializeField] private List<IconUI> _skillIcons = new List<IconUI>(); //スキルアイコン
     [SerializeField] private GameObject _enemyHPPrefab; //エネミーのHPゲージのプレハブ
 
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
@@ -27,6 +28,23 @@ public class UIManager : MonoBehaviour
 
     /// <summary>プレイヤーのTPゲージを更新する</summary>
     public void UpdatePlayerTP(int value) => _playerTP.SetValue(value);
+
+    /// <summary>スキルアイコンの操作を行う</summary>
+    public void SelectedSkillIcon(int index)
+    {
+        foreach (var icon in _skillIcons)
+        {
+            if (icon == _skillIcons[index - 1])
+            {
+                icon.Select();
+            }
+            else
+            {
+                icon.Deselect();
+            }
+        }
+        
+    }
 
     /// <summary>エネミーのHPゲージを更新する</summary>
     public void UpdateEnemyHP(EnemyBrain enemy, int currentHP) => _enemyHpSliders[enemy].SetValue(currentHP);

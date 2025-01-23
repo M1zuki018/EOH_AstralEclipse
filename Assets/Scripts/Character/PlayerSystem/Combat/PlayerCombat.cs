@@ -8,9 +8,11 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour, ICombat
 {
     public int BaseAttackPower { get; private set; } = 10; //攻撃力
+    public int TP { get; private set; } = 100; //TP
     public AttackHitDetector Detector { get; private set; }
     private PlayerMovement _playerMovement;
     private DamageHandler _damageHandler;
+    public UIManager _uiManager;
 
     private void Start()
     {
@@ -40,7 +42,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         int skillDamage = BaseAttackPower * 2;
         _damageHandler.ApplyDamage(target, skillDamage, 0, gameObject);
-        //TODO: 処理を実装する
+        _uiManager.UpdatePlayerTP(3);
         Debug.Log($"スキルを使った　発動：{index}");
     }
 }
