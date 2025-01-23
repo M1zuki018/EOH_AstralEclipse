@@ -79,6 +79,7 @@ public class EnemyMovement : MonoBehaviour
     private void HandleIdleState()
     {
         _enemyAI?.GoToNextPoint(); //巡回
+        Velocity = Agent.velocity.normalized;
         //プレイヤーとの距離が、発見できる距離より短かったら追跡状態に移行する
         if (Vector3.Distance(_target.position, transform.position) <= _detectionRange)
         {

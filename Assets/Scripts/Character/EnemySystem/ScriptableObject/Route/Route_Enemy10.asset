@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: Route_Enemy10
   m_EditorClassIdentifier: 
   Waypoints:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 33.5, y: 0, z: 151.3}
+  - {x: 30.2, y: 0, z: 152.9}
