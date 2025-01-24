@@ -16,7 +16,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GaugeUI _stepGauge; //ステップ用のゲージ
     [SerializeField] private NumberUI _stepCount; //ステップの使用可能回数を表示するテキスト
     [SerializeField] private GameObject _enemyHPPrefab; //エネミーのHPゲージのプレハブ
-
+    [SerializeField] private TextUI _questText; //クエストを表示するテキスト
+    
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
     
 
@@ -59,6 +60,9 @@ public class UIManager : MonoBehaviour
 
     /// <summary>ステップUIを隠す</summary>
     public void HideStepUI() => _stepGauge.Hide();
+    
+    /// <summary>クエスト内容を表示するUIを更新する</summary>
+    public void UpdateQuestText(string text) => _questText.SetText(text);
     
     /// <summary>エネミーのHPゲージを更新する</summary>
     public void UpdateEnemyHP(EnemyBrain enemy, int currentHP) => _enemyHpSliders[enemy].SetValue(currentHP);
