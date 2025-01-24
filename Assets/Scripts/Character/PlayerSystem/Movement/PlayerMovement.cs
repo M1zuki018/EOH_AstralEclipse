@@ -195,10 +195,16 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         {
             _inputHandler.HandleClimbInput(); //壁のぼり処理
         }
+        else if (_playerState.IsJumping)
+        {
+            _jumper.Jumping(); //ジャンプ処理
+            HandleGroundedCheck();
+            HandleFalling(); //落下中の判定
+            _animator.SetBool("ReadyForBattle", _readyForBattleChecker.ReadyForBattle);
+        }
         else
         {
             _mover.Move(); //移動処理
-            _jumper.Jumping(); //ジャンプ処理
             HandleGroundedCheck();
             HandleFalling(); //落下中の判定
             _animator.SetBool("ReadyForBattle", _readyForBattleChecker.ReadyForBattle);

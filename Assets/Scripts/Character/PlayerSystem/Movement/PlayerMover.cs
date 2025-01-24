@@ -60,18 +60,8 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jumping()
         {
-            //水平方向の入力と高さのVelocityを組み合わせる
-            Vector3 velocity = new Vector3(_state.MoveDirection.x * _state.MoveSpeed, 
-                _state.Velocity.y, _state.MoveDirection.z * _state.MoveSpeed);
-            
-            if (_state.Velocity.y < 0) //落下中なら早く落下するようにする
-            { 
-                _characterController.Move( velocity * 6f * Time.deltaTime);
-            }
-            else
-            {
-                _characterController.Move(velocity * 3f * Time.deltaTime);
-            }
+            HandleMovement();
+            ApplyGravity();
         }
 
         /// <summary>
@@ -112,7 +102,6 @@ namespace PlayerSystem.Movement
         {
             if (_state.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
             {
-            
                 // カメラ基準で移動方向を計算
                 Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
                 Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
@@ -122,7 +111,8 @@ namespace PlayerSystem.Movement
                 
                 // 回転をカメラの向きに合わせる
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-                _characterController.transform.rotation = Quaternion.Slerp(_characterController.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+                _characterController.transform.rotation = Quaternion.Slerp(_characterController.transform.rotation, 
+                    targetRotation, _rotationSpeed * Time.deltaTime);
 
                 if (_animator.applyRootMotion)
                 {
@@ -131,8 +121,19 @@ namespace PlayerSystem.Movement
                 }
                 else
                 {
-                    //ルートモーションがオンじゃなければ、CharacterControllerのMoveメソッドを使用する
-                    _characterController.Move(moveDirection * _state.MoveSpeed * Time.deltaTime);
+                    //ルートモーションがオンじゃないとき＝ジャンプ中は、CharacterControllerのMoveメソッドを使用する
+                    
+                    //水平方向の入力と高さのVelocityを組み合わせる
+                    Vector3 velocity = _state.Velocity + moveDirection;
+            
+                    if (_state.Velocity.y < 0) //落下中なら早く落下するようにする
+                    { 
+                        _characterController.Move( velocity * 6f * Time.deltaTime);
+                    }
+                    else
+                    {
+                        _characterController.Move(velocity * 3f * Time.deltaTime);
+                    }
                 }
             
             }
