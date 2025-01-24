@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private SliderUI _playerWill; //プレイヤーのWillゲージ
     [SerializeField] private SliderUI _playerTP; //プレイヤーのTPゲージ
     [SerializeField] private List<IconUI> _skillIcons = new List<IconUI>(); //スキルアイコン
+    [SerializeField] private GaugeUI _stepGauge; //ステップ用のゲージ
+    [SerializeField] private NumberUI _stepCount; //ステップの使用可能回数を表示するテキスト
     [SerializeField] private GameObject _enemyHPPrefab; //エネミーのHPゲージのプレハブ
 
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
@@ -45,6 +47,15 @@ public class UIManager : MonoBehaviour
         }
         
     }
+
+    /// <summary>ステップゲージの値を更新する</summary>
+    public void UpdateStepGauge()
+    {
+        
+    }
+
+    /// <summary>ステップカウントの値を更新する</summary>
+    public void UpdateStepCount(int value) => _stepCount.SetNumber(value);
 
     /// <summary>エネミーのHPゲージを更新する</summary>
     public void UpdateEnemyHP(EnemyBrain enemy, int currentHP) => _enemyHpSliders[enemy].SetValue(currentHP);

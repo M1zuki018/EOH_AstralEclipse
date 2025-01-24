@@ -13,6 +13,7 @@ public class StepFunction : MonoBehaviour, ISteppable
     [SerializeField, Comment("回復間隔（秒）")] private float _recoveryTime = 5f;
     private int _currentSteps; // 現在のステップ数
     private PlayerMovement _playerMovement;
+    private PlayerCombat _playerCombat; 
 
     public int CurrentSteps => _currentSteps; //現在のステップ数（読み取り専用）
     public int MaxSteps => _maxSteps; //最大ステップ数（読み取り専用）
@@ -20,7 +21,8 @@ public class StepFunction : MonoBehaviour, ISteppable
 
     private void Start()
     {
-        _playerMovement = GetComponent<PlayerMovement>();
+        _playerMovement = GetComponent<PlayerMovement>(); //Animator,State取得用
+        _playerCombat = GetComponent<PlayerCombat>(); //UIManager取得用
         
         OnStep += HandleStep;
         
@@ -32,7 +34,7 @@ public class StepFunction : MonoBehaviour, ISteppable
             .Subscribe(_ =>
             {
                 _currentSteps++;
-                Debug.Log($"ステップ回数が回復しました: {_currentSteps}/{_maxSteps}");
+                _playerCombat._uiManager.UpdateStepCount(_currentSteps);
             })
             .AddTo(this); // GameObjectが破棄されるときに購読を解除
     }
@@ -59,7 +61,9 @@ public class StepFunction : MonoBehaviour, ISteppable
     /// </summary>
     public void HandleStep()
     {
+        //ステップ回数を減らすのと、UIを更新する
         _currentSteps--;
+        _playerCombat._uiManager.UpdateStepCount(_currentSteps);
 
         Vector3 velocity = _playerMovement.PlayerState.MoveDirection;
         float moveSpeed = _playerMovement.PlayerState.MoveSpeed;
@@ -69,12 +73,13 @@ public class StepFunction : MonoBehaviour, ISteppable
             _playerMovement._animator.SetFloat("XVelocity", 1);
             _playerMovement._animator.SetFloat("ZVelocity", 0);            
         }
-        else
+        else //入力があれば、それに応じた方向にステップできるようにAnimatorに値を渡す
         {
             _playerMovement._animator.SetFloat("XVelocity", velocity.x * moveSpeed);
             _playerMovement._animator.SetFloat("ZVelocity", velocity.z * moveSpeed);
         }
+        
+        //ステップアニメーションをトリガーする
         _playerMovement._animator.SetTrigger("Step");
-        Debug.Log($"Step used: {_currentSteps}/{_maxSteps}");
     }
 }
