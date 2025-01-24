@@ -14,7 +14,7 @@ namespace PlayerSystem.Movement
 
         private readonly float _runSpeed = 2f;
         private readonly float _walkSpeed = 1f;
-        private readonly float _jumpPower = 2f;
+        private readonly float _jumpPower = 1f;
         private readonly float _gravity = -9.81f;
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
@@ -42,7 +42,7 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jump()
         {
-            if (_state.IsGrounded)
+            if (_state.IsGrounded) //地面にいる場合はジャンプの初速度を設定する
             {
                 _state.IsJumping = true;
                 _state.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
@@ -60,7 +60,14 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jumping()
         {
-            _characterController.Move(_state.Velocity * Time.deltaTime);
+            if (_state.Velocity.y < 0) //落下中なら早く落下するようにする
+            {
+                _characterController.Move(_state.Velocity * 6f * Time.deltaTime);
+            }
+            else
+            {
+                _characterController.Move(_state.Velocity * 3f * Time.deltaTime);
+            }
         }
 
         /// <summary>
