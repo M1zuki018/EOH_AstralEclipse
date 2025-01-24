@@ -49,10 +49,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>ステップゲージの値を更新する</summary>
-    public void UpdateStepGauge()
-    {
-        
-    }
+    public void UpdateStepGauge(float endValue, float duration) => _stepGauge.ResetAndSetValue(endValue, duration);
 
     /// <summary>ステップカウントの値を更新する</summary>
     public void UpdateStepCount(int value) => _stepCount.SetNumber(value);

@@ -18,6 +18,7 @@ public class StepFunction : MonoBehaviour, ISteppable
     public int CurrentSteps => _currentSteps; //現在のステップ数（読み取り専用）
     public int MaxSteps => _maxSteps; //最大ステップ数（読み取り専用）
     public event Action OnStep;
+    private CompositeDisposable _disposable = new CompositeDisposable(); //Subscribeを登録しておく
 
     private void Start()
     {
@@ -28,15 +29,6 @@ public class StepFunction : MonoBehaviour, ISteppable
         
         _currentSteps = _maxSteps; // ステップ数の初期化
 
-        // 一定間隔でステップを回復する
-        Observable.Interval(TimeSpan.FromSeconds(_recoveryTime))
-            .Where(_ => _currentSteps < _maxSteps)  // ステップが最大値以下の場合のみ回復
-            .Subscribe(_ =>
-            {
-                _currentSteps++;
-                _playerCombat._uiManager.UpdateStepCount(_currentSteps);
-            })
-            .AddTo(this); // GameObjectが破棄されるときに購読を解除
     }
 
     private void OnDestroy()
@@ -61,6 +53,12 @@ public class StepFunction : MonoBehaviour, ISteppable
     /// </summary>
     public void HandleStep()
     {
+        if (_currentSteps == _maxSteps)
+        {
+            StartStepRecovery();
+            _playerCombat._uiManager.UpdateStepGauge(1,_recoveryTime);
+        }
+        
         //ステップ回数を減らすのと、UIを更新する
         _currentSteps--;
         _playerCombat._uiManager.UpdateStepCount(_currentSteps);
@@ -81,5 +79,37 @@ public class StepFunction : MonoBehaviour, ISteppable
         
         //ステップアニメーションをトリガーする
         _playerMovement._animator.SetTrigger("Step");
+    }
+    
+    /// <summary>
+    /// ステップ回数を回復する
+    /// </summary>
+    private void StartStepRecovery()
+    {
+        // 一定間隔でステップを回復する
+        Observable.Interval(TimeSpan.FromSeconds(_recoveryTime))
+            .Where(_ => _currentSteps < _maxSteps)  // ステップが最大値以下の場合のみ回復
+            .Subscribe(_ =>
+            {
+                _currentSteps++;
+                _playerCombat._uiManager.UpdateStepCount(_currentSteps);
+                
+                if (_currentSteps >= _maxSteps)
+                {
+                    StopStepRecovery(); //もし最大回数になっていたら購読を解除する
+                    return;
+                }
+                
+                _playerCombat._uiManager.UpdateStepGauge(1,_recoveryTime);
+            })
+            .AddTo(_disposable); // GameObjectが破棄されるときに購読を解除
+    }
+
+    /// <summary>
+    /// ステップ回数回復を止める
+    /// </summary>
+    private void StopStepRecovery()
+    {
+        _disposable.Clear(); //購読を解除する
     }
 }

@@ -5,6 +5,6 @@ namespace UI.Interface
     /// </summary>
     public interface IGaugeUI : IUIElement
     {
-        void SetValue(float normalizedValue);
+        void SetValue(float endValue, float duration);
     }
 }

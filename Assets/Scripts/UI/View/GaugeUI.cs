@@ -16,9 +16,19 @@ namespace UI.View
         /// <summary>
         /// ゲージUIのFillを操作する
         /// </summary>
-        public void SetValue(float normalizedValue)
+        public void SetValue(float endValue, float duration)
         {
-            _gaugeImage.DOFillAmount(normalizedValue, 0.5f).SetEase(Ease.OutQuad);
+            Debug.Log("呼ばれた");
+            _gaugeImage.DOFillAmount(endValue, duration).SetEase(Ease.OutQuad);
+        }
+        
+        /// <summary>
+        /// ゲージUIのFillをリセットした後操作する
+        /// </summary>
+        public void ResetAndSetValue(float endValue, float duration)
+        {
+            _gaugeImage.fillAmount = 0;
+            _gaugeImage.DOFillAmount(endValue, duration).SetEase(Ease.OutQuad);
         }
     }
 }

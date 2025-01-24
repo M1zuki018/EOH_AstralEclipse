@@ -2289,6 +2289,8 @@ MonoBehaviour:
   - {fileID: 5302176618973280265}
   - {fileID: 5637627384961420769}
   - {fileID: 6466023590323064316}
+  _stepGauge: {fileID: 124906307737566435}
+  _stepCount: {fileID: 6243146895932850675}
   _enemyHPPrefab: {fileID: 6895794364114097232, guid: afef13a27f35839409c9a3c784e61ad9,
     type: 3}
 --- !u!1 &7371949167856758224
@@ -2643,6 +2645,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StepGauge
       objectReference: {fileID: 0}
+    - target: {fileID: 4677838891859086704, guid: 3489ad11cdd445e40a66c5f4970f59b0,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5788291298842885819, guid: 3489ad11cdd445e40a66c5f4970f59b0,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2721,12 +2728,12 @@ PrefabInstance:
     - target: {fileID: 5788291298842885819, guid: 3489ad11cdd445e40a66c5f4970f59b0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 179.7
       objectReference: {fileID: 0}
     - target: {fileID: 5788291298842885819, guid: 3489ad11cdd445e40a66c5f4970f59b0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -149.3
       objectReference: {fileID: 0}
     - target: {fileID: 5788291298842885819, guid: 3489ad11cdd445e40a66c5f4970f59b0,
         type: 3}

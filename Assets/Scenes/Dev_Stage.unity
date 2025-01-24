@@ -4989,26 +4989,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3589518586459140413, guid: d68890645e5d79843a8c72504bed5cc2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 179.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3589518586459140413, guid: d68890645e5d79843a8c72504bed5cc2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -149.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4475789477046752065, guid: d68890645e5d79843a8c72504bed5cc2,
-        type: 3}
-      propertyPath: _stepCount
-      value: 
-      objectReference: {fileID: 1406826979}
-    - target: {fileID: 4475789477046752065, guid: d68890645e5d79843a8c72504bed5cc2,
-        type: 3}
-      propertyPath: _stepGauge
-      value: 
-      objectReference: {fileID: 1406826980}
     - target: {fileID: 7309619828914679584, guid: d68890645e5d79843a8c72504bed5cc2,
         type: 3}
       propertyPath: m_Name
@@ -5039,30 +5019,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d68890645e5d79843a8c72504bed5cc2, type: 3}
---- !u!114 &1406826979 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6243146895932850675, guid: d68890645e5d79843a8c72504bed5cc2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1406826974}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306ea48fe352b8d4296337cd566e06af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1406826980 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 124906307737566435, guid: d68890645e5d79843a8c72504bed5cc2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1406826974}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 908f5674b15c4a3479d297f6b269a42f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &1409442803
 Mesh:
   m_ObjectHideFlags: 0
