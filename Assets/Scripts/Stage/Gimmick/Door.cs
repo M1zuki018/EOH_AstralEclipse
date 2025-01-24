@@ -7,6 +7,7 @@ using UnityEngine;
 public class Door : InteractableItemBase
 {
     public event Action OnDoorOpened;
+    private Inventory _inventory;
 
     private void Start()
     {
@@ -21,8 +22,9 @@ public class Door : InteractableItemBase
     public override void Interact()
     {
         Inventory inventory = _player.GetComponent<Inventory>();
+        _inventory = inventory;
         
-        if (inventory.HasAllKeys())
+        if (_inventory.HasAllKeys())
         {
             //キーが揃っていたらイベント発火
             OnDoorOpened?.Invoke();
@@ -41,6 +43,6 @@ public class Door : InteractableItemBase
     {
         //_collider.enabled = false; //判定を消す
         Destroy(gameObject.transform.parent.gameObject); //TODO:処理を書く
-        Debug.Log("Doorが開いた");
+        _inventory.UseKey(); //目標更新
     }
 }

@@ -12,7 +12,6 @@ public class KeyItem : InteractableItemBase
         if (inventory != null)
         {
             inventory.AddKey(_keyName);
-            Debug.Log($"{_keyName} をインベントリに追加しました");
             Destroy(gameObject.transform.parent.gameObject); //キーを追加したらオブジェクトを削除する
         }
     }
