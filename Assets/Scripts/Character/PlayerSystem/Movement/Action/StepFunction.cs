@@ -60,6 +60,20 @@ public class StepFunction : MonoBehaviour, ISteppable
     public void HandleStep()
     {
         _currentSteps--;
+
+        Vector3 velocity = _playerMovement.PlayerState.MoveDirection;
+        float moveSpeed = _playerMovement.PlayerState.MoveSpeed;
+        
+        if (velocity.magnitude < 0.1f) //入力がなかったら正面方向にステップ
+        {
+            _playerMovement._animator.SetFloat("XVelocity", 1);
+            _playerMovement._animator.SetFloat("ZVelocity", 0);            
+        }
+        else
+        {
+            _playerMovement._animator.SetFloat("XVelocity", velocity.x * moveSpeed);
+            _playerMovement._animator.SetFloat("ZVelocity", velocity.z * moveSpeed);
+        }
         _playerMovement._animator.SetTrigger("Step");
         Debug.Log($"Step used: {_currentSteps}/{_maxSteps}");
     }
