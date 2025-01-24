@@ -10,10 +10,11 @@ namespace PlayerSystem.Movement
         private Animator _animator;
         private PlayerState _state;
         private CinemachineVirtualCamera _playerCamera;
+        private Vector3 _moveNormal;
 
         private readonly float _runSpeed = 2f;
         private readonly float _walkSpeed = 1f;
-        private readonly float _jumpPower = 5f;
+        private readonly float _jumpPower = 2f;
         private readonly float _gravity = -9.81f;
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
@@ -52,7 +53,6 @@ namespace PlayerSystem.Movement
                 _animator.SetBool("IsJumping", true);
                 _animator.applyRootMotion = false;
             }
-                
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace PlayerSystem.Movement
                 Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
                 Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
                 Vector3 moveDirection = cameraForward *_state.MoveDirection.z + cameraRight * _state.MoveDirection.x;
-                Vector3 moveNormal = moveDirection.normalized;
+                _moveNormal = moveDirection.normalized;
             
                 // 回転をカメラの向きに合わせる
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
@@ -115,7 +115,7 @@ namespace PlayerSystem.Movement
                 if (_animator.applyRootMotion)
                 {
                     // Animatorの速度を設定
-                    _animator.SetFloat("Speed", moveNormal.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
+                    _animator.SetFloat("Speed", _moveNormal.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
                 }
                 else
                 {
@@ -126,7 +126,19 @@ namespace PlayerSystem.Movement
             }
             else
             {
-                _animator.SetFloat("Speed", 0);　// 入力がない場合は停止
+                //緩やかに減速する。2fの部分を変化させると、減速の強さを変更できる
+                _moveNormal = Vector3.Lerp(_moveNormal, Vector3.zero, 2f * Time.deltaTime);
+                float speed = _moveNormal.magnitude * _state.MoveSpeed;
+                
+                if (speed < 0.01f)
+                {
+                    //減速がほぼ終了していたら、スピードにはゼロを入れる
+                    _animator.SetFloat("Speed", 0);
+                }
+                else
+                {
+                    _animator.SetFloat("Speed", speed);   
+                }
             }
         }
         
