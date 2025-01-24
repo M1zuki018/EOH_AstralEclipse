@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     public void OnCrouch(InputAction.CallbackContext context) => HandleCrouchInput(context);
     
     /// <summary>ステップ</summary>
-    public void OnStep(InputAction.CallbackContext context) => _inputHandler.HandleStepInput(); 
+    public void OnStep(InputAction.CallbackContext context) => HandleStepInput(context);
     
     /// <summary>ガード状態を切り替える</summary>
     public void OnGuard(InputAction.CallbackContext context) => HandleGuardInput(context);
@@ -148,6 +148,11 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     {
         if (context.performed) _inputHandler.HandleCrouchInput(true);
         if (context.canceled) _inputHandler.HandleCrouchInput(false);
+    }
+
+    private void HandleStepInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) _inputHandler.HandleStepInput();
     }
 
     private void HandleGuardInput(InputAction.CallbackContext context)

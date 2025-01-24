@@ -3,7 +3,7 @@ namespace PlayerSystem.ActionFunction
     public interface ISteppable
     {
         /// <summary>ステップを消費する</summary>
-        public bool TryUseStep();
+        public void TryUseStep();
 
         /// <summary>現在のステップ数を取得する</summary>
         public int CurrentSteps { get; }
@@ -12,6 +12,6 @@ namespace PlayerSystem.ActionFunction
         public int MaxSteps { get; }
         
         /// <summary>ステップ機能</summary>
-        public void Step();
+        public void HandleStep();
     }
 }

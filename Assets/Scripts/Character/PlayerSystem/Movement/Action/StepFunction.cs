@@ -2,6 +2,7 @@ using UnityEngine;
 using UniRx;
 using System;
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Movement;
 
 /// <summary>
 /// ステップ機能を提供する
@@ -11,12 +12,18 @@ public class StepFunction : MonoBehaviour, ISteppable
     [SerializeField, Comment("ステップの最大数")] private int _maxSteps = 10;
     [SerializeField, Comment("回復間隔（秒）")] private float _recoveryTime = 5f;
     private int _currentSteps; // 現在のステップ数
+    private PlayerMovement _playerMovement;
 
     public int CurrentSteps => _currentSteps; //現在のステップ数（読み取り専用）
     public int MaxSteps => _maxSteps; //最大ステップ数（読み取り専用）
+    public event Action OnStep;
 
     private void Start()
     {
+        _playerMovement = GetComponent<PlayerMovement>();
+        
+        OnStep += HandleStep;
+        
         _currentSteps = _maxSteps; // ステップ数の初期化
 
         // 一定間隔でステップを回復する
@@ -30,26 +37,30 @@ public class StepFunction : MonoBehaviour, ISteppable
             .AddTo(this); // GameObjectが破棄されるときに購読を解除
     }
 
+    private void OnDestroy()
+    {
+        OnStep -= HandleStep; //イベント解除
+    }
+
     /// <summary>
     /// ステップを消費する
     /// </summary>
-    public bool TryUseStep()
+    public void TryUseStep()
     {
         if (_currentSteps > 0)
         {
-            _currentSteps--;
-            Debug.Log($"Step used: {_currentSteps}/{_maxSteps}");
-            return true;
+            OnStep?.Invoke();
         }
-        Debug.Log("No steps available!");
-        return false;
+        Debug.Log("ステップカウントが足りません！");
     }
     
     /// <summary>
     /// ステップ機能
     /// </summary>
-    public void Step()
+    public void HandleStep()
     {
-        throw new NotImplementedException(); //TODO:ステップ機能を実装する
+        _currentSteps--;
+        _playerMovement._animator.SetTrigger("Step");
+        Debug.Log($"Step used: {_currentSteps}/{_maxSteps}");
     }
 }

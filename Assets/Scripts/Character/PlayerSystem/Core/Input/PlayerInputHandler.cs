@@ -94,10 +94,7 @@ namespace PlayerSystem.Input
         /// <summary>ステップ入力処理</summary>
         public void HandleStepInput()
         {
-            if (_stepper.TryUseStep())
-            {
-                _stepper.Step();
-            }
+            _stepper.TryUseStep();
         }
 
         /// <summary>ガード入力処理</summary>
