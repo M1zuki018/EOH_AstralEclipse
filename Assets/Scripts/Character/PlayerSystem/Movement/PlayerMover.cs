@@ -60,13 +60,17 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jumping()
         {
+            //水平方向の入力と高さのVelocityを組み合わせる
+            Vector3 velocity = new Vector3(_state.MoveDirection.x * _state.MoveSpeed, 
+                _state.Velocity.y, _state.MoveDirection.z * _state.MoveSpeed);
+            
             if (_state.Velocity.y < 0) //落下中なら早く落下するようにする
-            {
-                _characterController.Move(_state.Velocity * 6f * Time.deltaTime);
+            { 
+                _characterController.Move( velocity * 6f * Time.deltaTime);
             }
             else
             {
-                _characterController.Move(_state.Velocity * 3f * Time.deltaTime);
+                _characterController.Move(velocity * 3f * Time.deltaTime);
             }
         }
 
@@ -113,8 +117,9 @@ namespace PlayerSystem.Movement
                 Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
                 Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
                 Vector3 moveDirection = cameraForward *_state.MoveDirection.z + cameraRight * _state.MoveDirection.x;
-                _moveNormal = moveDirection.normalized;
-            
+                Vector3 moveNormal = moveDirection.normalized;
+                _moveNormal = moveNormal; //減速用
+                
                 // 回転をカメラの向きに合わせる
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
                 _characterController.transform.rotation = Quaternion.Slerp(_characterController.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
@@ -122,7 +127,7 @@ namespace PlayerSystem.Movement
                 if (_animator.applyRootMotion)
                 {
                     // Animatorの速度を設定
-                    _animator.SetFloat("Speed", _moveNormal.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
+                    _animator.SetFloat("Speed", moveNormal.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
                 }
                 else
                 {
