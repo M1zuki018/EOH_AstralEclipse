@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UI.View;
 using UnityEngine;
+using UnityEngine.XR;
 
 /// <summary>
 /// 全UIを管理するクラス
@@ -45,7 +46,6 @@ public class UIManager : MonoBehaviour
                 icon.Deselect();
             }
         }
-        
     }
 
     /// <summary>ステップゲージの値を更新する</summary>
@@ -54,9 +54,15 @@ public class UIManager : MonoBehaviour
     /// <summary>ステップカウントの値を更新する</summary>
     public void UpdateStepCount(int value) => _stepCount.SetNumber(value);
 
+    /// <summary>ステップUIを表示する</summary>
+    public void ShowStepUI() => _stepGauge.Show();
+
+    /// <summary>ステップUIを隠す</summary>
+    public void HideStepUI() => _stepGauge.Hide();
+    
     /// <summary>エネミーのHPゲージを更新する</summary>
     public void UpdateEnemyHP(EnemyBrain enemy, int currentHP) => _enemyHpSliders[enemy].SetValue(currentHP);
-
+    
     /// <summary>エネミーのHPスライダーのUIを作成する</summary>
     public void RegisterEnemy(EnemyBrain enemy, int maxHP)
     {

@@ -27,6 +27,7 @@ public class StepFunction : MonoBehaviour, ISteppable
         
         OnStep += HandleStep;
         
+        _playerCombat._uiManager.HideStepUI(); //UIを隠す
         _currentSteps = _maxSteps; // ステップ数の初期化
 
     }
@@ -86,6 +87,8 @@ public class StepFunction : MonoBehaviour, ISteppable
     /// </summary>
     private void StartStepRecovery()
     {
+        _playerCombat._uiManager.ShowStepUI(); //UIを見せる
+        
         // 一定間隔でステップを回復する
         Observable.Interval(TimeSpan.FromSeconds(_recoveryTime))
             .Where(_ => _currentSteps < _maxSteps)  // ステップが最大値以下の場合のみ回復
@@ -111,5 +114,6 @@ public class StepFunction : MonoBehaviour, ISteppable
     private void StopStepRecovery()
     {
         _disposable.Clear(); //購読を解除する
+        _playerCombat._uiManager.HideStepUI(); //UIを隠す
     }
 }

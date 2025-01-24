@@ -2758,6 +2758,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 124906307737566435}
+    - targetCorrespondingSourceObject: {fileID: 2193466674732825710, guid: 3489ad11cdd445e40a66c5f4970f59b0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5699410215885773078}
     - targetCorrespondingSourceObject: {fileID: 710593366322897561, guid: 3489ad11cdd445e40a66c5f4970f59b0,
         type: 3}
       insertIndex: -1
@@ -2831,3 +2835,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gaugeImage: {fileID: 2409331063215620854}
+--- !u!225 &5699410215885773078
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9220115522163045352}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
