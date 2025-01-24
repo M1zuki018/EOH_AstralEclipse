@@ -3,13 +3,18 @@ using UnityEngine;
 /// <summary>
 /// 全ての目的地アイコンを管理する
 /// </summary>
-public class WaypointSystem : MonoBehaviour
+public class WayPointSystem : MonoBehaviour
 {
     [SerializeField] private Waypoint[] _waypoints;
     private int _currentIndex = 0;
 
     private void Start()
     {
+        foreach (Waypoint waypoint in _waypoints)
+        {
+            waypoint.WayPointSystem = this;
+        }
+        
         UpdateWaypoints();
     }
 
