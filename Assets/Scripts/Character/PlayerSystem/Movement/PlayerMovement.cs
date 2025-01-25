@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     private void InitializeComponents()
     {
         //インスタンスを生成
-        _mover = new PlayerMover(_characterController, _animator, _playerState, _playerCamera);
+        _mover = new PlayerMover(_characterController, _animator, _playerState, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
         _croucher = (ICrouchable) _mover;

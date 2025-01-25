@@ -11,6 +11,7 @@ namespace PlayerSystem.Movement
         private PlayerState _state;
         private CinemachineVirtualCamera _playerCamera;
         private Vector3 _moveNormal;
+        private TrailRenderer _trailRenderer;
 
         private readonly float _runSpeed = 2f;
         private readonly float _walkSpeed = 1f;
@@ -19,12 +20,14 @@ namespace PlayerSystem.Movement
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
         
-        public PlayerMover(CharacterController characterController, Animator animator, PlayerState state, CinemachineVirtualCamera playerCamera)
+        public PlayerMover(CharacterController characterController, Animator animator, PlayerState state, 
+            CinemachineVirtualCamera playerCamera, TrailRenderer trailRenderer)
         {
             _characterController = characterController;
             _animator = animator;
             _state = state;
             _playerCamera = playerCamera;
+            _trailRenderer = trailRenderer;
             _state.MoveSpeed = _walkSpeed;
         }
 
@@ -102,6 +105,8 @@ namespace PlayerSystem.Movement
         {
             if (_state.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
             {
+                _trailRenderer.emitting = true; //軌跡をつける
+                
                 // カメラ基準で移動方向を計算
                 Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
                 Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
@@ -135,7 +140,6 @@ namespace PlayerSystem.Movement
                         _characterController.Move(velocity * 3f * Time.deltaTime);
                     }
                 }
-            
             }
             else
             {
@@ -147,9 +151,11 @@ namespace PlayerSystem.Movement
                 {
                     //減速がほぼ終了していたら、スピードにはゼロを入れる
                     _animator.SetFloat("Speed", 0);
+                    _trailRenderer.emitting = true; //TrailRendererの描写は行わない
                 }
                 else
                 {
+                    _trailRenderer.emitting = true;
                     _animator.SetFloat("Speed", speed);   
                 }
             }
