@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cinemachine;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,6 +20,9 @@ public class PlayerBrain : CharacterBase
     [SerializeField, HighlightIfNull] private List<InputActionReference> _moveActions; //InputSystemのアクション参照
     [SerializeField, HighlightIfNull] private InputActionReference _lookAction; //カメラ操作のアクション参照
     private Subject<Unit> _inputDetected = new Subject<Unit>();
+    
+    //カメラシェイク用
+    [SerializeField, HighlightIfNull] private CinemachineImpulseSource _impulseSource;
     
     private void Start()
     {
@@ -73,6 +77,7 @@ public class PlayerBrain : CharacterBase
         DebugOverlay.Log($"{attacker.name}から{damage}ダメージ受けた！！");
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
         _uiManager.UpdatePlayerHP(GetCurrentHP());
+        _impulseSource?.GenerateImpulse(); //カメラを揺らす
     }
 
     protected override void HandleDeath(GameObject attacker)
