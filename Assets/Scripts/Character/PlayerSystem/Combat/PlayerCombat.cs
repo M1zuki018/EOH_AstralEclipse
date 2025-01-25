@@ -13,6 +13,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     private PlayerMovement _playerMovement;
     private DamageHandler _damageHandler;
     public UIManager _uiManager;
+    [SerializeField] private SkillSO _skillSet;
 
     private void Start()
     {

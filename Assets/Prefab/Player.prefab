@@ -457,6 +457,7 @@ MonoBehaviour:
   - {fileID: -7421330398195313848, guid: 23a392d5fc9920d49b50d83a46fd05a8, type: 3}
   _lookAction: {fileID: -1541080918188002743, guid: 23a392d5fc9920d49b50d83a46fd05a8,
     type: 3}
+  _impulseSource: {fileID: 0}
 --- !u!114 &8494996535144275585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 0}
+  _skillSet: {fileID: 11400000, guid: 8511c6d56ed44b441beefae0f23af607, type: 2}
 --- !u!114 &575061778541108521
 MonoBehaviour:
   m_ObjectHideFlags: 0

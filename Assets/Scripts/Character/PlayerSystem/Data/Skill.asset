@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa5b64f95a717444aa79bf75a579a80, type: 3}
+  m_Name: Skill
+  m_EditorClassIdentifier: 
+  _skillSet:
+  - ID: 0
+    Name: Rush
+    Descriptionl: 
+    Icon: {fileID: 21300000, guid: 262d84a2f1cc59b499b7efacb3686875, type: 3}
+    AttackMultiplier: 2
+    Cooldown: 10
+    ResourceCost: 20
+    Type: 1
+    CastTime: 0
+    Range: 5
+    EffectPrefab: {fileID: 0}
+    AnimationClip: {fileID: 0}
+    CastCondition: {fileID: 0}
+  - ID: 1
+    Name: AreaAttack
+    Descriptionl: 
+    Icon: {fileID: 21300000, guid: ee7576706330f114bac1774c12ad008c, type: 3}
+    AttackMultiplier: 2.5
+    Cooldown: 15
+    ResourceCost: 30
+    Type: 0
+    CastTime: 0
+    Range: 3
+    EffectPrefab: {fileID: 0}
+    AnimationClip: {fileID: 0}
+    CastCondition: {fileID: 0}
+  - ID: 2
+    Name: Potion
+    Descriptionl: 
+    Icon: {fileID: 21300000, guid: 8c122f237f21d0141887aad9eb660bc0, type: 3}
+    AttackMultiplier: 0
+    Cooldown: 0
+    ResourceCost: 10
+    Type: 4
+    CastTime: 0
+    Range: 0
+    EffectPrefab: {fileID: 0}
+    AnimationClip: {fileID: 0}
+    CastCondition: {fileID: 0}
+  - ID: 3
+    Name: Mystery
+    Descriptionl: 
+    Icon: {fileID: 0}
+    AttackMultiplier: 5
+    Cooldown: 30
+    ResourceCost: 50
+    Type: 1
+    CastTime: 0
+    Range: 4
+    EffectPrefab: {fileID: 0}
+    AnimationClip: {fileID: 0}
+    CastCondition: {fileID: 0}
