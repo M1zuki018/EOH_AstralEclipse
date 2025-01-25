@@ -15,13 +15,16 @@ public class SkillSO : ScriptableObject
     /// </summary>
     public void Cast(int index)
     {
+        /*
         //条件が満たされていない場合は発動しない
         if(!_skillSet[index].CastCondition.IsSatisfied())
         {
             Debug.Log($"{_skillSet[index].Name} の発動条件が満たされていません");
             return;
         }
+        */
         
         OnCastEvent?.Invoke(); //スキル発動のイベントを発火する
+        Debug.Log("スキル発動");
     }
 }

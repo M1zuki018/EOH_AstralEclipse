@@ -165,6 +165,7 @@ namespace PlayerSystem.Input
         public void HandleSkillInput(int index)
         {
             _combat._uiManager.SelectedSkillIcon(index);
+            _combat.SkillSet.Cast(index);
             //TODO: _combat.UseSkill(index, ターゲットどうするか);
         }
     }

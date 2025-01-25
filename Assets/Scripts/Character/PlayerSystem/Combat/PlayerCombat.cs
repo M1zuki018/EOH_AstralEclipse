@@ -14,6 +14,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     private DamageHandler _damageHandler;
     public UIManager _uiManager;
     [SerializeField] private SkillSO _skillSet;
+    public SkillSO SkillSet => _skillSet;
 
     private void Start()
     {
