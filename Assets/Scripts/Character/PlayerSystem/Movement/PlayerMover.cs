@@ -147,11 +147,11 @@ namespace PlayerSystem.Movement
                 _moveNormal = Vector3.Lerp(_moveNormal, Vector3.zero, 2f * Time.deltaTime);
                 float speed = _moveNormal.magnitude * _state.MoveSpeed;
                 
-                if (speed < 0.01f)
+                if (speed < 0.03f)
                 {
                     //減速がほぼ終了していたら、スピードにはゼロを入れる
                     _animator.SetFloat("Speed", 0);
-                    _trailRenderer.emitting = true; //TrailRendererの描写は行わない
+                    _trailRenderer.emitting = false; //TrailRendererの描写は行わない
                 }
                 else
                 {
