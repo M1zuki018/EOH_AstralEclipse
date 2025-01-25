@@ -63,7 +63,7 @@ public class EnemyCombat : MonoBehaviour, ICombat
     /// <summary>
     /// スキル処理
     /// </summary>
-    public void UseSkill(int index, IDamageable target)
+    public void UseSkill(int index)
     {
         Debug.Log($"{gameObject.name} がスキルを使った　発動： {index}");
         //TODO: スキルの処理を実装する

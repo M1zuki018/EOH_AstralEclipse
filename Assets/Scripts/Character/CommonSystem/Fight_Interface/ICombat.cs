@@ -12,8 +12,7 @@ namespace PlayerSystem.Fight
         void Attack();
         
         /// <summary>特殊スキル</summary>
-        /// <param name="target">攻撃対象</param>
-        void UseSkill(int index, IDamageable target);
+        void UseSkill(int index);
         
         /// <summary>攻撃判定の検知</summary>
         AttackHitDetector Detector { get; }

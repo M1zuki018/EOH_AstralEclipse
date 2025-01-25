@@ -40,11 +40,31 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// <summary>
     /// スキル処理
     /// </summary>
-    public void UseSkill(int index, IDamageable target)
+    public void UseSkill(int index)
     {
-        int skillDamage = BaseAttackPower * 2;
-        _damageHandler.ApplyDamage(target, skillDamage, 0, gameObject);
-        _uiManager.UpdatePlayerTP(3);
-        Debug.Log($"スキルを使った　発動：{index}");
+        SkillData skill = _skillSet.Cast(index); //スキルデータを取得する
+
+        if (TP < skill.ResourceCost) //TPの判定を行う
+        {
+            return;
+        }
+
+        //発動条件がセットされているとき、条件が満たされていない場合は発動しない
+        if(skill.CastCondition != null && !skill.CastCondition.IsSatisfied())
+        {
+            Debug.Log($"{skill.Name} の発動条件が満たされていません");
+            return;
+        }
+        
+        List<IDamageable> damageables = Detector.PerformAttack();
+        foreach (IDamageable damageable in damageables)
+        {
+            _damageHandler.ApplyDamage(damageable, 
+                baseDamage: Mathf.FloorToInt(BaseAttackPower * skill.AttackMultiplier), //攻撃力*スキル倍率。小数点以下切り捨て
+                 0, gameObject);
+        }
+        
+        _uiManager.UpdatePlayerTP(skill.ResourceCost);
+        Debug.Log($"スキルを使った　発動：{skill.Name}");
     }
 }
