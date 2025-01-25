@@ -22,6 +22,8 @@ public class PlayerCombat : MonoBehaviour, ICombat
         _playerMovement = GetComponent<PlayerMovement>();
         _damageHandler = new DamageHandler();
         Detector = GetComponentInChildren<AttackHitDetector>();
+        
+        _uiManager.InitializePlayerTP(TP, TP);
     }
     
     /// <summary>
@@ -46,6 +48,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
 
         if (TP < skill.ResourceCost) //TPの判定を行う
         {
+            Debug.Log($"{skill.Name} の発動にTPが足りません");
             return;
         }
 
@@ -56,6 +59,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
             return;
         }
         
+        //ダメージを与える処理
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)
         {
@@ -64,7 +68,9 @@ public class PlayerCombat : MonoBehaviour, ICombat
                  0, gameObject);
         }
         
-        _uiManager.UpdatePlayerTP(skill.ResourceCost);
+        TP -= skill.ResourceCost; //TPを減らす
+        
+        _uiManager.UpdatePlayerTP(TP);
         Debug.Log($"スキルを使った　発動：{skill.Name}");
     }
 }

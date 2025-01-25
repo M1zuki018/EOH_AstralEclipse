@@ -29,7 +29,10 @@ public class UIManager : MonoBehaviour
 
     /// <summary>プレイヤーのWillゲージを更新する</summary>
     public void UpdatePlayerWill(int value) => _playerWill.SetValue(value);
-
+    
+    /// <summary>プレイヤーのTPゲージを初期化する</summary>
+    public void InitializePlayerTP(int maxValue, int defaultValue) => _playerTP.InitializeValue(maxValue, defaultValue);
+    
     /// <summary>プレイヤーのTPゲージを更新する</summary>
     public void UpdatePlayerTP(int value) => _playerTP.SetValue(value);
 
