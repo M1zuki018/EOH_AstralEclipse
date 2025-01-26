@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
@@ -7,16 +7,31 @@ using UnityEngine;
 /// </summary>
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance;
+    
     [SerializeField] private List<AudioSource> _audioSources = new List<AudioSource>();
     [SerializeField] private List<AudioDataSO> _audioDatas = new List<AudioDataSO>();
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); //インスタンスを生成
+        }
+        else
+        {
+            Destroy(gameObject); //既にあったら破棄する
+        }
+    }
+    
     /// <summary>
     /// AudioSourceのクリップを変更する
     /// </summary>
     public void ClipChange(AudioType audioType, int clipIndex)
     {
         int index = GetAudioIndex(audioType);
-        AudioSource source = GetAudioSource(index);
+        AudioSource source = _audioSources[index];
         ClipData clip = GetClipData(_audioDatas[index], clipIndex);
         
         //取得したAudioSourceにクリップの情報を設定する
@@ -27,9 +42,35 @@ public class AudioManager : MonoBehaviour
         source.Play();
     }
 
-    public void PlayOnShotClip(AudioType audioType, int clipIndex)
+    /// <summary>
+    /// SEを再生する
+    /// </summary>
+    public void PlaySE(int clipIndex)
     {
-        //TODO:実装を書く
+        //音源を取得したら、volumeを調整してから再生する
+        ClipData clip = GetClipData(_audioDatas[1], clipIndex);
+        _audioSources[1].volume = clip.Volume;
+        _audioSources[1].PlayOneShot(clip.Clip);
+    }
+    
+    //TODO:フェード
+
+    /// <summary>
+    /// フェードイン機能
+    /// </summary>
+    public void FadeIn(AudioType audioType)
+    {
+        int index = GetAudioIndex(audioType);
+        float volume = _audioSources[index].volume;
+        _audioSources[index].DOFade(volume, 0.5f);
+    }
+    
+    /// <summary>
+    /// フェードアウト機能
+    /// </summary>
+    public void FadeOut(AudioType audioType)
+    {
+        _audioSources[GetAudioIndex(audioType)].DOFade(0, 0.5f);
     }
     
     /// <summary>
@@ -50,9 +91,6 @@ public class AudioManager : MonoBehaviour
         return index;
     }
 
-    /// <summary>AudioSourceを返します</summary>
-    public AudioSource GetAudioSource(int index) => _audioSources[index];
-    
     /// <summary>Clipデータの構造体を返します</summary>
-    public ClipData GetClipData(AudioDataSO audioData, int index) => audioData.Clips[index];
+    private ClipData GetClipData(AudioDataSO audioData, int index) => audioData.Clips[index];
 }
