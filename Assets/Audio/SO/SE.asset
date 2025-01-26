@@ -20,3 +20,12 @@ MonoBehaviour:
   - Clip: {fileID: 8300000, guid: e8000c3b4271248469afeb8f442188c8, type: 3}
     Volume: 0.8
     Loop: 0
+  - Clip: {fileID: 8300000, guid: 4e1501cfd174cd947bbc8a93aca29ea3, type: 3}
+    Volume: 1
+    Loop: 0
+  - Clip: {fileID: 8300000, guid: 1802f60958d7952419f7c342e73b49de, type: 3}
+    Volume: 0.8
+    Loop: 0
+  - Clip: {fileID: 8300000, guid: d7bac596b01da55469899fbd82300ed6, type: 3}
+    Volume: 0.8
+    Loop: 0

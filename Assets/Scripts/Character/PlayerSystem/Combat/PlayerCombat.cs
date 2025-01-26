@@ -46,8 +46,12 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleReadyForBattle()
     {
-        _playerMovement._animator.SetTrigger("ReadyForBattle");
-        _weaponObj.SetActive(true); //武器のオブジェクトを表示する
+        if (!_weaponObj.activeSelf) //まだ武器を構えていなかったら、以降の処理を行う
+        {
+            _playerMovement._animator.SetTrigger("ReadyForBattle");
+            _weaponObj.SetActive(true); //武器のオブジェクトを表示する
+            AudioManager.Instance.PlaySE(2);
+        }
     }
     
     /// <summary>
@@ -55,8 +59,12 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleRescission()
     {
-        Debug.Log("臨戦状態解除");
-        _weaponObj.SetActive(false);
+        if (_weaponObj.activeSelf)
+        {
+            Debug.Log("臨戦状態解除");
+            _weaponObj.SetActive(false);
+            AudioManager.Instance.PlaySE(2);
+        }
     }
     /// <summary>
     /// 攻撃入力を受けた時に呼び出される処理
@@ -65,6 +73,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         Detector.CurrentStage = _stage;
+        AudioManager.Instance.PlaySE(3); //TODO:まだ無限に音がなるので直す
         
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)
