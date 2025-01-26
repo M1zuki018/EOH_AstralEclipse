@@ -30,7 +30,8 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         _health.OnDeath += HandleDeath; //死亡時イベント登録
         
         _uiManager.RegisterEnemy(this, _maxHP); //HPバーを頭上に生成する
-
+        _currentHP = _maxHP;
+        
         //ターゲットマッチング用
         MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
         smb._target = this;
@@ -48,13 +49,13 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         _health.OnDeath -= HandleDeath; //死亡時イベント解除
     }
 
-
     public Vector3 TargetPosition { get; }
     
     protected override void HandleDamage(int damage, GameObject attacker)
     {
-        Debug.Log($"{gameObject.name}は{attacker.name}から{damage}ダメージ受けた！");
-        _uiManager.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
+        _currentHP -= damage;
+        Debug.Log($"{gameObject.name}は{attacker.name}から{damage}ダメージ受けた！ 現在{_currentHP})");
+        _uiManager.UpdateEnemyHP(this, _currentHP); //HPスライダーを更新する
     }
 
     protected override void HandleDeath(GameObject attacker)
