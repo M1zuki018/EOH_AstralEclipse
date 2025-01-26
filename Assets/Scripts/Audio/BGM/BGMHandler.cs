@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,13 +5,16 @@ using UnityEngine;
 /// </summary>
 public class BGMHandler : MonoBehaviour
 {
-    [SerializeField] private AudioSource _bgmSource;
-    [SerializeField] private AudioDataSO _bgmData;
+    [SerializeField] private AudioManager _manager;
     [SerializeField] private Door _door;
+    [SerializeField] private int _defaultBGMIndex = 0;
+    private AudioType _myType = AudioType.BGM;
 
     private void Start()
     {
-        _door.OnDoorOpened += HandleDoorOpened; //ボス戦突入時のイベント
+        _door.OnDoorOpened += HandleDoorOpened; //ボス戦突入時のイベントを登録
+        
+        _manager.ClipChange(_myType, _defaultBGMIndex); //BGMを初期化
     }
 
     private void OnDestroy()
@@ -26,7 +26,7 @@ public class BGMHandler : MonoBehaviour
     /// ボス戦突入時のBGM変更
     /// </summary>
     private void HandleDoorOpened()
-    {
- //       _bgmSource.clip = _bgmData.;
+    { 
+        _manager.ClipChange(_myType, 1);
     }
 }

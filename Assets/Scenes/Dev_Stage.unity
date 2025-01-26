@@ -627,6 +627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 156396984}
   - component: {fileID: 156396985}
+  - component: {fileID: 156396986}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -675,6 +676,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 932241fb352ca984b819deee28c48c09, type: 2}
   - {fileID: 11400000, guid: 1a7aa12aaff320943b90438761a228f2, type: 2}
   - {fileID: 11400000, guid: 383d527bc7752594b830324494f4f20e, type: 2}
+--- !u!114 &156396986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156396983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a600727d5420b7c44ab8752e69bb8538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 156396985}
+  _door: {fileID: 825663733}
+  _defaultBGMIndex: 1
 --- !u!850595691 &179128316
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -4649,6 +4665,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &825663733 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3271369519323599485, guid: 2396eb465f87e90459e7eae7e6b935d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 554696115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c954a74c263a90242a1d59bc2c4727e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &827415736
 Mesh:
   m_ObjectHideFlags: 0

@@ -11,9 +11,31 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioDataSO> _audioDatas = new List<AudioDataSO>();
 
     /// <summary>
+    /// AudioSourceのクリップを変更する
+    /// </summary>
+    public void ClipChange(AudioType audioType, int clipIndex)
+    {
+        int index = GetAudioIndex(audioType);
+        AudioSource source = GetAudioSource(index);
+        ClipData clip = GetClipData(_audioDatas[index], clipIndex);
+        
+        //取得したAudioSourceにクリップの情報を設定する
+        source.clip = clip.Clip;
+        source.volume = clip.Volume;
+        source.loop = clip.Loop;
+        
+        source.Play();
+    }
+
+    public void PlayOnShotClip(AudioType audioType, int clipIndex)
+    {
+        //TODO:実装を書く
+    }
+    
+    /// <summary>
     /// AudioTypeに対応したIndex番号を返します
     /// </summary>
-    public int GetAudioIndex(AudioType audioType)
+    private int GetAudioIndex(AudioType audioType)
     {
         //enumに応じて、返すAudioSourceのindex番号を取得
         int index = audioType switch
