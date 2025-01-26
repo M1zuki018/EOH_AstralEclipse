@@ -40,7 +40,6 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     private void Update()
     {
         Animator.SetInteger("HP", _currentHP);
-        Animator.SetFloat("Speed", _enemyMovement.Velocity.magnitude);
     }
 
     private void OnDestroy()

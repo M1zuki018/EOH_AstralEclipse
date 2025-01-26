@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     public NavMeshAgent Agent { get; private set; }
     [SerializeField] private Transform _target; //プレイヤーの参照
     private EnemyState _currentState = EnemyState.Idle; //状態
+    private EnemyBrain _brain;
     private EnemyCombat _combat; //戦闘クラスを参照
     private ReadyForBattleChecker _readyForBattleChecker; //臨戦態勢を管理
     private EnemyAI _enemyAI; //巡回中の動き
@@ -25,6 +26,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
+        _brain = GetComponent<EnemyBrain>();
         _combat = GetComponent<EnemyCombat>();
         _readyForBattleChecker = GetComponentInChildren<ReadyForBattleChecker>();
         _target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -78,6 +80,7 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void HandleIdleState()
     {
+        _brain.Animator.SetFloat("Speed", 0.5f, 0.5f, Time.deltaTime);
         _enemyAI?.GoToNextPoint(); //巡回
         Velocity = Agent.velocity.normalized;
         //プレイヤーとの距離が、発見できる距離より短かったら追跡状態に移行する
@@ -85,7 +88,6 @@ public class EnemyMovement : MonoBehaviour
         {
             TransitionToState(EnemyState.Chase);
         }
-        
     }
 
     /// <summary>
@@ -96,6 +98,7 @@ public class EnemyMovement : MonoBehaviour
         Agent.SetDestination(_target.position); //移動先の目的地点を更新する
         
         Velocity = Agent.velocity.normalized; //Animator制御のため
+        _brain.Animator.SetFloat("Speed", 1f, 0.5f, Time.deltaTime);
         
         //プレイヤーと自身の距離をはかる
         float distanceToPlayer = Vector3.Distance(transform.position, _target.position);
