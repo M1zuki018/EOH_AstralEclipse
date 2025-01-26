@@ -244,4 +244,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     }
 
     public Vector3 TargetPosition => _collider.ClosestPoint(_targetTransform.position);
+    
+    /// <summary>アニメーションイベントでSEを再生するためのメソッド</summary>
+    public void PlaySE(int index) => AudioManager.Instance.PlaySE(index);
 }

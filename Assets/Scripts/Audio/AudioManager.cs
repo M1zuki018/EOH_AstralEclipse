@@ -52,8 +52,6 @@ public class AudioManager : MonoBehaviour
         _audioSources[1].volume = clip.Volume;
         _audioSources[1].PlayOneShot(clip.Clip);
     }
-    
-    //TODO:フェード
 
     /// <summary>
     /// フェードイン機能

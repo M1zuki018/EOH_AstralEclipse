@@ -12,7 +12,7 @@ public abstract class CharacterBase : MonoBehaviour
     protected virtual void Awake() 
     { 
         _health = GetComponent<IHealth>(); 
-        _uiManager = FindObjectOfType<UIManager>(); 
+        _uiManager = FindObjectOfType<UIManager>();
         _health.OnDamaged += HandleDamage; //イベント登録
         _health.OnDeath += HandleDeath;
     }

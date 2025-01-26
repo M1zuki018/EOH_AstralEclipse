@@ -628,6 +628,7 @@ GameObject:
   - component: {fileID: 156396984}
   - component: {fileID: 156396985}
   - component: {fileID: 156396986}
+  - component: {fileID: 156396987}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -690,6 +691,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _door: {fileID: 825663733}
   _defaultBGMIndex: 1
+--- !u!114 &156396987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156396983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff128456bd056104a8de689f6d392202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!850595691 &179128316
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -987,6 +1000,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5777550406998585245, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
+      propertyPath: _audioManager
+      value: 
+      objectReference: {fileID: 156396985}
     - target: {fileID: 5777550406998585245, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}
       propertyPath: _impulseSource
@@ -5034,9 +5052,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5188547934384789705, guid: bde13255e467a8441b842b9501520942,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d48cd04659b721244877760e098e58ed, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
