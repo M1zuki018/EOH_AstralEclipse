@@ -42,7 +42,6 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     #endregion
     
     [SerializeField, HighlightIfNull] private WallChecker _wallChecker;
-    private ReadyForBattleChecker _readyForBattleChecker; //臨戦態勢の判定
 
     //未リファクタリング
     private bool _isHanding; //よじのぼり中か
@@ -83,9 +82,6 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
             GetComponent<VaultFunction>(), GetComponent<PlayerCombat>());
         
         _animator.applyRootMotion = true; //ルートモーションを有効化
-        
-        _readyForBattleChecker = GetComponentInChildren<ReadyForBattleChecker>();
-
     }
 
     #region 入力されたときのメソッド一覧
@@ -200,14 +196,12 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
             _jumper.Jumping(); //ジャンプ処理
             HandleGroundedCheck();
             HandleFalling(); //落下中の判定
-            _animator.SetBool("ReadyForBattle", _readyForBattleChecker.ReadyForBattle);
         }
         else
         {
             _mover.Move(); //移動処理
             HandleGroundedCheck();
             HandleFalling(); //落下中の判定
-            _animator.SetBool("ReadyForBattle", _readyForBattleChecker.ReadyForBattle);
         }
     }
     

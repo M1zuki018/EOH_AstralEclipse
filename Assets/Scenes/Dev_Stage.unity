@@ -1000,6 +1000,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5354095263494351068, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
+      propertyPath: _radius
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5777550406998585245, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}
       propertyPath: _audioManager
@@ -3025,7 +3030,7 @@ PrefabInstance:
     - target: {fileID: 3687521688858334780, guid: 2396eb465f87e90459e7eae7e6b935d0,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 1721
+      value: 1775
       objectReference: {fileID: 0}
     - target: {fileID: 3900113174068886189, guid: 2396eb465f87e90459e7eae7e6b935d0,
         type: 3}
@@ -3330,7 +3335,7 @@ PrefabInstance:
     - target: {fileID: 8998194055079326778, guid: 2396eb465f87e90459e7eae7e6b935d0,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 2492
+      value: 2546
       objectReference: {fileID: 0}
     - target: {fileID: 9016935613021397246, guid: 2396eb465f87e90459e7eae7e6b935d0,
         type: 3}
@@ -4300,7 +4305,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.800001
+  m_CameraDistance: 3.320001
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -4409,7 +4414,7 @@ Transform:
   m_GameObject: {fileID: 707531206}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.8529396, z: 2.509999}
+  m_LocalPosition: {x: 0, y: 4.802042, z: 2.989999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5469,7 +5474,7 @@ Transform:
   m_GameObject: {fileID: 1081295069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.8529396, z: 2.509999}
+  m_LocalPosition: {x: 0, y: 4.802042, z: 2.989999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9372,20 +9377,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2424840948659795378, guid: 91af33bff51d2f248b845098f6f17d9e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.83
+      objectReference: {fileID: 0}
     - target: {fileID: 5227330915432061354, guid: 91af33bff51d2f248b845098f6f17d9e,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1081295073}
+    - target: {fileID: 7773476641118388335, guid: 91af33bff51d2f248b845098f6f17d9e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.83
+      objectReference: {fileID: 0}
     - target: {fileID: 8242720666975338823, guid: 91af33bff51d2f248b845098f6f17d9e,
         type: 3}
       propertyPath: m_Name
       value: WorldSpaceCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8242720666975338823, guid: 91af33bff51d2f248b845098f6f17d9e,
+    - target: {fileID: 8774467665119967032, guid: 91af33bff51d2f248b845098f6f17d9e,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_AnchoredPosition.y
+      value: 4.83
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

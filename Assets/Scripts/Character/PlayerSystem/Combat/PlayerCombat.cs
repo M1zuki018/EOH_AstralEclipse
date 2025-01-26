@@ -26,7 +26,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         _playerMovement = GetComponent<PlayerMovement>();
         _damageHandler = new DamageHandler();
         Detector = GetComponentInChildren<AttackHitDetector>();
-        _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから取得
+        _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから取得。臨戦状態の判定
         
         _weaponObj.SetActive(false);
         
@@ -46,6 +46,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleReadyForBattle()
     {
+        _uiManager.ShowEnemyHP(_battleChecker.EnemyBrainDic[_battleChecker.EnemyBrain]); //敵のHPバーを表示する
         if (!_weaponObj.activeSelf) //まだ武器を構えていなかったら、以降の処理を行う
         {
             _playerMovement._animator.SetTrigger("ReadyForBattle");
@@ -59,6 +60,8 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleRescission()
     {
+        
+        _uiManager.HideEnemyHP(_battleChecker.EnemyBrain); //敵のHPバーを表示する
         if (_weaponObj.activeSelf)
         {
             Debug.Log("臨戦状態解除");

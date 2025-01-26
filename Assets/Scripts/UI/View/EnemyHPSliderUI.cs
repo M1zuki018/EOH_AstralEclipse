@@ -63,6 +63,16 @@ namespace UI.View
             _canvasGroup.blocksRaycasts = false;
         }
 
+        public void IsActive()
+        {
+            gameObject.SetActive(true);
+        }
+        
+        public void IsNotActive()
+        {
+            gameObject.SetActive(false);
+        }
+
         /// <summary>
         /// スライダーを更新する実装
         /// </summary>

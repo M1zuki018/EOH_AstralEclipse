@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class ReadyForBattleChecker : MonoBehaviour
     [SerializeField] string _tag;
     private SphereCollider _collider;
     public bool ReadyForBattle { get; private set; }
+    public EnemyBrain EnemyBrain{get; private set;}
+    public Dictionary<EnemyBrain, EnemyBrain> EnemyBrainDic = new Dictionary<EnemyBrain, EnemyBrain>();
     public event Action OnReadyForBattle; //臨戦状態になったときのイベント
     public event Action OnRescission; //臨戦状態が解除されたときのイベント
 
@@ -31,6 +34,9 @@ public class ReadyForBattleChecker : MonoBehaviour
         else if (_tag == "Player" && other.CompareTag("Enemy"))
         {
             ReadyForBattle = true; //タグがプレイヤーの場合は、エネミータグを検知する
+            other.TryGetComponent(out EnemyBrain brain);
+            EnemyBrainDic.Add(brain, brain); //EnemyBrainを取得してセットする
+            EnemyBrain = brain;
             OnReadyForBattle?.Invoke();
         }
         else
@@ -48,6 +54,8 @@ public class ReadyForBattleChecker : MonoBehaviour
         }
         else if (_tag == "Player" && other.CompareTag("Enemy"))
         {
+            other.TryGetComponent(out EnemyBrain brain);
+            EnemyBrain = brain;
             ReadyForBattle = false; //タグがプレイヤーの場合は、エネミータグを検知する
             OnRescission?.Invoke();
         }

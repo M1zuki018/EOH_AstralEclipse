@@ -66,7 +66,13 @@ public class UIManager : MonoBehaviour
     
     /// <summary>クエスト内容を表示するUIを更新する</summary>
     public void UpdateQuestText(string text) => _questText.SetText(text);
+
+    /// <summary>エネミーのHPバーを表示</summary>
+    public void ShowEnemyHP(EnemyBrain enemy) => _enemyHpSliders[enemy].IsActive();
     
+    /// <summary>エネミーのHPバーを隠す</summary>
+    public void HideEnemyHP(EnemyBrain enemy) => _enemyHpSliders[enemy].IsNotActive();
+
     /// <summary>エネミーのHPゲージを更新する</summary>
     public void UpdateEnemyHP(EnemyBrain enemy, int currentHP) => _enemyHpSliders[enemy].SetValue(currentHP);
     

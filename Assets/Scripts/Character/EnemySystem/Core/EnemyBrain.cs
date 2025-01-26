@@ -31,6 +31,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         
         _uiManager.RegisterEnemy(this, _maxHP); //HPバーを頭上に生成する
         _currentHP = _maxHP;
+        _uiManager.HideEnemyHP(this); //隠す
         
         //ターゲットマッチング用
         MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();

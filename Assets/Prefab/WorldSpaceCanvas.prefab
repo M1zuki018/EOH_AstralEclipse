@@ -363,7 +363,7 @@ PrefabInstance:
     - target: {fileID: 579937897900338874, guid: eff7ad3c2dfbcaa4383452fc8df216d3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.06
+      value: 4.83
       objectReference: {fileID: 0}
     - target: {fileID: 579937897900338874, guid: eff7ad3c2dfbcaa4383452fc8df216d3,
         type: 3}
@@ -384,6 +384,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WayPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716650487853578333, guid: eff7ad3c2dfbcaa4383452fc8df216d3,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716650487853578333, guid: eff7ad3c2dfbcaa4383452fc8df216d3,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
