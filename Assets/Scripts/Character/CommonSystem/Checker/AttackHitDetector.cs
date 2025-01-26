@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
-
+using UniRx;
 
 /// <summary>
 /// 攻撃時の衝突判定を管理
@@ -31,6 +30,7 @@ public class AttackHitDetector : MonoBehaviour
             {
                 new CollisionData
                 {
+                    Range = new Vector2(0, 1), //範囲
                     Offset = Vector3.zero, //オフセット
                     Rotation = Vector3.zero, //回転
                     Scale = Vector3.one //スケール
@@ -47,24 +47,58 @@ public class AttackHitDetector : MonoBehaviour
     
     public event Action<List<GameObject>> OnHitObjects;
 
+    [SerializeField] private int _currentStage;
+
     /// <summary>多段攻撃の場合、現在何段目なのか取得するためのプロパティ</summary>
-    public int CurrentStage { get; set; } = 0;
+    public int CurrentStage
+    {
+        get => _currentStage; 
+        set => _currentStage = value;
+    }
 
     /// <summary>検出のフレーム範囲を更新</summary>
-    public float Frame
-    {
-        get => _frame;
-        set => _frame = value;
-    }
+    public float Frame => _frame;
 
     private void Awake()
     {
         TryGetComponent(out _transform);
+        
+        /*
+        // ステージ変更時にフレームをリセット
+        _currentStage
+            .DistinctUntilChanged()
+            .Subscribe(stage =>
+            {
+                _frame = 0f; // フレームをリセット
+                Debug.Log($"Stage changed to {stage}. Frame reset.");
+            })
+            .AddTo(this);
+        */
     }
 
     private void OnEnable()
     {
         hitObjects.Clear(); //リストの中身をクリアする
+    }
+    
+    /// <summary>
+    /// 攻撃を開始し、フレームを一定時間カウントアップする
+    /// </summary>
+    public async UniTaskVoid StartAttack(float duration, float frameRate = 0.016f)
+    {
+        // duration: 攻撃アニメーションの持続時間
+        // frameRate: フレーム更新間隔（デフォルト約60FPS）
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            _frame = elapsed / duration; // 現在の進捗率（0～1）
+            elapsed += frameRate;
+            await UniTask.Delay(TimeSpan.FromSeconds(frameRate));
+        }
+
+        _frame = 1f; // 最終フレームに設定
+        Debug.Log("Attack finished.");
     }
 
     /// <summary>
@@ -91,32 +125,30 @@ public class AttackHitDetector : MonoBehaviour
         List<IDamageable> damageables = new();
 
             var data = _hitPositions[CurrentStage];
-            // 範囲外の場合は処理をスキップ
-            if (_hitPositions[CurrentStage].IsInRange(_frame) == false)
+            if (!data.IsInRange(_frame)) //効果フレームの範囲外の場合は処理をスキップ
                 return null;
 
-            // 範囲内で衝突検出を実行
-            for (var index = 0; index < data.Collisions.Length; index++)
+            var activeCollisions = data.GetActiveCollisions(_frame); //有効なHitボックスを取得
+            foreach (var col in activeCollisions)
             {
                 // 衝突検出を実行
-                var count = CalculateSphereCast(hitResults, data, index, position, rotation);
-
-                // OverlapBoxNonAlloc(...)で取得したリストから接触していないオブジェクトを登録
-                for (var hitIndex = 0; hitIndex < count; hitIndex++)
+                var count = CalculateSphereCast(hitResults, col, position, rotation);
+                // 範囲内で衝突検出を実行
+                for (var i = 0; i < count; i++)
                 {
-                    var hit = hitResults[hitIndex];
+                    var hit = hitResults[i];
                     var hitObject = hit.gameObject;
-
+                    
                     if (hitObjects.Contains(hitObject) || !IsValidTarget(hitObject))
                         continue;
-
+                    
                     //コライダーを登録
                     hitObjects.Add(hitObject);
                     hitCollidersInThisFrame.Add(hit);
                     hitObjectsInThisFrame.Add(hitObject);
                 }
             }
-            
+
             if (hitObjectsInThisFrame.Count > 0)
             {
                 foreach (var hit in hitObjectsInThisFrame)
@@ -128,16 +160,12 @@ public class AttackHitDetector : MonoBehaviour
         return damageables;
     }
 
-    private int CalculateSphereCast(Collider[] hitColliders, Data data, int index, Vector3 position,
-        Quaternion rotation)
+    private int CalculateSphereCast(Collider[] hitColliders, CollisionData col, Vector3 position, Quaternion rotation)
     {
-        var col = data.Collisions[index];
-
-        var worldPosition = position + _transform.TransformVector(data.Collisions[index].Offset);
+        var worldPosition = position + _transform.TransformVector(col.Offset);
         var colRotation = rotation * Quaternion.Euler(col.Rotation);
-        var count = Physics.OverlapBoxNonAlloc(worldPosition, col.Scale * 0.5f,
+        return Physics.OverlapBoxNonAlloc(worldPosition, col.Scale * 0.5f,
             hitColliders, colRotation, _hitLayer, QueryTriggerInteraction.Ignore);
-        return count;
     }
 
     /// <summary>
@@ -160,30 +188,53 @@ public class AttackHitDetector : MonoBehaviour
         Vector3 pos = transform.position;
         Quaternion rot = transform.rotation;
 
+        if (_hitPositions == null || _hitPositions.Length <= CurrentStage) 
+            return;
         
-            var data = _hitPositions[CurrentStage];
-            var isInRange = data.IsInRange(_frame);
+        var data = _hitPositions[CurrentStage];
+        
+        //現在のフレームがデータの範囲外なら描画しない
+        if(!data.IsInRange(_frame))
+            return;
+        
+        //var isInRange = data.IsInRange(_frame);
 
-            // 検出範囲をグラフィカルに表示
-            foreach (var col in data.Collisions)
+        // 有効な CollisionData を取得
+        var activeCollisions = data.GetActiveCollisions(_frame);
+        
+        // 検出範囲をグラフィカルに表示
+        foreach (var col in activeCollisions)
+        {
+            Gizmos.color = enabled ? Color.white : new Color(Color.white.r, Color.white.g, Color.white.b, 0.4f);
+            var position = _transform != null 
+                ? _transform.position + _transform.TransformVector(col.Offset)
+                : transform.position + transform.TransformVector(col.Offset);
+            var rotation = _transform != null
+                ? _transform.rotation * Quaternion.Euler(col.Rotation)
+                : transform.rotation * Quaternion.Euler(col.Rotation);
+
+            Gizmos.matrix = Matrix4x4.TRS(position, rotation, Vector3.one);
+            Gizmos.DrawWireCube(Vector3.zero, col.Scale);
+            
+            /*
+            var worldPosition = pos + transform.TransformVector(col.Offset);
+            var rotation = rot * Quaternion.Euler(col.Rotation);
+
+            // コンポーネントが有効な場合は白、無効な場合は半透明の白でGizmosの色を設定
+            Gizmos.color = enabled ? Color.white : new Color(Color.white.r, Color.white.g, Color.white.b, 0.4f);
+
+            // ワイヤーフレームとして範囲を表示
+            Gizmos.matrix = Matrix4x4.TRS(worldPosition, rotation, Vector3.one);
+            Gizmos.DrawWireCube(Vector3.zero, col.Scale);
+
+            // 範囲内かつ有効な場合は半透明の黄色で表示
+            if (isInRange && enabled)
             {
-                var worldPosition = pos + transform.TransformVector(col.Offset);
-                var rotation = rot * Quaternion.Euler(col.Rotation);
-
-                // コンポーネントが有効な場合は白、無効な場合は半透明の白でGizmosの色を設定
-                Gizmos.color = enabled ? Color.white : new Color(Color.white.r, Color.white.g, Color.white.b, 0.4f);
-
-                // ワイヤーフレームとして範囲を表示
-                Gizmos.matrix = Matrix4x4.TRS(worldPosition, rotation, Vector3.one);
-                Gizmos.DrawWireCube(Vector3.zero, col.Scale);
-
-                // 範囲内かつ有効な場合は半透明の黄色で表示
-                if (isInRange && enabled)
-                {
-                    Gizmos.color = new Color(Color.yellow.r, Color.yellow.g, Color.yellow.b, 0.2f);
-                    Gizmos.DrawCube(Vector3.zero, col.Scale);
-                } ;
-            }
+                Gizmos.color = new Color(Color.yellow.r, Color.yellow.g, Color.yellow.b, 0.2f);
+                Gizmos.DrawCube(Vector3.zero, col.Scale);
+            } ;
+            */
+        }
         
     }
 }

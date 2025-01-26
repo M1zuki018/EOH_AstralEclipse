@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
 
@@ -64,6 +65,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         Detector.CurrentStage = _stage;
+        
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)
         {
@@ -79,6 +81,14 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         _stage = stage;
     }
+    
+    /*
+    public async UniTaskVoid PerformAttack()
+    {
+        float attackDuration = 1.0f; // 攻撃の持続時間を設定（例: 1秒）
+        await Detector.StartAttack(attackDuration);
+    }
+    */
 
     /// <summary>
     /// スキル処理
