@@ -17,7 +17,8 @@ public class PlayerCombat : MonoBehaviour, ICombat
     [SerializeField] private SkillSO _skillSet;
     [SerializeField] private GameObject _weaponObj;
     public SkillSO SkillSet => _skillSet;
-
+    private int _stage;
+    
     private void Start()
     {
         //コンポーネントを取得する
@@ -62,11 +63,21 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public void Attack()
     {
         _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+        Detector.CurrentStage = _stage;
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)
         {
             _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
         }
+    }
+
+    /// <summary>
+    /// アニメーションイベントで呼び出す関数
+    /// 現在何段目の攻撃か取得できる
+    /// </summary>
+    public void OnAttackStage(int stage)
+    {
+        _stage = stage;
     }
 
     /// <summary>

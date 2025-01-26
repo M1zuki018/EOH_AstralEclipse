@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using PlayerSystem.Fight;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -46,6 +47,9 @@ public class AttackHitDetector : MonoBehaviour
     
     public event Action<List<GameObject>> OnHitObjects;
 
+    /// <summary>多段攻撃の場合、現在何段目なのか取得するためのプロパティ</summary>
+    public int CurrentStage { get; set; } = 0;
+
     /// <summary>検出のフレーム範囲を更新</summary>
     public float Frame
     {
@@ -86,11 +90,10 @@ public class AttackHitDetector : MonoBehaviour
         Collider[] hitResults = new Collider[50];
         List<IDamageable> damageables = new();
 
-        foreach (var data in _hitPositions)
-        {
+            var data = _hitPositions[CurrentStage];
             // 範囲外の場合は処理をスキップ
-            if (data.IsInRange(_frame) == false)
-                continue;
+            if (_hitPositions[CurrentStage].IsInRange(_frame) == false)
+                return null;
 
             // 範囲内で衝突検出を実行
             for (var index = 0; index < data.Collisions.Length; index++)
@@ -121,7 +124,7 @@ public class AttackHitDetector : MonoBehaviour
                     damageables.Add(hit.GetComponent<IDamageable>());
                 }
             }
-        }
+            
         return damageables;
     }
 
@@ -157,8 +160,8 @@ public class AttackHitDetector : MonoBehaviour
         Vector3 pos = transform.position;
         Quaternion rot = transform.rotation;
 
-        foreach (var data in _hitPositions)
-        {
+        
+            var data = _hitPositions[CurrentStage];
             var isInRange = data.IsInRange(_frame);
 
             // 検出範囲をグラフィカルに表示
@@ -179,8 +182,8 @@ public class AttackHitDetector : MonoBehaviour
                 {
                     Gizmos.color = new Color(Color.yellow.r, Color.yellow.g, Color.yellow.b, 0.2f);
                     Gizmos.DrawCube(Vector3.zero, col.Scale);
-                }
+                } ;
             }
-        }
+        
     }
 }
