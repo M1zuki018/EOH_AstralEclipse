@@ -49,7 +49,7 @@ public class ReadyForBattleChecker : MonoBehaviour
         else if (_tag == "Player" && other.CompareTag("Enemy"))
         {
             ReadyForBattle = false; //タグがプレイヤーの場合は、エネミータグを検知する
-            OnReadyForBattle?.Invoke();
+            OnRescission?.Invoke();
         }
         else
         {

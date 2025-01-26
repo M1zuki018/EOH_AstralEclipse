@@ -13,7 +13,9 @@ public class PlayerCombat : MonoBehaviour, ICombat
     private PlayerMovement _playerMovement;
     private DamageHandler _damageHandler;
     public UIManager _uiManager;
+    private ReadyForBattleChecker _battleChecker;
     [SerializeField] private SkillSO _skillSet;
+    [SerializeField] private GameObject _weaponObj;
     public SkillSO SkillSet => _skillSet;
 
     private void Start()
@@ -22,10 +24,38 @@ public class PlayerCombat : MonoBehaviour, ICombat
         _playerMovement = GetComponent<PlayerMovement>();
         _damageHandler = new DamageHandler();
         Detector = GetComponentInChildren<AttackHitDetector>();
+        _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから取得
         
-        _uiManager.InitializePlayerTP(TP, TP);
+        _weaponObj.SetActive(false);
+        
+        _uiManager.InitializePlayerTP(TP, TP); //TPゲージを初期化
+        _battleChecker.OnReadyForBattle += HandleReadyForBattle; //イベント登録
+        _battleChecker.OnRescission += HandleRescission;
+    }
+
+    private void OnDestroy()
+    {
+        _battleChecker.OnReadyForBattle -= HandleReadyForBattle; //解除
+        _battleChecker.OnRescission -= HandleRescission;
+    }
+
+    /// <summary>
+    /// 臨戦状態になったときの処理。武器を取り出す
+    /// </summary>
+    private void HandleReadyForBattle()
+    {
+        _playerMovement._animator.SetTrigger("ReadyForBattle");
+        _weaponObj.SetActive(true); //武器のオブジェクトを表示する
     }
     
+    /// <summary>
+    /// 臨戦状態が解除されたときの処理。武器をしまう
+    /// </summary>
+    private void HandleRescission()
+    {
+        Debug.Log("臨戦状態解除");
+        _weaponObj.SetActive(false);
+    }
     /// <summary>
     /// 攻撃入力を受けた時に呼び出される処理
     /// </summary>
