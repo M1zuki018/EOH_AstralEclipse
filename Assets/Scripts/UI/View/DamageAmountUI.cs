@@ -1,4 +1,5 @@
 
+using Cysharp.Threading.Tasks;
 using UI.Interface;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ public class DamageAmountUI : MonoBehaviour, ITextUI
     private Camera _mainCamera;
     private Transform _target; //ダメージを表示するキャラクターのTransform
     private RectTransform _rectTransform;
+    private DamageAmountUIPool _pool;
 
     private void Awake()
     {
@@ -24,9 +26,17 @@ public class DamageAmountUI : MonoBehaviour, ITextUI
     }
 
     /// <summary>
+    /// 初期化
+    /// </summary>
+    public void Initialize(DamageAmountUIPool pool)
+    {
+        _pool = pool; //オブジェクトプールの参照を保持する
+    }
+
+    /// <summary>
     /// ダメージ量を表示する
     /// </summary>
-    public void Show(int damage, Transform target)
+    public async void Show(int damage, Transform target)
     {
         //数字の散らばりを作成
         Vector3 randomOffset = new Vector3(Random.Range(-_dispersion.x, _dispersion.x), Random.Range(-_dispersion.y, _dispersion.y), 0);
@@ -36,15 +46,15 @@ public class DamageAmountUI : MonoBehaviour, ITextUI
         Vector3 screenPosition = _mainCamera.WorldToScreenPoint(worldPosition);
         
         _rectTransform.position = screenPosition; //移動
+        SetText(damage.ToString()); //値を書き換える
         
-        SetText(damage.ToString());
+        await UniTask.DelayFrame(100);
+        _pool.ReturnToPool(this); //プールに戻す
     }
     
     public void Hide()
     {
         _canvasGroup.alpha = 0;
-        _canvasGroup.interactable = false;
-        _canvasGroup.blocksRaycasts = false;
     }
 
     /// <summary>

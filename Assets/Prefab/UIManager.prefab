@@ -59,3 +59,4 @@ MonoBehaviour:
     type: 3}
   _questText: {fileID: 0}
   _fadePanel: {fileID: 0}
+  _damegeUIPool: {fileID: 0}
