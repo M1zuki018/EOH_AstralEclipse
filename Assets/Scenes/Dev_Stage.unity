@@ -970,6 +970,11 @@ PrefabInstance:
       propertyPath: _radius
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 5354095263494351068, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
+      propertyPath: _lockOnFunction
+      value: 
+      objectReference: {fileID: 933466235}
     - target: {fileID: 5777550406998585245, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}
       propertyPath: _audioManager
@@ -4944,6 +4949,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 605383528469faa4680cdd926abaf0bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &933466235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2347095184082615406, guid: 61b5c3d1d439235478cb934b8c6599cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 261357593}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ff6b28059536042b4a6bc833274ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &968109170 stripped

@@ -10,6 +10,7 @@ using UnityEngine;
 public class ReadyForBattleChecker : MonoBehaviour
 {
     [SerializeField] float _radius; //コライダーの半径
+    [SerializeField, HighlightIfNull] private LockOnFunction _lockOnFunction;
     private SphereCollider _collider;
 
     /// <summary>現在の臨戦状態</summary>
@@ -41,6 +42,7 @@ public class ReadyForBattleChecker : MonoBehaviour
         if (IsValidEnemy(other, out EnemyBrain enemyBrain)) //判定を行う
         {
             AddEnemy(enemyBrain);
+            _lockOnFunction.LockOn();
         }
     }
 

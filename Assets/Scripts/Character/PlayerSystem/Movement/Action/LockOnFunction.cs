@@ -34,7 +34,10 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             {
                 if (_battleChecker.EnemiesInRange.Count > 0)
                 {
-                    UpdateEnemiesInRange(); //範囲内の敵を更新し、必要であればロックオンを開始する
+                    if (_lockedOnEnemy == null) //ロックオンしている敵がいない場合、検索を行う
+                    {
+                        UpdateEnemiesInRange(); //範囲内の敵を更新し、必要であればロックオンを開始する
+                    }
                 }
                 else
                 {
