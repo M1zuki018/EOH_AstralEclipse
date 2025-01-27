@@ -78,7 +78,6 @@ namespace UI.View
 
         public void Hide()
         {
-            Debug.Log("呼ばれた");
             _canvasGroup.alpha = 0;
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;

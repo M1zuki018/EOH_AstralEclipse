@@ -17,7 +17,12 @@ public class EnemyFall : MonoBehaviour
             .EveryUpdate()
             .Where(_ => _enemy.position.y < _fallHeight)
             .Take(1)
-            .Subscribe(_ => gameObject.SetActive(false))
+            .Subscribe(_ =>
+            {
+                gameObject.SetActive(false);
+                
+                UIManager.Instance.UnregisterEnemy(this.gameObject.GetComponent<EnemyBrain>()); //HPスライダーを削除する
+            })
             .AddTo(this);
     }
 }

@@ -32,25 +32,22 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
         smb._target = this;
     }
-
-    private void Update()
-    {
-        Animator.SetInteger("HP", GetCurrentHP());
-    }
-    
     
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}から{damage}ダメージ受けた！ 現在{GetCurrentHP()})");
         UIManager.Instance.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
+        Animator.SetTrigger("Damage");
     }
 
     protected override void HandleDeath(GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
         UIManager.Instance.UnregisterEnemy(this); //HPスライダーを削除する
+        Animator.SetTrigger("Dead");
         //TODO:死亡エフェクト等の処理
-        //Destroy(gameObject, 1.0f);
-        // 死亡時の処理（アニメーション、消滅など）
+        
+        //コンポーネントの無効化
+        _enemyMovement.enabled = false;
     }
 }
