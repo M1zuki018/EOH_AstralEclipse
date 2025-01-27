@@ -21,8 +21,6 @@ public class KeyItem : InteractableItemBase
     {
         //CameraManager.Instance.UseTargetGroup(_keyObject, 1, 0.5f);
         //CameraManager.Instance.UseCamera(1);
-
-        await UniTask.DelayFrame(1000);
         
         Inventory inventory = _player.GetComponent<Inventory>(); //プレイヤーからイベントリクラスを取得
         if (inventory != null)
@@ -30,8 +28,6 @@ public class KeyItem : InteractableItemBase
             inventory.AddKey(_keyName);
             Destroy(gameObject.transform.parent.gameObject); //キーを追加したらオブジェクトを削除する
         }
-        
-        await UniTask.DelayFrame(1000);
         
         //CameraManager.Instance.UseCamera(0);
     }

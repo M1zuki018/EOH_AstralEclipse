@@ -84,7 +84,10 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void Attack()
     {
-        _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+        if (_battleChecker.ReadyForBattle)
+        {
+            _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+        }
     }
 
     /// <summary>
