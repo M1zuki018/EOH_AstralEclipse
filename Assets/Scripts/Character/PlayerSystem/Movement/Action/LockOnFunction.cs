@@ -1,84 +1,196 @@
+using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.ActionFunction;
+using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// ロックオン機能
 /// </summary>
 public class LockOnFunction : MonoBehaviour, ILockOnable
 {
-    [SerializeField] private Camera _camera; //Unityのカメラ
-    [SerializeField] private float _lockOnRadius = 0.5f; //カメラ中心からのロックオン範囲
-    [SerializeField] private float _detectionRange = 50f; //敵を検出する範囲
+    [SerializeField, Comment("判定を行うカメラ")] private Camera _camera; 
+    [SerializeField, Comment("カメラ中心からのロックオン範囲")] private float _lockOnRadius = 0.5f;
+    [SerializeField, HighlightIfNull] private ReadyForBattleChecker _battleChecker; //敵の検出範囲管理を行うクラス
     
-    public List<Transform> _inRangeEnemies = new List<Transform>(); //視界内の敵リスト
-    private Transform _lockedOnEnemy; //ロックオン中の敵
+    private readonly ReactiveProperty<Transform> _lockedOnEnemy = new ReactiveProperty<Transform>(); //現在ロックオンしている敵を保持する
+    private Transform _lockedEnemy; //ロックオン中の敵
 
-    private void Update()
+    private IDisposable _updateSubscription;
+    
+    private void Start()
     {
-        UpdateEnemiesInRange();
+        if (_battleChecker == null)
+        {
+            Debug.Assert(_battleChecker != null);
+            return;
+        }
+        
+        _updateSubscription = Observable
+            .Interval(TimeSpan.FromSeconds(0.5f))
+            .Subscribe(_ =>
+            {
+                if (_battleChecker.EnemiesInRange.Count > 0)
+                {
+                    UpdateEnemiesInRange(); //範囲内の敵を更新し、必要であればロックオンを開始する
+                }
+                else
+                {
+                    ClearLockOn(); //敵がいなくなったらロックオン解除
+                }
+            })
+            .AddTo(this);
+        
+        //ロックオン状態の監視
+        _lockedOnEnemy.Subscribe(OnLockOnTargetChanged).AddTo(this);
     }
+    
+    private void OnDestroy()
+    {
+        //解除
+        _updateSubscription?.Dispose();
+        _lockedOnEnemy.Dispose();
+    }
+    
+    /// <summary>
+    /// InputActionで入力があった時に呼ばれるメソッド
+    /// </summary>
+    public void LockOn()
+    {
+        if (_battleChecker.EnemiesInRange.Count == 0) //リストに敵がいなかった場合
+        {
+            Debug.Log("ロックオン可能な敵がいません");
+            _lockedOnEnemy.Value = null;
+            return;
+        }
+
+        Transform nextTarget = SelectNextLockOnTarget(); //別の敵をロックオンする
+        _lockedOnEnemy.Value = nextTarget;
+    }
+
+    #region 視界内の敵のリストを作成するメソッドまとめ
 
     /// <summary>
     /// 視界内の敵リストを更新する
     /// </summary>
     private void UpdateEnemiesInRange()
     {
-        _inRangeEnemies.Clear();
-        
-        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in allEnemies)
-        {
-            Health health = enemy.GetComponent<Health>();
-            if(health.IsDead) continue; //取得した敵が死んでいた場合は、次の判定に映る
-            
-            float distanceToPlayer = Vector3.Distance(transform.position, enemy.transform.position);
-            
-            //プレイヤーから一定距離内の敵をリストに追加
-            if (distanceToPlayer <= _detectionRange)
-            {
-                _inRangeEnemies.Add(enemy.transform);
-            }
-        }
-    }
+        List<Transform> inRangeEnemies = new List<Transform>(); //視界にいる敵のリスト
 
+        //探知範囲内にいる敵が死亡状態ではないか確認し、リストに追加する
+        foreach (EnemyBrain enemy in _battleChecker.EnemiesInRange)
+        {
+            if (!IsEnemyValid(enemy)) continue;
+            inRangeEnemies.Add(enemy.transform);
+        }
+        
+        // ロックオン可能な敵がいなければロックオンのアイコンを隠す
+        if (inRangeEnemies.Count == 0)
+        {
+            _lockedOnEnemy.Value = null;
+            return;
+        }
+
+        _lockedOnEnemy.Value = SelectLockOnTarget(inRangeEnemies); //新しいロックオン対象を選択する
+    }
+    
     /// <summary>
-    /// ロックオン機能
+    /// ロックオン対象を選択
     /// </summary>
-    public void LockOn()
+    private Transform SelectLockOnTarget(List<Transform> enemies)
     {
-        _lockedOnEnemy = null;
+        Transform bestTarget = null;
         float closestDistance = float.MaxValue;
 
-        foreach (var enemy in _inRangeEnemies)
+        //ロックオン可能な敵のリストの中からロックオン対象を探す
+        foreach (Transform enemy in enemies)
         {
-            Vector3 screenPoint = _camera.WorldToScreenPoint(enemy.position);
-            Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
-            float distanceFromCenter = Vector2.Distance(screenPoint, screenCenter);
+            Vector3 screenPoint = _camera.WorldToScreenPoint(enemy.position); //判定中のエネミーが描画されている座標
+            Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f); //画面の中心
+            float distanceFromCenter = Vector2.Distance(screenPoint, screenCenter); //エネミーの画面の中心からの距離を計算
 
-            if (distanceFromCenter <= _lockOnRadius * Screen.height) //スクリーン座標で比較
+            //カメラの中心から指定した範囲内に敵がいた場合、その敵をロックオンする
+            if (distanceFromCenter <= _lockOnRadius * Screen.height) return enemy;
+            
+            //次に視界方向にいる敵を優先
+            if (Vector3.Dot(_camera.transform.forward, (enemy.position - _camera.transform.position).normalized) > 0.8f)
             {
-                _lockedOnEnemy = enemy;
-                break; //中心近くの敵が見つかったら処理を中断する
+                return enemy;
             }
             
-            //中心以外の敵が見つからなかった場合は、最も近い敵を確認する
+            //カメラの中心から指定した範囲の中に敵がいなかった場合、プレイヤーから最も近い敵を選択
             float worldDistance = Vector3.Distance(transform.position, enemy.position);
             if (worldDistance < closestDistance)
             {
                 closestDistance = worldDistance;
-                _lockedOnEnemy = enemy;
+                bestTarget = enemy;
+            }
+        }
+        
+        return bestTarget;
+    }
+    #endregion
+    
+    /// <summary>
+    /// ロックオンしているターゲットが変更されたときに呼び出されるメソッド
+    /// </summary>
+    private void OnLockOnTargetChanged(Transform newTarget)
+    {
+        if (newTarget != null) //新しいターゲットがいた場合
+        {
+            UIManager.Instance.SetLockOnUI(newTarget);
+            AudioManager.Instance.PlaySE(2);
+        }
+        else //次のターゲットがいない場合
+        {
+            UIManager.Instance.HideLockOnUI();
+            Debug.Log("ロックオン可能な敵がいません");
+        }
+    }
+    
+    /// <summary>
+    /// 既にロックオンしている状態で再びロックオンの入力を受け取った時、次のロックオン対象を選択する
+    /// </summary>
+    private Transform SelectNextLockOnTarget()
+    {
+        Transform currentTarget = _lockedOnEnemy.Value;
+        Transform bestTarget = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (var enemy in _battleChecker.EnemiesInRange)
+        {
+            if (!IsEnemyValid(enemy)) continue; //敵が死亡していないか判定する
+            
+            if (enemy.transform == currentTarget) continue;　//現在のターゲットは省く
+
+            //プレイヤーに最も近い敵を探す
+            float worldDistance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (worldDistance < closestDistance)
+            {
+                closestDistance = worldDistance;
+                bestTarget = enemy.transform;
             }
         }
 
-        if (_lockedOnEnemy != null) //敵が見つかった場合
-        {
-            UIManager.Instance.SetLockOnUI(_lockedOnEnemy); //アイコンをセットする
-        }
-        else //敵が見つからなかった場合
-        {
-            UIManager.Instance.HideLockOnUI();
-            Debug.Log("敵が見つかりませんでした");
-        }
+        return bestTarget ?? currentTarget; // 次のターゲットが見つからなければ、現在のターゲットを維持
+    }
+    
+    /// <summary>
+    /// 有効な敵かの判定
+    /// EnemyBrainが取得できているか・死亡していないかチェックする
+    /// </summary>
+    private bool IsEnemyValid(EnemyBrain enemy)
+    {
+        return enemy != null && !enemy.GetComponent<Health>().IsDead;
+    }
+
+    /// <summary>
+    /// ロックオン解除用のメソッド
+    /// </summary>
+    public void ClearLockOn()
+    {
+        _lockedOnEnemy.Value = null;
     }
 }

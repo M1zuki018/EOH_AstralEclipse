@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -15,7 +16,7 @@ public class ReadyForBattleChecker : MonoBehaviour
     public bool ReadyForBattle { get; private set; }
 
     /// <summary>コライダー内の敵を管理するセット</summary>
-    public HashSet<EnemyBrain> _enemiesInRange = new HashSet<EnemyBrain>();
+    public HashSet<EnemyBrain> EnemiesInRange = new HashSet<EnemyBrain>();
 
     public event Action<EnemyBrain> OnReadyForBattle; //臨戦状態になったときのイベント
     public event Action<EnemyBrain> OnRescission; //臨戦状態が解除されたときのイベント
@@ -67,7 +68,7 @@ public class ReadyForBattleChecker : MonoBehaviour
     /// </summary>
     private void AddEnemy(EnemyBrain brain)
     {
-        if (_enemiesInRange.Add(brain)) //ハッシュセットに新規に追加できた場合のみ以下の処理を行う
+        if (EnemiesInRange.Add(brain)) //ハッシュセットに新規に追加できた場合のみ以下の処理を行う
         {
             if (!ReadyForBattle) //臨戦状態ではなかったら以下の処理を行う
             {
@@ -83,10 +84,10 @@ public class ReadyForBattleChecker : MonoBehaviour
     /// </summary>
     private void RemoveEnemy(EnemyBrain brain)
     {
-        if (_enemiesInRange.Remove(brain))
+        if (EnemiesInRange.Remove(brain))
         {
             // 敵が全ていなくなった場合、臨戦状態を解除する
-            if (_enemiesInRange.Count == 0)
+            if (EnemiesInRange.Count == 0)
             {
                 ReadyForBattle = false;
             }

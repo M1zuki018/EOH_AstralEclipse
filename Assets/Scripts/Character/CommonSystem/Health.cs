@@ -36,8 +36,6 @@ public class Health : MonoBehaviour, IHealth
         {
             OnDeath?.Invoke(attacker); //死亡イベント発火
         }
-        
-        Debug.Log(this.gameObject.name + IsDead + CurrentHP);
     }
 
     /// <summary>

@@ -6,6 +6,7 @@ using PlayerSystem.ActionFunction;
 using PlayerSystem.Input;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
+using Unity.VisualScripting;
 
 /// <summary>
 /// プレイヤーの移動機能
@@ -114,7 +115,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     public void OnGuard(InputAction.CallbackContext context) => HandleGuardInput(context);
 
     /// <summary>ロックオン機能</summary>
-    public void OnLockOn(InputAction.CallbackContext context) => _inputHandler.HandleLockOnInput();
+    public void OnLockOn(InputAction.CallbackContext context) => HandleLockOnInput(context);
     
     /// <summary>パルクールアクションキー</summary>
     public void OnParkourAction(InputAction.CallbackContext context) => HandleParkourAction(context);
@@ -149,6 +150,11 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     private void HandleStepInput(InputAction.CallbackContext context)
     {
         if (context.performed) _inputHandler.HandleStepInput();
+    }
+
+    private void HandleLockOnInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) _inputHandler.HandleLockOnInput();
     }
 
     private void HandleGuardInput(InputAction.CallbackContext context)
