@@ -29,6 +29,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         
         _weaponObj.SetActive(false);
         
+        UIManager.Instance.HideLockOnUI();
         UIManager.Instance.HidePlayerBattleUI();
         UIManager.Instance.InitializePlayerTP(TP, TP); //TPゲージを初期化
         _battleChecker.OnReadyForBattle += HandleReadyForBattle; //イベント登録
