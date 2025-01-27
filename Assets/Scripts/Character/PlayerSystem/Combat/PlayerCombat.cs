@@ -71,7 +71,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
             UIManager.Instance.HideLockOnUI(); //ロックオンアイコンを非表示にする
         }
         
-        if (_battleChecker.EnemyBrainDic.Count == 0 && _weaponObj.activeSelf)
+        if (_battleChecker._enemiesInRange.Count == 0 && _weaponObj.activeSelf)
         {
             _weaponObj.SetActive(false);
             AudioManager.Instance.PlaySE(2);
