@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cinemachine;
 using Cysharp.Threading.Tasks;
 using PlayerSystem.ActionFunction;
 using UniRx;
@@ -11,13 +12,15 @@ using UnityEngine.Serialization;
 /// </summary>
 public class LockOnFunction : MonoBehaviour, ILockOnable
 {
+    [SerializeField, HighlightIfNull] private CinemachineTargetGroup _targetGroup; //シネマシーンのカメラ
     [SerializeField, Comment("判定を行うカメラ")] private Camera _camera; 
     [SerializeField, Comment("カメラ中心からのロックオン範囲")] private float _lockOnRadius = 0.5f;
     [SerializeField, HighlightIfNull] private ReadyForBattleChecker _battleChecker; //敵の検出範囲管理を行うクラス
     
     private readonly ReactiveProperty<Transform> _lockedOnEnemy = new ReactiveProperty<Transform>(); //現在ロックオンしている敵を保持する
     private Transform _lockedEnemy; //ロックオン中の敵
-
+    private Transform _defaultFocusTarget; //VirtualCameraで初期状態でLook Atに設定されているトランスフォームを保持する
+    
     private IDisposable _updateSubscription;
     
     private void Start()
@@ -34,7 +37,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             {
                 if (_battleChecker.EnemiesInRange.Count > 0)
                 {
-                    if (_lockedOnEnemy == null) //ロックオンしている敵がいない場合、検索を行う
+                    if (_lockedOnEnemy == null || _lockedOnEnemy.Value.GetComponent<EnemyBrain>()) //ロックオンしている敵がいない場合、検索を行う
                     {
                         UpdateEnemiesInRange(); //範囲内の敵を更新し、必要であればロックオンを開始する
                     }
@@ -66,11 +69,15 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         {
             Debug.Log("ロックオン可能な敵がいません");
             _lockedOnEnemy.Value = null;
+            CameraManager.Instance.UseCamera(0);
             return;
         }
 
         Transform nextTarget = SelectNextLockOnTarget(); //別の敵をロックオンする
         _lockedOnEnemy.Value = nextTarget;
+        _targetGroup.RemoveMember(_targetGroup.m_Targets[1].target); //必ず消してからセットする
+        _targetGroup.AddMember(nextTarget.transform.GetChild(3), 1, 0.16f);
+        CameraManager.Instance.UseCamera(1);
     }
 
     #region 視界内の敵のリストを作成するメソッドまとめ
@@ -149,6 +156,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         else //次のターゲットがいない場合
         {
             UIManager.Instance.HideLockOnUI();
+            CameraManager.Instance.UseCamera(0);
             Debug.Log("ロックオン可能な敵がいません");
         }
     }
@@ -195,5 +203,6 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     public void ClearLockOn()
     {
         _lockedOnEnemy.Value = null;
+        CameraManager.Instance.UseCamera(0);
     }
 }

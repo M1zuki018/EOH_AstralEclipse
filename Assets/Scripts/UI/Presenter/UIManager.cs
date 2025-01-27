@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
     public void ShowEnemyHP(EnemyBrain enemy) => _enemyHpSliders[enemy].IsActive();
     
     /// <summary>エネミーのHPバーを隠す</summary>
-    public void HideEnemyHP(EnemyBrain enemy) => _enemyHpSliders[enemy].IsNotActive();
+    public void HideEnemyHP(EnemyBrain enemy) => _enemyHpSliders[enemy]?.IsNotActive();
 
     /// <summary>エネミーのHPゲージを更新する</summary>
     public void UpdateEnemyHP(EnemyBrain enemy, int currentHP) => _enemyHpSliders[enemy].SetValue(currentHP);
