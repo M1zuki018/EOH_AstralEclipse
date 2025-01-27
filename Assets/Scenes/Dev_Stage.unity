@@ -5509,36 +5509,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fbff9dc98c520145a46b44be9d20e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1303227612 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8141866118409614113, guid: d68890645e5d79843a8c72504bed5cc2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1406826974}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1303227613 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1813610101252397636, guid: d68890645e5d79843a8c72504bed5cc2,
     type: 3}
   m_PrefabInstance: {fileID: 1406826974}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303227612}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fbff9dc98c520145a46b44be9d20e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!225 &1303227617
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303227612}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!43 &1385966050
 Mesh:
   m_ObjectHideFlags: 0
@@ -5997,11 +5979,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8141866118409614113, guid: d68890645e5d79843a8c72504bed5cc2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8209906457436015151, guid: d68890645e5d79843a8c72504bed5cc2,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -6012,15 +5989,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4475789477046752065, guid: d68890645e5d79843a8c72504bed5cc2, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8141866118409614113, guid: d68890645e5d79843a8c72504bed5cc2,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1303227617}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d68890645e5d79843a8c72504bed5cc2, type: 3}
 --- !u!114 &1443036868 stripped
 MonoBehaviour:
@@ -7716,7 +7688,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiCanvas: {fileID: 1792473456}
   _playerHP: {fileID: 775548015}
-  _playerWill: {fileID: 0}
   _playerTP: {fileID: 31687135}
   _skillIcons:
   - {fileID: 1524168971}
@@ -9124,10 +9095,10 @@ SceneRoots:
   - {fileID: 1081295074}
   - {fileID: 658082139}
   - {fileID: 1947872548}
+  - {fileID: 1858890694}
   - {fileID: 6843825398097037141}
   - {fileID: 6457128248511558026}
   - {fileID: 554696115}
   - {fileID: 261357593}
   - {fileID: 1406826974}
   - {fileID: 3476752524609168513}
-  - {fileID: 1858890694}

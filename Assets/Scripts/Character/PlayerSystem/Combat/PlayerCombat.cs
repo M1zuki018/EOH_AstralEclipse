@@ -29,6 +29,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         
         _weaponObj.SetActive(false);
         
+        UIManager.Instance.HidePlayerBattleUI();
         UIManager.Instance.InitializePlayerTP(TP, TP); //TPゲージを初期化
         _battleChecker.OnReadyForBattle += HandleReadyForBattle; //イベント登録
         _battleChecker.OnRescission += HandleRescission;
@@ -55,6 +56,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
             _playerMovement._animator.SetTrigger("ReadyForBattle");
             _weaponObj.SetActive(true); //武器のオブジェクトを表示する
             AudioManager.Instance.PlaySE(2);
+            UIManager.Instance.ShowPlayerBattleUI();
         }
     }
     
@@ -72,6 +74,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         {
             _weaponObj.SetActive(false);
             AudioManager.Instance.PlaySE(2);
+            UIManager.Instance.HidePlayerBattleUI();
         }
     }
     

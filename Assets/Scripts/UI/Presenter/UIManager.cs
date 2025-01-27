@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
     
     [SerializeField, Comment("UIの親")] private Transform _uiCanvas;
     [SerializeField] private SliderUI _playerHP; //プレイヤーのHPゲージ
-    [SerializeField] private SliderUI _playerWill; //プレイヤーのWillゲージ
     [SerializeField] private SliderUI _playerTP; //プレイヤーのTPゲージ
     [SerializeField] private List<IconUI> _skillIcons = new List<IconUI>(); //スキルアイコン
     [SerializeField] private GaugeUI _stepGauge; //ステップ用のゲージ
@@ -40,9 +39,6 @@ public class UIManager : MonoBehaviour
     
     /// <summary>プレイヤーのHPゲージを初期化する</summary>
     public void InitializePlayerHP(int maxValue, int defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);
-
-    /// <summary>プレイヤーのWillゲージを更新する</summary>
-    public void UpdatePlayerWill(int value) => _playerWill.SetValue(value);
     
     /// <summary>プレイヤーのTPゲージを初期化する</summary>
     public void InitializePlayerTP(int maxValue, int defaultValue) => _playerTP.InitializeValue(maxValue, defaultValue);
@@ -118,5 +114,27 @@ public class UIManager : MonoBehaviour
     
     /// <summary>フェードパネルを非表示にする</summary>
     public void FadeIn() => _fadePanel.Hide();
+
+    /// <summary>バトル用UIをすべて表示する</summary>
+    public void ShowPlayerBattleUI()
+    {
+        _playerHP.ShowAndSlide();   
+        _playerTP.ShowAndSlide();
+        foreach (var icon in _skillIcons)
+        {
+            icon.ShowAndSlide();
+        }
+    }
+
+    /// <summary>バトル用UIをすべて非表示にする</summary>
+    public void HidePlayerBattleUI()
+    {
+        _playerHP.HideAndSlide();
+        _playerTP.HideAndSlide();
+        foreach (var icon in _skillIcons)
+        {
+            icon.HideAndSlide();
+        }
+    }
 
 }
