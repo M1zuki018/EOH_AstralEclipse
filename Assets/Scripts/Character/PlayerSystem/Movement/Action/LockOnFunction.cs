@@ -68,12 +68,13 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             }
         }
 
-        if (_lockedOnEnemy != null)
+        if (_lockedOnEnemy != null) //敵が見つかった場合
         {
-            Debug.Log("ロックオン中" + _lockedOnEnemy.name);
+            UIManager.Instance.SetLockOnUI(_lockedOnEnemy); //アイコンをセットする
         }
-        else
+        else //敵が見つからなかった場合
         {
+            UIManager.Instance.HideLockOnUI();
             Debug.Log("敵が見つかりませんでした");
         }
     }

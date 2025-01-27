@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<IconUI> _skillIcons = new List<IconUI>(); //スキルアイコン
     [SerializeField] private GaugeUI _stepGauge; //ステップ用のゲージ
     [SerializeField] private NumberUI _stepCount; //ステップの使用可能回数を表示するテキスト
+    [SerializeField] private LockOnUI _lockOnIcon; //ロックオンアイコン
     [SerializeField] private GameObject _enemyHPPrefab; //エネミーのHPゲージのプレハブ
     [SerializeField] private TextUI _questText; //クエストを表示するテキスト
     [SerializeField] private IconUI _fadePanel; //フェード用のパネル
@@ -51,14 +52,8 @@ public class UIManager : MonoBehaviour
     {
         foreach (var icon in _skillIcons)
         {
-            if (icon == _skillIcons[index - 1])
-            {
-                icon.Select();
-            }
-            else
-            {
-                icon.Deselect();
-            }
+            if (icon == _skillIcons[index - 1]) icon.Select();
+            else icon.Deselect();
         }
     }
 
@@ -73,6 +68,12 @@ public class UIManager : MonoBehaviour
 
     /// <summary>ステップUIを隠す</summary>
     public void HideStepUI() => _stepGauge.Hide();
+    
+    /// <summary>ロックオンアイコンの位置を変更する</summary>
+    public void SetLockOnUI(Transform targetTransform) => _lockOnIcon.IsActive(targetTransform);
+    
+    /// <summary>ロックオンアイコンを非表示にする</summary>
+    public void HideLockOnUI() => _lockOnIcon.IsNotActive();
     
     /// <summary>クエスト内容を表示するUIを更新する</summary>
     public void UpdateQuestText(string text) => _questText.SetText(text);

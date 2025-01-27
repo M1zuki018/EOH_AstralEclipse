@@ -68,6 +68,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         if (brain != null)
         {
             UIManager.Instance.HideEnemyHP(brain); //敵のHPバーを非表示にする
+            UIManager.Instance.HideLockOnUI(); //ロックオンアイコンを非表示にする
         }
         
         if (_battleChecker.EnemyBrainDic.Count == 0 && _weaponObj.activeSelf)
