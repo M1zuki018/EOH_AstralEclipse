@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UI.View;
 using UnityEngine;
-using UnityEngine.XR;
 
 /// <summary>
 /// 全UIを管理するクラス
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+    
     [SerializeField, Comment("UIの親")] private Transform _uiCanvas;
     [SerializeField] private SliderUI _playerHP; //プレイヤーのHPゲージ
     [SerializeField] private SliderUI _playerWill; //プレイヤーのWillゲージ
@@ -20,7 +21,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private IconUI _fadePanel; //フェード用のパネル
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
-    
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); //インスタンスを生成
+        }
+        else
+        {
+            Destroy(gameObject); //既にあったら破棄する
+        }
+    }
 
     /// <summary>プレイヤーのHPゲージを更新する</summary>
     public void UpdatePlayerHP(int currentHP) => _playerHP.SetValue(currentHP);

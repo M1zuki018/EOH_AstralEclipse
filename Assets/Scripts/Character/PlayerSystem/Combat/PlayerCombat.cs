@@ -13,7 +13,6 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public AttackHitDetector Detector { get; private set; }
     private PlayerMovement _playerMovement;
     private DamageHandler _damageHandler;
-    public UIManager _uiManager;
     private ReadyForBattleChecker _battleChecker;
     [SerializeField] private SkillSO _skillSet;
     [SerializeField] private GameObject _weaponObj;
@@ -30,7 +29,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         
         _weaponObj.SetActive(false);
         
-        _uiManager.InitializePlayerTP(TP, TP); //TPゲージを初期化
+        UIManager.Instance.InitializePlayerTP(TP, TP); //TPゲージを初期化
         _battleChecker.OnReadyForBattle += HandleReadyForBattle; //イベント登録
         _battleChecker.OnRescission += HandleRescission;
     }
@@ -48,7 +47,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         if (brain != null)
         {
-            _uiManager.ShowEnemyHP(brain); //敵のHPバーを表示する
+            UIManager.Instance.ShowEnemyHP(brain); //敵のHPバーを表示する
         }
         
         if (!_weaponObj.activeSelf) //まだ武器を構えていなかったら、以降の処理を行う
@@ -66,7 +65,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         if (brain != null)
         {
-            _uiManager.HideEnemyHP(brain); //敵のHPバーを非表示にする
+            UIManager.Instance.HideEnemyHP(brain); //敵のHPバーを非表示にする
         }
         
         if (_battleChecker.EnemyBrainDic.Count == 0 && _weaponObj.activeSelf)
@@ -140,7 +139,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         
         TP -= skill.ResourceCost; //TPを減らす
         
-        _uiManager.UpdatePlayerTP(TP);
+        UIManager.Instance.UpdatePlayerTP(TP);
         Debug.Log($"スキルを使った　発動：{skill.Name}");
     }
 }

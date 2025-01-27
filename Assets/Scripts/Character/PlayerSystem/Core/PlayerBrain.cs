@@ -27,7 +27,7 @@ public class PlayerBrain : CharacterBase
     private void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>(); //Animator、State取得用
-        _uiManager.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
+        UIManager.Instance.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
         
         //TODO: 最初からモーションを流せるように変更する
         SubscribeToInputEvents(); //入力イベントを購読
@@ -76,7 +76,7 @@ public class PlayerBrain : CharacterBase
     {
         //DebugOverlay.Log($"{attacker.name}から{damage}ダメージ受けた！！");
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
-        _uiManager.UpdatePlayerHP(GetCurrentHP());
+        UIManager.Instance.UpdatePlayerHP(GetCurrentHP());
         _impulseSource?.GenerateImpulse(); //カメラを揺らす
     }
 

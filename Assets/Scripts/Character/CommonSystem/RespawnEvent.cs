@@ -9,7 +9,6 @@ public class RespawnEvent : MonoBehaviour
 {
     [Header("設定")]
     [SerializeField, HighlightIfNull] private PlayerMovement _player;
-    [SerializeField, HighlightIfNull] private UIManager _uiManager;
     [SerializeField, Comment("フェードの長さ（単位はミリ秒）")] private int _fadeTime = 1500;
     [SerializeField, Comment("暗転の長さ（単位はミリ秒）")] private int _blackOutTime = 500;
     
@@ -42,7 +41,7 @@ public class RespawnEvent : MonoBehaviour
     /// </summary>
     private async void HandleRespawn()
     {
-        _uiManager.FadeOut();
+        UIManager.Instance.FadeOut();
         await UniTask.Delay(_fadeTime); //フェードを待つ
         
         //暗転中の処理
@@ -61,7 +60,7 @@ public class RespawnEvent : MonoBehaviour
         
         await UniTask.Delay(_blackOutTime); //暗転中の処理が十分に終わるまで待つ
         
-        _uiManager.FadeIn();
+        UIManager.Instance.FadeIn();
         
         await UniTask.Delay(_fadeTime); //フェードを待つ
         

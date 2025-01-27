@@ -164,7 +164,7 @@ namespace PlayerSystem.Input
         /// <summary>スキル攻撃の入力処理</summary>
         public void HandleSkillInput(int index)
         {
-            _combat._uiManager.SelectedSkillIcon(index);
+            UIManager.Instance.SelectedSkillIcon(index);
             _combat.UseSkill(index);
         }
     }

@@ -7,12 +7,10 @@ using PlayerSystem.Fight;
 public abstract class CharacterBase : MonoBehaviour
 {
     protected IHealth _health; //体力の管理
-    protected UIManager _uiManager; //UIの管理
     
     protected virtual void Awake() 
     { 
         _health = GetComponent<IHealth>(); 
-        _uiManager = FindObjectOfType<UIManager>();
         _health.OnDamaged += HandleDamage; //イベント登録
         _health.OnDeath += HandleDeath;
     }
