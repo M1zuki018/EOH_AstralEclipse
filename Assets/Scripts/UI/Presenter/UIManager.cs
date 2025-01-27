@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _enemyHPPrefab; //エネミーのHPゲージのプレハブ
     [SerializeField] private TextUI _questText; //クエストを表示するテキスト
     [SerializeField] private IconUI _fadePanel; //フェード用のパネル
+    [SerializeField] private GameObject _damageAmount; //ダメージ量を表示するテキストのプレハブ
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
@@ -138,4 +139,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>ダメージテキストを表示する</summary>
+    public void ShowDamageAmount(int damage)
+    {
+        GameObject uiObject = Instantiate(_damageAmount, _uiCanvas);
+        DamageAmountUI damageAmount = uiObject.GetComponent<DamageAmountUI>();
+        damageAmount.Show(damage);
+    }
 }

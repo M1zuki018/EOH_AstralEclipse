@@ -36,6 +36,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}から{damage}ダメージ受けた！ 現在{GetCurrentHP()})");
+        UIManager.Instance.ShowDamageAmount(damage);
         UIManager.Instance.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
         Animator.SetTrigger("Damage");
     }
