@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private NumberUI _stepCount; //ステップの使用可能回数を表示するテキスト
     [SerializeField] private GameObject _enemyHPPrefab; //エネミーのHPゲージのプレハブ
     [SerializeField] private TextUI _questText; //クエストを表示するテキスト
+    [SerializeField] private IconUI _fadePanel; //フェード用のパネル
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
     
@@ -98,4 +99,11 @@ public class UIManager : MonoBehaviour
             _enemyHpSliders.Remove(enemy);
         }
     }
+
+    /// <summary>フェードパネルを表示する</summary>
+    public void FadeOut() => _fadePanel.Show();
+    
+    /// <summary>フェードパネルを非表示にする</summary>
+    public void FadeIn() => _fadePanel.Hide();
+
 }
