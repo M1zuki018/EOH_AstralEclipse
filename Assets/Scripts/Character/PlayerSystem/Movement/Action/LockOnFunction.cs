@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
-using Cysharp.Threading.Tasks;
 using PlayerSystem.ActionFunction;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// ロックオン機能
@@ -77,7 +75,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
 
         Transform nextTarget = SelectNextLockOnTarget(); //別の敵をロックオンする
         _lockedOnEnemy.Value = nextTarget;
-        //CameraManager.Instance.UseTargetGroup(nextTarget.transform.GetChild(3), 1, 0.16f);
+        //CameraManager.Instance.UseTargetGroup(nextTarget.transform.GetChild(3), 0.5f, 0.16f);
         //CameraManager.Instance.UseCamera(1);
     }
 

@@ -1846,7 +1846,7 @@ Transform:
   m_GameObject: {fileID: 394523270}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.001696, y: 3.0728726, z: 17.8669}
+  m_LocalPosition: {x: -5.0017934, y: 2.006266, z: 17.867125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1871,7 +1871,7 @@ MonoBehaviour:
   - target: {fileID: 933466216}
     weight: 1
     radius: 0.16
-  - target: {fileID: 1517746672}
+  - target: {fileID: 968109170}
     weight: 0.5
     radius: 0.22
 --- !u!1 &431029859
@@ -2282,8 +2282,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507906979}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.60258895, y: -0.3625848, z: 0.35458106, w: 0.6161908}
-  m_LocalPosition: {x: -5.1649103, y: 6.322403, z: 17.918568}
+  m_LocalRotation: {x: 0.035566695, y: 0.741187, z: -0.6691974, w: 0.03939281}
+  m_LocalPosition: {x: -5.1373515, y: 5.095852, z: 18.049942}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4423,7 +4423,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 2.960001
+  m_CameraDistance: 2.720002
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -4532,7 +4532,7 @@ Transform:
   m_GameObject: {fileID: 707531206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.763869, z: 3.349999}
+  m_LocalPosition: {x: 0, y: 4.73842, z: 3.589998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4885,7 +4885,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 2.960001
+  m_CameraDistance: 2.720002
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -5639,7 +5639,7 @@ Transform:
   m_GameObject: {fileID: 1081295069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.763869, z: 3.349999}
+  m_LocalPosition: {x: 0, y: 4.73842, z: 3.589998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7077,12 +7077,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &1517746672 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4951408231201036040, guid: 2396eb465f87e90459e7eae7e6b935d0,
-    type: 3}
-  m_PrefabInstance: {fileID: 554696115}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1524168971 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7321651186183431623, guid: d68890645e5d79843a8c72504bed5cc2,
