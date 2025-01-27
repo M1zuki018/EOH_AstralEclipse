@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -9,59 +8,57 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class ReadyForBattleChecker : MonoBehaviour
 {
-    [SerializeField] float _radius;
-    [SerializeField] string _tag;
+    [SerializeField] float _radius; //コライダーの半径
     private SphereCollider _collider;
+    
+    /// <summary>臨戦状態か</summary>
     public bool ReadyForBattle { get; private set; }
-    public EnemyBrain EnemyBrain{get; private set;}
+    
+    /// <summary>コライダー内の敵のEnemyBrainを保持しておくディクショナリ―</summary>
     public Dictionary<EnemyBrain, EnemyBrain> EnemyBrainDic = new Dictionary<EnemyBrain, EnemyBrain>();
-    public event Action OnReadyForBattle; //臨戦状態になったときのイベント
-    public event Action OnRescission; //臨戦状態が解除されたときのイベント
+    public event Action<EnemyBrain> OnReadyForBattle; //臨戦状態になったときのイベント
+    public event Action<EnemyBrain> OnRescission; //臨戦状態が解除されたときのイベント
 
     private void Start()
     {
+        //SphereColliderのセットアップ
         _collider = GetComponent<SphereCollider>();
-        _collider.radius = _radius; //半径をセットする
+        _collider.isTrigger = true;
+        _collider.radius = _radius;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_tag == "Enemy" && other.CompareTag("Player"))
+        if (other.CompareTag("Enemy"))
         {
-            ReadyForBattle = true; //タグがエネミーの場合は、プレイヤータグを検知する
-            OnReadyForBattle?.Invoke();
-        }
-        else if (_tag == "Player" && other.CompareTag("Enemy"))
-        {
-            ReadyForBattle = true; //タグがプレイヤーの場合は、エネミータグを検知する
-            other.TryGetComponent(out EnemyBrain brain);
-            EnemyBrainDic.Add(brain, brain); //EnemyBrainを取得してセットする
-            EnemyBrain = brain;
-            OnReadyForBattle?.Invoke();
-        }
-        else
-        {
-            ReadyForBattle = false;
+            if (other.TryGetComponent(out EnemyBrain brain) && !EnemyBrainDic.ContainsKey(brain))
+            {
+                EnemyBrainDic.Add(brain, brain); //まだ登録されていなかったら、取得したEnemyBrainをセットする
+                
+                if (!ReadyForBattle) //臨戦状態ではなかったら以下の処理を行う
+                {
+                    ReadyForBattle = true;
+                }
+                
+                OnReadyForBattle?.Invoke(brain); //イベント発火（対象のEnemyBrainを渡す）
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (_tag == "Enemy" && other.CompareTag("Player"))
+        // EnemyBrainを取得し、存在する場合は削除
+        if (other.TryGetComponent(out EnemyBrain brain) && EnemyBrainDic.ContainsKey(brain))
         {
-            ReadyForBattle = false; //タグがエネミーの場合は、プレイヤータグを検知する
-            OnRescission?.Invoke();
-        }
-        else if (_tag == "Player" && other.CompareTag("Enemy"))
-        {
-            other.TryGetComponent(out EnemyBrain brain);
-            EnemyBrain = brain;
-            ReadyForBattle = false; //タグがプレイヤーの場合は、エネミータグを検知する
-            OnRescission?.Invoke();
-        }
-        else
-        {
-            ReadyForBattle = false;
+            EnemyBrainDic.Remove(brain);
+
+            // 敵が全ていなくなった場合に臨戦状態を解除
+            if (EnemyBrainDic.Count == 0 && ReadyForBattle)
+            {
+                ReadyForBattle = false;
+            }
+            
+            OnRescission?.Invoke(brain); //イベント発火（対象のEnemyBrainを渡す）
         }
     }
 }

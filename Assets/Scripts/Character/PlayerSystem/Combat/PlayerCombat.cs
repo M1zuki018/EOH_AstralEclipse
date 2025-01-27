@@ -44,9 +44,13 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// <summary>
     /// 臨戦状態になったときの処理。武器を取り出す
     /// </summary>
-    private void HandleReadyForBattle()
+    private void HandleReadyForBattle(EnemyBrain brain)
     {
-        _uiManager.ShowEnemyHP(_battleChecker.EnemyBrainDic[_battleChecker.EnemyBrain]); //敵のHPバーを表示する
+        if (brain != null)
+        {
+            _uiManager.ShowEnemyHP(brain); //敵のHPバーを表示する
+        }
+        
         if (!_weaponObj.activeSelf) //まだ武器を構えていなかったら、以降の処理を行う
         {
             _playerMovement._animator.SetTrigger("ReadyForBattle");
@@ -58,17 +62,20 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// <summary>
     /// 臨戦状態が解除されたときの処理。武器をしまう
     /// </summary>
-    private void HandleRescission()
+    private void HandleRescission(EnemyBrain brain)
     {
-        
-        _uiManager.HideEnemyHP(_battleChecker.EnemyBrain); //敵のHPバーを表示する
-        if (_weaponObj.activeSelf)
+        if (brain != null)
         {
-            Debug.Log("臨戦状態解除");
+            _uiManager.HideEnemyHP(brain); //敵のHPバーを非表示にする
+        }
+        
+        if (_battleChecker.EnemyBrainDic.Count == 0 && _weaponObj.activeSelf)
+        {
             _weaponObj.SetActive(false);
             AudioManager.Instance.PlaySE(2);
         }
     }
+    
     /// <summary>
     /// 攻撃入力を受けた時に呼び出される処理
     /// </summary>
