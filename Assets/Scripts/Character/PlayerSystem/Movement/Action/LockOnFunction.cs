@@ -29,6 +29,9 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in allEnemies)
         {
+            Health health = enemy.GetComponent<Health>();
+            if(health.IsDead) continue; //取得した敵が死んでいた場合は、次の判定に映る
+            
             float distanceToPlayer = Vector3.Distance(transform.position, enemy.transform.position);
             
             //プレイヤーから一定距離内の敵をリストに追加

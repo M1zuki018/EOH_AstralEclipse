@@ -51,4 +51,15 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         //コンポーネントの無効化
         _enemyMovement.enabled = false;
     }
+
+    #region デバッグ用メソッド
+
+    [ContextMenu("Debug_EnemyDeath")]
+    public void Debug_EnemyDeath()
+    {
+        _health.TakeDamage(GetCurrentHP(), this.gameObject);
+    }
+
+    #endregion
+    
 }

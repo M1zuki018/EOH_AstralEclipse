@@ -4037,7 +4037,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 4.880001
+  m_CameraDistance: 5
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -4146,7 +4146,7 @@ Transform:
   m_GameObject: {fileID: 707531206}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.967459, z: 1.4299989}
+  m_LocalPosition: {x: 0, y: 4.9801836, z: 1.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5113,7 +5113,7 @@ Transform:
   m_GameObject: {fileID: 1081295069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.967459, z: 1.4299989}
+  m_LocalPosition: {x: 0, y: 4.9801836, z: 1.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6549,6 +6549,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fbff9dc98c520145a46b44be9d20e03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1532930089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8296713942170784546, guid: d68890645e5d79843a8c72504bed5cc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406826974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f704b4ac8476474c99db9fcb1b20a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1535511442
@@ -9158,10 +9170,9 @@ PrefabInstance:
       objectReference: {fileID: 38912996}
     - target: {fileID: 6359940143694788718, guid: 05ea3c650f31ab343bfef522fd1f83b6,
         type: 3}
-      propertyPath: _damageAmount
+      propertyPath: _damegeUIPool
       value: 
-      objectReference: {fileID: 8595533670983816043, guid: 1580cf111af03f447b20da3517003bec,
-        type: 3}
+      objectReference: {fileID: 1532930089}
     - target: {fileID: 6359940143694788718, guid: 05ea3c650f31ab343bfef522fd1f83b6,
         type: 3}
       propertyPath: _skillIcons.Array.data[0]

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
@@ -10,12 +11,13 @@ public class ReadyForBattleChecker : MonoBehaviour
 {
     [SerializeField] float _radius; //コライダーの半径
     private SphereCollider _collider;
-    
-    /// <summary>臨戦状態か</summary>
+
+    /// <summary>現在の臨戦状態</summary>
     public bool ReadyForBattle { get; private set; }
-    
+
     /// <summary>コライダー内の敵のEnemyBrainを保持しておくディクショナリ―</summary>
     public Dictionary<EnemyBrain, EnemyBrain> EnemyBrainDic = new Dictionary<EnemyBrain, EnemyBrain>();
+
     public event Action<EnemyBrain> OnReadyForBattle; //臨戦状態になったときのイベント
     public event Action<EnemyBrain> OnRescission; //臨戦状態が解除されたときのイベント
 
@@ -29,23 +31,26 @@ public class ReadyForBattleChecker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && other.TryGetComponent(out EnemyBrain brain))
         {
-            if (other.TryGetComponent(out EnemyBrain brain) && !EnemyBrainDic.ContainsKey(brain))
+            Health health = other.GetComponent<Health>();
+            if(health.IsDead) return; //死んでいたら以降の処理は行わない
+            
+            if (!EnemyBrainDic.ContainsKey(brain))
             {
                 EnemyBrainDic.Add(brain, brain); //まだ登録されていなかったら、取得したEnemyBrainをセットする
-                
+
                 if (!ReadyForBattle) //臨戦状態ではなかったら以下の処理を行う
                 {
                     ReadyForBattle = true;
                 }
-                
+
                 OnReadyForBattle?.Invoke(brain); //イベント発火（対象のEnemyBrainを渡す）
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+private void OnTriggerExit(Collider other)
     {
         // EnemyBrainを取得し、存在する場合は削除
         if (other.TryGetComponent(out EnemyBrain brain) && EnemyBrainDic.ContainsKey(brain))
