@@ -65,7 +65,8 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleRescission(EnemyBrain brain)
     {
-        if (brain != null)
+        //敵が死んでいない場合のみ処理を行う（死んでいる場合は処理が重複するので行わない）
+        if (brain != null && !brain.gameObject.GetComponent<IHealth>().IsDead)
         {
             UIManager.Instance.HideEnemyHP(brain); //敵のHPバーを非表示にする
             UIManager.Instance.HideLockOnUI(); //ロックオンアイコンを非表示にする

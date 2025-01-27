@@ -14,6 +14,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     private EnemyMovement _enemyMovement;
     private Collider _collider;
     public Animator Animator { get; private set; }
+    [SerializeField] private LockOnFunction _lockOnFunction;
     
     public Vector3 TargetPosition { get; }
 
@@ -46,6 +47,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
         UIManager.Instance.UnregisterEnemy(this); //HPスライダーを削除する
         Animator.SetTrigger("Dead");
+        _lockOnFunction.LockOn();
         //TODO:死亡エフェクト等の処理
         
         //コンポーネントの無効化

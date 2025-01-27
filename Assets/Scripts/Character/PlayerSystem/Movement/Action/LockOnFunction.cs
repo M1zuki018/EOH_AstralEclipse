@@ -37,7 +37,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             {
                 if (_battleChecker.EnemiesInRange.Count > 0)
                 {
-                    if (_lockedOnEnemy == null || _lockedOnEnemy.Value.GetComponent<EnemyBrain>()) //ロックオンしている敵がいない場合、検索を行う
+                    if (_lockedOnEnemy == null || IsEnemyValid(_lockedOnEnemy.Value.GetComponent<EnemyBrain>())) //ロックオンしている敵がいない場合、検索を行う
                     {
                         UpdateEnemiesInRange(); //範囲内の敵を更新し、必要であればロックオンを開始する
                     }
@@ -65,6 +65,8 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     /// </summary>
     public void LockOn()
     {
+        UpdateEnemiesInRange();
+        
         if (_battleChecker.EnemiesInRange.Count == 0) //リストに敵がいなかった場合
         {
             Debug.Log("ロックオン可能な敵がいません");
@@ -75,8 +77,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
 
         Transform nextTarget = SelectNextLockOnTarget(); //別の敵をロックオンする
         _lockedOnEnemy.Value = nextTarget;
-        _targetGroup.RemoveMember(_targetGroup.m_Targets[1].target); //必ず消してからセットする
-        _targetGroup.AddMember(nextTarget.transform.GetChild(3), 1, 0.16f);
+        //CameraManager.Instance.UseTargetGroup(nextTarget.transform.GetChild(3), 1, 0.16f);
         //CameraManager.Instance.UseCamera(1);
     }
 
@@ -203,6 +204,5 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     public void ClearLockOn()
     {
         _lockedOnEnemy.Value = null;
-        CameraManager.Instance.UseCamera(0);
     }
 }
