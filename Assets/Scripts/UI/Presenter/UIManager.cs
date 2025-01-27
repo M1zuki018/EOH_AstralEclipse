@@ -140,10 +140,10 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>ダメージテキストを表示する</summary>
-    public void ShowDamageAmount(int damage)
+    public void ShowDamageAmount(int damage, Transform target)
     {
         GameObject uiObject = Instantiate(_damageAmount, _uiCanvas);
         DamageAmountUI damageAmount = uiObject.GetComponent<DamageAmountUI>();
-        damageAmount.Show(damage);
+        damageAmount.Show(damage, target);
     }
 }
