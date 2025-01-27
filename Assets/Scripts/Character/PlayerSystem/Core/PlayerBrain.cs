@@ -74,7 +74,6 @@ public class PlayerBrain : CharacterBase
 
     protected override void HandleDamage(int damage, GameObject attacker)
     {
-        //DebugOverlay.Log($"{attacker.name}から{damage}ダメージ受けた！！");
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
         UIManager.Instance.UpdatePlayerHP(GetCurrentHP());
         _impulseSource?.GenerateImpulse(); //カメラを揺らす

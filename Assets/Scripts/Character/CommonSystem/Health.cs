@@ -32,10 +32,12 @@ public class Health : MonoBehaviour, IHealth
         CurrentHP -= amount;
         OnDamaged?.Invoke(amount, attacker); //ダメージイベント発火
 
-        if (IsDead)
+        if (IsDead) //死亡判定
         {
             OnDeath?.Invoke(attacker); //死亡イベント発火
         }
+        
+        Debug.Log(this.gameObject.name + IsDead + CurrentHP);
     }
 
     /// <summary>

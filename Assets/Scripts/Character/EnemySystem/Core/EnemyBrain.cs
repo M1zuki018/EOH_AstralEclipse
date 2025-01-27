@@ -9,14 +9,13 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class EnemyBrain : CharacterBase, IMatchTarget
 {
-    [SerializeField] private int _maxHP = 100;
-    private int _currentHP;
-    
     //コンポーネント
     private ICombat _combat;
     private EnemyMovement _enemyMovement;
     private Collider _collider;
     public Animator Animator { get; private set; }
+    
+    public Vector3 TargetPosition { get; }
 
     private void Start()
     {
@@ -25,12 +24,8 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         _combat = GetComponent<EnemyCombat>();
         _collider = GetComponent<Collider>();
         Animator = GetComponent<Animator>();
-
-        _health.OnDamaged += HandleDamage; //ダメージ時イベント登録
-        _health.OnDeath += HandleDeath; //死亡時イベント登録
         
-        UIManager.Instance.RegisterEnemy(this, _maxHP); //HPバーを頭上に生成する
-        _currentHP = _maxHP;
+        UIManager.Instance.RegisterEnemy(this, GetCurrentHP()); //HPバーを頭上に生成する
         UIManager.Instance.HideEnemyHP(this); //隠す
         
         //ターゲットマッチング用
@@ -40,22 +35,14 @@ public class EnemyBrain : CharacterBase, IMatchTarget
 
     private void Update()
     {
-        Animator.SetInteger("HP", _currentHP);
+        Animator.SetInteger("HP", GetCurrentHP());
     }
-
-    private void OnDestroy()
-    {
-        _health.OnDamaged -= HandleDamage; //ダメージ時イベント解除
-        _health.OnDeath -= HandleDeath; //死亡時イベント解除
-    }
-
-    public Vector3 TargetPosition { get; }
+    
     
     protected override void HandleDamage(int damage, GameObject attacker)
     {
-        _currentHP -= damage;
-        Debug.Log($"{gameObject.name}は{attacker.name}から{damage}ダメージ受けた！ 現在{_currentHP})");
-        UIManager.Instance.UpdateEnemyHP(this, _currentHP); //HPスライダーを更新する
+        Debug.Log($"{gameObject.name}は{attacker.name}から{damage}ダメージ受けた！ 現在{GetCurrentHP()})");
+        UIManager.Instance.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
     }
 
     protected override void HandleDeath(GameObject attacker)

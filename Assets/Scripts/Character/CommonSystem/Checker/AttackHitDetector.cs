@@ -123,40 +123,46 @@ public class AttackHitDetector : MonoBehaviour
         Quaternion rotation = _transform.rotation;
         Collider[] hitResults = new Collider[50];
         List<IDamageable> damageables = new();
+        
+        var data = _hitPositions[CurrentStage]; 
+        if (!data.IsInRange(_frame)) //効果フレームの範囲外の場合は処理をスキップ
+            return null;
 
-            var data = _hitPositions[CurrentStage];
-            if (!data.IsInRange(_frame)) //効果フレームの範囲外の場合は処理をスキップ
-                return null;
-
-            var activeCollisions = data.GetActiveCollisions(_frame); //有効なHitボックスを取得
-            foreach (var col in activeCollisions)
-            {
-                // 衝突検出を実行
-                var count = CalculateSphereCast(hitResults, col, position, rotation);
-                // 範囲内で衝突検出を実行
-                for (var i = 0; i < count; i++)
-                {
-                    var hit = hitResults[i];
-                    var hitObject = hit.gameObject;
+        var activeCollisions = data.GetActiveCollisions(_frame); //有効なHitボックスを取得
+        foreach (var col in activeCollisions)
+        { 
+            // 衝突検出を実行
+            var count = CalculateSphereCast(hitResults, col, position, rotation);
+            //Debug.Log(this.gameObject.transform.parent.name + "衝突した数" + count);
+                
+            // 範囲内で衝突検出を実行
+            for (var i = 0; i < count; i++) 
+            { 
+                var hit = hitResults[i];
+                var hitObject = hit.gameObject;
                     
-                    if (hitObjects.Contains(hitObject) || !IsValidTarget(hitObject))
-                        continue;
+                if (!IsValidTarget(hitObject)) 
+                    continue;
+                
+                //if (hitObjects.Contains(hitObject) || !IsValidTarget(hitObject)) continue;
                     
-                    //コライダーを登録
-                    hitObjects.Add(hitObject);
-                    hitCollidersInThisFrame.Add(hit);
-                    hitObjectsInThisFrame.Add(hitObject);
-                }
+                //コライダーを登録
+                hitObjects.Add(hitObject);
+                hitCollidersInThisFrame.Add(hit);
+                hitObjectsInThisFrame.Add(hitObject);
             }
+        }
 
-            if (hitObjectsInThisFrame.Count > 0)
+        //Debug.Log(this.gameObject.transform.parent.name + "リスト作成前" + hitObjectsInThisFrame.Count);
+        if (hitObjectsInThisFrame.Count > 0)
+        {
+            foreach (var hit in hitObjectsInThisFrame)
             {
-                foreach (var hit in hitObjectsInThisFrame)
-                {
-                    damageables.Add(hit.GetComponent<IDamageable>());
-                }
+                damageables.Add(hit.GetComponent<IDamageable>());
             }
+        }
             
+        //Debug.Log(this.gameObject.transform.parent.name + "作成されたリストに残っている数" + damageables.Count);
         return damageables;
     }
 
