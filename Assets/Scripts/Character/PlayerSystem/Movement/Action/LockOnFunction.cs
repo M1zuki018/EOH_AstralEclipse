@@ -77,7 +77,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         _lockedOnEnemy.Value = nextTarget;
         _targetGroup.RemoveMember(_targetGroup.m_Targets[1].target); //必ず消してからセットする
         _targetGroup.AddMember(nextTarget.transform.GetChild(3), 1, 0.16f);
-        CameraManager.Instance.UseCamera(1);
+        //CameraManager.Instance.UseCamera(1);
     }
 
     #region 視界内の敵のリストを作成するメソッドまとめ

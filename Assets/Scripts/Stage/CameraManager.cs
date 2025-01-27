@@ -10,6 +10,7 @@ public class CameraManager : MonoBehaviour
     public static CameraManager Instance;
 
     [SerializeField] private List<CinemachineVirtualCamera> _virtualCameras = new List<CinemachineVirtualCamera>();
+    [SerializeField] private CinemachineTargetGroup _targetGroup;
     
     private void Awake()
     {
@@ -40,5 +41,17 @@ public class CameraManager : MonoBehaviour
                 _virtualCameras[i].Priority = 15; //使用するカメラ
             }
         }
+    }
+
+    /// <summary>
+    /// ターゲットグループを使用します
+    /// </summary>
+    public void UseTargetGroup(Transform newTarget, float weight, float radius)
+    {
+        if (_targetGroup.m_Targets.Length > 1)
+        {
+            _targetGroup.RemoveMember(_targetGroup.m_Targets[1].target);
+        }
+        _targetGroup.AddMember(newTarget, weight, radius);
     }
 }
