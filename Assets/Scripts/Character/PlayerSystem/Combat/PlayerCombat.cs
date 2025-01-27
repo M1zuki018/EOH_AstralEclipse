@@ -16,6 +16,12 @@ public class PlayerCombat : MonoBehaviour, ICombat
     private ReadyForBattleChecker _battleChecker;
     [SerializeField] private SkillSO _skillSet;
     [SerializeField] private GameObject _weaponObj;
+    
+    [Header("攻撃補正用")]
+    [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection;
+    
+    public AdjustDirection AdjustDirection => _adjustDirection;
+    
     public SkillSO SkillSet => _skillSet;
     
     private void Start()
@@ -96,13 +102,20 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void PerformAttack(int index)
     {
+        _playerMovement._animator.applyRootMotion = false; //攻撃中はルートモーションを無効にする
+        
+        //向きの補正
+        //_adjustDirection.AdjustDirectionToTarget(); 
+        
+        //当たり判定制御
         Detector.CurrentStage = index;
-        AudioManager.Instance.PlaySE(3);
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)
         {
             _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
         }
+        
+        AudioManager.Instance.PlaySE(3);
     }
 
     /// <summary>

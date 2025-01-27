@@ -14,6 +14,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     [SerializeField, Comment("判定を行うカメラ")] private Camera _camera; 
     [SerializeField, Comment("カメラ中心からのロックオン範囲")] private float _lockOnRadius = 0.5f;
     [SerializeField, HighlightIfNull] private ReadyForBattleChecker _battleChecker; //敵の検出範囲管理を行うクラス
+    [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection; //攻撃の向きを補正するクラス
     
     private readonly ReactiveProperty<Transform> _lockedOnEnemy = new ReactiveProperty<Transform>(); //現在ロックオンしている敵を保持する
     private Transform _lockedEnemy; //ロックオン中の敵
@@ -29,13 +30,15 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             return;
         }
         
+        //0.5秒おきに呼ばれるメソッド
         _updateSubscription = Observable
             .Interval(TimeSpan.FromSeconds(0.5f))
             .Subscribe(_ =>
             {
                 if (_battleChecker.EnemiesInRange.Count > 0)
                 {
-                    if (_lockedOnEnemy == null || IsEnemyValid(_lockedOnEnemy.Value.GetComponent<EnemyBrain>())) //ロックオンしている敵がいない場合、検索を行う
+                    //ロックオンしている敵がいない、もしくは死んでいる場合に検索を行う
+                    if (_lockedOnEnemy == null || IsEnemyValid(_lockedOnEnemy.Value.GetComponent<EnemyBrain>())) 
                     {
                         UpdateEnemiesInRange(); //範囲内の敵を更新し、必要であればロックオンを開始する
                     }
@@ -151,6 +154,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         {
             UIManager.Instance.SetLockOnUI(newTarget);
             AudioManager.Instance.PlaySE(2);
+            _adjustDirection.Target = newTarget; //攻撃対象を書き換える
         }
         else //次のターゲットがいない場合
         {
