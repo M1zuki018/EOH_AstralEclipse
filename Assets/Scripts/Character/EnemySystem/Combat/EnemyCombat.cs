@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using PlayerSystem.Fight;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
 using Random = UnityEngine.Random;
 
@@ -10,7 +11,7 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class EnemyCombat : MonoBehaviour, ICombat
 {
-    public int AttackDamage { get; private set; } = 5; //攻撃力
+    [SerializeField] private int _attackDamage = 5; //攻撃力
     [SerializeField] private AdjustDirection _adjustDirection;
     public AdjustDirection AdjustDirection => _adjustDirection;  
     public AttackHitDetector Detector { get; private set; }
@@ -26,7 +27,7 @@ public class EnemyCombat : MonoBehaviour, ICombat
         Detector = GetComponentInChildren<AttackHitDetector>();
     }
 
-    public int BaseAttackPower { get; }
+    public int BaseAttackPower => _attackDamage;
     
     /// <summary>
     /// 攻撃状態の処理

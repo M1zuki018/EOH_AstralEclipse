@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce1f7dcc1c29db4aaf7633e7f4fa289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _adjustDirection: {fileID: 0}
+  _adjustDirection: {fileID: 3444035731517609805}
   _attackCooldown: 3
 --- !u!114 &9115073611720309100
 MonoBehaviour:
