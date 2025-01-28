@@ -2318,8 +2318,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507906979}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13352072, y: 0.7342233, z: -0.64824206, w: 0.1512306}
-  m_LocalPosition: {x: -5.1595187, y: 5.2995014, z: 18.227188}
+  m_LocalRotation: {x: -0.19155447, y: 0.7389228, z: -0.60162085, w: -0.235271}
+  m_LocalPosition: {x: -4.7909327, y: 5.045836, z: 18.414104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8677,6 +8677,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1914527293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2997160756520444756, guid: d68890645e5d79843a8c72504bed5cc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406826974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067691b79352c884fbebee459eac668a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1933481743
 Mesh:
   m_ObjectHideFlags: 0
@@ -9858,6 +9870,11 @@ PrefabInstance:
       propertyPath: _damegeUIPool
       value: 
       objectReference: {fileID: 1532930089}
+    - target: {fileID: 6359940143694788718, guid: 05ea3c650f31ab343bfef522fd1f83b6,
+        type: 3}
+      propertyPath: _questUpdateUI
+      value: 
+      objectReference: {fileID: 1914527293}
     - target: {fileID: 6359940143694788718, guid: 05ea3c650f31ab343bfef522fd1f83b6,
         type: 3}
       propertyPath: _skillIcons.Array.data[0]

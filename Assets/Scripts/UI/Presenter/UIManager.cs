@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextUI _questText; //クエストを表示するテキスト
     [SerializeField] private IconUI _fadePanel; //フェード用のパネル
     [SerializeField] private DamageAmountUIPool _damegeUIPool; //ダメージ量を表示するテキストのオブジェクトプール
+    [SerializeField] private QuestUpdateUI _questUpdateUI; //クエスト更新時に一瞬表示するUI
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
@@ -145,4 +146,6 @@ public class UIManager : MonoBehaviour
         DamageAmountUI damageAmount = _damegeUIPool.GetInstance();
         damageAmount.Show(damage, target); //表示
     }
+
+    public void QuestUpdate() => _questUpdateUI.Show();
 }

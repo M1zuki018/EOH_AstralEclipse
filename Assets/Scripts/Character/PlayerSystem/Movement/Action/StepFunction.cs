@@ -44,7 +44,10 @@ public class StepFunction : MonoBehaviour, ISteppable
         {
             OnStep?.Invoke();
         }
-        Debug.Log("ステップカウントが足りません！");
+        else
+        {
+            Debug.Log("ステップカウントが足りません！");
+        }
     }
     
     /// <summary>
@@ -78,6 +81,8 @@ public class StepFunction : MonoBehaviour, ISteppable
         
         //ステップアニメーションをトリガーする
         _playerMovement._animator.SetTrigger("Step");
+        
+        //AudioManager.Instance.PlaySE(7);
     }
     
     /// <summary>

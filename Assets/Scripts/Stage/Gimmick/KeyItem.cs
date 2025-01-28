@@ -22,6 +22,9 @@ public class KeyItem : InteractableItemBase
         //CameraManager.Instance.UseTargetGroup(_keyObject, 1, 0.5f);
         //CameraManager.Instance.UseCamera(1);
         
+        AudioManager.Instance.PlaySE(6);
+        UIManager.Instance.QuestUpdate();
+        
         Inventory inventory = _player.GetComponent<Inventory>(); //プレイヤーからイベントリクラスを取得
         if (inventory != null)
         {
