@@ -102,11 +102,6 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void PerformAttack(int index)
     {
-        _playerMovement._animator.applyRootMotion = false; //攻撃中はルートモーションを無効にする
-        
-        //向きの補正
-        //_adjustDirection.AdjustDirectionToTarget(); 
-        
         //当たり判定制御
         Detector.CurrentStage = index;
         List<IDamageable> damageables = Detector.PerformAttack();

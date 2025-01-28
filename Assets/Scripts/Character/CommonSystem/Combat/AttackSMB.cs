@@ -23,19 +23,32 @@ public class AttackSMB : StateMachineBehaviour
             _cc = animator.GetComponent<CharacterController>();
             _player = animator.transform;
         }
-        
+
+        animator.applyRootMotion = false; //一度ルートモーションは無効にする
+
         _combat.PerformAttack(_attackIndex); //攻撃処理メソッドを呼ぶ
+
+        if (!_adjustDirection) //補正を行わない場合
+        {
+            _combat.AdjustDirection.AdjustDirectionToTargetEarly(); //向きを補正
+            animator.applyRootMotion = true; //ルートモーションを有効
+        }
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _combat?.AdjustDirection.AdjustDirectionToTarget();
         
         if (_adjustDirection) //補正が有効なら移動補正を行う
         {
+            _combat?.AdjustDirection.AdjustDirectionToTarget();
             Vector3 forward = _player.forward; // 現在の向き
             Vector3 move = forward * _moveSpeed * Time.deltaTime; // 移動量計算
             _cc.Move(move);
         }
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.applyRootMotion = true; //攻撃終了時にはルートモーションを有効に戻す
     }
 }
