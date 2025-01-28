@@ -66,6 +66,16 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
+    /// ボイスを再生する
+    /// </summary>
+    public void PlayVoice(int clipIndex)
+    {
+        ClipData clip = GetClipData(_audioDatas[2], clipIndex);
+        _audioSources[2].volume = clip.Volume;
+        _audioSources[2].PlayOneShot(clip.Clip);
+    }
+
+    /// <summary>
     /// フェードイン機能
     /// </summary>
     public void FadeIn(AudioType audioType)

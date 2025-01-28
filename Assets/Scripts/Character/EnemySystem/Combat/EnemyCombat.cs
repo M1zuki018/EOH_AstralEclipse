@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PlayerSystem.Fight;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// 敵の攻撃に関する処理
@@ -52,6 +53,7 @@ public class EnemyCombat : MonoBehaviour, ICombat
     /// </summary>
     public void Attack()
     {
+        _brain.Animator.SetInteger("AttackType", Random.Range(0, 2));
         _brain.Animator.SetTrigger("Attack");　//アニメーションのAttackをトリガーする
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)

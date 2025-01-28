@@ -33,8 +33,6 @@ public class AttackSMB : StateMachineBehaviour
         {
             _combat?.AdjustDirection.AdjustDirectionToTargetEarly();
             animator.applyRootMotion = true; //ルートモーションを有効
-            
-            
         }
     }
 

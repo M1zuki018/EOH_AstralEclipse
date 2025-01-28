@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: Voice
   m_EditorClassIdentifier: 
   AudioType: 2
-  Clips: []
+  Clips:
+  - Clip: {fileID: 8300000, guid: 8c6504c850a06a648af04da3348f904f, type: 3}
+    Volume: 0.7
+    Loop: 0
+  - Clip: {fileID: 8300000, guid: de2fab8df40ecde479c7ea324bd9b6df, type: 3}
+    Volume: 0.6
+    Loop: 0

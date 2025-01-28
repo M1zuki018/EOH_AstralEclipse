@@ -15,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
     private EnemyCombat _combat; //戦闘クラスを参照
     private ReadyForBattleChecker _readyForBattleChecker; //臨戦態勢を管理
     private EnemyAI _enemyAI; //巡回中の動き
+    private bool _playEncounteVoice = false;
     
     public Vector3 Velocity { get; private set; }
 
@@ -95,6 +96,12 @@ public class EnemyMovement : MonoBehaviour
     /// </summary>
     private void HandleChaseState()
     {
+        if (!_playEncounteVoice)
+        {
+            AudioManager.Instance.PlayVoice(0);
+            _playEncounteVoice = true;
+        }
+        
         Agent.SetDestination(_target.position); //移動先の目的地点を更新する
         
         Velocity = Agent.velocity.normalized; //Animator制御のため
