@@ -1,11 +1,10 @@
-using System;
 using UniRx;
 using UnityEngine;
 
 /// <summary>
 /// 通常攻撃1段目の補正
 /// </summary>
-public class NormalAttack_First : MonoBehaviour
+public class NormalAttack_First : AttackAdjustBase
 {
     [Header("初期設定")]
     [SerializeField] private float _approachSpeed = 30f; //突進速度
@@ -14,21 +13,9 @@ public class NormalAttack_First : MonoBehaviour
     [SerializeField] private float _slashFream = 0.14f; //アニメーションの進行度合い。正規化したもの
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
     
-    private Transform _target; //ロックオン中の敵
-    private Animator _animator; //プレイヤーのAnimator
-    private CharacterController _cc; //プレイヤーのCharacterController
-    
     private bool _isAttacking = false; //突進中かどうか
     private float _distance; //敵との距離
     private float _totalDistanceToCover; //_distanceと_adjustDistanceの差
-    
-    private void Start()
-    {
-        //コンポーネントを取得
-        _animator = GetComponent<Animator>();
-        _cc = GetComponent<CharacterController>();
-        
-    }
     
     private void Update()
     {
@@ -41,12 +28,10 @@ public class NormalAttack_First : MonoBehaviour
     /// <summary>
     /// 攻撃開始時に呼び出される処理
     /// </summary>
-    public void StartAttack(Transform target)
+    public override void StartAttack(Transform target)
     {
         _target = target;
         _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
-        
-        Debug.Log($"攻撃開始時の敵との距離： {_distance}");
         
         if (_distance > _adjustDistance && _distance < _attackDistance) //補正がかかる距離よりも遠く、かつ有効距離内にいる場合
         {
@@ -79,7 +64,6 @@ public class NormalAttack_First : MonoBehaviour
     /// </summary>
     private void HandleApproach()
     {
-        Debug.Log("補正中：攻撃１段階");
         _distance = Vector3.Distance(transform.position, _target.position); //距離を更新
                     
         //プレイヤーを敵に近づける

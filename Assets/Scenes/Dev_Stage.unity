@@ -1427,6 +1427,11 @@ PrefabInstance:
       objectReference: {fileID: 968109170}
     - target: {fileID: 8589648353841238299, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}
+      propertyPath: _first
+      value: 
+      objectReference: {fileID: 1220054344}
+    - target: {fileID: 8589648353841238299, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
       propertyPath: _uiManager
       value: 
       objectReference: {fileID: 0}
@@ -1445,6 +1450,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2948384498827725439, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1220054344}
     - targetCorrespondingSourceObject: {fileID: 70361066916407660, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}
       insertIndex: -1
@@ -2296,8 +2305,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507906979}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3732111, y: 0.61589164, z: -0.5586668, w: 0.41143945}
-  m_LocalPosition: {x: -5.0598536, y: 5.461676, z: 17.879738}
+  m_LocalRotation: {x: 0.39364213, y: 0.60493493, z: -0.5153753, w: 0.46204755}
+  m_LocalPosition: {x: -5.407868, y: 5.8292217, z: 18.114944}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4441,7 +4450,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.200002
+  m_CameraDistance: 3.440002
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -4550,7 +4559,7 @@ Transform:
   m_GameObject: {fileID: 707531206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.7893176, z: 3.109998}
+  m_LocalPosition: {x: 0, y: 4.8147664, z: 2.869998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4903,7 +4912,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.200002
+  m_CameraDistance: 3.440002
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -5486,7 +5495,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 261357593}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1220054329}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 605383528469faa4680cdd926abaf0bf, type: 3}
@@ -5498,7 +5507,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 261357593}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1220054329}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2ff6b28059536042b4a6bc833274ebc, type: 3}
@@ -5676,7 +5685,7 @@ Transform:
   m_GameObject: {fileID: 1081295069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.7893176, z: 3.109998}
+  m_LocalPosition: {x: 0, y: 4.8147664, z: 2.869998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5915,6 +5924,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1220054329 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2948384498827725439, guid: 61b5c3d1d439235478cb934b8c6599cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 261357593}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1220054344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220054329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2561a0539de55641a41fbcbc3910fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _approachSpeed: 35
+  _attackDistance: 10
+  _adjustDistance: 2.5
+  _slashFream: 0.22
+  _initializeAnimationSpeed: 1.5
 --- !u!43 &1246751372
 Mesh:
   m_ObjectHideFlags: 0
@@ -6630,7 +6662,7 @@ PrefabInstance:
     - target: {fileID: 7604241476636173517, guid: 471adac14e58cc34091715c1ceff8212,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.92
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 7604241476636173517, guid: 471adac14e58cc34091715c1ceff8212,
         type: 3}
