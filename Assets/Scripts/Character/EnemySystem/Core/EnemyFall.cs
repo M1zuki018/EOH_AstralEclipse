@@ -8,10 +8,13 @@ public class EnemyFall : MonoBehaviour
 {
     [SerializeField] private float _fallHeight = -10f;
     private Transform _enemy;
+    private EnemyBrain _brain;
 
     private void Start()
     {
-        _enemy = this.transform;
+        //コンポーネントを取得
+        _enemy = transform;
+        _brain = GetComponent<EnemyBrain>();
         
         Observable
             .EveryUpdate()
@@ -20,7 +23,7 @@ public class EnemyFall : MonoBehaviour
             .Subscribe(_ =>
             {
                 gameObject.SetActive(false);
-                
+                _brain.Health.TakeDamage(_brain.GetCurrentHP(), gameObject); //ダメージを受けて死亡判定にする
                 UIManager.Instance.UnregisterEnemy(this.gameObject.GetComponent<EnemyBrain>()); //HPスライダーを削除する
             })
             .AddTo(this);

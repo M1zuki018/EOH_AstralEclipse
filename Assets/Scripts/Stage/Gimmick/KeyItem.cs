@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using PlayerSystem.Fight;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// ボスがいる部屋を開くためのキーアイテム
@@ -10,7 +13,9 @@ public class KeyItem : InteractableItemBase
     [SerializeField] private string _keyName;
     [SerializeField] private float _moveY = 1.5f;
     private Transform _keyObject; //親オブジェクトのトランスフォーム
-
+    
+    [SerializeField] private List<Health> _targets = new List<Health>();
+    
     private void Start()
     {
         _keyObject = transform.parent;
@@ -19,6 +24,15 @@ public class KeyItem : InteractableItemBase
     
     public override async void Interact()
     {
+        foreach (IHealth target in _targets)
+        {
+            if (!target.IsDead)
+            {
+                Debug.Log("まだ敵を倒しきっていません");
+                return;
+            }
+        }
+        
         //CameraManager.Instance.UseTargetGroup(_keyObject, 1, 0.5f);
         //CameraManager.Instance.UseCamera(1);
         
