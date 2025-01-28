@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using PlayerSystem.Fight;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.TextCore.Text;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -64,7 +62,6 @@ public class EnemyCombat : MonoBehaviour, ICombat
     {
         Detector.AttackType = index;
         List<IDamageable> damageables = Detector.PerformAttack();
-        Debug.Log(damageables.Count);
         foreach (IDamageable damageable in damageables)
         {
             _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);

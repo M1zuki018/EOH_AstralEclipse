@@ -29,6 +29,8 @@ public class Health : MonoBehaviour, IHealth
     {
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
+        if(attacker.tag == this.tag) return;
+        
         CurrentHP -= amount;
         OnDamaged?.Invoke(amount, attacker); //ダメージイベント発火
 
