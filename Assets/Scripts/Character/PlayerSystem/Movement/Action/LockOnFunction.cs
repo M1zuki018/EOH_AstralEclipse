@@ -17,9 +17,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection; //攻撃の向きを補正するクラス
     
     private readonly ReactiveProperty<Transform> _lockedOnEnemy = new ReactiveProperty<Transform>(); //現在ロックオンしている敵を保持する
-    private Transform _lockedEnemy; //ロックオン中の敵
     private Transform _defaultFocusTarget; //VirtualCameraで初期状態でLook Atに設定されているトランスフォームを保持する
-    
     private IDisposable _updateSubscription;
     
     private void Start()
@@ -30,22 +28,18 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             return;
         }
         
-        //0.5秒おきに呼ばれるメソッド
+        //0.5秒おきに呼ばれるメソッド。ロックオンしている敵がいないときの処理
         _updateSubscription = Observable
             .Interval(TimeSpan.FromSeconds(0.5f))
             .Subscribe(_ =>
             {
-                if (_battleChecker.EnemiesInRange.Count > 0)
+                if (_lockedOnEnemy == null && _battleChecker.EnemiesInRange.Count > 0) 
                 {
-                    //ロックオンしている敵がいない、もしくは死んでいる場合に検索を行う
-                    if (_lockedOnEnemy == null || IsEnemyValid(_lockedOnEnemy.Value.GetComponent<EnemyBrain>())) 
-                    {
-                        UpdateEnemiesInRange(); //範囲内の敵を更新し、必要であればロックオンを開始する
-                    }
+                    UpdateEnemiesInRange(); //敵がいる場合はロックオンを開始
                 }
-                else
+                else if(_lockedOnEnemy == null && IsEnemyValid(_lockedOnEnemy.Value.GetComponent<EnemyBrain>()))
                 {
-                    ClearLockOn(); //敵がいなくなったらロックオン解除
+                    UpdateEnemiesInRange(); //ロックオン中の敵が死んだ場合、次の敵を探す
                 }
             })
             .AddTo(this);
@@ -66,8 +60,6 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     /// </summary>
     public void LockOn()
     {
-        UpdateEnemiesInRange();
-        
         if (_battleChecker.EnemiesInRange.Count == 0) //リストに敵がいなかった場合
         {
             Debug.Log("ロックオン可能な敵がいません");
@@ -75,7 +67,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             //CameraManager.Instance.UseCamera(0);
             return;
         }
-
+        
         Transform nextTarget = SelectNextLockOnTarget(); //別の敵をロックオンする
         _lockedOnEnemy.Value = nextTarget;
         //CameraManager.Instance.UseTargetGroup(nextTarget.transform.GetChild(3), 0.5f, 0.16f);
@@ -104,7 +96,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             _lockedOnEnemy.Value = null;
             return;
         }
-
+        
         _lockedOnEnemy.Value = SelectLockOnTarget(inRangeEnemies); //新しいロックオン対象を選択する
     }
     
@@ -143,6 +135,32 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         
         return bestTarget;
     }
+    
+    /// <summary>
+    /// 既にロックオンしている状態で再びロックオンの入力を受け取った時、次のロックオン対象を選択する
+    /// </summary>
+    private Transform SelectNextLockOnTarget()
+    {
+        Transform currentTarget = _lockedOnEnemy.Value;
+        Transform bestTarget = null;
+        float closestDistance = float.MaxValue;
+        
+        foreach (var enemy in _battleChecker.EnemiesInRange)
+        {
+            if (ReferenceEquals(enemy.transform, currentTarget)) continue;　//現在のターゲットは省く
+            if (!IsEnemyValid(enemy)) continue; //敵が死亡していないか判定する
+
+            //プレイヤーに最も近い敵を探す
+            float worldDistance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (worldDistance < closestDistance)
+            {
+                closestDistance = worldDistance;
+                bestTarget = enemy.transform;
+            }
+        }
+
+        return bestTarget ?? currentTarget; // 次のターゲットが見つからなければ、現在のターゲットを維持
+    }
     #endregion
     
     /// <summary>
@@ -159,36 +177,8 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         else //次のターゲットがいない場合
         {
             UIManager.Instance.HideLockOnUI();
-            CameraManager.Instance.UseCamera(0);
             Debug.Log("ロックオン可能な敵がいません");
         }
-    }
-    
-    /// <summary>
-    /// 既にロックオンしている状態で再びロックオンの入力を受け取った時、次のロックオン対象を選択する
-    /// </summary>
-    private Transform SelectNextLockOnTarget()
-    {
-        Transform currentTarget = _lockedOnEnemy.Value;
-        Transform bestTarget = null;
-        float closestDistance = float.MaxValue;
-
-        foreach (var enemy in _battleChecker.EnemiesInRange)
-        {
-            if (!IsEnemyValid(enemy)) continue; //敵が死亡していないか判定する
-            
-            if (enemy.transform == currentTarget) continue;　//現在のターゲットは省く
-
-            //プレイヤーに最も近い敵を探す
-            float worldDistance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (worldDistance < closestDistance)
-            {
-                closestDistance = worldDistance;
-                bestTarget = enemy.transform;
-            }
-        }
-
-        return bestTarget ?? currentTarget; // 次のターゲットが見つからなければ、現在のターゲットを維持
     }
     
     /// <summary>
