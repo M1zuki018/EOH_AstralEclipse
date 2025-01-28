@@ -44,6 +44,14 @@ public class Inventory : MonoBehaviour
         return _collectedKeys.Count >= 3;
     }
 
+    /// <summary>
+    /// 現在所持しているキーの個数を返す
+    /// </summary>
+    public int CurrentHasKeys()
+    {
+        return _collectedKeys.Count;
+    }
+
     public void UseKey()
     {
         _collectedKeys.Clear();

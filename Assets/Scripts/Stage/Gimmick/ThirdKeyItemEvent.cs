@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,10 +8,12 @@ public class ThirdKeyItemEvent : MonoBehaviour
 {
     [Header("初期設定")]
     [SerializeField] private PlayerInput _playerInput;
+    [SerializeField] private Inventory _inventory;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        //コライダーに接触したのがプレイヤーで、かつ既に2つキーを獲得している場合にイベント発生
+        if (other.CompareTag("Player") && _inventory.CurrentHasKeys() == 2)
         {
             Event();
         }
@@ -30,4 +31,15 @@ public class ThirdKeyItemEvent : MonoBehaviour
     //奥からエネミーが歩いてくる
     //カメラを切り替える
     //操作できるようにする
+
+    #region デバッグ用
+
+    [ContextMenu("Debug")]
+    public void Debug()
+    {
+        _inventory.AddKey("test");
+        _inventory.AddKey("test2");
+    }
+
+    #endregion
 }
