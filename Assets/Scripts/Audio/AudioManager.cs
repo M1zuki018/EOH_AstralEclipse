@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -48,6 +49,17 @@ public class AudioManager : MonoBehaviour
     public void PlaySE(int clipIndex)
     {
         //音源を取得したら、volumeを調整してから再生する
+        ClipData clip = GetClipData(_audioDatas[1], clipIndex);
+        _audioSources[1].volume = clip.Volume;
+        _audioSources[1].PlayOneShot(clip.Clip);
+    }
+
+    /// <summary>
+    /// 一定秒数待ってからSEを再生する
+    /// </summary>
+    public async void PlaySEDelay(int clipIndex, int delay)
+    {
+        await Task.Delay(delay);
         ClipData clip = GetClipData(_audioDatas[1], clipIndex);
         _audioSources[1].volume = clip.Volume;
         _audioSources[1].PlayOneShot(clip.Clip);

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
 
@@ -112,14 +111,27 @@ public class PlayerCombat : MonoBehaviour, ICombat
         {
             _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
         }
-        
-        if (index == 0)
+
+        switch (index)
         {
-            _first.StartAttack(_adjustDirection.Target);
-            return;
+            case 0:
+                _first.StartAttack(_adjustDirection.Target);
+                break;
+            case 1:
+                AudioManager.Instance.PlaySEDelay(3, 100);
+                break;
+            case 2:
+                AudioManager.Instance.PlaySEDelay(5, 100);
+                break;
+            case 3:
+                AudioManager.Instance.PlaySEDelay(3, 100);
+                break;
+            case 4:
+                AudioManager.Instance.PlaySEDelay(3, 100);
+                AudioManager.Instance.PlaySEDelay(3, 330);
+                AudioManager.Instance.PlaySEDelay(4, 1100);
+                break;
         }
-        
-        AudioManager.Instance.PlaySE(3);
     }
 
     /// <summary>
