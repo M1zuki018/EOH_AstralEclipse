@@ -20,6 +20,7 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     public void GoToNextPoint()
     {
+        if(!_enemyMovement.Agent.enabled) return;
         if (!_enemyMovement.Agent.pathPending && _enemyMovement.Agent.remainingDistance < 0.5f)
         {
             if (_patrolPoints.Waypoints.Count == 0) return; //巡回地点の登録がゼロの場合、以降の処理を行わない

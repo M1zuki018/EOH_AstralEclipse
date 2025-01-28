@@ -1,6 +1,7 @@
 using PlayerSystem.Fight;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// エネミーの中心となるクラス
@@ -11,7 +12,6 @@ public class EnemyBrain : CharacterBase, IMatchTarget
 {
     //コンポーネント
     private ICombat _combat;
-    private EnemyMovement _enemyMovement;
     private Collider _collider;
     public Animator Animator { get; private set; }
     [SerializeField] private LockOnFunction _lockOnFunction;
@@ -21,15 +21,21 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     {
         get { return _health; }
     }
+    public EnemyMovement EnemyMovement { get; private set; }
 
-    private void Start()
+    protected override void Awake()
     {
-        //コンポーネントを取得する
-        _enemyMovement = GetComponent<EnemyMovement>();
+        base.Awake();
+        
+        //コンポーネントを取得する Start関数より前に実行したい
+        EnemyMovement = GetComponent<EnemyMovement>();
         _combat = GetComponent<EnemyCombat>();
         _collider = GetComponent<Collider>();
         Animator = GetComponent<Animator>();
-        
+    }
+    
+    private void Start() 
+    {
         UIManager.Instance.RegisterEnemy(this, GetCurrentHP()); //HPバーを頭上に生成する
         UIManager.Instance.HideEnemyHP(this); //隠す
         
@@ -49,7 +55,6 @@ public class EnemyBrain : CharacterBase, IMatchTarget
 
     protected override void HandleDeath(GameObject attacker)
     {
-        Debug.Log("呼ばれた");
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
         UIManager.Instance.UnregisterEnemy(this); //HPスライダーを削除する
         gameObject.tag = "Untagged";
@@ -58,7 +63,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         //TODO:死亡エフェクト等の処理
         
         //コンポーネントの無効化
-        _enemyMovement.enabled = false;
+        EnemyMovement.enabled = false;
     }
 
     #region デバッグ用メソッド
