@@ -113,9 +113,13 @@ public class PlayerCombat : MonoBehaviour, ICombat
             _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
         }
         
-        if(index == 0) _first.StartAttack(_adjustDirection.Target); //攻撃1段目の補正
+        if (index == 0)
+        {
+            _first.StartAttack(_adjustDirection.Target);
+            return;
+        }
         
-        //AudioManager.Instance.PlaySE(3);
+        AudioManager.Instance.PlaySE(3);
     }
 
     /// <summary>

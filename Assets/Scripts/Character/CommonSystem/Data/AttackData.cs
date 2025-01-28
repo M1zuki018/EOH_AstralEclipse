@@ -8,4 +8,5 @@ public struct AttackData
 {
     public float MoveSpeed;
     public bool AdjustDirection;
+    public bool UseRootMotion;
 }

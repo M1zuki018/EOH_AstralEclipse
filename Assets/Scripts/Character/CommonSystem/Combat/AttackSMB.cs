@@ -9,6 +9,7 @@ public class AttackSMB : StateMachineBehaviour
     [SerializeField, Comment("コンボの段階")] private int _attackIndex;
     [SerializeField, Comment("モーションの移動量")] private float _moveSpeed = 1.0f;
     [SerializeField, Comment("向きの補正をするか")] private bool _adjustDirection = true;
+    [SerializeField, Comment("ルートモーションの使用")] private bool _useRootMotion = false; 
     
     private PlayerCombat _combat;
     private CharacterController _cc;
@@ -27,20 +28,17 @@ public class AttackSMB : StateMachineBehaviour
         animator.applyRootMotion = false; //一度ルートモーションは無効にする
 
         _combat.PerformAttack(_attackIndex); //攻撃処理メソッドを呼ぶ
-
-        /*
-        if (!_adjustDirection) //補正を行わない場合
+        
+        if (_useRootMotion) //ルートモーションを使用する場合
         {
             _combat.AdjustDirection.AdjustDirectionToTargetEarly(); //向きを補正
             animator.applyRootMotion = true; //ルートモーションを有効
         }
-        */
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-        if (_adjustDirection) //補正が有効なら移動補正を行う
+        if (_adjustDirection && !_useRootMotion) //補正が有効なら移動補正を行う
         {
             _combat?.AdjustDirection.AdjustDirectionToTarget();
             Vector3 forward = _player.forward; // 現在の向き
