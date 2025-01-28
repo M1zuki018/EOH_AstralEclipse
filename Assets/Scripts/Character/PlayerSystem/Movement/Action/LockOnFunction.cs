@@ -33,7 +33,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             .Interval(TimeSpan.FromSeconds(0.5f))
             .Subscribe(_ =>
             {
-                if (_lockedOnEnemy == null && _battleChecker.EnemiesInRange.Count > 0) 
+                if (_lockedOnEnemy == null) 
                 {
                     UpdateEnemiesInRange(); //敵がいる場合はロックオンを開始
                 }
@@ -64,14 +64,36 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         {
             Debug.Log("ロックオン可能な敵がいません");
             _lockedOnEnemy.Value = null;
-            //CameraManager.Instance.UseCamera(0);
+            UIManager.Instance.HideLockOnUI();
+            CameraManager.Instance.UseCamera(0);
             return;
         }
         
         Transform nextTarget = SelectNextLockOnTarget(); //別の敵をロックオンする
         _lockedOnEnemy.Value = nextTarget;
-        //CameraManager.Instance.UseTargetGroup(nextTarget.transform.GetChild(3), 0.5f, 0.16f);
-        //CameraManager.Instance.UseCamera(1);
+        CameraManager.Instance.UseTargetGroup(nextTarget.transform.GetChild(3), 1f, 0.3f);
+        CameraManager.Instance.UseCamera(1);
+    }
+    
+    /// <summary>
+    /// ロックオンしているターゲットが変更されたときに呼び出されるメソッド
+    /// </summary>
+    private void OnLockOnTargetChanged(Transform newTarget)
+    {
+        if (newTarget != null) //新しいターゲットがいた場合
+        {
+            UIManager.Instance.SetLockOnUI(newTarget);
+            AudioManager.Instance.PlaySE(2);
+            _adjustDirection.Target = newTarget; //攻撃対象を書き換える
+            CameraManager.Instance.UseTargetGroup(newTarget.transform.GetChild(3), 1f, 0.3f);
+        }
+        else //次のターゲットがいない場合
+        {
+            Debug.Log("ロックオン可能な敵がいません");
+            _lockedOnEnemy.Value = null;
+            UIManager.Instance.HideLockOnUI();
+            CameraManager.Instance.UseCamera(0);
+        }
     }
 
     #region 視界内の敵のリストを作成するメソッドまとめ
@@ -163,23 +185,6 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     }
     #endregion
     
-    /// <summary>
-    /// ロックオンしているターゲットが変更されたときに呼び出されるメソッド
-    /// </summary>
-    private void OnLockOnTargetChanged(Transform newTarget)
-    {
-        if (newTarget != null) //新しいターゲットがいた場合
-        {
-            UIManager.Instance.SetLockOnUI(newTarget);
-            AudioManager.Instance.PlaySE(2);
-            _adjustDirection.Target = newTarget; //攻撃対象を書き換える
-        }
-        else //次のターゲットがいない場合
-        {
-            UIManager.Instance.HideLockOnUI();
-            Debug.Log("ロックオン可能な敵がいません");
-        }
-    }
     
     /// <summary>
     /// 有効な敵かの判定

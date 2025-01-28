@@ -25,6 +25,8 @@ public class EnemyFall : MonoBehaviour
                 gameObject.SetActive(false);
                 _brain.Health.TakeDamage(_brain.GetCurrentHP(), gameObject); //ダメージを受けて死亡判定にする
                 UIManager.Instance.UnregisterEnemy(this.gameObject.GetComponent<EnemyBrain>()); //HPスライダーを削除する
+                CameraManager.Instance.DeregisterTargetGroup(this.transform);
+                CameraManager.Instance.UseCamera(0);
             })
             .AddTo(this);
     }

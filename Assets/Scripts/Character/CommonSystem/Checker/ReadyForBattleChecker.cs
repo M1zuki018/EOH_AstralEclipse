@@ -72,8 +72,6 @@ public class ReadyForBattleChecker : MonoBehaviour
     {
         if (EnemiesInRange.Add(brain)) //ハッシュセットに新規に追加できた場合のみ以下の処理を行う
         {
-            brain.Health.OnDeath += HandleEnemyDeath; //敵が死亡したときの処理を登録
-            
             if (!ReadyForBattle) //臨戦状態ではなかったら以下の処理を行う
             {
                 ReadyForBattle = true;
@@ -84,20 +82,10 @@ public class ReadyForBattleChecker : MonoBehaviour
     }
 
     /// <summary>
-    /// 範囲内で敵が死亡した時の処理
-    /// </summary>
-    private void HandleEnemyDeath(GameObject obj)
-    {
-        RemoveEnemy(obj.GetComponent<EnemyBrain>());
-    }
-
-    /// <summary>
     /// 判定内からEnemyが出たときの処理
     /// </summary>
-    private void RemoveEnemy(EnemyBrain brain)
+    public void RemoveEnemy(EnemyBrain brain)
     {
-        brain.Health.OnDeath -= HandleEnemyDeath; // 敵の死亡通知を解除
-        
         if (EnemiesInRange.Remove(brain))
         {
             // 敵が全ていなくなった場合、臨戦状態を解除する

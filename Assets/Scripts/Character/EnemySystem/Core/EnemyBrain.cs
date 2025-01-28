@@ -15,6 +15,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     private Collider _collider;
     public Animator Animator { get; private set; }
     [SerializeField] private LockOnFunction _lockOnFunction;
+    [SerializeField] private ReadyForBattleChecker _readyForBattleChecker;
     
     public Vector3 TargetPosition { get; }
     public IHealth Health
@@ -56,6 +57,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     protected override void HandleDeath(GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
+        _readyForBattleChecker.RemoveEnemy(this);
         UIManager.Instance.UnregisterEnemy(this); //HPスライダーを削除する
         gameObject.tag = "Untagged";
         Animator.SetTrigger("Dead");

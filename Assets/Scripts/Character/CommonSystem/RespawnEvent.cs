@@ -45,6 +45,7 @@ public class RespawnEvent : MonoBehaviour
         await UniTask.Delay(_fadeTime); //フェードを待つ
         
         //暗転中の処理
+        CameraManager.Instance.UseCamera(0);
         _playerInput.DeactivateInput(); //全ての入力を無効化
         
         _player._animator.applyRootMotion = false; //一時的にルートモーション・CharacterControllerを無効化する

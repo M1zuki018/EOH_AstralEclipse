@@ -54,4 +54,15 @@ public class CameraManager : MonoBehaviour
         }
         _targetGroup.AddMember(newTarget, weight, radius);
     }
+
+    /// <summary>
+    /// ターゲットグループから自身を削除します
+    /// </summary>
+    public void DeregisterTargetGroup(Transform target)
+    {
+        if (_targetGroup.m_Targets.Length > 0)
+        {
+            _targetGroup.RemoveMember(target);
+        }
+    }
 }
