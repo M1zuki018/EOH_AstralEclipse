@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
@@ -12,7 +13,8 @@ public class NormalAttack_First : AttackAdjustBase
     [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
     [SerializeField] private float _slashFream = 0.14f; //アニメーションの進行度合い。正規化したもの
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
-    
+    [SerializeField] private float _forwardDistance = 1.5f; //ロックオンしていない時に移動する距離
+
     private bool _isAttacking = false; //突進中かどうか
     private float _distance; //敵との距離
     private float _totalDistanceToCover; //_distanceと_adjustDistanceの差
@@ -82,6 +84,24 @@ public class NormalAttack_First : AttackAdjustBase
     {
         _isAttacking = false;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
+        
+        //移動
+        float elapsedDistance = 0f; //移動した距離を記録する
+        
+        
+         DOTween.To(
+             () => elapsedDistance,
+             value =>
+             {
+                 float delta = value - elapsedDistance; //前回との差分を計算
+                 elapsedDistance = value; //現在の値を更新
+                 
+                 _cc.Move(transform.forward * delta); //差分だけ移動させる
+             },
+             _forwardDistance,
+             0.5f)
+             .SetEase(Ease.Linear);
+        
         AudioManager.Instance.PlaySE(3);
     }
     

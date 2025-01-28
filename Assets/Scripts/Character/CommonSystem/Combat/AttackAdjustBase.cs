@@ -9,7 +9,7 @@ public abstract class AttackAdjustBase : MonoBehaviour, IAdjustableAttack
     protected CharacterController _cc; //プレイヤーのCharacterController
     protected Transform _target; //ロックオン中の敵
     
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         _animator = GetComponent<Animator>();
         _cc = GetComponent<CharacterController>();
