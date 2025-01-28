@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6633902261215438811}
   - component: {fileID: 6223817539910704568}
   - component: {fileID: 1378155466070006360}
-  - component: {fileID: 1560395742428178552}
   - component: {fileID: 201803951150409412}
   - component: {fileID: 9080784432743657348}
   m_Layer: 5
@@ -61,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.87381816, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -82,21 +81,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 10
---- !u!114 &1560395742428178552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8595533670983816043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!225 &201803951150409412
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -123,5 +107,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 1378155466070006360}
   _canvasGroup: {fileID: 201803951150409412}
-  _offset: 0
+  _offset: {x: 0, y: 2.5, z: 0}
   _dispersion: {x: 0, y: 0}

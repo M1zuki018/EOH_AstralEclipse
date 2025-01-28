@@ -30,6 +30,7 @@ public class PlayerBrain : CharacterBase
         
         //開始演出
         _playerInput.DeactivateInput();
+        SkinManager.Instance.ChangeSkin(0);
         CameraManager.Instance.UseCamera(3);
         UIManager.Instance.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
         UIManager.Instance.HideRightUI();
