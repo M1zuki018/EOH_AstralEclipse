@@ -1,3 +1,4 @@
+using System;
 using UniRx;
 using UnityEngine;
 
@@ -6,28 +7,35 @@ using UnityEngine;
 /// </summary>
 public class NormalAttack_First : MonoBehaviour
 {
-    [SerializeField] private float _approachSpeed = 5f; //突進速度
-    [SerializeField] private float _attackDistance = 4f; //有効距離
-    [SerializeField] private float _adjustDistance = 1.5f; //補正がかかる距離
-    [SerializeField] private float _slashFream = 0.3f; //0~1
+    [Header("初期設定")]
+    [SerializeField] private float _approachSpeed = 30f; //突進速度
+    [SerializeField] private float _attackDistance = 10f; //有効距離
+    [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
+    [SerializeField] private float _slashFream = 0.14f; //アニメーションの進行度合い。正規化したもの
+    [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
+    
     private Transform _target; //ロックオン中の敵
-    private Animator _animator; //Animator
-    private bool _isAttacking = false;
-    private float _distance;
-    private CharacterController _cc;
-
+    private Animator _animator; //プレイヤーのAnimator
+    private CharacterController _cc; //プレイヤーのCharacterController
+    
+    private bool _isAttacking = false; //突進中かどうか
+    private float _distance; //敵との距離
+    private float _totalDistanceToCover; //_distanceと_adjustDistanceの差
+    
     private void Start()
     {
+        //コンポーネントを取得
+        _animator = GetComponent<Animator>();
         _cc = GetComponent<CharacterController>();
+        
     }
     
     private void Update()
     {
         if (_isAttacking && _target != null)
         {
-            HandleApproach();
+            HandleApproach(); //突進処理
         }
-        
     }
 
     /// <summary>
@@ -38,21 +46,31 @@ public class NormalAttack_First : MonoBehaviour
         _target = target;
         _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
         
-        Debug.Log(_distance);
+        Debug.Log($"攻撃開始時の敵との距離： {_distance}");
         
         if (_distance > _adjustDistance && _distance < _attackDistance) //補正がかかる距離よりも遠く、かつ有効距離内にいる場合
         {
-            //突進の処理を行う
-            _isAttacking = true;
+            _totalDistanceToCover = _distance - _adjustDistance; // 距離の差を計算
+            _isAttacking = true; //突進の処理を有効化
+            
+            //突進が完了するまでアニメーションのスピードを設定する
             Observable
                 .EveryUpdate()
-                .Where(_ => _distance < _adjustDistance)
+                .Where(_ => _distance > _adjustDistance)
+                .Subscribe(_ => AdjustAnimationSpeed())
+                .AddTo(this);
+            
+            //突進が完了したら斬撃を行う
+            Observable
+                .EveryUpdate()
+                .Where(_ => _distance <= _adjustDistance)
+                .Take(1)
                 .Subscribe(_ => TriggerSlash())
                 .AddTo(this);
         }
         else
         {
-            TriggerSlash(); //斬撃モーションを再生する
+            TriggerSlash(); //斬撃モーションを即座に再生する
         }
     }
     
@@ -64,11 +82,11 @@ public class NormalAttack_First : MonoBehaviour
         Debug.Log("補正中：攻撃１段階");
         _distance = Vector3.Distance(transform.position, _target.position); //距離を更新
                     
-        // 突進処理: プレイヤーを敵に近づける
+        //プレイヤーを敵に近づける
         Vector3 direction = (_target.position - transform.position).normalized;
         _cc.Move(direction * _approachSpeed * Time.deltaTime);
 
-        // 敵の方向を向く
+        //プレイヤーの向きを敵の方向へ合わせる
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
@@ -79,6 +97,30 @@ public class NormalAttack_First : MonoBehaviour
     private void TriggerSlash()
     {
         _isAttacking = false;
-
+        _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
+        AudioManager.Instance.PlaySE(3);
+    }
+    
+    /// <summary>
+    /// アニメーションの再生スピードを調整
+    /// </summary>
+    private void AdjustAnimationSpeed()
+    {
+        // 距離が近づくにつれてアニメーションスピードを変更
+        float distanceToCover = _distance - _adjustDistance;
+        
+        // もし突進が完了していれば、アニメーションスピードを上げて斬撃に遷移させる
+        if (distanceToCover <= 0)
+        {
+            _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed); // 突進完了後に速やかに斬撃モーションに移行
+            TriggerSlash(); // 斬撃モーションを即座に呼び出し
+            return;
+        }
+        
+        float normalizedSpeed = Mathf.Clamp01(distanceToCover / _totalDistanceToCover);
+        float speedFactor = Mathf.Lerp(0f, 1f, normalizedSpeed); // 突進の進行度に合わせてスピードを調整
+        
+        // スピードをアニメーションに適用
+        _animator.SetFloat("AttackSpeed", speedFactor); 
     }
 }

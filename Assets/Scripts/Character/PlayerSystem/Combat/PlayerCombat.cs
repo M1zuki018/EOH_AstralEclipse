@@ -115,7 +115,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         
         if(index == 0) _first.StartAttack(_adjustDirection.Target); //攻撃1段目の補正
         
-        AudioManager.Instance.PlaySE(3);
+        //AudioManager.Instance.PlaySE(3);
     }
 
     /// <summary>
