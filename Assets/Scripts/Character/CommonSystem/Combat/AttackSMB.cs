@@ -29,8 +29,9 @@ public class AttackSMB : StateMachineBehaviour
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _combat.AdjustDirection.AdjustDirectionToTarget();
-        if (_adjustDirection) //補正が有効で、補正が完了していたら移動補正を行う
+        _combat?.AdjustDirection.AdjustDirectionToTarget();
+        
+        if (_adjustDirection) //補正が有効なら移動補正を行う
         {
             Vector3 forward = _player.forward; // 現在の向き
             Vector3 move = forward * _moveSpeed * Time.deltaTime; // 移動量計算
