@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +15,7 @@ using Random = UnityEngine.Random;
 public class PlayerBrain : CharacterBase
 {
     private PlayerMovement _playerMovement;
+    private PlayerInput _playerInput;
     
     //Idleモーション再生のための変数
     [SerializeField] private float _idleThreshold = 5f; //無操作とみなす秒数
@@ -24,10 +26,16 @@ public class PlayerBrain : CharacterBase
     //カメラシェイク用
     [SerializeField, HighlightIfNull] private CinemachineImpulseSource _impulseSource;
     
-    private void Start()
+    private async void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>(); //Animator、State取得用
+        _playerInput = GetComponent<PlayerInput>();
+        
+        //開始演出
+        _playerInput.DeactivateInput();
+        //CameraManager.Instance.UseCamera(3);
         UIManager.Instance.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
+        UIManager.Instance.HideRightUI();
         
         //TODO: 最初からモーションを流せるように変更する
         SubscribeToInputEvents(); //入力イベントを購読
@@ -36,6 +44,11 @@ public class PlayerBrain : CharacterBase
             .Throttle(TimeSpan.FromSeconds(_idleThreshold)) //最後の入力から指定した間入力がなかったら以下の処理を行う
             .Subscribe(_ => PlayRandomIdleMotion())
             .AddTo(this);
+
+        await UniTask.Delay(2700);
+        CameraManager.Instance.UseCamera(0);
+        UIManager.Instance.ShowRightUI();
+        _playerInput.ActivateInput();
     }
     
     /// <summary>
