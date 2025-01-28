@@ -23,9 +23,6 @@ public class PlayerBrain : CharacterBase
     [SerializeField, HighlightIfNull] private InputActionReference _lookAction; //カメラ操作のアクション参照
     private Subject<Unit> _inputDetected = new Subject<Unit>();
     
-    //カメラシェイク用
-    [SerializeField, HighlightIfNull] private CinemachineImpulseSource _impulseSource;
-    
     private async void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>(); //Animator、State取得用
@@ -90,7 +87,7 @@ public class PlayerBrain : CharacterBase
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
         UIManager.Instance.UpdatePlayerHP(GetCurrentHP());
         _playerMovement._animator.SetTrigger("Damage");
-        _impulseSource?.GenerateImpulse(); //カメラを揺らす
+        CameraManager.Instance.TriggerCameraShake();
     }
 
     protected override void HandleDeath(GameObject attacker)
@@ -99,4 +96,11 @@ public class PlayerBrain : CharacterBase
         _playerMovement._animator.SetTrigger("Damage");
         //TODO:死亡エフェクト等の処理
     }
+
+    [ContextMenu("Shake")]
+    public void Shake()
+    {
+        CameraManager.Instance.TriggerCameraShake();
+    }
+    
 }

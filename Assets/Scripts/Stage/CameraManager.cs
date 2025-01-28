@@ -11,6 +11,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private List<CinemachineVirtualCamera> _virtualCameras = new List<CinemachineVirtualCamera>();
     [SerializeField] private CinemachineTargetGroup _targetGroup;
+    [SerializeField] private CinemachineImpulseSource _impulseSource;
     
     private void Awake()
     {
@@ -64,5 +65,13 @@ public class CameraManager : MonoBehaviour
         {
             _targetGroup.RemoveMember(target);
         }
+    }
+
+    /// <summary>
+    /// カメラを揺らす
+    /// </summary>
+    public void TriggerCameraShake()
+    {
+        _impulseSource.GenerateImpulse();
     }
 }
