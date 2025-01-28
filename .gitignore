@@ -5496,3 +5496,1312 @@ Assets/Audio/Clip/SE/KeyItem.mp3.meta
 Assets/Audio/Clip/SE/Step.mp3
 Assets/Audio/Clip/SE/Step.mp3.meta
 ProjectSettings/Packages/com.unity.progrids/Settings.json
+Assets/Resource.meta
+Assets/Resource/Anim.meta
+Assets/Resource/Biomechanical_Mutant.meta
+Assets/Resource/DoubleL.meta
+Assets/Resource/Image.meta
+Assets/Resource/Invector-3rdPersonController_LITE.meta
+Assets/Resource/Mat.meta
+Assets/Resource/MiniMapTexture.renderTexture
+Assets/Resource/MiniMapTexture.renderTexture.meta
+Assets/Resource/Model.meta
+Assets/Resource/SkySeries Freebie.meta
+Assets/Resource/Anim/Arissa@Standing React Death Forward.fbx
+Assets/Resource/Anim/Arissa@Standing React Death Forward.fbx.meta
+Assets/Resource/Anim/BigJump.fbx
+Assets/Resource/Anim/BigJump.fbx.meta
+Assets/Resource/Anim/Ch10_nonPBR@Braced Hang To Crouch.fbx
+Assets/Resource/Anim/Ch10_nonPBR@Braced Hang To Crouch.fbx.meta
+Assets/Resource/Anim/Climb.fbx
+Assets/Resource/Anim/Climb.fbx.meta
+Assets/Resource/Anim/Combat.meta
+Assets/Resource/Anim/Dodge.meta
+Assets/Resource/Anim/Enemy.controller
+Assets/Resource/Anim/Enemy.controller.meta
+Assets/Resource/Anim/Enemy.meta
+Assets/Resource/Anim/Idle 1.fbx
+Assets/Resource/Anim/Idle 1.fbx.meta
+Assets/Resource/Anim/Idle.meta
+Assets/Resource/Anim/Player.controller
+Assets/Resource/Anim/Player.controller.meta
+Assets/Resource/Anim/Roll.fbx
+Assets/Resource/Anim/Roll.fbx.meta
+Assets/Resource/Anim/Vault.fbx
+Assets/Resource/Anim/Vault.fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Put Back Rifle Behind Shoulder.fbx
+Assets/Resource/Anim/Combat/Arissa@Put Back Rifle Behind Shoulder.fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Run With Sword.fbx
+Assets/Resource/Anim/Combat/Arissa@Run With Sword.fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Stable Sword Inward Slash.fbx
+Assets/Resource/Anim/Combat/Arissa@Stable Sword Inward Slash.fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Stable Sword Outward Slash.fbx
+Assets/Resource/Anim/Combat/Arissa@Stable Sword Outward Slash.fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Attack.fbx
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Attack.fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Kick.fbx
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Kick.fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Slash (1).fbx
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Slash (1).fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Slash (2).fbx
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Slash (2).fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Slash.fbx
+Assets/Resource/Anim/Combat/Arissa@Sword And Shield Slash.fbx.meta
+Assets/Resource/Anim/Combat/Arissa@Withdrawing Sword.fbx
+Assets/Resource/Anim/Combat/Arissa@Withdrawing Sword.fbx.meta
+Assets/Resource/Anim/Dodge/Arissa@Standing Dodge Backward.fbx
+Assets/Resource/Anim/Dodge/Arissa@Standing Dodge Backward.fbx.meta
+Assets/Resource/Anim/Dodge/Arissa@Standing Dodge Forward.fbx
+Assets/Resource/Anim/Dodge/Arissa@Standing Dodge Forward.fbx.meta
+Assets/Resource/Anim/Dodge/Arissa@Standing Dodge Left.fbx
+Assets/Resource/Anim/Dodge/Arissa@Standing Dodge Left.fbx.meta
+Assets/Resource/Anim/Dodge/Arissa@Standing Dodge Right.fbx
+Assets/Resource/Anim/Dodge/Arissa@Standing Dodge Right.fbx.meta
+Assets/Resource/Anim/Enemy/Mutant@Mutant Breathing Idle.fbx
+Assets/Resource/Anim/Enemy/Mutant@Mutant Breathing Idle.fbx.meta
+Assets/Resource/Anim/Enemy/Mutant@Mutant Dying.fbx
+Assets/Resource/Anim/Enemy/Mutant@Mutant Dying.fbx.meta
+Assets/Resource/Anim/Enemy/Mutant@Mutant Jump Attack.fbx
+Assets/Resource/Anim/Enemy/Mutant@Mutant Jump Attack.fbx.meta
+Assets/Resource/Anim/Enemy/Mutant@Mutant Punch.fbx
+Assets/Resource/Anim/Enemy/Mutant@Mutant Punch.fbx.meta
+Assets/Resource/Anim/Enemy/Mutant@Mutant Run.fbx
+Assets/Resource/Anim/Enemy/Mutant@Mutant Run.fbx.meta
+Assets/Resource/Anim/Enemy/Mutant@Mutant Swiping.fbx
+Assets/Resource/Anim/Enemy/Mutant@Mutant Swiping.fbx.meta
+Assets/Resource/Anim/Enemy/Mutant@Mutant Walking.fbx
+Assets/Resource/Anim/Enemy/Mutant@Mutant Walking.fbx.meta
+Assets/Resource/Anim/Idle/Arissa@Arm Stretching.fbx
+Assets/Resource/Anim/Idle/Arissa@Arm Stretching.fbx.meta
+Assets/Resource/Anim/Idle/Arissa@Look Around.fbx
+Assets/Resource/Anim/Idle/Arissa@Look Around.fbx.meta
+Assets/Resource/Anim/Idle/Arissa@Standing Idle.fbx
+Assets/Resource/Anim/Idle/Arissa@Standing Idle.fbx.meta
+Assets/Resource/Biomechanical_Mutant/Materials.meta
+Assets/Resource/Biomechanical_Mutant/Mesh.meta
+Assets/Resource/Biomechanical_Mutant/Prefabs.meta
+Assets/Resource/Biomechanical_Mutant/Showcase.unity
+Assets/Resource/Biomechanical_Mutant/Showcase.unity.meta
+Assets/Resource/Biomechanical_Mutant/Textures.meta
+Assets/Resource/Biomechanical_Mutant/Materials/M_BM_Skin_1_Bottom.mat
+Assets/Resource/Biomechanical_Mutant/Materials/M_BM_Skin_1_Bottom.mat.meta
+Assets/Resource/Biomechanical_Mutant/Materials/M_BM_Skin_1_Bottom_bloody.mat
+Assets/Resource/Biomechanical_Mutant/Materials/M_BM_Skin_1_Bottom_bloody.mat.meta
+Assets/Resource/Biomechanical_Mutant/Materials/M_BM_Skin_1_Top.mat
+Assets/Resource/Biomechanical_Mutant/Materials/M_BM_Skin_1_Top.mat.meta
+Assets/Resource/Biomechanical_Mutant/Materials/M_BM_Skin_1_Top_bloody.mat
+Assets/Resource/Biomechanical_Mutant/Materials/M_BM_Skin_1_Top_bloody.mat.meta
+Assets/Resource/Biomechanical_Mutant/Mesh/SK_Bio_Mutant.fbx
+Assets/Resource/Biomechanical_Mutant/Mesh/SK_Bio_Mutant.fbx.meta
+Assets/Resource/Biomechanical_Mutant/Mesh/uv_1.mat
+Assets/Resource/Biomechanical_Mutant/Mesh/uv_1.mat.meta
+Assets/Resource/Biomechanical_Mutant/Mesh/uv_2.mat
+Assets/Resource/Biomechanical_Mutant/Mesh/uv_2.mat.meta
+Assets/Resource/Biomechanical_Mutant/Prefabs/Biomech_Mutant_Skin_1.prefab
+Assets/Resource/Biomechanical_Mutant/Prefabs/Biomech_Mutant_Skin_1.prefab.meta
+Assets/Resource/Biomechanical_Mutant/Prefabs/Biomech_Mutant_Skin_1_bloody.prefab
+Assets/Resource/Biomechanical_Mutant/Prefabs/Biomech_Mutant_Skin_1_bloody.prefab.meta
+Assets/Resource/Biomechanical_Mutant/Prefabs/Biomech_Mutant_Skin_2.prefab
+Assets/Resource/Biomechanical_Mutant/Prefabs/Biomech_Mutant_Skin_2.prefab.meta
+Assets/Resource/Biomechanical_Mutant/Prefabs/Biomech_Mutant_Skin_2_bloody.prefab
+Assets/Resource/Biomechanical_Mutant/Prefabs/Biomech_Mutant_Skin_2_bloody.prefab.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Bottom_a.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Bottom_a.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Bottom_emissive.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Bottom_emissive.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Bottom_n.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Bottom_n.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Bottom_RGBA.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Bottom_RGBA.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Top_a.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Top_a.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Top_emissive.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Top_emissive.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Top_n.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Top_n.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Top_RGBA.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/T_Biomech_Mutant_Skin_1_Top_RGBA.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Bottom_Bloody_a.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Bottom_Bloody_a.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Bottom_Bloody_n.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Bottom_Bloody_n.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Bottom_Bloody_RGBA.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Bottom_Bloody_RGBA.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Top_Bloody_a.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Top_Bloody_a.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Top_Bloody_n.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Top_Bloody_n.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Top_Bloody_RGBA.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_1/Bloody/T_Biomech_Mutant_Skin_1_Top_Bloody_RGBA.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/M_BM_Skin_2_Bottom.mat
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/M_BM_Skin_2_Bottom.mat.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/M_BM_Skin_2_Top.mat
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/M_BM_Skin_2_Top.mat.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Bottom_a.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Bottom_a.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Bottom_emissive.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Bottom_emissive.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Bottom_n.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Bottom_n.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Bottom_RGBA.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Bottom_RGBA.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Top_a.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Top_a.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Top_emissive.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Top_emissive.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Top_n.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Top_n.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Top_RGBA.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/T_Biomech_Mutant_Skin_2_Top_RGBA.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/M_BM_Skin_2_Bottom_bloody.mat
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/M_BM_Skin_2_Bottom_bloody.mat.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/M_BM_Skin_2_Top_bloody.mat
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/M_BM_Skin_2_Top_bloody.mat.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Bottom_Bloody_a.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Bottom_Bloody_a.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Bottom_Bloody_n.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Bottom_Bloody_n.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Bottom_Bloody_RGBA.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Bottom_Bloody_RGBA.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Top_Bloody_a.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Top_Bloody_a.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Top_Bloody_n.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Top_Bloody_n.png.meta
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Top_Bloody_RGBA.png
+Assets/Resource/Biomechanical_Mutant/Textures/Skin_2/Bloody/T_Biomech_Mutant_Skin_2_Top_Bloody_RGBA.png.meta
+Assets/Resource/DoubleL/Actions.meta
+Assets/Resource/DoubleL/Demo.meta
+Assets/Resource/DoubleL/Enemy Attack.meta
+Assets/Resource/DoubleL/Hit.meta
+Assets/Resource/DoubleL/Model.meta
+Assets/Resource/DoubleL/NPC.meta
+Assets/Resource/DoubleL/One Hand Up.meta
+Assets/Resource/DoubleL/Actions/Action_A_4_1.fbx
+Assets/Resource/DoubleL/Actions/Action_A_4_1.fbx.meta
+Assets/Resource/DoubleL/Actions/Action_A_5_1.fbx
+Assets/Resource/DoubleL/Actions/Action_A_5_1.fbx.meta
+Assets/Resource/DoubleL/Actions/Action_A_5_2.fbx
+Assets/Resource/DoubleL/Actions/Action_A_5_2.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_End.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_End.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_End_InPlace.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_End_InPlace.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_Play.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_Play.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_Play_InPlace.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_Play_InPlace.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_Start.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_Start.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_Start_InPlace.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Down_Start_InPlace.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Idle.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Idle.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_End.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_End.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_End_InPlace.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_End_InPlace.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_Play.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_Play.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_Play_InPlace.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_Play_InPlace.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_Start.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_Start.fbx.meta
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_Start_InPlace.fbx
+Assets/Resource/DoubleL/Actions/Ladder/Ladder_Up_Start_InPlace.fbx.meta
+Assets/Resource/DoubleL/Demo/Anim.meta
+Assets/Resource/DoubleL/Demo/Animator.meta
+Assets/Resource/DoubleL/Demo/Demo.unity
+Assets/Resource/DoubleL/Demo/Demo.unity.meta
+Assets/Resource/DoubleL/Demo/DemoCameraController.cs
+Assets/Resource/DoubleL/Demo/DemoCameraController.cs.meta
+Assets/Resource/DoubleL/Demo/Anim/Action_A_4_1.anim
+Assets/Resource/DoubleL/Demo/Anim/Action_A_4_1.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Action_A_5_1.anim
+Assets/Resource/DoubleL/Demo/Anim/Action_A_5_1.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Action_A_5_2.anim
+Assets/Resource/DoubleL/Demo/Anim/Action_A_5_2.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_1.anim
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_1.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_2.anim
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_2.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_3.anim
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_3.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_4.anim
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_4.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_5.anim
+Assets/Resource/DoubleL/Demo/Anim/Dialogue_5.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Enemy_Attack_1.anim
+Assets/Resource/DoubleL/Demo/Anim/Enemy_Attack_1.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Enemy_Attack_1_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Enemy_Attack_1_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Enemy_Attack_1_Run.anim
+Assets/Resource/DoubleL/Demo/Anim/Enemy_Attack_1_Run.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Enemy_Attack_1_Run_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Enemy_Attack_1_Run_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Hit_F_1.anim
+Assets/Resource/DoubleL/Demo/Anim/Hit_F_1.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Hit_F_1_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Hit_F_1_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Hit_F_2.anim
+Assets/Resource/DoubleL/Demo/Anim/Hit_F_2.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Hit_F_2_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Hit_F_2_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_End.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_End.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_End_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_End_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_Play.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_Play.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_Play_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_Play_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_Start.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_Start.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_Start_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Down_Start_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Idle.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Idle.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_End.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_End.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_End_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_End_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_Play.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_Play.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_Play_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_Play_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_Start.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_Start.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_Start_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/Ladder_Up_Start_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_1.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_1.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_1_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_1_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_2.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_2.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_2_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_2_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_3.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_3.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_3_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_3_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_1.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_1.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_1_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_1_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_2.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_2.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_2_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_2_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_3.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_3.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_3_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Attack_B_3_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Idle.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Idle.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Jump_B.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Jump_B.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Jump_B_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Jump_B_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_B.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_B.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_B_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_B_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_F.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_F.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_F_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_F_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_L.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_L.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_L_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_L_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_R.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_R.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_R_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Run_R_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Shield_Block_Hit_1.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Shield_Block_Hit_1.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Shield_Block_Hit_1_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Shield_Block_Hit_1_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Shield_Block_Idle.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Shield_Block_Idle.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Sprint.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Sprint.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Sprint_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Sprint_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_B.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_B.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_B_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_B_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_F.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_F.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_F_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_F_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_L.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_L.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_L_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_L_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_R.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_R.anim.meta
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_R_InPlace.anim
+Assets/Resource/DoubleL/Demo/Anim/OneHand_Up_Walk_R_InPlace.anim.meta
+Assets/Resource/DoubleL/Demo/Animator/Action_A_4_1.controller
+Assets/Resource/DoubleL/Demo/Animator/Action_A_4_1.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Action_A_5_1.controller
+Assets/Resource/DoubleL/Demo/Animator/Action_A_5_1.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Action_A_5_2.controller
+Assets/Resource/DoubleL/Demo/Animator/Action_A_5_2.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_1.controller
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_1.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_2.controller
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_2.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_3.controller
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_3.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_4.controller
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_4.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_5.controller
+Assets/Resource/DoubleL/Demo/Animator/Dialogue_5.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Enemy_Attack_1.controller
+Assets/Resource/DoubleL/Demo/Animator/Enemy_Attack_1.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Enemy_Attack_1_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Enemy_Attack_1_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Enemy_Attack_1_Run.controller
+Assets/Resource/DoubleL/Demo/Animator/Enemy_Attack_1_Run.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Enemy_Attack_1_Run_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Enemy_Attack_1_Run_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Hit_F_1.controller
+Assets/Resource/DoubleL/Demo/Animator/Hit_F_1.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Hit_F_1_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Hit_F_1_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Hit_F_2.controller
+Assets/Resource/DoubleL/Demo/Animator/Hit_F_2.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Hit_F_2_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Hit_F_2_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_End.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_End.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_End_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_End_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_Play.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_Play.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_Play_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_Play_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_Start.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_Start.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_Start_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Down_Start_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Idle.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Idle.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_End.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_End.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_End_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_End_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_Play.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_Play.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_Play_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_Play_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_Start.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_Start.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_Start_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/Ladder_Up_Start_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/New Animator Controller.controller
+Assets/Resource/DoubleL/Demo/Animator/New Animator Controller.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_1.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_1.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_1_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_1_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_2.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_2.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_2_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_2_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_3.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_3.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_3_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_3_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_1.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_1.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_1_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_1_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_2.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_2.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_2_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_2_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_3.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_3.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_3_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Attack_B_3_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Idle.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Idle.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Jump_B.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Jump_B.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Jump_B_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Jump_B_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_B.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_B.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_B_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_B_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_F.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_F.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_F_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_F_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_L.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_L.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_L_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_L_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_R.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_R.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_R_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Run_R_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Shield_Block_Hit_1.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Shield_Block_Hit_1.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Shield_Block_Hit_1_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Shield_Block_Hit_1_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Shield_Block_Idle.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Shield_Block_Idle.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Sprint.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Sprint.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Sprint_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Sprint_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_B.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_B.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_B_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_B_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_F.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_F.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_F_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_F_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_L.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_L.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_L_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_L_InPlace.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_R.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_R.controller.meta
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_R_InPlace.controller
+Assets/Resource/DoubleL/Demo/Animator/OneHand_Up_Walk_R_InPlace.controller.meta
+Assets/Resource/DoubleL/Enemy Attack/Enemy_Attack_1.fbx
+Assets/Resource/DoubleL/Enemy Attack/Enemy_Attack_1.fbx.meta
+Assets/Resource/DoubleL/Enemy Attack/Enemy_Attack_1_InPlace.fbx
+Assets/Resource/DoubleL/Enemy Attack/Enemy_Attack_1_InPlace.fbx.meta
+Assets/Resource/DoubleL/Enemy Attack/Enemy_Attack_1_Run.fbx
+Assets/Resource/DoubleL/Enemy Attack/Enemy_Attack_1_Run.fbx.meta
+Assets/Resource/DoubleL/Enemy Attack/Enemy_Attack_1_Run_InPlace.fbx
+Assets/Resource/DoubleL/Enemy Attack/Enemy_Attack_1_Run_InPlace.fbx.meta
+Assets/Resource/DoubleL/Hit/Hit_F_1.fbx
+Assets/Resource/DoubleL/Hit/Hit_F_1.fbx.meta
+Assets/Resource/DoubleL/Hit/Hit_F_1_InPlace.fbx
+Assets/Resource/DoubleL/Hit/Hit_F_1_InPlace.fbx.meta
+Assets/Resource/DoubleL/Hit/Hit_F_2.fbx
+Assets/Resource/DoubleL/Hit/Hit_F_2.fbx.meta
+Assets/Resource/DoubleL/Hit/Hit_F_2_InPlace.fbx
+Assets/Resource/DoubleL/Hit/Hit_F_2_InPlace.fbx.meta
+Assets/Resource/DoubleL/Model/Armature (1).prefab
+Assets/Resource/DoubleL/Model/Armature (1).prefab.meta
+Assets/Resource/DoubleL/Model/Armature.fbx
+Assets/Resource/DoubleL/Model/Armature.fbx.meta
+Assets/Resource/DoubleL/Model/Floor.mat
+Assets/Resource/DoubleL/Model/Floor.mat.meta
+Assets/Resource/DoubleL/Model/Grid_01_BaseMap.png
+Assets/Resource/DoubleL/Model/Grid_01_BaseMap.png.meta
+Assets/Resource/DoubleL/Model/SM_Wep_Shield_01.fbx
+Assets/Resource/DoubleL/Model/SM_Wep_Shield_01.fbx.meta
+Assets/Resource/DoubleL/Model/SM_Wep_Sword_03.fbx
+Assets/Resource/DoubleL/Model/SM_Wep_Sword_03.fbx.meta
+Assets/Resource/DoubleL/Model/T-Pose.fbx
+Assets/Resource/DoubleL/Model/T-Pose.fbx.meta
+Assets/Resource/DoubleL/NPC/Dialogue.meta
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_1.fbx
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_1.fbx.meta
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_2.fbx
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_2.fbx.meta
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_3.fbx
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_3.fbx.meta
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_4.fbx
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_4.fbx.meta
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_5.fbx
+Assets/Resource/DoubleL/NPC/Dialogue/Dialogue_5.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_A.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_B.meta
+Assets/Resource/DoubleL/One Hand Up/Movement.meta
+Assets/Resource/DoubleL/One Hand Up/OneHand_Up_Idle.fbx
+Assets/Resource/DoubleL/One Hand Up/OneHand_Up_Idle.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Sheild.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_1.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_1.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_1_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_1_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_2.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_2.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_2_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_2_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_3.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_3.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_3_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_A/OneHand_Up_Attack_3_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_1.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_1.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_1_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_1_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_2.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_2.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_2_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_2_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_3.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_3.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_3_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Attack_B/OneHand_Up_Attack_B_3_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Jump_B.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Jump_B.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Jump_B_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Jump_B_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_B.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_B.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_B_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_B_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_F.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_F.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_F_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_F_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_L.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_L.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_L_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_L_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_R.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_R.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_R_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Run_R_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Sprint.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Sprint.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Sprint_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Sprint_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_B.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_B.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_B_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_B_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_F.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_F.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_F_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_F_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_L.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_L.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_L_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_L_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_R.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_R.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_R_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Movement/OneHand_Up_Walk_R_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Sheild/OneHand_Up_Shield_Block_Hit_1.fbx
+Assets/Resource/DoubleL/One Hand Up/Sheild/OneHand_Up_Shield_Block_Hit_1.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Sheild/OneHand_Up_Shield_Block_Hit_1_InPlace.fbx
+Assets/Resource/DoubleL/One Hand Up/Sheild/OneHand_Up_Shield_Block_Hit_1_InPlace.fbx.meta
+Assets/Resource/DoubleL/One Hand Up/Sheild/OneHand_Up_Shield_Block_Idle.fbx
+Assets/Resource/DoubleL/One Hand Up/Sheild/OneHand_Up_Shield_Block_Idle.fbx.meta
+Assets/Resource/Image/Circle.png
+Assets/Resource/Image/Circle.png.meta
+Assets/Resource/Image/Fill.png
+Assets/Resource/Image/Fill.png.meta
+Assets/Resource/Image/Light.png
+Assets/Resource/Image/Light.png.meta
+Assets/Resource/Image/Map.png
+Assets/Resource/Image/Map.png.meta
+Assets/Resource/Image/ROTL_Item_Portion.png
+Assets/Resource/Image/ROTL_Item_Portion.png.meta
+Assets/Resource/Image/Slider_Background.png
+Assets/Resource/Image/Slider_Background.png.meta
+Assets/Resource/Image/Sprite_Skill1.png
+Assets/Resource/Image/Sprite_Skill1.png.meta
+Assets/Resource/Image/Sprite_Skill2.png
+Assets/Resource/Image/Sprite_Skill2.png.meta
+Assets/Resource/Image/Target.png
+Assets/Resource/Image/Target.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Animator.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Documentation_BasicLocomotion_LITE.pdf
+Assets/Resource/Invector-3rdPersonController_LITE/Documentation_BasicLocomotion_LITE.pdf.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Invector_BasicLocomotion.unity
+Assets/Resource/Invector-3rdPersonController_LITE/Invector_BasicLocomotion.unity.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Prefabs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/README_Basic.txt
+Assets/Resource/Invector-3rdPersonController_LITE/README_Basic.txt.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Basic_FreeMovement.fbx
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Basic_FreeMovement.fbx.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Basic_StrafeMoveset.fbx
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Basic_StrafeMoveset.fbx.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Falling.anim
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Falling.anim.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Jump.anim
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Jump.anim.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/JumpMove.anim
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/JumpMove.anim.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/LandSoft.anim
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/LandSoft.anim.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Other.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Other/LogoAnimation.anim
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Animations/Other/LogoAnimation.anim.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/FBX.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/FBX/VBOT_LOD.fbx
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/FBX/VBOT_LOD.fbx.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Body.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Body.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Joints_Inside.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Joints_Inside.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Joints_Outside.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Joints_Outside.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Members_Metal.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Members_Metal.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Members_Plastic.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Members_Plastic.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Rubber.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/Rubber.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/V.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Material/Custom/V.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Prefab/VBOT2.0_Custom.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Prefab/VBOT2.0_Custom.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Albedo_body.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Albedo_body.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Albedo_members.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Albedo_members.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Metallic_body.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Metallic_body.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Metallic_members.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Metallic_members.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Normal_body.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Normal_body.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Normal_members.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Characters/Invector@V-Bot 2.0/Textures/Custom/Normal_members.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/basicSky.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/basicSky.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/cube difuse.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/cube difuse.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/cube.fbx
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/cube.fbx.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/IcePhysics.physicMaterial
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/IcePhysics.physicMaterial.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/invector-icon.fbx
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/invector-icon.fbx.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/ObjectPhysics 1.physicMaterial
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/ObjectPhysics 1.physicMaterial.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/ObjectPhysics.physicMaterial
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/ObjectPhysics.physicMaterial.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/health.fbx
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/health.fbx.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/sphere-health.fbx
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/sphere-health.fbx.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/sphereHealthTexture.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/sphereHealthTexture.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/vAnimateUV.cs
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/vAnimateUV.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials/health-01.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials/health-01.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials/health-02.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials/health-02.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials/Material.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials/Material.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials/sphereHealthTexture.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/Materials/sphereHealthTexture.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/blue_cube.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/blue_cube.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/blue_cube_simple.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/blue_cube_simple.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/blue_door_simple.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/blue_door_simple.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/blue_floor_Tiled.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/blue_floor_Tiled.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-icon-black.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-icon-black.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-icon-dark-gray.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-icon-dark-gray.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-icon-light-gray.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-icon-light-gray.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-icon-white.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-icon-white.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-logo.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/invector-logo.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/Ladder_1.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/Ladder_1.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/Ladder_2.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/Ladder_2.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/orange_cube.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/orange_cube.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/red_cube.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/red_cube.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/stair_chromo.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/stair_chromo.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/stair_Metal.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/Materials/stair_Metal.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/_stairs.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/_stairs.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/_stairs.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/_stairs.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/climbUp.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/climbUp.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/climbUp.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/climbUp.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/column.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/column.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/column.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/column.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/columnB.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/columnB.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/columnB.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/columnB.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/door.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/door.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/door.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/door.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/floor.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/floor.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/floor.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/floor.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/Icosphere.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/Icosphere.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/Icosphere.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/Icosphere.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/jumpOver.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/jumpOver.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/jumpOver.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/jumpOver.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/piece.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/piece.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/piece.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/piece.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/platform.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/platform.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/platform.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/platform.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/platforms.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/platforms.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/platforms.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/platforms.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp45.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp45.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp45.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp45.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp50.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp50.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp50.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp50.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp60.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp60.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp60.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/ramp60.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/Stairs.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/Stairs.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/Stairs.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/Stairs.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/statueBase.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/statueBase.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/statueBase.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/statueBase.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/stepUp.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/stepUp.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/stepUp.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/stepUp.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/support.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/support.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/support.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/support.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/tunel.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/tunel.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/tunel.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/tunel.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/wall_big.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/wall_big.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/wall_big.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/wall_big.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/wall_small.asset
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/wall_small.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/wall_small.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Others/NewAssets/wall_small.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/blockIcon.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/blockIcon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/locomotion_statuePlate_NRM.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/locomotion_statuePlate_NRM.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/locomotion_statuePlate_NRM2.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/locomotion_statuePlate_NRM2.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/locomotion_statuePlate_OCC.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/locomotion_statuePlate_OCC.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/locomotion_statuePlate_OCC2.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/locomotion_statuePlate_OCC2.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/LocomotionBanner.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/LocomotionBanner.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/melee_statuePlate_Melee_NRM.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/melee_statuePlate_Melee_NRM.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/MeleeBanner.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/MeleeBanner.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Melee-Logo.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Melee-Logo.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/ShooterBanner.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/ShooterBanner.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/blockIcon.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/blockIcon.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/frameborder_b.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/frameborder_b.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/frameborder_r.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/frameborder_r.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/greenEmit.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/greenEmit.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/locomotion_statuePlate.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/locomotion_statuePlate.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/LocomotionBanner.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/LocomotionBanner.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/melee_statuePlate.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/melee_statuePlate.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/MeleeBanner.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/MeleeBanner.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/redEmit.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/redEmit.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/ShooterBanner.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/basicTextures/Materials/ShooterBanner.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/blue_floor_Tiled 1.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/blue_floor_Tiled 1.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/carbon.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/carbon.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/carbon2.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/carbon2.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/door_blue.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/door_blue.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/door_green.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/door_green.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/door_red.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/door_red.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/ladder_chromo.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/ladder_chromo.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/ladder_Metal.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/ladder_Metal.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/Poison_v.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/Poison_v.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_blue.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_blue.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_gray 1.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_gray 1.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_gray.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_gray.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_green.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_green.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_mobile 1.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_mobile 1.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_mobile.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_mobile.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_orange.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_orange.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_red.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/proto_red.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/statue_blue.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/statue_blue.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/statue_red.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/statue_red.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/vgrenades.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/vgrenades.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/vjumpMultiplier.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/vjumpMultiplier.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/vpoison-old.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/vpoison-old.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/vspike-old.mat
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Materials/vspike-old.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/deadgrass.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/deadgrass.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/deadgrass_NRM.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/deadgrass_NRM.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/download.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/download.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/gras.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/gras.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/grass.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/grass.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/gravel.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/gravel.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/gravel_NRM.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/gravel_NRM.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/metal.jpg
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/metal.jpg.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/metal_normal.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/metal_normal.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/NormalMap (2).png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/NormalMap (2).png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/proto-white.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/proto-white.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/proto-white_NRM.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/proto-white_NRM.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/proto-white_OCC.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/proto-white_OCC.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/soilSand.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/soilSand.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/soilSand_NRM.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/soilSand_NRM.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vgrenades.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vgrenades.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vpoison-old.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vpoison-old.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vpoison-old-normal.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vpoison-old-normal.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vspike.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vspike.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vspring.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vspring.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vTile.png
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vTile.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vTile_NRM.jpg
+Assets/Resource/Invector-3rdPersonController_LITE/3D Models/Textures/prototype_textures/Textures/vTile_NRM.jpg.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Animator/Invector@BasicLocomotion.controller
+Assets/Resource/Invector-3rdPersonController_LITE/Animator/Invector@BasicLocomotion.controller.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Prefabs/ThirdPersonController_LITE.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/Prefabs/ThirdPersonController_LITE.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Prefabs/vThirdPersonCamera_LITE.prefab
+Assets/Resource/Invector-3rdPersonController_LITE/Prefabs/vThirdPersonCamera_LITE.prefab.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/banner.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/banner.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/BarBg.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/BarBg.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/basicLogo.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/basicLogo.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/BebasKai-Regular.otf
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/BebasKai-Regular.otf.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Box.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Box.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/BoxHover.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/BoxHover.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/boxLight.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/boxLight.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/BoxShadown.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/BoxShadown.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/builderAddon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/builderAddon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/button_skin.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/button_skin.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/clickToMoveIcon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/clickToMoveIcon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/climbAddon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/climbAddon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/customBox.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/customBox.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/hightlightBox.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/hightlightBox.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/icon_v2.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/icon_v2.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/invectorBanner.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/invectorBanner.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/InvectorThirdPersonControllerTrailer.mp4
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/InvectorThirdPersonControllerTrailer.mp4.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/LightBox.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/LightBox.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/logo.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/logo.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Materials.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/mobileIcon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/mobileIcon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/platformIcon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/platformIcon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Reckoner.ttf
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Reckoner.ttf.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/square.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/square.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/stealthKillAddon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/stealthKillAddon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/swimmingAddon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/swimmingAddon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/templatesFeatures.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/templatesFeatures.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/templatesPromo.jpg
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/templatesPromo.jpg.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/TextAreaSkin.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/TextAreaSkin.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/topdownIcon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/topdownIcon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Unity-Asset-Store.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Unity-Asset-Store.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vbg.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vbg.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vCommentEditIcon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vCommentEditIcon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vCommentMessageIcon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vCommentMessageIcon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vCommentMessageIconColor.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vCommentMessageIconColor.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vMansionIcon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/vMansionIcon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Wall-albedo.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Wall-albedo.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Wall-albedo_v2.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Wall-albedo_v2.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Wall-nm.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Wall-nm.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Wall-occ_fully.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Wall-occ_fully.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/ziplineAddon.png
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/ziplineAddon.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Materials/basicLogo.mat
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Materials/basicLogo.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Materials/comparacao.mat
+Assets/Resource/Invector-3rdPersonController_LITE/Resources/Materials/comparacao.mat.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Camera.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Camera/Editor.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Camera/vThirdPersonCamera.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Camera/vThirdPersonCamera.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Camera/Editor/vThirdPersonCameraEditor.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Camera/Editor/vThirdPersonCameraEditor.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonAnimator.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonAnimator.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonController.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonController.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonInput.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonInput.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonMotor.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonMotor.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/vCharacterEditor.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/vCharacterEditor.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/vInvectorStartup.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/vInvectorStartup.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/vInvectorWelcomeWindow.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/vInvectorWelcomeWindow.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/vThirdPersonInputEditor.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/vThirdPersonInputEditor.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources/vEditorStartupPrefs.asset
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources/vEditorStartupPrefs.asset.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources/vEditorStartupPrefs.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources/vEditorStartupPrefs.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources/vSkin.guiskin
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources/vSkin.guiskin.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources/welcomeWindowSkin.guiskin
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterController/Editor/Resources/welcomeWindowSkin.guiskin.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Icon.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Script.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Icon/CharacterTemplate.png
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Icon/CharacterTemplate.png.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Script/Editor.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Script/Editor/vCreateBasicCharacterEditor.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Script/Editor/vCreateBasicCharacterEditor.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Script/Editor/vHelperEditor.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/CharacterCreator/Script/Editor/vHelperEditor.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/Editor.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vComment.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vComment.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vExtensions.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vExtensions.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vPickupItem.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vPickupItem.cs.meta
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/Editor/vCommentEditor.cs
+Assets/Resource/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/Editor/vCommentEditor.cs.meta
+Assets/Resource/Mat/SkyBlue.mat
+Assets/Resource/Mat/SkyBlue.mat.meta
+Assets/Resource/Model/Arissa.meta
+Assets/Resource/Model/katana.meta
+Assets/Resource/Model/Mutant.meta
+Assets/Resource/Model/Arissa/Arissa.fbx
+Assets/Resource/Model/Arissa/Arissa.fbx.meta
+Assets/Resource/Model/Arissa/Arissa_DIFF_diffuse 1.png
+Assets/Resource/Model/Arissa/Arissa_DIFF_diffuse 1.png.meta
+Assets/Resource/Model/Arissa/Arissa_DIFF_diffuse.png
+Assets/Resource/Model/Arissa/Arissa_DIFF_diffuse.png.meta
+Assets/Resource/Model/Arissa/Arissa_MAT.mat
+Assets/Resource/Model/Arissa/Arissa_MAT.mat.meta
+Assets/Resource/Model/Arissa/Arissa_NM_normal 1.png
+Assets/Resource/Model/Arissa/Arissa_NM_normal 1.png.meta
+Assets/Resource/Model/Arissa/Arissa_NM_normal.png
+Assets/Resource/Model/Arissa/Arissa_NM_normal.png.meta
+Assets/Resource/Model/Arissa/Arissa_SPEC_specular 1.png
+Assets/Resource/Model/Arissa/Arissa_SPEC_specular 1.png.meta
+Assets/Resource/Model/Arissa/Arissa_SPEC_specular.png
+Assets/Resource/Model/Arissa/Arissa_SPEC_specular.png.meta
+Assets/Resource/Model/katana/katana_Material.001_BaseColor.png
+Assets/Resource/Model/katana/katana_Material.001_BaseColor.png.meta
+Assets/Resource/Model/katana/katana_Material.001_Height.png
+Assets/Resource/Model/katana/katana_Material.001_Height.png.meta
+Assets/Resource/Model/katana/katana_Material.001_Metallic.png
+Assets/Resource/Model/katana/katana_Material.001_Metallic.png.meta
+Assets/Resource/Model/katana/katana_Material.001_Normal.png
+Assets/Resource/Model/katana/katana_Material.001_Normal.png.meta
+Assets/Resource/Model/katana/katana_Material.001_Roughness.png
+Assets/Resource/Model/katana/katana_Material.001_Roughness.png.meta
+Assets/Resource/Model/katana/uploads_files_3117752_katana.fbx
+Assets/Resource/Model/katana/uploads_files_3117752_katana.fbx.meta
+Assets/Resource/Model/Mutant/Mutant.fbx
+Assets/Resource/Model/Mutant/Mutant.fbx.meta
+Assets/Resource/Model/Mutant/Mutant_diffuse.png
+Assets/Resource/Model/Mutant/Mutant_diffuse.png.meta
+Assets/Resource/Model/Mutant/mutant_M.mat
+Assets/Resource/Model/Mutant/mutant_M.mat.meta
+Assets/Resource/Model/Mutant/Mutant_normal.png
+Assets/Resource/Model/Mutant/Mutant_normal.png.meta
+Assets/Resource/SkySeries Freebie/6sidedCosmicCoolCloud.mat
+Assets/Resource/SkySeries Freebie/6sidedCosmicCoolCloud.mat.meta
+Assets/Resource/SkySeries Freebie/6SidedFluffball.mat
+Assets/Resource/SkySeries Freebie/6SidedFluffball.mat.meta
+Assets/Resource/SkySeries Freebie/6SidedMegaSun.mat
+Assets/Resource/SkySeries Freebie/6SidedMegaSun.mat.meta
+Assets/Resource/SkySeries Freebie/AmbienceExposure.mat
+Assets/Resource/SkySeries Freebie/AmbienceExposure.mat.meta
+Assets/Resource/SkySeries Freebie/CasualDay.mat
+Assets/Resource/SkySeries Freebie/CasualDay.mat.meta
+Assets/Resource/SkySeries Freebie/CloudedSunGlow.mat
+Assets/Resource/SkySeries Freebie/CloudedSunGlow.mat.meta
+Assets/Resource/SkySeries Freebie/Cloudymorning.mat
+Assets/Resource/SkySeries Freebie/Cloudymorning.mat.meta
+Assets/Resource/SkySeries Freebie/CoriolisNight4k.mat
+Assets/Resource/SkySeries Freebie/CoriolisNight4k.mat.meta
+Assets/Resource/SkySeries Freebie/CosmicCoolCloud_Eq.mat
+Assets/Resource/SkySeries Freebie/CosmicCoolCloud_Eq.mat.meta
+Assets/Resource/SkySeries Freebie/DarkStorm.mat
+Assets/Resource/SkySeries Freebie/DarkStorm.mat.meta
+Assets/Resource/SkySeries Freebie/DayInTheClouds.mat
+Assets/Resource/SkySeries Freebie/DayInTheClouds.mat.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes.meta
+Assets/Resource/SkySeries Freebie/FluffballDay.mat
+Assets/Resource/SkySeries Freebie/FluffballDay.mat.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri.meta
+Assets/Resource/SkySeries Freebie/Hdri setup.txt
+Assets/Resource/SkySeries Freebie/Hdri setup.txt.meta
+Assets/Resource/SkySeries Freebie/HighFantasy.mat
+Assets/Resource/SkySeries Freebie/HighFantasy.mat.meta
+Assets/Resource/SkySeries Freebie/MegaSun.mat
+Assets/Resource/SkySeries Freebie/MegaSun.mat.meta
+Assets/Resource/SkySeries Freebie/PlanetaryEarth.mat
+Assets/Resource/SkySeries Freebie/PlanetaryEarth.mat.meta
+Assets/Resource/SkySeries Freebie/SkyhighFluffycloudField.mat
+Assets/Resource/SkySeries Freebie/SkyhighFluffycloudField.mat.meta
+Assets/Resource/SkySeries Freebie/SunlessCirruscover.mat
+Assets/Resource/SkySeries Freebie/SunlessCirruscover.mat.meta
+Assets/Resource/SkySeries Freebie/UnderTheSea4k.mat
+Assets/Resource/SkySeries Freebie/UnderTheSea4k.mat.meta
+Assets/Resource/SkySeries Freebie/UnearthlyRed.mat
+Assets/Resource/SkySeries Freebie/UnearthlyRed.mat.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/AmbienceExposure.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/AmbienceExposure.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/CasualDay.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/CasualDay.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/CloudyMorning.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/CloudyMorning.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/CosmicCoolCloud.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/CosmicCoolCloud.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/DarkStorm.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/DarkStorm.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/DayInTheClouds.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/DayInTheClouds.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/Daylightfreebiedemo.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/Daylightfreebiedemo.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/HighFantasy.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/HighFantasy.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/MidNightFreebieDemo.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/MidNightFreebieDemo.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/PlanetaryFreebie.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/PlanetaryFreebie.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SkyhighFreebieDemo.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/SkyhighFreebieDemo.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SundownFreebieDemo.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/SundownFreebieDemo.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SunlessFreebieDemo.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/SunlessFreebieDemo.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/UnderTheSea.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/UnderTheSea.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/UnEarthlyRed.unity
+Assets/Resource/SkySeries Freebie/ExampleScenes/UnEarthlyRed.unity.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/2_10.mat
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/2_10.mat.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/4_10.mat
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/4_10.mat.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/6_10.mat
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/6_10.mat.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/8_10.mat
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/8_10.mat.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/DemoObjects.prefab
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/DemoObjects.prefab.meta
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/Full.mat
+Assets/Resource/SkySeries Freebie/ExampleScenes/SceneObjects/Full.mat.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/AmbienceExposure4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/AmbienceExposure4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CasualDay4K.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CasualDay4K.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CloudedSunGlow4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CloudedSunGlow4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/Cloudymorning4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/Cloudymorning4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CoriolisNight4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CoriolisNight4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudBack.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudBack.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudBottom.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudBottom.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudEQ_hdr.exr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudEQ_hdr.exr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudFront.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudFront.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudLeft.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudLeft.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudRight.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudRight.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudTop.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/CosmicCoolCloudTop.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/DarkStorm4K.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/DarkStorm4K.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/DayInTheClouds4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/DayInTheClouds4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDay4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDay4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayBack.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayBack.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayBottom.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayBottom.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayFront.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayFront.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayLeft.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayLeft.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayRight.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayRight.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayTop.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/FluffballDayTop.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/HighFantasy4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/HighFantasy4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSun4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSun4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunBack.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunBack.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunBottom.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunBottom.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunFront.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunFront.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunLeft.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunLeft.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunRight.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunRight.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunTop.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/MegaSunTop.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/PlanetaryEarth4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/PlanetaryEarth4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/SkyhighFluffycloudField4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/SkyhighFluffycloudField4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/SunlessCirruscover4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/SunlessCirruscover4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/UnderTheSea4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/UnderTheSea4k.hdr.meta
+Assets/Resource/SkySeries Freebie/FreebieHdri/UnearthlyRed4k.hdr
+Assets/Resource/SkySeries Freebie/FreebieHdri/UnearthlyRed4k.hdr.meta
