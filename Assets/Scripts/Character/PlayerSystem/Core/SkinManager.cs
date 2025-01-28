@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem.Utilities;
+using Observable = UniRx.Observable;
 
 public class SkinManager : MonoBehaviour
 {
@@ -32,7 +35,31 @@ public class SkinManager : MonoBehaviour
         {
             _skinnedMeshRenderer.SetBlendShapeWeight(skinData.SkinIndex, skinData.Weight);
         }
+    }
+
+    /// <summary>
+    /// 表情を変更する
+    /// </summary>
+    public void SkinTween(int index, float endValue, float duration)
+    {
+        float startWeight = _skinnedMeshRenderer.GetBlendShapeWeight(index); //現在のウェイト値を取得
+        float elapsedTime = 0f; //経過時間
         
+        Observable
+            .EveryUpdate()
+            .TakeWhile(_ => elapsedTime < duration)
+            .Subscribe(_ =>
+            {
+                float t = Mathf.Clamp01(elapsedTime / duration); // 経過割合を計算（0～1の範囲）
+                float currentWeight = Mathf.Lerp(startWeight, endValue, t); // 線形補間でウェイトを計算
+                _skinnedMeshRenderer.SetBlendShapeWeight(index, currentWeight); // BlendShape を更新
+            },
+            () =>
+            {
+                // 完了時に確実に最終値を設定
+                _skinnedMeshRenderer.SetBlendShapeWeight(index, endValue);
+            })
+            .AddTo(this); // メモリリーク防止のため AddTo を使用
     }
 }
 

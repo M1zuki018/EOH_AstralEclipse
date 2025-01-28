@@ -44,6 +44,8 @@ public class PlayerBrain : CharacterBase
             .AddTo(this);
 
         await UniTask.Delay(2700);
+        
+        //操作開始
         CameraManager.Instance.UseCamera(0);
         UIManager.Instance.ShowRightUI();
         _playerInput.ActivateInput();
