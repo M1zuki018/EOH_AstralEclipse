@@ -31,8 +31,10 @@ public class AttackSMB : StateMachineBehaviour
         
         if (_useRootMotion) //ルートモーションを使用する場合
         {
-            _combat?.AdjustDirection.AdjustDirectionToTarget();
+            _combat?.AdjustDirection.AdjustDirectionToTargetEarly();
             animator.applyRootMotion = true; //ルートモーションを有効
+            
+            
         }
     }
 

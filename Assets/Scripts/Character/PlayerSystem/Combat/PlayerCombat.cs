@@ -20,6 +20,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection;
 
     [SerializeField, HighlightIfNull] private NormalAttack_First _first;
+    [SerializeField, HighlightIfNull] private NormalAttack_End _end;
     
     public AdjustDirection AdjustDirection => _adjustDirection;
     
@@ -128,9 +129,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
                 AudioManager.Instance.PlaySEDelay(3, 100);
                 break;
             case 4:
-                AudioManager.Instance.PlaySEDelay(3, 100);
-                AudioManager.Instance.PlaySEDelay(3, 330);
-                AudioManager.Instance.PlaySEDelay(4, 1100);
+                _end.StartAttack(_adjustDirection.Target);
                 break;
         }
     }
