@@ -17,6 +17,10 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     [SerializeField] private LockOnFunction _lockOnFunction;
     
     public Vector3 TargetPosition { get; }
+    public IHealth Health
+    {
+        get { return _health; }
+    }
 
     private void Start()
     {
@@ -45,8 +49,10 @@ public class EnemyBrain : CharacterBase, IMatchTarget
 
     protected override void HandleDeath(GameObject attacker)
     {
+        Debug.Log("呼ばれた");
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
         UIManager.Instance.UnregisterEnemy(this); //HPスライダーを削除する
+        gameObject.tag = "Untagged";
         Animator.SetTrigger("Dead");
         _lockOnFunction.LockOn();
         //TODO:死亡エフェクト等の処理
@@ -60,7 +66,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     [ContextMenu("Debug_EnemyDeath")]
     public void Debug_EnemyDeath()
     {
-        _health.TakeDamage(GetCurrentHP(), this.gameObject);
+        _health.TakeDamage(GetCurrentHP(), gameObject);
     }
 
     #endregion

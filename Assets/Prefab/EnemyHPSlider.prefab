@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthSlider: {fileID: 1585131814181390791}
   _canvasGroup: {fileID: 4242533850380328408}
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 3.17, z: 0}
 --- !u!225 &4242533850380328408
 CanvasGroup:
   m_ObjectHideFlags: 0
