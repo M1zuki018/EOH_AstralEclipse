@@ -106,7 +106,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public void PerformAttack(int index)
     {
         //当たり判定制御
-        Detector.CurrentStage = index;
+        Detector.AttackType = index;
         
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)

@@ -51,21 +51,37 @@ MonoBehaviour:
     m_Bits: 1
   _hitTags:
   - Player
-  _frame: 0.48
+  _frame: 0
+  _attackType: 0
   _hitPositions:
   - Range: {x: 0, y: 1}
     Collisions:
+    - Range: {x: 0, y: 0.47}
+      Offset: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0}
+      Scale: {x: 0, y: 0, z: 0}
     - Range: {x: 0.48, y: 0.52}
       Offset: {x: 0, y: 0.63, z: 0.61}
       Rotation: {x: 0, y: 0, z: 0}
       Scale: {x: 2.26, y: 2.32, z: 2.42}
+    - Range: {x: 0.53, y: 1}
+      Offset: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0}
+      Scale: {x: 0, y: 0, z: 0}
   - Range: {x: 0, y: 1}
     Collisions:
+    - Range: {x: 0, y: 0.42}
+      Offset: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0}
+      Scale: {x: 0, y: 0, z: 0}
     - Range: {x: 0.43, y: 0.5}
       Offset: {x: 0, y: 0.71, z: 1.29}
       Rotation: {x: 0, y: 0, z: 0}
       Scale: {x: 1.69, y: 2.56, z: 4.05}
-  _currentStage: 1
+    - Range: {x: 0.51, y: 0}
+      Offset: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0}
+      Scale: {x: 0, y: 0, z: 0}
 --- !u!114 &3444035731517609805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,7 +172,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.75
-  m_Radius: 0.32
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -171,7 +187,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7004980298510743935}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.49
+  m_Radius: 0.3
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -219,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _detectionRange: 10
-  _attackRange: 2
+  _attackRange: 3
 --- !u!114 &5392053718713652237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce1f7dcc1c29db4aaf7633e7f4fa289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackDamage: 5
   _adjustDirection: {fileID: 3444035731517609805}
   _attackCooldown: 3
 --- !u!114 &9115073611720309100

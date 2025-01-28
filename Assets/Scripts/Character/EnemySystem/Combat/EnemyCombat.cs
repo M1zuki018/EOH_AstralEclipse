@@ -62,8 +62,9 @@ public class EnemyCombat : MonoBehaviour, ICombat
     
     public void PerformAttack(int index)
     {
-        Detector.CurrentStage = index;
+        Detector.AttackType = index;
         List<IDamageable> damageables = Detector.PerformAttack();
+        Debug.Log(damageables.Count);
         foreach (IDamageable damageable in damageables)
         {
             _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
