@@ -8,13 +8,16 @@ namespace PlayerSystem.Fight
         /// <summary>攻撃力</summary>
         int BaseAttackPower { get; }
 
+        /// <summary>攻撃補正を行うクラス</summary>
+        AdjustDirection AdjustDirection { get; }
+        
         /// <summary>通常攻撃</summary>
         void Attack();
         
         /// <summary>特殊スキル</summary>
         void UseSkill(int index);
-        
-        /// <summary>攻撃判定の検知</summary>
-        AttackHitDetector Detector { get; }
+
+        /// <summary>Animator側から呼び出す処理</summary>
+        void PerformAttack(int index);
     }
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 69002722234307094}
   - component: {fileID: 6407428168464614829}
+  - component: {fileID: 3444035731517609805}
   m_Layer: 0
   m_Name: AttackArea
   m_TagString: Untagged
@@ -50,7 +51,7 @@ MonoBehaviour:
     m_Bits: 1
   _hitTags:
   - Player
-  _frame: 0
+  _frame: 0.48
   _hitPositions:
   - Range: {x: 0, y: 1}
     Collisions:
@@ -58,7 +59,26 @@ MonoBehaviour:
       Offset: {x: 0, y: 0.63, z: 0.61}
       Rotation: {x: 0, y: 0, z: 0}
       Scale: {x: 2.26, y: 2.32, z: 2.42}
-  _currentStage: 0
+  - Range: {x: 0, y: 1}
+    Collisions:
+    - Range: {x: 0.43, y: 0.5}
+      Offset: {x: 0, y: 0.71, z: 1.29}
+      Rotation: {x: 0, y: 0, z: 0}
+      Scale: {x: 1.69, y: 2.56, z: 4.05}
+  _currentStage: 1
+--- !u!114 &3444035731517609805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900293732042231807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac30e8eda585c924c97412568d38f69c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 7604241476636173517}
 --- !u!1 &7004980298510743935
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lockOnFunction: {fileID: 0}
+  _readyForBattleChecker: {fileID: 0}
 --- !u!143 &1930933002873819709
 CharacterController:
   m_ObjectHideFlags: 0
@@ -224,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce1f7dcc1c29db4aaf7633e7f4fa289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _adjustDirection: {fileID: 0}
   _attackCooldown: 3
 --- !u!114 &9115073611720309100
 MonoBehaviour:

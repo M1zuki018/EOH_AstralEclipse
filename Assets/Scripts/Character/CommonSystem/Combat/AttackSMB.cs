@@ -1,3 +1,4 @@
+using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
@@ -11,7 +12,7 @@ public class AttackSMB : StateMachineBehaviour
     [SerializeField, Comment("向きの補正をするか")] private bool _adjustDirection = true;
     [SerializeField, Comment("ルートモーションの使用")] private bool _useRootMotion = false; 
     
-    private PlayerCombat _combat;
+    private ICombat _combat;
     private CharacterController _cc;
     private Transform _player;
     
@@ -20,7 +21,7 @@ public class AttackSMB : StateMachineBehaviour
     {
         if (_combat == null) //nullだったら取得する
         {
-            _combat = animator.GetComponent<PlayerCombat>();
+            _combat = animator.GetComponent<ICombat>();
             _cc = animator.GetComponent<CharacterController>();
             _player = animator.transform;
         }
@@ -31,7 +32,6 @@ public class AttackSMB : StateMachineBehaviour
         
         if (_useRootMotion) //ルートモーションを使用する場合
         {
-            _combat?.AdjustDirection.AdjustDirectionToTargetEarly();
             animator.applyRootMotion = true; //ルートモーションを有効
         }
     }

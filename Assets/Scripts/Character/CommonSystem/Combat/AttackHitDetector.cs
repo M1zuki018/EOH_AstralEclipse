@@ -80,26 +80,6 @@ public class AttackHitDetector : MonoBehaviour
     {
         hitObjects.Clear(); //リストの中身をクリアする
     }
-    
-    /// <summary>
-    /// 攻撃を開始し、フレームを一定時間カウントアップする
-    /// </summary>
-    public async UniTaskVoid StartAttack(float duration, float frameRate = 0.016f)
-    {
-        // duration: 攻撃アニメーションの持続時間
-        // frameRate: フレーム更新間隔（デフォルト約60FPS）
-
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            _frame = elapsed / duration; // 現在の進捗率（0～1）
-            elapsed += frameRate;
-            await UniTask.Delay(TimeSpan.FromSeconds(frameRate));
-        }
-
-        _frame = 1f; // 最終フレームに設定
-        Debug.Log("Attack finished.");
-    }
 
     /// <summary>
     /// 攻撃した時に呼び出す

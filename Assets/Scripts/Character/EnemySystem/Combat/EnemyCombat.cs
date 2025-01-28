@@ -11,6 +11,8 @@ using Random = UnityEngine.Random;
 public class EnemyCombat : MonoBehaviour, ICombat
 {
     public int AttackDamage { get; private set; } = 5; //攻撃力
+    [SerializeField] private AdjustDirection _adjustDirection;
+    public AdjustDirection AdjustDirection => _adjustDirection;  
     public AttackHitDetector Detector { get; private set; }
     [SerializeField, Comment("攻撃間隔")] private float _attackCooldown = 1.5f;
     private EnemyBrain _brain;
@@ -44,7 +46,7 @@ public class EnemyCombat : MonoBehaviour, ICombat
         if (_attackTimer <= 0f)
         {
             Attack();
-            _attackTimer = _attackCooldown;
+            _attackTimer = _attackCooldown + Random.Range(-1f, 1f); //攻撃間隔にランダム性を持たせる
         }
     }
     
@@ -53,8 +55,13 @@ public class EnemyCombat : MonoBehaviour, ICombat
     /// </summary>
     public void Attack()
     {
-        _brain.Animator.SetInteger("AttackType", Random.Range(0, 2));
+        _brain.Animator.SetInteger("AttackType", Random.Range(0, 2)); //攻撃の抽選
         _brain.Animator.SetTrigger("Attack");　//アニメーションのAttackをトリガーする
+    }
+    
+    public void PerformAttack(int index)
+    {
+        Detector.CurrentStage = index;
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)
         {
@@ -70,4 +77,6 @@ public class EnemyCombat : MonoBehaviour, ICombat
         Debug.Log($"{gameObject.name} がスキルを使った　発動： {index}");
         //TODO: スキルの処理を実装する
     }
+
+    
 }
