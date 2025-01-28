@@ -6,8 +6,12 @@ using UnityEngine;
 /// </summary>
 public class UseRootMotionSMB : StateMachineBehaviour
 {
+    private PlayerMovement _playerMovement;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if(_playerMovement == null) _playerMovement = animator.GetComponent<PlayerMovement>();
+        
+        _playerMovement.PlayerState.IsAttacking = false;
         animator.applyRootMotion = true;
     }
 }

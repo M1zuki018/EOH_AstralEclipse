@@ -36,8 +36,11 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Move()
         {
-            HandleMovement();
-            ApplyGravity();
+            if (!_state.IsAttacking)
+            {
+                HandleMovement();
+                ApplyGravity();
+            }
         }
         
         /// <summary>

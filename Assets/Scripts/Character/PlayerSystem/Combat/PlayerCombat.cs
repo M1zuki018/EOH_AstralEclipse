@@ -94,6 +94,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         if (_battleChecker.ReadyForBattle)
         {
+            _playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
             _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
     }
