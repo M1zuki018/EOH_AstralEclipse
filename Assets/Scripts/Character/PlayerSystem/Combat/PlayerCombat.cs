@@ -19,6 +19,8 @@ public class PlayerCombat : MonoBehaviour, ICombat
     
     [Header("攻撃補正用")]
     [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection;
+
+    [SerializeField, HighlightIfNull] private NormalAttack_First _first;
     
     public AdjustDirection AdjustDirection => _adjustDirection;
     
@@ -104,11 +106,14 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         //当たり判定制御
         Detector.CurrentStage = index;
+        
         List<IDamageable> damageables = Detector.PerformAttack();
         foreach (IDamageable damageable in damageables)
         {
             _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
         }
+        
+        if(index == 0) _first.StartAttack(_adjustDirection.Target); //攻撃1段目の補正
         
         AudioManager.Instance.PlaySE(3);
     }
