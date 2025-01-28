@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackDamage: 5
   _adjustDirection: {fileID: 3444035731517609805}
-  _attackCooldown: 3
+  _attackCooldown: 4
 --- !u!114 &9115073611720309100
 MonoBehaviour:
   m_ObjectHideFlags: 0

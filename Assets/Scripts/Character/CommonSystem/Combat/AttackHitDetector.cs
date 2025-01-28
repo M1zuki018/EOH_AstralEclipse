@@ -42,6 +42,10 @@ public class AttackHitDetector : MonoBehaviour
     private Transform _transform;
     private Animator _animator;
     private readonly List<GameObject> _hitObjects = new();
+    private readonly int _locoMotionHash= Animator.StringToHash("Base Layer.LocoMotion"); //避けたいステート
+    private int _previousStateHash = -1;
+    private bool _isAttacking; //このクラス内で使用する攻撃状態かどうかのフラグ
+    private bool _isAttackMotion;
 
     /// <summary>攻撃の種類</summary>
     public int AttackType
@@ -67,12 +71,20 @@ public class AttackHitDetector : MonoBehaviour
     /// </summary>
     private List<IDamageable> DetectCollisions()
     {
+        _isAttacking = true;
         _frame = 0; //初期化
         
         Observable
             .EveryUpdate()
-            .TakeWhile(_ => _frame < 1)
-            .Subscribe(_ => _frame = SetFrameLength())
+            .TakeWhile(_ => _isAttacking) //攻撃中かつフレームが1未満の時、処理を行う
+            .Subscribe(_ =>
+            {
+                _frame = SetFrameLength(); //攻撃モーション進行
+                if (_frame >= 1f)
+                {
+                    _isAttacking = false;
+                }
+            }) 
             .AddTo(this);
         
         //処理開始時にリストをクリア
@@ -87,7 +99,6 @@ public class AttackHitDetector : MonoBehaviour
         { 
             // 衝突検出を実行
             var count = CalculateCollisions(col, out var hitResults);
-            Debug.Log(this.gameObject.transform.parent.name + "衝突した数" + count);
                 
             // 範囲内で衝突検出を実行
             for (var i = 0; i < count; i++) 
@@ -135,7 +146,32 @@ public class AttackHitDetector : MonoBehaviour
     private float SetFrameLength()
     {
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-        return stateInfo.normalizedTime % 1; //再生時間を正規化
+        
+        bool isInLocoMotion = stateInfo.fullPathHash == _locoMotionHash; //現在のモーションがLocoMotionか判定
+       
+        // 再生中のアニメーションステートが変更された場合
+        if (_previousStateHash != stateInfo.fullPathHash && _isAttacking)
+        {
+            _previousStateHash = stateInfo.fullPathHash; // 現在の状態を保存
+            
+            if (isInLocoMotion)
+            {
+                _isAttackMotion = false;
+                return 1f; // LocoMotionなら即終了扱いに
+            }
+            else
+            {
+                _isAttackMotion = true;
+                return 0f; // 攻撃開始時はフレームをリセット
+            }
+        }
+
+        if (_isAttackMotion)
+        {
+            return stateInfo.normalizedTime % 1; //再生時間を正規化
+        }
+
+        return 1f;
     }
     
     /// <summary>
@@ -160,8 +196,6 @@ public class AttackHitDetector : MonoBehaviour
 
             Gizmos.color = new Color(1, 1, 0, 0.2f);
             Gizmos.DrawCube(Vector3.zero, col.Scale);
-            
         }
-        
     }
 }
