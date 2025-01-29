@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private DamageAmountUIPool _damegeUIPool; //ダメージ量を表示するテキストのオブジェクトプール
     [SerializeField] private QuestUpdateUI _questUpdateUI; //クエスト更新時に一瞬表示するUI
     [SerializeField] private MiniMapUI _miniMapUI;
+    [SerializeField] private SliderUI _bossHPUI; //ボスのHPゲージ
+    [SerializeField] private SliderUI _bossWillUI; //ボスのWillゲージ
+    [SerializeField] private TextUI _bossName; //ボスの名前UI
+    [SerializeField] private TextUI _bossRemainingHP; //ボスの残りHPのパーセント表記のUI
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
@@ -162,5 +166,42 @@ public class UIManager : MonoBehaviour
         damageAmount.Show(damage, target); //表示
     }
 
+    /// <summary>クエスト更新時に黄色い光のアニメーションを表示する</summary>
     public void QuestUpdate() => _questUpdateUI.Show();
+    
+    /// <summary>ボスのHPゲージを更新する</summary>
+    public void UpdateBossHP(int currentHP) => _bossHPUI.SetValue(currentHP);
+    
+    /// <summary>ボスのHPゲージを初期化する</summary>
+    public void InitializeBossHP(int maxValue, int defaultValue) => _bossHPUI.InitializeValue(maxValue, defaultValue);
+    
+    /// <summary>ボスのWillゲージを更新する</summary>
+    public void UpdateBossWill(int value) => _bossWillUI.SetValue(value);
+    
+    /// <summary>ボスのWillゲージを初期化する</summary>
+    public void InitializeBossWill(int maxValue, int defaultValue) => _bossWillUI.InitializeValue(maxValue, defaultValue);
+    
+    /// <summary>ボスの名前表記を更新する</summary>
+    public void UpdateBossName(string text) => _bossName.SetText(text);
+    
+    /// <summary>ボスの残りHPパーセント表示を更新する</summary>
+    public void UpdateRemainingHP(int value) => _playerHP.SetValue(value);
+
+    /// <summary>ボスに関連したUIを表示する</summary>
+    public void ShowBossUI()
+    {
+        _bossHPUI.Show();
+        _bossWillUI.Show();
+        _bossName.Show();
+        _bossRemainingHP.Show();
+    }
+    
+    /// <summary>ボスに関連したUIを非表示にする</summary>
+    public void ShowHideUI()
+    {
+        _bossHPUI.Hide();
+        _bossWillUI.Hide();
+        _bossName.Hide();
+        _bossRemainingHP.Hide();
+    }
 }

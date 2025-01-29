@@ -3,18 +3,22 @@ using UI.Interface;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// テキストを書き換える
-/// </summary>
-public class TextUI : UIElementBase, ITextUI
+namespace UI.View
 {
-    [SerializeField] private Text _text;
-    
     /// <summary>
-    /// テキストを更新する
+    /// テキストを書き換える
     /// </summary>
-    public void SetText(string text)
+    public class TextUI : UIElementBase, ITextUI
     {
-        _text.text = text;
+        [SerializeField] private Text _text;
+    
+        /// <summary>
+        /// テキストを更新する
+        /// </summary>
+        public void SetText(string text)
+        {
+            _text.text = text;
+        }
     }
 }
+
