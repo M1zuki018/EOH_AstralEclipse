@@ -48,10 +48,13 @@ public class EnemyBrain : CharacterBase, IMatchTarget
             UIManager.Instance.UpdateRemainingHP(Mathf.RoundToInt(GetCurrentHP() / _health.MaxHP * 100)); //HPパーセントの表記を更新
             UIManager.Instance.HideBossUI();
         }
-        
+
         //ターゲットマッチング用
-        MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
-        smb._target = this;
+        if (Animator.GetBehaviour<MatchPositionSMB>() != null)
+        {
+            MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
+            smb._target = this;
+        }
     }
     
     protected override void HandleDamage(int damage, GameObject attacker)

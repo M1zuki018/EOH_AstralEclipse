@@ -3,19 +3,20 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
-/// エネミーの移動クラス（NavMeshの制御）
+/// エネミーの移動を管理するクラス
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyMovement : MonoBehaviour
 {
     public NavMeshAgent Agent { get; private set; }
+    public CharacterController EnemyController {get; private set;}
     [SerializeField] private Transform _target; //プレイヤーの参照
     private EnemyState _currentState = EnemyState.Idle; //状態
     private EnemyBrain _brain;
     private EnemyCombat _combat; //戦闘クラスを参照
-    private ReadyForBattleChecker _readyForBattleChecker; //臨戦態勢を管理
     private EnemyAI _enemyAI; //巡回中の動き
     private bool _playEncounteVoice = false;
+    private BossMover _bossMover;
     
     public Vector3 Velocity { get; private set; }
 
@@ -27,11 +28,19 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
+        EnemyController = GetComponent<CharacterController>();
         _brain = GetComponent<EnemyBrain>();
         _combat = GetComponent<EnemyCombat>();
-        _readyForBattleChecker = GetComponentInChildren<ReadyForBattleChecker>();
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _enemyAI = GetComponent<EnemyAI>();
+
+        if (_brain.IsBossEnemy)
+        {
+            //ボスの移動はナビメッシュを使用しない
+            Agent.enabled = false;
+            _enemyAI.enabled = false;
+            _bossMover = this.gameObject.AddComponent<BossMover>(); //ボス用の移動クラスを追加して取得する
+        }
     }
 
     private void Update()
@@ -44,10 +53,20 @@ public class EnemyMovement : MonoBehaviour
         }
 
         if (_target == null) return; //ターゲットがいない場合、これ以降の処理は行わない
+
+        if (!_brain.IsBossEnemy) //通常の敵の処理
+        {
+            CheckState(); //現在のステートをチェック
+        }
+        else
+        {
+            
+        }
         
-        CheckState(); //現在のステートをチェック
     }
-    
+
+    #region 通常の敵の処理
+
     /// <summary>
     /// 現在のステートに合わせて行動を行うメソッドを呼び出す
     /// </summary>
@@ -119,6 +138,8 @@ public class EnemyMovement : MonoBehaviour
             TransitionToState(EnemyState.Idle); //発見できる距離より離れたらidle状態に移行
         }
     }
+
+    #endregion
     
     public EnemyState GetState() => _currentState;
 

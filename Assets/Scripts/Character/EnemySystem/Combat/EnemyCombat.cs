@@ -17,6 +17,7 @@ public class EnemyCombat : MonoBehaviour, ICombat
     private EnemyBrain _brain;
     private DamageHandler _damageHandler;
     private float _attackTimer;
+    private int _attackCount; //ボス用。攻撃パターンのどこまで実行したか保持しておくための変数
 
     private void Awake()
     {
@@ -54,7 +55,18 @@ public class EnemyCombat : MonoBehaviour, ICombat
     /// </summary>
     public void Attack()
     {
-        _brain.Animator.SetInteger("AttackType", Random.Range(0, 2)); //攻撃の抽選
+        if (!_brain.IsBossEnemy)
+        {
+            //通常の敵はランダムで抽選を行い攻撃の種類を決定する（一旦、攻撃は2種類）
+            _brain.Animator.SetInteger("AttackType", Random.Range(0, 2));
+        }
+        else
+        {
+            //ボスは攻撃パターンを設け、順番に攻撃を行う（一旦、攻撃は4種類）
+            _brain.Animator.SetInteger("AttackType", _attackCount % 4);
+            _attackCount++;
+        }
+        
         _brain.Animator.SetTrigger("Attack");　//アニメーションのAttackをトリガーする
     }
     
