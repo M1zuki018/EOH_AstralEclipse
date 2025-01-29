@@ -16,12 +16,10 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     public Animator Animator { get; private set; }
     [SerializeField] private LockOnFunction _lockOnFunction;
     [SerializeField] private ReadyForBattleChecker _readyForBattleChecker;
+    [SerializeField, Highlight(1,0,0.2f)] private bool _isBossEnemy = false;
     
     public Vector3 TargetPosition { get; }
-    public IHealth Health
-    {
-        get { return _health; }
-    }
+    public IHealth Health => _health;
     public EnemyMovement EnemyMovement { get; private set; }
 
     protected override void Awake()
@@ -37,8 +35,17 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     
     private void Start() 
     {
-        UIManager.Instance.RegisterEnemy(this, GetCurrentHP()); //HPバーを頭上に生成する
-        UIManager.Instance.HideEnemyHP(this); //隠す
+        if (!_isBossEnemy)
+        {
+            //通常の敵の処理
+            UIManager.Instance.RegisterEnemy(this, GetCurrentHP()); //HPバーを頭上に生成する
+            UIManager.Instance.HideEnemyHP(this); //隠す
+        }
+        else
+        {
+            //ボス用の処理
+        }
+        
         
         //ターゲットマッチング用
         MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
