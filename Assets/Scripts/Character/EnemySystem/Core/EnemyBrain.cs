@@ -73,7 +73,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     [ContextMenu("Debug_EnemyDeath")]
     public void Debug_EnemyDeath()
     {
-        _health.TakeDamage(GetCurrentHP(), gameObject);
+        _health.TakeDamage(GetCurrentHP(), GameObject.FindWithTag("Player"));
     }
 
     #endregion
