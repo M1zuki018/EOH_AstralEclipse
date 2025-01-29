@@ -1,7 +1,5 @@
 using PlayerSystem.Fight;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// エネミーの中心となるクラス
@@ -44,8 +42,11 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         else
         {
             //ボス用の処理
+            UIManager.Instance.InitializeBossHP(_health.MaxHP, _health.CurrentHP); //HPバーを初期化
+            UIManager.Instance.UpdateBossName("Unknown"); //名前更新
+            UIManager.Instance.UpdateRemainingHP(Mathf.RoundToInt(GetCurrentHP() / _health.MaxHP * 100)); //HPパーセントの表記を更新
+            UIManager.Instance.HideBossUI();
         }
-        
         
         //ターゲットマッチング用
         MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
@@ -55,24 +56,42 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}から{damage}ダメージ受けた！ 現在{GetCurrentHP()})");
-        UIManager.Instance.ShowDamageAmount(damage, transform);
-        UIManager.Instance.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
-        AudioManager.Instance.PlayVoice(1); //ダメージの声
+        
+        if (!_isBossEnemy) //通常の敵
+        {
+            UIManager.Instance.ShowDamageAmount(damage, transform);
+            UIManager.Instance.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
+            AudioManager.Instance.PlayVoice(1); //ダメージの声
+        }
+        else //ボス
+        {
+            UIManager.Instance.UpdateBossHP(GetCurrentHP()); //スライダー更新
+            UIManager.Instance.UpdateRemainingHP(Mathf.RoundToInt(GetCurrentHP() / _health.MaxHP * 100)); //パーセント表記更新
+        }
+        
         Animator.SetTrigger("Damage");
     }
 
     protected override void HandleDeath(GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
-        _readyForBattleChecker.RemoveEnemy(this);
-        UIManager.Instance.UnregisterEnemy(this); //HPスライダーを削除する
-        gameObject.tag = "Untagged";
-        Animator.SetTrigger("Dead");
-        _lockOnFunction.LockOn();
-        //TODO:死亡エフェクト等の処理
+
+        if (!_isBossEnemy) //通常の敵
+        {
+            _readyForBattleChecker.RemoveEnemy(this);
+            UIManager.Instance.UnregisterEnemy(this); //HPスライダーを削除する
+            gameObject.tag = "Untagged";
+            Animator.SetTrigger("Dead");
+            _lockOnFunction.LockOn();
+            //TODO:死亡エフェクト等の処理
         
-        //コンポーネントの無効化
-        EnemyMovement.enabled = false;
+            //コンポーネントの無効化
+            EnemyMovement.enabled = false;
+        }
+        else //ボス
+        {
+            UIManager.Instance.HideBossUI();
+        }
     }
 
     #region デバッグ用メソッド

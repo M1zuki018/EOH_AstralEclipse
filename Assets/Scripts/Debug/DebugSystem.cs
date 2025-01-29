@@ -37,6 +37,9 @@ public class DebugSystem : MonoBehaviour
             case DebugMode.BossBattle:
                 StartBossBattle();
                 break;
+            case DebugMode.OnlyBossTest:
+                OnlyBossTest();
+                break;
             default:
                 Debug.Log("Start");
                 break;
@@ -108,6 +111,21 @@ public class DebugSystem : MonoBehaviour
         _door.Interact();
     }
 
+    [ContextMenu("OnlyBossTest")]
+    public void OnlyBossTest()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            _enemies[i]?.Debug_EnemyDeath();
+        }
+        
+        _inventory.AddKey("test");
+        _inventory.AddKey("test2");
+        _inventory.AddKey("test3");
+        
+        _door.Interact();
+    }
+
     /// <summary>
     /// プレイヤーの位置を強制変更
     /// </summary>
@@ -126,5 +144,6 @@ public enum DebugMode
     SecondBattle,
     ThirdBattle,
     DooCheck,
-    BossBattle
+    BossBattle,
+    OnlyBossTest,
 }

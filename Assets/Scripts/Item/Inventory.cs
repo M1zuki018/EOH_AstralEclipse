@@ -56,5 +56,6 @@ public class Inventory : MonoBehaviour
     {
         _collectedKeys.Clear();
         UIManager.Instance.UpdateQuestText($"Fight the boss.");
+        UIManager.Instance.ShowBossUI();
     }
 }

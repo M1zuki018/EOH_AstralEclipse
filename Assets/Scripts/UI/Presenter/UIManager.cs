@@ -197,7 +197,7 @@ public class UIManager : MonoBehaviour
     }
     
     /// <summary>ボスに関連したUIを非表示にする</summary>
-    public void ShowHideUI()
+    public void HideBossUI()
     {
         _bossHPUI.Hide();
         _bossWillUI.Hide();
