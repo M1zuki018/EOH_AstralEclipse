@@ -91,10 +91,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         }
         else //ボス
         {
-            //UIを隠す（ボス・プレイヤーのUI）
-            UIManager.Instance.HideBossUI();
-            UIManager.Instance.HidePlayerBattleUI();
-            UIManager.Instance.HideRightUI();
+            GameManager.Instance.SetGameState(GameState.Clear); //ゲームクリアにする
         }
     }
 
