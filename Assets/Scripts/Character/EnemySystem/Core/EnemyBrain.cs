@@ -19,6 +19,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     public Vector3 TargetPosition { get; }
     public IHealth Health => _health;
     public EnemyMovement EnemyMovement { get; private set; }
+    public bool IsBossEnemy => _isBossEnemy;
 
     protected override void Awake()
     {
@@ -90,7 +91,10 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         }
         else //ボス
         {
+            //UIを隠す（ボス・プレイヤーのUI）
             UIManager.Instance.HideBossUI();
+            UIManager.Instance.HidePlayerBattleUI();
+            UIManager.Instance.HideRightUI();
         }
     }
 
