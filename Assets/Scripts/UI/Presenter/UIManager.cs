@@ -185,7 +185,7 @@ public class UIManager : MonoBehaviour
     public void UpdateBossName(string text) => _bossName.SetText(text);
     
     /// <summary>ボスの残りHPパーセント表示を更新する</summary>
-    public void UpdateRemainingHP(int value) => _playerHP.SetValue(value);
+    public void UpdateRemainingHP(int value) => _bossRemainingHP.SetText($"{value}%");
 
     /// <summary>ボスに関連したUIを表示する</summary>
     public void ShowBossUI()

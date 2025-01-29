@@ -67,7 +67,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         else //ボス
         {
             UIManager.Instance.UpdateBossHP(GetCurrentHP()); //スライダー更新
-            UIManager.Instance.UpdateRemainingHP(Mathf.RoundToInt(GetCurrentHP() / _health.MaxHP * 100)); //パーセント表記更新
+            UIManager.Instance.UpdateRemainingHP(Mathf.RoundToInt((float)GetCurrentHP() / _health.MaxHP * 100)); //パーセント表記更新
         }
         
         Animator.SetTrigger("Damage");
