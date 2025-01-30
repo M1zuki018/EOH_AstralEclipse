@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -5,18 +6,33 @@ using UnityEngine;
 /// </summary>
 public class BossAttackPattern : MonoBehaviour
 {
+    [SerializeField] private LaserParticle _laserParticle;
+    
     /// <summary>
     /// 水平方向のレーザー
     /// </summary>
-    public void HorizontalLaser(Transform position)
+    public void HorizontalLaser(Transform position, float effectTime)
     {
-        //パーティクルやラインレンダラー でレーザーを表現。
+        float elapsedTime = 0f;
+        
+        Observable
+            .EveryUpdate()
+            .TakeWhile(_ => elapsedTime < effectTime) //指定した秒数に達するまで処理を行う
+            .Subscribe(_ => 
+            { 
+                elapsedTime += Time.deltaTime;
+                _laserParticle.transform.position = position.position; //レーザーの始点を調整
+                _laserParticle.Fire(position);
+            }, () =>
+            {
+                _laserParticle.Stop(); //レーザーを止める
+            })
+            .AddTo(this);
     }
 
     /// <summary>
     /// 垂直方向のレーザー
     /// </summary>
-    /// <param name="position"></param>
     public void GenerateVerticalLaser(Transform position)
     {
         

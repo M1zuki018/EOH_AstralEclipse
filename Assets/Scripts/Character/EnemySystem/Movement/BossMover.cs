@@ -34,12 +34,14 @@ public class BossMover : MonoBehaviour
         
     }
     
+    
     /// <summary>
     /// 攻撃パターン1
     /// </summary>
+    [ContextMenu("Pattern1")]
     public async void Pattern1()
     {
-        _attackPattern.HorizontalLaser(transform); //水平レーザー
+        _attackPattern.HorizontalLaser(transform, 3f); //水平レーザー
         
         await UniTask.Delay(5000);
 
