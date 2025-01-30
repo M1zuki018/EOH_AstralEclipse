@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -6,9 +7,13 @@ using UnityEngine;
 /// </summary>
 public class BossAttackPattern : MonoBehaviour
 {
+    [SerializeField] private Transform _target; //プレイヤーのTransform
     [SerializeField] private LaserParticle _laserParticle;
     [SerializeField] private GameObject _verticalLaserPrefab;
     
+    private List<GameObject > _verticalLasers = new List<GameObject>();
+    private float _speed = 450f; //垂直レーザーのスピード
+
     /// <summary>
     /// 水平方向のレーザー
     /// </summary>
@@ -32,21 +37,33 @@ public class BossAttackPattern : MonoBehaviour
     }
 
     /// <summary>
-    /// 垂直方向のレーザーを生成する
+    /// 垂直方向のレーザーを生成して位置を変更してからリストに加える
     /// </summary>
     public void GenerateVerticalLaser(Vector3 position)
     {
         GameObject obj = Instantiate(_verticalLaserPrefab);
         obj.transform.position = position;
+        _verticalLasers.Add(obj);
     }
 
     /// <summary>
     /// レーザーを発射する
     /// 放つ時にプレイヤーと自分のベクトル方向にムーブスピードかけて飛ばす
     /// </summary>
-    public void FireVerticalLaser()
+    public void FireVerticalLaser(int index)
     {
+        //プレイヤーとのベクトルを求める
+        Vector3 direction = (_target.transform.position - _verticalLasers[index].transform.position).normalized;
         
+        Observable
+            .EveryUpdate()
+            .TakeWhile(_ => _verticalLasers[index] != null)
+            .Subscribe(_ =>
+            {
+                // プレイヤーの方向へ一定の速度で移動
+                _verticalLasers[index].transform.Translate(direction * _speed * Time.deltaTime, Space.World);
+            })
+            .AddTo(this);
     }
 
     /// <summary>

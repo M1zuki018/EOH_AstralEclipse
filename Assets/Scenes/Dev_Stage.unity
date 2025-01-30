@@ -5195,7 +5195,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.039999
+  m_CameraDistance: 3.399999
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -5322,7 +5322,7 @@ Transform:
   m_GameObject: {fileID: 707531206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 112.7, y: 5.592351, z: 226.3}
+  m_LocalPosition: {x: 112.7, y: 5.630524, z: 225.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14219,7 +14219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b558ebe02f536ff4ba80ddd32fd6ff13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackPattern: {fileID: 0}
+  _attackPattern: {fileID: 1822496445}
 --- !u!114 &1822496445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14232,6 +14232,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d6bee3b74cef14c85d02d51810ccc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  _laserParticle: {fileID: 1822496446}
+  _verticalLaserPrefab: {fileID: 4436332950364993785, guid: fec376b18a2d9d4449150050432a6cc0,
+    type: 3}
 --- !u!114 &1822496446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14245,7 +14249,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _laserEffect: {fileID: 1282045174}
-  _firePoint: {fileID: 1829853020}
 --- !u!1 &1829853019
 GameObject:
   m_ObjectHideFlags: 0

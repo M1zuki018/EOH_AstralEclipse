@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4745326865334844182}
   - component: {fileID: 3899209368022055627}
   - component: {fileID: 8238236267041043307}
+  - component: {fileID: -4106051266651033956}
   m_Layer: 0
   m_Name: VirticalLaser
   m_TagString: Untagged
@@ -107,3 +108,15 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &-4106051266651033956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4436332950364993785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e74f889b64d57f41ba6b154b2822211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
