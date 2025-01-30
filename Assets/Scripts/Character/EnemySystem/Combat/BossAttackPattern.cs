@@ -10,9 +10,11 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private Transform _target; //プレイヤーのTransform
     [SerializeField] private LaserParticle _laserParticle;
     [SerializeField] private GameObject _verticalLaserPrefab;
+    [SerializeField] private GameObject _thornPrefab;
     
     private List<GameObject > _verticalLasers = new List<GameObject>();
-    private float _speed = 450f; //垂直レーザーのスピード
+    private float _speed = 200f; //垂直レーザーのスピード
+    private float _premotionTime = 5f; //茨攻撃の予兆時間
 
     /// <summary>
     /// 水平方向のレーザー
@@ -69,16 +71,30 @@ public class BossAttackPattern : MonoBehaviour
     /// <summary>
     /// 茨を生成する。プレイヤーの位置を一定時間ごとに更新してターゲット設定
     /// </summary>
-    public void GenerateThorns(Transform position)
+    public void GenerateThorns()
     {
+        GameObject thorn = Instantiate(_thornPrefab); //予兆エリアを生成
         
+        float elapsedTime = 0f;
+        Observable
+            .EveryUpdate()
+            .TakeWhile(_ => elapsedTime < _premotionTime) //予兆時間の間だけ行う
+            .Subscribe(_ =>
+            {
+                elapsedTime += Time.deltaTime;
+                thorn.transform.position =
+                    new Vector3(_target.transform.position.x, 0.7f, _target.transform.position.z);
+            }) //プレイヤーの足元に表示
+            .AddTo(this);
+        
+        FireThorns();
     }
     
     /// <summary>
     /// 茨の攻撃を行う
     /// 地面にエフェクトを表示し、「茨が生える予兆」 を見せる。茨は 時間経過で消える 
     /// </summary>
-    public void FireThorns()
+    private void FireThorns()
     {
         
     }
