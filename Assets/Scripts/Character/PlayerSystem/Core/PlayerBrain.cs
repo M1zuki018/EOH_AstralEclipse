@@ -43,7 +43,7 @@ public class PlayerBrain : CharacterBase
             .Subscribe(_ => PlayRandomIdleMotion())
             .AddTo(this);
 
-        //await UniTask.Delay(2700);
+        await UniTask.Delay(2700);
         
         //操作開始
         CameraManager.Instance?.UseCamera(0);

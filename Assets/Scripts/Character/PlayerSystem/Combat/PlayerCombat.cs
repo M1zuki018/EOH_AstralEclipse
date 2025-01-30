@@ -96,15 +96,15 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void Attack()
     {
-        _playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
-        _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
-        /*
+        //_playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
+        //_playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+        
         if (_battleChecker.ReadyForBattle)
         {
             _playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
             _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
-        */
+        
     }
 
     /// <summary>
@@ -127,7 +127,8 @@ public class PlayerCombat : MonoBehaviour, ICombat
                 _first.StartAttack(_adjustDirection.Target);
                 break;
             case 1:
-                _second.StartAttack(_adjustDirection.Target);
+                //_second.StartAttack(_adjustDirection.Target);
+                AudioManager.Instance.PlaySEDelay(3, 100);
                 break;
             case 2:
                 AudioManager.Instance.PlaySEDelay(5, 100);

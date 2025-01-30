@@ -151,8 +151,7 @@ namespace PlayerSystem.Input
         /// <summary>通常攻撃の入力処理</summary>
         public void HandleAttackInput()
         {
-            _combat.Attack();
-            /*
+            
             if (_playerMovement.InteractableItem != null && _playerMovement.InteractableItem.CanGet)
             {
                 _playerMovement.InteractableItem.Interact(); //インタラクトできるものがあればそれを呼ぶ
@@ -161,7 +160,7 @@ namespace PlayerSystem.Input
             {
                 _combat.Attack();
             }
-            */
+            
         }
 
         /// <summary>スキル攻撃の入力処理</summary>
