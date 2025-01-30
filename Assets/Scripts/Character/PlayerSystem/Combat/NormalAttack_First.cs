@@ -33,7 +33,7 @@ public class NormalAttack_First : AttackAdjustBase
     public override void StartAttack(Transform target)
     {
         _target = target;
-        _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
+        if(_target!= null) _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
         
         if (_distance > _adjustDistance && _distance < _attackDistance) //補正がかかる距離よりも遠く、かつ有効距離内にいる場合
         {
@@ -57,6 +57,7 @@ public class NormalAttack_First : AttackAdjustBase
         }
         else
         {
+            transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y - 90, transform.rotation.z, transform.rotation.w);
             TriggerSlash(); //斬撃モーションを即座に再生する
         }
     }
@@ -102,7 +103,7 @@ public class NormalAttack_First : AttackAdjustBase
              0.5f)
              .SetEase(Ease.Linear);
         
-        AudioManager.Instance.PlaySE(3);
+        AudioManager.Instance?.PlaySE(3);
     }
     
     /// <summary>

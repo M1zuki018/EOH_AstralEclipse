@@ -20,6 +20,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection;
 
     [SerializeField, HighlightIfNull] private NormalAttack_First _first;
+    [SerializeField, HighlightIfNull] private NormalAttack_Second _second;
     [SerializeField, HighlightIfNull] private NormalAttack_End _end;
     
     public AdjustDirection AdjustDirection => _adjustDirection;
@@ -36,9 +37,9 @@ public class PlayerCombat : MonoBehaviour, ICombat
         
         _weaponObj.SetActive(false);
         
-        UIManager.Instance.HideLockOnUI();
-        UIManager.Instance.HidePlayerBattleUI();
-        UIManager.Instance.InitializePlayerTP(TP, TP); //TPゲージを初期化
+        UIManager.Instance?.HideLockOnUI();
+        UIManager.Instance?.HidePlayerBattleUI();
+        UIManager.Instance?.InitializePlayerTP(TP, TP); //TPゲージを初期化
         _battleChecker.OnReadyForBattle += HandleReadyForBattle; //イベント登録
         _battleChecker.OnRescission += HandleRescission;
     }
@@ -58,7 +59,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         {
             //ボスでなければ敵のHPバーを表示する
             //ボスはイベント側でHPバーを表示する
-            UIManager.Instance.ShowEnemyHP(brain);
+            UIManager.Instance?.ShowEnemyHP(brain);
         }
         
         if (!_weaponObj.activeSelf) //まだ武器を構えていなかったら、以降の処理を行う
@@ -66,7 +67,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
             _playerMovement._animator.SetTrigger("ReadyForBattle");
             _weaponObj.SetActive(true); //武器のオブジェクトを表示する
             AudioManager.Instance.PlaySE(2);
-            UIManager.Instance.ShowPlayerBattleUI();
+            UIManager.Instance?.ShowPlayerBattleUI();
         }
     }
     
@@ -78,15 +79,15 @@ public class PlayerCombat : MonoBehaviour, ICombat
         //敵が死んでいない場合のみ処理を行う（死んでいる場合は処理が重複するので行わない）
         if (brain != null && !brain.gameObject.GetComponent<IHealth>().IsDead)
         {
-            UIManager.Instance.HideEnemyHP(brain); //敵のHPバーを非表示にする
-            UIManager.Instance.HideLockOnUI(); //ロックオンアイコンを非表示にする
+            UIManager.Instance?.HideEnemyHP(brain); //敵のHPバーを非表示にする
+            UIManager.Instance?.HideLockOnUI(); //ロックオンアイコンを非表示にする
         }
         
         if (_battleChecker.EnemiesInRange.Count == 0 && _weaponObj.activeSelf)
         {
             _weaponObj.SetActive(false);
             AudioManager.Instance.PlaySE(2);
-            UIManager.Instance.HidePlayerBattleUI();
+            UIManager.Instance?.HidePlayerBattleUI();
         }
     }
     
@@ -95,11 +96,15 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void Attack()
     {
+        _playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
+        _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+        /*
         if (_battleChecker.ReadyForBattle)
         {
             _playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
             _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
+        */
     }
 
     /// <summary>
@@ -122,7 +127,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
                 _first.StartAttack(_adjustDirection.Target);
                 break;
             case 1:
-                AudioManager.Instance.PlaySEDelay(3, 100);
+                _second.StartAttack(_adjustDirection.Target);
                 break;
             case 2:
                 AudioManager.Instance.PlaySEDelay(5, 100);
@@ -167,7 +172,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         
         TP -= skill.ResourceCost; //TPを減らす
         
-        UIManager.Instance.UpdatePlayerTP(TP);
+        UIManager.Instance?.UpdatePlayerTP(TP);
         Debug.Log($"スキルを使った　発動：{skill.Name}");
     }
 }

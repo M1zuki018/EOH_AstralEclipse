@@ -25,7 +25,7 @@ public class StepFunction : MonoBehaviour, ISteppable
         
         OnStep += HandleStep;
         
-        UIManager.Instance.HideStepUI(); //UIを隠す
+        UIManager.Instance?.HideStepUI(); //UIを隠す
         _currentSteps = _maxSteps; // ステップ数の初期化
 
     }
@@ -58,12 +58,12 @@ public class StepFunction : MonoBehaviour, ISteppable
         if (_currentSteps == _maxSteps)
         {
             StartStepRecovery();
-            UIManager.Instance.UpdateStepGauge(1,_recoveryTime);
+            UIManager.Instance?.UpdateStepGauge(1,_recoveryTime);
         }
         
         //ステップ回数を減らすのと、UIを更新する
         _currentSteps--;
-        UIManager.Instance.UpdateStepCount(_currentSteps);
+        UIManager.Instance?.UpdateStepCount(_currentSteps);
 
         Vector3 velocity = _playerMovement.PlayerState.MoveDirection;
         float moveSpeed = _playerMovement.PlayerState.MoveSpeed;
@@ -98,7 +98,7 @@ public class StepFunction : MonoBehaviour, ISteppable
             .Subscribe(_ =>
             {
                 _currentSteps++;
-                UIManager.Instance.UpdateStepCount(_currentSteps);
+                UIManager.Instance?.UpdateStepCount(_currentSteps);
                 
                 if (_currentSteps >= _maxSteps)
                 {
@@ -106,7 +106,7 @@ public class StepFunction : MonoBehaviour, ISteppable
                     return;
                 }
                 
-                UIManager.Instance.UpdateStepGauge(1,_recoveryTime);
+                UIManager.Instance?.UpdateStepGauge(1,_recoveryTime);
             })
             .AddTo(_disposable); // GameObjectが破棄されるときに購読を解除
     }
@@ -117,6 +117,6 @@ public class StepFunction : MonoBehaviour, ISteppable
     private void StopStepRecovery()
     {
         _disposable.Clear(); //購読を解除する
-        UIManager.Instance.HideStepUI(); //UIを隠す
+        UIManager.Instance?.HideStepUI(); //UIを隠す
     }
 }

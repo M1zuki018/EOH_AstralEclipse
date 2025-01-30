@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     private HashSet<string> _collectedKeys = new HashSet<string>(); //集めたキーのハッシュセット
     private void Start()
     {
-        UIManager.Instance.UpdateQuestText(
+        UIManager.Instance?.UpdateQuestText(
             $"Collect the keys\nGoal {_collectedKeys.Count} / 3");
     }
     
@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
     public void AddKey(string keyName)
     {
         _collectedKeys.Add(keyName);
-        UIManager.Instance.UpdateQuestText(
+        UIManager.Instance?.UpdateQuestText(
             $"Collect the keys\nGoal {_collectedKeys.Count} / 3");
 
         if (HasAllKeys())
@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     private void QuestFinished()
     {
-        UIManager.Instance.UpdateQuestText($"Head to the boss door.");
+        UIManager.Instance?.UpdateQuestText($"Head to the boss door.");
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
     public void UseKey()
     {
         _collectedKeys.Clear();
-        UIManager.Instance.UpdateQuestText($"Fight the boss.");
-        UIManager.Instance.ShowBossUI();
+        UIManager.Instance?.UpdateQuestText($"Fight the boss.");
+        UIManager.Instance?.ShowBossUI();
     }
 }

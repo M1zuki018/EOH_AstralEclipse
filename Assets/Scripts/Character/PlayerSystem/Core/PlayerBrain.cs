@@ -30,10 +30,10 @@ public class PlayerBrain : CharacterBase
         
         //開始演出
         _playerInput.DeactivateInput();
-        SkinManager.Instance.ChangeSkin(0);
-        CameraManager.Instance.UseCamera(3);
-        UIManager.Instance.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
-        UIManager.Instance.HideRightUI();
+        SkinManager.Instance?.ChangeSkin(0);
+        CameraManager.Instance?.UseCamera(3);
+        UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
+        UIManager.Instance?.HideRightUI();
         
         //TODO: 最初からモーションを流せるように変更する
         SubscribeToInputEvents(); //入力イベントを購読
@@ -43,11 +43,11 @@ public class PlayerBrain : CharacterBase
             .Subscribe(_ => PlayRandomIdleMotion())
             .AddTo(this);
 
-        await UniTask.Delay(2700);
+        //await UniTask.Delay(2700);
         
         //操作開始
-        CameraManager.Instance.UseCamera(0);
-        UIManager.Instance.ShowRightUI();
+        CameraManager.Instance?.UseCamera(0);
+        UIManager.Instance?.ShowRightUI();
         _playerInput.ActivateInput();
     }
     
@@ -88,9 +88,9 @@ public class PlayerBrain : CharacterBase
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
-        UIManager.Instance.UpdatePlayerHP(GetCurrentHP());
+        UIManager.Instance?.UpdatePlayerHP(GetCurrentHP());
         _playerMovement._animator.SetTrigger("Damage");
-        CameraManager.Instance.TriggerCameraShake();
+        CameraManager.Instance?.TriggerCameraShake();
     }
 
     protected override void HandleDeath(GameObject attacker)
@@ -103,7 +103,7 @@ public class PlayerBrain : CharacterBase
     [ContextMenu("Shake")]
     public void Shake()
     {
-        CameraManager.Instance.TriggerCameraShake();
+        CameraManager.Instance?.TriggerCameraShake();
     }
     
 }

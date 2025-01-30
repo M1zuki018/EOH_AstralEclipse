@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
 
     private void HandleAttackInput(InputAction.CallbackContext context)
     {
-        if (context.performed)_inputHandler.HandleAttackInput();
+        if (context.performed) _inputHandler.HandleAttackInput();
     }
     
     private void HandleSkillInput(InputAction.CallbackContext context, int index)
@@ -246,5 +246,5 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     public Vector3 TargetPosition => _collider.ClosestPoint(_targetTransform.position);
     
     /// <summary>アニメーションイベントでSEを再生するためのメソッド</summary>
-    public void PlaySE(int index) => AudioManager.Instance.PlaySE(index);
+    public void PlaySE(int index) => AudioManager.Instance?.PlaySE(index);
 }
