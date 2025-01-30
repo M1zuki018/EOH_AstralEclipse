@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
@@ -13,8 +14,8 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private GameObject _thornPrefab;
     
     private List<GameObject > _verticalLasers = new List<GameObject>();
-    private float _speed = 200f; //垂直レーザーのスピード
-    private float _premotionTime = 5f; //茨攻撃の予兆時間
+    private float _speed = 120f; //垂直レーザーのスピード
+    private float _premotionTime = 2f; //茨攻撃の予兆時間
 
     /// <summary>
     /// 水平方向のレーザー
@@ -74,6 +75,7 @@ public class BossAttackPattern : MonoBehaviour
     public void GenerateThorns()
     {
         GameObject thorn = Instantiate(_thornPrefab); //予兆エリアを生成
+        thorn.TryGetComponent(out ThornContorl thornCtrl);
         
         float elapsedTime = 0f;
         Observable
@@ -83,20 +85,21 @@ public class BossAttackPattern : MonoBehaviour
             {
                 elapsedTime += Time.deltaTime;
                 thorn.transform.position =
-                    new Vector3(_target.transform.position.x, 0.7f, _target.transform.position.z);
-            }) //プレイヤーの足元に表示
+                    new Vector3(_target.transform.position.x, 0.7f, _target.transform.position.z); //プレイヤーの足元に表示
+            }, () => 
+            {
+                FireThorns(thornCtrl); //攻撃を行う
+            }) 
             .AddTo(this);
-        
-        FireThorns();
     }
     
     /// <summary>
     /// 茨の攻撃を行う
-    /// 地面にエフェクトを表示し、「茨が生える予兆」 を見せる。茨は 時間経過で消える 
     /// </summary>
-    private void FireThorns()
+    private async void FireThorns(ThornContorl thornCtrl)
     {
-        
+        await UniTask.Delay(1000); //少し時間を置く
+        thornCtrl.ChangedMesh(); //メッシュ変更とオブジェクト破棄
     }
 
     /// <summary>

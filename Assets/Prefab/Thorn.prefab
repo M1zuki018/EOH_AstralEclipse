@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5268284246384152074}
   - component: {fileID: 1325802212130161400}
   - component: {fileID: 4964905496009033334}
+  - component: {fileID: 6980281457277075564}
   m_Layer: 0
   m_Name: Thorn
   m_TagString: Untagged
@@ -106,3 +107,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &6980281457277075564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989261229507294409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000512c603e41554fad5e350fbd027fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meshRenderer: {fileID: 5268284246384152074}
+  _cheangedMesh: {fileID: 4300000, guid: 1f415c2a0f81b57488cd28fa7561a2a5, type: 2}
