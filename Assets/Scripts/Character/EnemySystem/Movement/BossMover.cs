@@ -45,9 +45,11 @@ public class BossMover : MonoBehaviour
         
         await UniTask.Delay(5000);
 
+        float generatoPos = transform.position.x - 14f;
         for (int i = 0; i < 6; i++)
         {
-            _attackPattern.GenerateVerticalLaser(transform); //垂直レーザー6本
+            generatoPos += 4;
+            _attackPattern.GenerateVerticalLaser(new Vector3(generatoPos, transform.position.y, transform.position.z)); //垂直レーザー6本
         }
         
         await UniTask.Delay(5000);

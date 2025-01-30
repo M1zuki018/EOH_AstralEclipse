@@ -7,6 +7,7 @@ using UnityEngine;
 public class BossAttackPattern : MonoBehaviour
 {
     [SerializeField] private LaserParticle _laserParticle;
+    [SerializeField] private GameObject _verticalLaserPrefab;
     
     /// <summary>
     /// 水平方向のレーザー
@@ -31,11 +32,12 @@ public class BossAttackPattern : MonoBehaviour
     }
 
     /// <summary>
-    /// 垂直方向のレーザー
+    /// 垂直方向のレーザーを生成する
     /// </summary>
-    public void GenerateVerticalLaser(Transform position)
+    public void GenerateVerticalLaser(Vector3 position)
     {
-        
+        GameObject obj = Instantiate(_verticalLaserPrefab);
+        obj.transform.position = position;
     }
 
     /// <summary>
