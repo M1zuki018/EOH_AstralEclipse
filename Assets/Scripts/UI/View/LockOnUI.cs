@@ -66,7 +66,7 @@ namespace UI.View
         /// </summary>
         public void IsNotActive()
         {
-            _icon.gameObject.SetActive(false);
+            _icon?.gameObject.SetActive(false);
         }
 
         public void Show()

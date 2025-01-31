@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
     public void HideLockOnUI() => _lockOnIcon.IsNotActive();
     
     /// <summary>クエスト内容を表示するUIを更新する</summary>
-    public void UpdateQuestText(string text) => _questText.SetText(text);
+    public void UpdateQuestText(string text) => _questText?.SetText(text);
 
     /// <summary>エネミーのHPバーを表示</summary>
     public void ShowEnemyHP(EnemyBrain enemy) => _enemyHpSliders[enemy].IsActive();

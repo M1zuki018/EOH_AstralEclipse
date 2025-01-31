@@ -27,13 +27,16 @@ public class PlayerBrain : CharacterBase
     {
         _playerMovement = GetComponent<PlayerMovement>(); //Animator、State取得用
         _playerInput = GetComponent<PlayerInput>();
-        
-        //開始演出
-        _playerInput.DeactivateInput();
-        SkinManager.Instance?.ChangeSkin(0);
-        CameraManager.Instance?.UseCamera(3);
-        UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
-        UIManager.Instance?.HideRightUI();
+
+        if (!_playerMovement.PlayerState.DebugMode)
+        {
+            //開始演出
+            _playerInput.DeactivateInput();
+            SkinManager.Instance?.ChangeSkin(0);
+            CameraManager.Instance?.UseCamera(3);
+            UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
+            UIManager.Instance?.HideRightUI();
+        }
         
         //TODO: 最初からモーションを流せるように変更する
         SubscribeToInputEvents(); //入力イベントを購読
