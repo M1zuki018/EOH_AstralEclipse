@@ -149,13 +149,10 @@ public class BossMover : MonoBehaviour
         Break();
     }
 
+    [ContextMenu("LastAttack")]
     public async void LastAttack()
     {
-        await UniTask.Delay(5000);
-        
         _attackPattern.FinalTimeControl();
-        _attackPattern.TimeStop();
-        _attackPattern.FinalAttack();
     }
 
     public void After()

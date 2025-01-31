@@ -3,8 +3,10 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// ボスの攻撃メソッドをまとめたもの
@@ -17,8 +19,11 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private GameObject _thornPrefab;
     [SerializeField] private GameObject _abovePrefab;
     [SerializeField] private Volume _timeStopVolume;
+    [SerializeField] private AudioMixerGroup _bgmMixer;
+    [SerializeField] private Material _glitchy; //グリッチシェーダーをかけたマテリアル
 
     private PlayerInput _playerInput;
+    private Material _defaultMaterial;
     
     private List<GameObject > _verticalLasers = new List<GameObject>();
     private float _speed = 120f; //垂直レーザーのスピード
@@ -26,6 +31,7 @@ public class BossAttackPattern : MonoBehaviour
 
     private void Start()
     {
+        _defaultMaterial = RenderSettings.skybox;
         _playerInput = _target.gameObject.GetComponent<PlayerInput>();
     }
     
@@ -236,38 +242,55 @@ public class BossAttackPattern : MonoBehaviour
     }
 
     /// <summary>
-    /// 本気の時間操作（残りHP10%で発動）
-    /// 完全な時間停止を行い、プレイヤーを拘束。「モノクロ化」＋「音の消失」＋「重力の変化」など、異常な演出を追加。
-    /// 解除と同時に、即死級に近い大技を発動。（ただし回避手段を用意する）
-    /// 発動予兆（約2秒）HP10%を切ると、ボスがフィールド中央へワープ。ボスが「両手を掲げる」「時計の針を高速回転させる」などの演出を入れる。
+    /// 死に際の時間操作（残りHP10%で発動）
     /// 画面の色彩が徐々に色が抜けていく 周囲の空間が歪み始め、背景エフェクトが「時空の裂け目」みたいになる。
     /// UIの時計やカウントダウン的な演出を画面端に表示（「00:03… 00:02… 00:01…」）。BGMがフェードアウトし、無音になる（緊張感を増す）。
     /// </summary>
-    public void FinalTimeControl()
+    public async void FinalTimeControl()
     {
+        //演出
+        //時計の針を高速回転させる
         
+        await UniTask.Delay(500); //演出を待つ
+        
+        Time.timeScale = 0.1f; //遅延
+        _timeStopVolume.enabled = true; //画面のモノクロ化
+        RenderSettings.skybox = _glitchy; //Skyboxを変更
+        //_bgmMixer.audioMixer.SetFloat("MasterVolume", 1f); //音をくぐもらせる
+        _playerInput.DeactivateInput(); //プレイヤーの入力を制限
+        
+        await UniTask.Delay(200);
+        
+        TimeStop();
     }
 
     /// <summary>
     /// 完全時間停止（約4〜5秒）
-    /// タイムスケールを 0.01以下（ほぼ完全停止） にする。プレイヤーの入力を一切受け付けない（キー操作を無効化）。
-    /// 画面全体が 完全なモノクロ になり、SEも「エコーがかかったような遅延音」に変わる。
     /// ボスは 自由に動きながらプレイヤーの周囲を回り、攻撃の準備 をする。巨大な魔法陣を展開し、解除時にフィールド全体を攻撃。
     /// </summary>
-    public void TimeStop()
+    public async void TimeStop()
     {
+        Debug.Log("時間停止");
+        //BGMのvolumeを完全にゼロにする
+        //SEにもエコーがかかったような遅延音に聞こえるような効果をかける
         
+        await UniTask.Delay(300);
+        
+        FinalAttack();
     }
 
     /// <summary>
     /// 時間解除 & 強力な攻撃発動（約1秒）
     /// 解除直前に「時計の針が高速回転」→「一瞬だけ時が動き出すエフェクト」。タイムスケールを一気に1.0に戻し、色彩が元に戻る（急激なコントラスト変化）。
-    /// 同時に、強力な攻撃を発動
-    ///「フィールド全体に衝撃波」→ 一定範囲外に回避しないと即死。
     /// </summary>
     public void FinalAttack()
     {
-        
+        Debug.Log("攻撃");
+        Time.timeScale = 1f;
+        _timeStopVolume.enabled = false; //画面エフェクトを通常に戻す
+        RenderSettings.skybox = _defaultMaterial; //Skyboxを元に戻す
+        _playerInput.ActivateInput(); //入力制限解除
+        //即死攻撃の処理
     }
 
     /// <summary>
