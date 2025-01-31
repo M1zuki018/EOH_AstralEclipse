@@ -39,6 +39,9 @@ public class BossMover : MonoBehaviour
     {
         transform.DOMoveY(_initializePos.y + 4f, 1f);
         await UniTask.Delay(1000);
+        
+        //次の攻撃を行う
+        if(_patternCount == 1) Pattern2(); //パターン2に繋げる
     }
 
     /// <summary>
@@ -51,7 +54,7 @@ public class BossMover : MonoBehaviour
     
     
     /// <summary>
-    /// 攻撃パターン1
+    /// 攻撃パターン1 レーザーメインの回避パート
     /// </summary>
     [ContextMenu("Pattern1")]
     public async void Pattern1()
@@ -102,17 +105,19 @@ public class BossMover : MonoBehaviour
     }
 
     /// <summary>
-    /// 攻撃パターン2　影
+    /// 攻撃パターン2 影移動と近接戦闘
     /// </summary>
+    [ContextMenu("Pattern2")]
     public async void Pattern2()
     {
-        _attackPattern.ShadowMove();
         _attackPattern.ShadowAttack();
 
-        await UniTask.Delay(5000);
+        // await UniTask.Delay(10000);
+        //
+        // _attackPattern.ShadowAttack();
         
-        _attackPattern.ShadowMove();
-        _attackPattern.ShadowAttack();
+        //TODO:ガード成功時：火花のようなエフェクト＋ボスが軽く後退。回避成功時：スローモーションを一瞬入れる
+        //TODO: ヒット時：プレイヤーが「のけぞる」 or 「吹き飛ばされる」。
 
     }
 
