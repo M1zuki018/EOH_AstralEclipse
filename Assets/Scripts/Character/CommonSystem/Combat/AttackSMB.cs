@@ -9,14 +9,12 @@ public class AttackSMB : StateMachineBehaviour
 {
     [Header("初期設定")] 
     [SerializeField, Comment("コンボの段階")] private int _attackIndex;
-    [SerializeField, Comment("モーションの移動量")] private float _moveSpeed = 1.0f;
-    [SerializeField, Comment("向きの補正をするか")] private bool _adjustDirection = true;
     [SerializeField, Comment("ルートモーションの使用")] private bool _useRootMotion = false; 
     
     private ICombat _combat;
     private CharacterController _cc;
     private Transform _player;
-    private NormalAttackCorrection _normalAttackCorrection; //移動・回転補正を行うクラス
+    private IAttackCorrection _attackCorrection; //移動・回転補正を行うクラス
     
     //アニメーションが開始されたとき
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -26,24 +24,41 @@ public class AttackSMB : StateMachineBehaviour
             _combat = animator.GetComponent<ICombat>();
             _cc = animator.GetComponent<CharacterController>();
             _player = animator.transform;
-            _normalAttackCorrection = animator.GetComponent<NormalAttackCorrection>();
+            _attackCorrection = animator.GetComponent<NormalAttackCorrection>();
         }
-
-        animator.applyRootMotion = false; //一度ルートモーションは無効にする
-
-        _combat.PerformAttack(_attackIndex); //攻撃処理メソッドを呼ぶ
+        
+        animator.applyRootMotion = false; //補正をかけるため一度ルートモーションを無効にする
+        _combat.PerformAttack(_attackIndex); //攻撃処理
+        _attackCorrection = GetAttackCorrection(animator); //攻撃に応じた補正を設定する
         
         if (_useRootMotion) //ルートモーションを使用する場合
         {
-            animator.applyRootMotion = true; //ルートモーションを有効
+            animator.applyRootMotion = true;
         }
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_adjustDirection && !_useRootMotion) //補正が有効なら移動補正を行う
+        if (_attackCorrection != null)
         {
-            _normalAttackCorrection.CorrectMovement(_player.forward);
+            //補正処理を呼び出す
+            _attackCorrection.CorrectMovement(_player.forward);
+        }
+    }
+
+    /// <summary>
+    /// 攻撃タイプごとの補正クラスを決定する
+    /// </summary>
+    private IAttackCorrection GetAttackCorrection(Animator animator)
+    {
+        switch (_attackIndex)
+        {
+            case 0:
+                return animator.GetComponent<NormalAttack_First>();  //1段目
+            case 4:
+                return animator.GetComponent<NormalAttack_End>(); //5段目
+            default:
+                return animator.GetComponent<NormalAttackCorrection>(); //デフォルトの攻撃補正
         }
     }
 }

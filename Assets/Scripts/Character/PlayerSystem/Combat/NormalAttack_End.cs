@@ -22,4 +22,8 @@ public class NormalAttack_End : AttackAdjustBase
         AudioManager.Instance?.PlaySEDelay(4, 200); //着地
         _animator.SetFloat("AttackSpeed", 1f);
     }
+
+    public override void CorrectMovement(Vector3 forwardDirection) { }
+
+    public override void AdjustDirectionToTarget() { }
 }

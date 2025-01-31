@@ -61,7 +61,11 @@ public class NormalAttack_First : AttackAdjustBase
             TriggerSlash(); //斬撃モーションを即座に再生する
         }
     }
-    
+
+    public override void CorrectMovement(Vector3 forwardDirection) { }
+
+    public override void AdjustDirectionToTarget() { }
+
     /// <summary>
     /// 突進処理
     /// </summary>

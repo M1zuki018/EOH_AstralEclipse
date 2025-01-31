@@ -33,8 +33,18 @@ public class NormalAttack_Second : AttackAdjustBase
         TriggerSlash(); //斬撃モーションを即座に再生する
         
     }
-    
-    
+
+    public override void CorrectMovement(Vector3 forwardDirection)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void AdjustDirectionToTarget()
+    {
+        throw new System.NotImplementedException();
+    }
+
+
     /// <summary>
     /// 斬撃モーションに移る
     /// </summary>
