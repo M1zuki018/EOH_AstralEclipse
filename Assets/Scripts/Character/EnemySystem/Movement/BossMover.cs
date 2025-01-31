@@ -102,7 +102,7 @@ public class BossMover : MonoBehaviour
         
         await UniTask.Delay(4000);
 
-        _patternCount++;
+        _patternCount = 1;
         Break();
     }
 
@@ -123,7 +123,7 @@ public class BossMover : MonoBehaviour
         //TODO: ヒット時：プレイヤーが「のけぞる」 or 「吹き飛ばされる」。
 
         await UniTask.Delay(8000);
-        _patternCount++;
+        _patternCount = 2;
         Break();
     }
 
