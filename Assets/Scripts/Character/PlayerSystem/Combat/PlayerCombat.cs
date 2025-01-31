@@ -24,6 +24,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     [SerializeField, HighlightIfNull] private NormalAttack_End _end;
     
     public AdjustDirection AdjustDirection => _adjustDirection;
+    public DamageHandler DamageHandler => _damageHandler;
     
     public SkillSO SkillSet => _skillSet;
     

@@ -11,6 +11,9 @@ namespace PlayerSystem.Fight
         /// <summary>攻撃補正を行うクラス</summary>
         AdjustDirection AdjustDirection { get; }
         
+        /// <summary>ダメージを与える処理</summary>
+        public DamageHandler DamageHandler { get; }
+        
         /// <summary>通常攻撃</summary>
         void Attack();
         

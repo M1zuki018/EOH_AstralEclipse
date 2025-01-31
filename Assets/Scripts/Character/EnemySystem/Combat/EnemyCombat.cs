@@ -11,7 +11,8 @@ public class EnemyCombat : MonoBehaviour, ICombat
 {
     [SerializeField] private int _attackDamage = 5; //攻撃力
     [SerializeField] private AdjustDirection _adjustDirection;
-    public AdjustDirection AdjustDirection => _adjustDirection;  
+    public AdjustDirection AdjustDirection => _adjustDirection;
+    public DamageHandler DamageHandler =>_damageHandler;
     public AttackHitDetector Detector { get; private set; }
     [SerializeField, Comment("攻撃間隔")] private float _attackCooldown = 1.5f;
     private EnemyBrain _brain;

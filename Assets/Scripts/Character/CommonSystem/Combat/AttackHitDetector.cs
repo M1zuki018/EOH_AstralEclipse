@@ -1,11 +1,11 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using PlayerSystem.Fight;
 using UnityEngine;
 using UniRx;
 
 /// <summary>
-/// 攻撃時の衝突判定を管理
+/// 攻撃判定を行い、指定されたコライダーを、指定されたフレームの間発生させる
 /// </summary>
 public class AttackHitDetector : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class AttackHitDetector : MonoBehaviour
     [SerializeField, Comment("衝突検出を行うレイヤー")] private LayerMask _hitLayer;
     [SerializeField, Comment("衝突するタグ")] private string[] _hitTags;
     
-    [Header("検出フレームの範囲")] 
+    [Header("調整用：検出フレームの範囲")] 
     [Range(0, 1)] [ReadOnlyOnRuntime] [SerializeField] private float _frame;
     [SerializeField] private int _attackType;
 
@@ -39,13 +39,17 @@ public class AttackHitDetector : MonoBehaviour
         }
     };
     
-    private Transform _transform;
     private Animator _animator;
     private readonly List<GameObject> _hitObjects = new();
     private readonly int _locoMotionHash= Animator.StringToHash("Base Layer.LocoMotion"); //避けたいステート
     private int _previousStateHash = -1;
     private bool _isAttacking; //このクラス内で使用する攻撃状態かどうかのフラグ
     private bool _isAttackMotion;
+    
+    private bool _isHitDetected = false; //ヒット検出フラグ
+    private ICombat _combat;
+    private float _hitDetectionDuration; //攻撃判定の持続時間
+    private Collider[] _hitColliders;
 
     /// <summary>攻撃の種類</summary>
     public int AttackType
@@ -56,11 +60,43 @@ public class AttackHitDetector : MonoBehaviour
     
     private void OnEnable()
     {
-        _transform = transform;
+        _combat = GetComponent<ICombat>(); 
         _animator = GetComponentInParent<Animator>();
         _hitObjects.Clear(); //リストの中身をクリアする
     }
 
+    public void DetectHit(Vector3 attackPosition, float attackRange)
+    {
+        if(_isHitDetected) return; //既にヒットしていたら以降の処理は行わない
+        
+        // ヒット判定の範囲を指定して範囲内の敵を検出
+        _hitColliders = Physics.OverlapSphere(attackPosition, attackRange);
+
+        // ヒットしたオブジェクトにダメージを与える
+        foreach (var hitCollider in _hitColliders)
+        {
+            var target = hitCollider.GetComponent<IDamageable>();
+            if (target != null)
+            {
+                _combat.DamageHandler.ApplyDamage(
+                    target:target, //攻撃対象
+                    baseDamage:_combat.BaseAttackPower, //攻撃力 
+                    defense:0,  //相手の防御力
+                    attacker:gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
+            }
+        }
+
+        _isHitDetected = true;
+        StartCoroutine(HitDetectionCooldown());
+    }
+    
+    private IEnumerator HitDetectionCooldown()
+    {
+        // ヒット判定が終了するまで待つ
+        yield return new WaitForSeconds(_hitDetectionDuration);
+        _isHitDetected = false;
+    }
+    
     /// <summary>
     /// 攻撃した時に呼び出す
     /// </summary>
@@ -123,8 +159,8 @@ public class AttackHitDetector : MonoBehaviour
     private int CalculateCollisions(CollisionData col, out Collider[] hitResults)
     {
         hitResults = new Collider[50];
-        var position = _transform.position + _transform.TransformVector(col.Offset);
-        var rotation = _transform.rotation * Quaternion.Euler(col.Rotation);
+        var position = transform.position + transform.TransformVector(col.Offset);
+        var rotation = transform.rotation * Quaternion.Euler(col.Rotation);
         return Physics.OverlapBoxNonAlloc(position, col.Scale * 0.5f, hitResults, rotation, _hitLayer);
     }
 
