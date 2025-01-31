@@ -29,7 +29,12 @@ public class BossMover : MonoBehaviour
         
         //次の攻撃に向けて移動する
         if(_patternCount == 1) Emerge();
-        else if(_patternCount == 2) Warp(new Vector3(100f, 15f, 250f));
+        else if(_patternCount == 2) Pattern3();
+        else if (_patternCount == 3)
+        {
+            _patternCount = 0; //初期化
+            Emerge();
+        }
     }
 
     /// <summary>
@@ -42,6 +47,7 @@ public class BossMover : MonoBehaviour
         
         //次の攻撃を行う
         if(_patternCount == 1) Pattern2(); //パターン2に繋げる
+        else if (_patternCount == 0) Pattern1();
     }
 
     /// <summary>
@@ -50,8 +56,6 @@ public class BossMover : MonoBehaviour
     private void Warp(Vector3 position)
     {
         transform.position = position;
-        
-        if(_patternCount == 2) Pattern3();
     }
     
     
@@ -133,10 +137,16 @@ public class BossMover : MonoBehaviour
     [ContextMenu("Pattern3")]
     public async void Pattern3()
     {
+        Warp(new Vector3(100f, 15f, 250f));
+        
         await UniTask.Delay(500); //発動予兆0.5秒
         
-        _attackPattern.TimeControl();
-        _attackPattern.FireTimeAttack();
+        _attackPattern.TimeControl(); //攻撃
+        
+        await UniTask.Delay(10000);
+
+        _patternCount = 3;
+        Break();
     }
 
     public async void LastAttack()

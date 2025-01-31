@@ -3,6 +3,8 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// ボスの攻撃メソッドをまとめたもの
@@ -14,11 +16,19 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private GameObject _verticalLaserPrefab;
     [SerializeField] private GameObject _thornPrefab;
     [SerializeField] private GameObject _abovePrefab;
+    [SerializeField] private Volume _timeStopVolume;
+
+    private PlayerInput _playerInput;
     
     private List<GameObject > _verticalLasers = new List<GameObject>();
     private float _speed = 120f; //垂直レーザーのスピード
     private float _premotionTime = 1f; //茨攻撃の予兆時間
 
+    private void Start()
+    {
+        _playerInput = _target.gameObject.GetComponent<PlayerInput>();
+    }
+    
     /// <summary>
     /// 水平方向のレーザー
     /// </summary>
@@ -185,22 +195,44 @@ public class BossAttackPattern : MonoBehaviour
     }
 
     /// <summary>
-    /// 時間操作　プレイヤーの入力を受け付けない 色彩をモノクロに変更 空中にエネルギーが集まる演出 空が暗くなる or 背景が歪むエフェクトを追加しても良い。
-    /// ボスが魔法陣や時計ギミックを展開し、「時間を操る」演出。画面に時計の針や歯車エフェクトを一瞬表示して「発動の合図」。時間減速 or 短時間停止（約1〜2秒）
-    /// タイムスケールを 0.3〜0.5 にする。（完全停止はしない）プレイヤーの移動速度や攻撃速度が低下。ボスは通常の1.5倍速で移動しながら攻撃する（スピード感を出す）。
+    /// 時間操作
     /// </summary>
-    public void TimeControl()
+    public async void TimeControl()
     {
+        Debug.Log("時間操作攻撃開始");
         
+        //TODO:背景が歪むエフェクト
+        _timeStopVolume.enabled = true; //色彩をモノクロに変更
+        Time.timeScale = 0.1f; //減速
+        
+        //演出
+        Debug.Log("演出作成予定");
+        //TODO: 空中にエネルギーが集まる
+        //TODO: ボスが魔法陣を展開
+        //TODO: プレイヤーの移動速度や攻撃速度が低下。ボスは通常の1.5倍速で移動しながら攻撃する
+        
+        await UniTask.Delay(200);
+        
+        Debug.Log("時間停止発動の合図の演出");
+        //発動の演出
+        _playerInput.DeactivateInput(); //一瞬操作できなくする
+        //TODO: 画面に時計の針や歯車エフェクトを一瞬表示して「発動の合図」
+        
+        await UniTask.Delay(50); //演出を待つ
+        
+        FireTimeAttack();
     }
 
     /// <summary>
-    /// 解除と同時に何か強力な攻撃 ボスが全力のエネルギー弾を放つ 画面が一瞬フラッシュ
-    /// 時間解除と同時に攻撃（0.5秒後）モノクロ解除と同時に「レーザー発射」や「ワープ近接攻撃」を仕掛ける。「当たるとダメージ＋吹き飛ばし」くらいの威力。
+    /// 時間減速解除後の攻撃
     /// </summary>
-    public void FireTimeAttack()
+    private void FireTimeAttack()
     {
-        
+        _timeStopVolume.enabled = false; //画面のフィルターを元に戻す
+        Time.timeScale = 1f; //時間の進みを戻す
+        _playerInput.ActivateInput(); //プレイヤーの入力を解放
+        //レーザー一斉照射
+        //画面がフラッシュする
     }
 
     /// <summary>
