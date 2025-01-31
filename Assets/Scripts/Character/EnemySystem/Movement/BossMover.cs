@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -9,11 +10,13 @@ public class BossMover : MonoBehaviour
 {
     [SerializeField] private BossAttackPattern _attackPattern;
 
+    private CharacterController _cc;
     private Vector3 _initializePos;
     private int _patternCount;
 
     private void Start()
     {
+        _cc = GetComponent<CharacterController>();
         _initializePos = transform.position;
         transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //空中に移動
     }
@@ -25,7 +28,7 @@ public class BossMover : MonoBehaviour
     {
         Pattern1();
     }
-    
+
     /// <summary>
     /// 地上で休憩する
     /// </summary>

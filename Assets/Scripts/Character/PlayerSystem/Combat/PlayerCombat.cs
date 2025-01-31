@@ -107,29 +107,26 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void Attack()
     {
-        //_playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
-        //_playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
-        
-        if (_battleChecker.ReadyForBattle)
+        //臨戦状態/ボス戦中/デバッグモードの場合攻撃可能とする
+        if (_battleChecker.ReadyForBattle || _playerMovement.PlayerState.IsBossBattle || _playerMovement.PlayerState.DebugMode)
         {
             _playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
             _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
-        
     }
 
     /// <summary>
-    /// Animator側から呼び出される処理
+    /// アニメーションが再生されたときStateMachineBehaviorから呼び出される処理
     /// </summary>
     public void PerformAttack(int index)
     {
         //当たり判定制御
         Detector.AttackType = index;
         
-        List<IDamageable> damageables = Detector.PerformAttack();
+        List<IDamageable> damageables = Detector.PerformAttack(); //当たり判定を検出する
         foreach (IDamageable damageable in damageables)
         {
-            _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
+            _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject); //ダメージを加える
         }
 
         switch (index)

@@ -39,7 +39,10 @@ public class EnemyMovement : MonoBehaviour
             //ボスの移動はナビメッシュを使用しない
             Agent.enabled = false;
             _enemyAI.enabled = false;
-            _bossMover = this.gameObject.AddComponent<BossMover>(); //ボス用の移動クラスを追加して取得する
+            if (!TryGetComponent(out _bossMover))
+            {
+                _bossMover = gameObject.AddComponent<BossMover>(); //取得できなかったらボス用の移動クラスを追加して取得する
+            }
         }
     }
 
@@ -58,11 +61,6 @@ public class EnemyMovement : MonoBehaviour
         {
             CheckState(); //現在のステートをチェック
         }
-        else
-        {
-            
-        }
-        
     }
 
     #region 通常の敵の処理

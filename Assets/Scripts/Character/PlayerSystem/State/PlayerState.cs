@@ -32,6 +32,7 @@ namespace PlayerSystem.State
         public Vector3 WallNormal { get; set; } //壁の法線
         
         public bool IsBossBattle { get; set; } //ボス戦中か
+        public bool DebugMode { get; set; } //デバッグ中か
     }
 }
 

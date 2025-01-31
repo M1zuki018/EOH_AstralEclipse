@@ -31,7 +31,7 @@ public class DebugSystem : MonoBehaviour
             case DebugMode.ThirdBattle:
                 StartThirdBattle();
                 break;
-            case DebugMode.DooCheck:
+            case DebugMode.DoorCheck:
                 DooCheck();
                 break;
             case DebugMode.BossBattle:
@@ -39,6 +39,9 @@ public class DebugSystem : MonoBehaviour
                 break;
             case DebugMode.OnlyBossTest:
                 OnlyBossTest();
+                break;
+            case DebugMode.ActionTest:
+                ActionTest();
                 break;
             default:
                 Debug.Log("Start");
@@ -126,6 +129,12 @@ public class DebugSystem : MonoBehaviour
         _door.Interact();
     }
 
+    private void ActionTest()
+    {
+        PlayerMovement playerMovement = _player.gameObject.GetComponent<PlayerMovement>();
+        playerMovement.PlayerState.DebugMode = true;
+    }
+
     /// <summary>
     /// プレイヤーの位置を強制変更
     /// </summary>
@@ -143,7 +152,8 @@ public enum DebugMode
     FirstBattle,
     SecondBattle,
     ThirdBattle,
-    DooCheck,
+    DoorCheck,
     BossBattle,
     OnlyBossTest,
+    ActionTest,
 }
