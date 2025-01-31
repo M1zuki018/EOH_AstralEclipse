@@ -29,7 +29,7 @@ public class BossMover : MonoBehaviour
         
         //次の攻撃に向けて移動する
         if(_patternCount == 1) Emerge();
-        else if(_patternCount == 2) Warp(transform);
+        else if(_patternCount == 2) Warp(new Vector3(100f, 15f, 250f));
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     private async void Emerge()
     {
-        transform.DOMoveY(_initializePos.y + 4f, 1f);
+        transform.DOMoveY( 4f, 1f);
         await UniTask.Delay(1000);
         
         //次の攻撃を行う
@@ -47,9 +47,11 @@ public class BossMover : MonoBehaviour
     /// <summary>
     /// 特定の場所へワープする
     /// </summary>
-    private void Warp(Transform position)
+    private void Warp(Vector3 position)
     {
+        transform.position = position;
         
+        if(_patternCount == 2) Pattern3();
     }
     
     
@@ -112,18 +114,23 @@ public class BossMover : MonoBehaviour
     {
         _attackPattern.ShadowAttack();
 
-        // await UniTask.Delay(10000);
-        //
-        // _attackPattern.ShadowAttack();
+        await UniTask.Delay(8000);
+        
+        Warp(new Vector3(100f, 4f, 230f));
+        _attackPattern.ShadowAttack();
         
         //TODO:ガード成功時：火花のようなエフェクト＋ボスが軽く後退。回避成功時：スローモーションを一瞬入れる
         //TODO: ヒット時：プレイヤーが「のけぞる」 or 「吹き飛ばされる」。
 
+        await UniTask.Delay(8000);
+        _patternCount++;
+        Break();
     }
 
     /// <summary>
-    /// 攻撃パターン3　時間
+    /// 攻撃パターン3　時間操作
     /// </summary>
+    [ContextMenu("Pattern3")]
     public async void Pattern3()
     {
         await UniTask.Delay(500); //発動予兆0.5秒
