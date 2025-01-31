@@ -35,7 +35,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         Detector = GetComponentInChildren<AttackHitDetector>();
         _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから取得。臨戦状態の判定
         
-        _weaponObj.SetActive(false);
+        if(!_playerMovement.PlayerState.DebugMode) _weaponObj.SetActive(false);
         
         UIManager.Instance?.HideLockOnUI();
         UIManager.Instance?.HidePlayerBattleUI();
@@ -136,13 +136,13 @@ public class PlayerCombat : MonoBehaviour, ICombat
                 break;
             case 1:
                 //_second.StartAttack(_adjustDirection.Target);
-                AudioManager.Instance.PlaySEDelay(3, 100);
+                AudioManager.Instance?.PlaySEDelay(3, 100);
                 break;
             case 2:
-                AudioManager.Instance.PlaySEDelay(5, 100);
+                AudioManager.Instance?.PlaySEDelay(5, 100);
                 break;
             case 3:
-                AudioManager.Instance.PlaySEDelay(3, 100);
+                AudioManager.Instance?.PlaySEDelay(3, 100);
                 break;
             case 4:
                 _end.StartAttack(_adjustDirection.Target);

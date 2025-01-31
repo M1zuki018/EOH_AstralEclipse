@@ -15,7 +15,7 @@ public class DebugSystem : MonoBehaviour
     private Animator _playerAnimator;
     private CharacterController _playerController;
     
-    private void Start()
+    private void Awake()
     {
         _playerAnimator = _player.GetComponent<Animator>();
         _playerController = _player.GetComponent<CharacterController>();

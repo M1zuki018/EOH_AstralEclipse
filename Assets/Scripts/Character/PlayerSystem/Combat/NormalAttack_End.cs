@@ -10,8 +10,8 @@ public class NormalAttack_End : AttackAdjustBase
     {
         _animator.SetFloat("AttackSpeed", 1f);
         
-        AudioManager.Instance.PlaySEDelay(3, 100); //右上から切り降ろす
-        AudioManager.Instance.PlaySEDelay(3, 330); //切りながらジャンプ
+        AudioManager.Instance?.PlaySEDelay(3, 100); //右上から切り降ろす
+        AudioManager.Instance?.PlaySEDelay(3, 330); //切りながらジャンプ
         
         await UniTask.Delay(330);
         
@@ -19,7 +19,7 @@ public class NormalAttack_End : AttackAdjustBase
         
         await UniTask.Delay(370);
         
-        AudioManager.Instance.PlaySEDelay(4, 200); //着地
+        AudioManager.Instance?.PlaySEDelay(4, 200); //着地
         _animator.SetFloat("AttackSpeed", 1f);
     }
 }
