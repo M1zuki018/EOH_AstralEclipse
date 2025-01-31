@@ -17,6 +17,14 @@ public class BossMover : MonoBehaviour
         _initializePos = transform.position;
         transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //空中に移動
     }
+
+    /// <summary>
+    /// ボス戦を始めるメソッド
+    /// </summary>
+    public void BattleStart()
+    {
+        Pattern1();
+    }
     
     /// <summary>
     /// 地上で休憩する

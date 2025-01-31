@@ -41,7 +41,7 @@ public class BossAttackPattern : MonoBehaviour
     {
         float elapsedTime = 0f;
         _laserParticle.transform.position = position.position; //レーザーの始点を調整
-        _laserParticle.gameObject.SetActive(true);
+        _laserParticle.LaserEffect.SetActive(true);
         
         Observable
             .EveryUpdate()
@@ -54,7 +54,7 @@ public class BossAttackPattern : MonoBehaviour
             }, () =>
             {
                 _laserParticle.Stop(); //レーザーを止める
-                _laserParticle.gameObject.SetActive(false);
+                _laserParticle.LaserEffect.SetActive(false);
             })
             .AddTo(this);
     }

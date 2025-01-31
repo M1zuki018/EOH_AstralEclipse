@@ -8,6 +8,7 @@ public class Door : InteractableItemBase
 {
     public event Action OnDoorOpened;
     private Inventory _inventory;
+    [SerializeField] private EnemyBrain _bossEnemyBrain;
 
     private void Start()
     {
@@ -45,8 +46,10 @@ public class Door : InteractableItemBase
         Destroy(gameObject.transform.parent.gameObject); //TODO:処理を書く
         _inventory.UseKey(); //目標更新
         _player.TryGetComponent(out PlayerMovement playerMovement);
-        _player.TryGetComponent(out PlayerCombat playerCombat);
-        playerMovement.PlayerState.IsBossBattle = true; //ステートをボス戦中に変更する
-        playerCombat.HandleReadyForBattle(GameObject.Find("Boss").GetComponent<EnemyBrain>());
+        playerMovement.PlayerState.IsBossBattle = true; //ステートを更新
+        ReadyForBattleChecker battleChecker = _player.GetComponentInChildren<ReadyForBattleChecker>();
+        battleChecker.StartBossBattle(_bossEnemyBrain); //ボス戦開始のイベント発火
+        BossMover bossMover = _bossEnemyBrain.gameObject.GetComponent<BossMover>();
+        bossMover.BattleStart();
     }
 }

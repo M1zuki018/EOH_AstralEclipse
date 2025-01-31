@@ -6,6 +6,7 @@ using UnityEngine;
 public class LaserParticle : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _laserEffect;
+    public GameObject LaserEffect => _laserEffect.gameObject;
 
     /// <summary>
     /// レーザーを放つ

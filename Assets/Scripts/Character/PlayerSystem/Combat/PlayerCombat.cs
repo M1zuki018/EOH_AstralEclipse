@@ -55,19 +55,25 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void HandleReadyForBattle(EnemyBrain brain)
     {
-        if (!_playerMovement.PlayerState.IsBossBattle && brain != null)
-        {
-            //ボス戦中でなければ敵のHPバーを表示する
-            //ボスはイベント側でHPバーを表示する
-            UIManager.Instance?.ShowEnemyHP(brain);
-        }
-        
-        if (!_weaponObj.activeSelf) //まだ武器を構えていなかったら、以降の処理を行う
+        //まだ武器を構えていなかったら、以降の処理を行う
+        if (!_weaponObj.activeSelf) 
         {
             _playerMovement._animator.SetTrigger("ReadyForBattle");
             _weaponObj.SetActive(true); //武器のオブジェクトを表示する
             AudioManager.Instance.PlaySE(2);
             UIManager.Instance?.ShowPlayerBattleUI();
+        }
+        
+        //ボス戦の場合に行う処理
+        if (_playerMovement.PlayerState.IsBossBattle)
+        {
+            return;
+        }
+        
+        //通常戦闘の場合に行う処理
+        if (brain != null)
+        {
+            UIManager.Instance?.ShowEnemyHP(brain); //敵のHPバーを表示する（ボスはイベント側でHPバーを表示する）
         }
     }
     

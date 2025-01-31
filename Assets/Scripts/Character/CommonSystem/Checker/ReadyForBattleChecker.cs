@@ -97,4 +97,14 @@ public class ReadyForBattleChecker : MonoBehaviour
             OnRescission?.Invoke(brain); //イベント発火（対象のEnemyBrainを渡す）
         }
     }
+
+    /// <summary>
+    /// ボス戦が始まった時の処理
+    /// </summary>
+    public void StartBossBattle(EnemyBrain brain)
+    {
+        EnemiesInRange.Clear(); //一度ハッシュセットをリセットする
+        EnemiesInRange.Add(brain);
+        OnReadyForBattle?.Invoke(brain); 
+    }
 }
