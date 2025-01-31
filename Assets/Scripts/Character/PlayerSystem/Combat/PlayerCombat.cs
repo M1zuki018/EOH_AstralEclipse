@@ -121,15 +121,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void PerformAttack(int index)
     {
-        //当たり判定制御
-        Detector.AttackType = index;
         
-        List<IDamageable> damageables = Detector.PerformAttack(); //当たり判定を検出する
-        foreach (IDamageable damageable in damageables)
-        {
-            _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject); //ダメージを加える
-        }
-
         switch (index)
         {
             case 0:
@@ -169,15 +161,6 @@ public class PlayerCombat : MonoBehaviour, ICombat
         {
             Debug.Log($"{skill.Name} の発動条件が満たされていません");
             return;
-        }
-        
-        //ダメージを与える処理
-        List<IDamageable> damageables = Detector.PerformAttack();
-        foreach (IDamageable damageable in damageables)
-        {
-            _damageHandler.ApplyDamage(damageable, 
-                baseDamage: Mathf.FloorToInt(BaseAttackPower * skill.AttackMultiplier), //攻撃力*スキル倍率。小数点以下切り捨て
-                 0, gameObject);
         }
         
         TP -= skill.ResourceCost; //TPを減らす

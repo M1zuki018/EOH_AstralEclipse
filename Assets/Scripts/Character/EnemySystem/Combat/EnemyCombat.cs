@@ -73,12 +73,7 @@ public class EnemyCombat : MonoBehaviour, ICombat
     
     public void PerformAttack(int index)
     {
-        Detector.AttackType = index;
-        List<IDamageable> damageables = Detector.PerformAttack();
-        foreach (IDamageable damageable in damageables)
-        {
-            _damageHandler.ApplyDamage(damageable, BaseAttackPower, 0, gameObject);
-        }
+        Detector.DetectHit(new Collider(), 0.1f); //TODO:修正
     }
 
     /// <summary>
