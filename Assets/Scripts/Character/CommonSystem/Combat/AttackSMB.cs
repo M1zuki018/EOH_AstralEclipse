@@ -2,7 +2,8 @@ using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
-/// 攻撃モーション用のSMB
+/// 攻撃モーション用のStateMachineBehavior
+/// 攻撃の開始・終了とアニメーション管理を行う
 /// </summary>
 public class AttackSMB : StateMachineBehaviour
 {
@@ -15,6 +16,7 @@ public class AttackSMB : StateMachineBehaviour
     private ICombat _combat;
     private CharacterController _cc;
     private Transform _player;
+    private NormalAttackCorrection _normalAttackCorrection; //移動・回転補正を行うクラス
     
     //アニメーションが開始されたとき
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,6 +26,7 @@ public class AttackSMB : StateMachineBehaviour
             _combat = animator.GetComponent<ICombat>();
             _cc = animator.GetComponent<CharacterController>();
             _player = animator.transform;
+            _normalAttackCorrection = animator.GetComponent<NormalAttackCorrection>();
         }
 
         animator.applyRootMotion = false; //一度ルートモーションは無効にする
@@ -40,10 +43,7 @@ public class AttackSMB : StateMachineBehaviour
     {
         if (_adjustDirection && !_useRootMotion) //補正が有効なら移動補正を行う
         {
-            _combat?.AdjustDirection.AdjustDirectionToTarget();
-            Vector3 forward = _player.forward; // 現在の向き
-            Vector3 move = forward * _moveSpeed * Time.deltaTime; // 移動量計算
-            _cc.Move(move);
+            _normalAttackCorrection.CorrectMovement(_player.forward);
         }
     }
 }
