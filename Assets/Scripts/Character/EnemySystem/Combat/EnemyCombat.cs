@@ -70,11 +70,6 @@ public class EnemyCombat : MonoBehaviour, ICombat
         
         _brain.Animator.SetTrigger("Attack");　//アニメーションのAttackをトリガーする
     }
-    
-    public void PerformAttack(int index)
-    {
-        Detector.DetectHit(new Collider(), 0.1f); //TODO:修正
-    }
 
     /// <summary>
     /// スキル処理

@@ -117,34 +117,6 @@ public class PlayerCombat : MonoBehaviour, ICombat
     }
 
     /// <summary>
-    /// アニメーションが再生されたときStateMachineBehaviorから呼び出される処理
-    /// </summary>
-    public void PerformAttack(int index)
-    {
-        /*
-        switch (index)
-        {
-            case 0:
-                _first.StartAttack();
-                break;
-            case 1:
-                //_second.StartAttack(_adjustDirection.Target);
-                AudioManager.Instance?.PlaySEDelay(3, 100);
-                break;
-            case 2:
-                AudioManager.Instance?.PlaySEDelay(5, 100);
-                break;
-            case 3:
-                AudioManager.Instance?.PlaySEDelay(3, 100);
-                break;
-            case 4:
-                _end.StartAttack();
-                break;
-        }
-        */
-    }
-
-    /// <summary>
     /// スキル処理
     /// </summary>
     public void UseSkill(int index)

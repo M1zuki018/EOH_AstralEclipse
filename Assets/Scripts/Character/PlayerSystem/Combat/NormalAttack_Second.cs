@@ -16,8 +16,7 @@ public class NormalAttack_Second : AttackAdjustBase
     private bool _isAttacking = false; //突進中かどうか
     private float _distance; //敵との距離
     private float _totalDistanceToCover; //_distanceと_adjustDistanceの差
-
-
+    
 
     /// <summary>
     /// 攻撃開始時に呼び出される処理

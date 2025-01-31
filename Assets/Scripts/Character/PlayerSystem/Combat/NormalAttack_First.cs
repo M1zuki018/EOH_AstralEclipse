@@ -8,6 +8,7 @@ using UnityEngine;
 public class NormalAttack_First : AttackAdjustBase
 {
     [Header("初期設定")]
+    [SerializeField] private HitDetectionInfo _hitDetectionInfo;
     [SerializeField] private float _approachSpeed = 30f; //突進速度
     [SerializeField] private float _attackDistance = 10f; //有効距離
     [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
@@ -56,8 +57,15 @@ public class NormalAttack_First : AttackAdjustBase
         }
         else
         {
-            transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y - 90, transform.rotation.z, transform.rotation.w);
-            TriggerSlash(); //斬撃モーションを即座に再生する
+            //振りかぶっている時間のアニメーション再生スピードを変更する
+            _animator.SetFloat("AttackSpeed", 2f);
+            
+            float elapsedTime = 0;
+            Observable
+                .EveryUpdate()
+                .TakeWhile(_ => elapsedTime < 0.2f)
+                .Subscribe(_ => elapsedTime += Time.deltaTime, () => TriggerSlash())
+                .AddTo(this);
         }
     }
 
@@ -86,9 +94,13 @@ public class NormalAttack_First : AttackAdjustBase
     /// </summary>
     private void TriggerSlash()
     {
+        _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる
+        
         _isAttacking = false;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
+        _animator.applyRootMotion = true;
         
+        /*
         //移動
         float elapsedDistance = 0f; //移動した距離を記録する
         
@@ -105,6 +117,7 @@ public class NormalAttack_First : AttackAdjustBase
              _forwardDistance,
              0.5f)
              .SetEase(Ease.Linear);
+        */
         
         AudioManager.Instance?.PlaySE(3);
     }

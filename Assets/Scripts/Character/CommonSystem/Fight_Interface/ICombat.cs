@@ -19,8 +19,5 @@ namespace PlayerSystem.Fight
         
         /// <summary>特殊スキル</summary>
         void UseSkill(int index);
-
-        /// <summary>Animator側から呼び出す処理</summary>
-        void PerformAttack(int index);
     }
 }
