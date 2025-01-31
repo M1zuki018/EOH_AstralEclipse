@@ -30,6 +30,8 @@ namespace PlayerSystem.State
         public bool CanVault { get; set; } //乗り越えできるか
         
         public Vector3 WallNormal { get; set; } //壁の法線
+        
+        public bool IsBossBattle { get; set; } //ボス戦中か
     }
 }
 

@@ -53,11 +53,11 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// <summary>
     /// 臨戦状態になったときの処理。武器を取り出す
     /// </summary>
-    private void HandleReadyForBattle(EnemyBrain brain)
+    public void HandleReadyForBattle(EnemyBrain brain)
     {
-        if (brain != null && !brain.IsBossEnemy)
+        if (!_playerMovement.PlayerState.IsBossBattle && brain != null)
         {
-            //ボスでなければ敵のHPバーを表示する
+            //ボス戦中でなければ敵のHPバーを表示する
             //ボスはイベント側でHPバーを表示する
             UIManager.Instance?.ShowEnemyHP(brain);
         }
@@ -76,6 +76,11 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleRescission(EnemyBrain brain)
     {
+        if (_playerMovement.PlayerState.IsBossBattle)
+        {
+            return; //ボス戦中は臨戦状態の解除を行わない。常に臨戦状態にする
+        }
+        
         //敵が死んでいない場合のみ処理を行う（死んでいる場合は処理が重複するので行わない）
         if (brain != null && !brain.gameObject.GetComponent<IHealth>().IsDead)
         {

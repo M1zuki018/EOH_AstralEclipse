@@ -44,5 +44,9 @@ public class Door : InteractableItemBase
         //_collider.enabled = false; //判定を消す
         Destroy(gameObject.transform.parent.gameObject); //TODO:処理を書く
         _inventory.UseKey(); //目標更新
+        _player.TryGetComponent(out PlayerMovement playerMovement);
+        _player.TryGetComponent(out PlayerCombat playerCombat);
+        playerMovement.PlayerState.IsBossBattle = true; //ステートをボス戦中に変更する
+        playerCombat.HandleReadyForBattle(GameObject.Find("Boss").GetComponent<EnemyBrain>());
     }
 }
