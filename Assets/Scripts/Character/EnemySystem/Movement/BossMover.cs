@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
@@ -8,13 +9,27 @@ public class BossMover : MonoBehaviour
 {
     [SerializeField] private BossAttackPattern _attackPattern;
 
+    private Vector3 _initializePos;
+    private int _patternCount;
+
+    private void Start()
+    {
+        _initializePos = transform.position;
+        transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //空中に移動
+    }
+    
     /// <summary>
     /// 地上で休憩する
     /// </summary>
     private async void Break()
     {
+        transform.DOMoveY(_initializePos.y, 1f);
         Debug.Log("休み");
-        await UniTask.Delay(5000);
+        await UniTask.Delay(6000);
+        
+        //次の攻撃に向けて移動する
+        if(_patternCount == 1) Emerge();
+        else if(_patternCount == 2) Warp(transform);
     }
 
     /// <summary>
@@ -22,8 +37,8 @@ public class BossMover : MonoBehaviour
     /// </summary>
     private async void Emerge()
     {
-        Debug.Log("飛ぶ");
-        await UniTask.Delay(5000);
+        transform.DOMoveY(_initializePos.y + 4f, 1f);
+        await UniTask.Delay(1000);
     }
 
     /// <summary>
@@ -81,7 +96,8 @@ public class BossMover : MonoBehaviour
         _attackPattern.AttackFromAbove();
         
         await UniTask.Delay(4000);
-        
+
+        _patternCount++;
         Break();
     }
 
