@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// ボスの攻撃メソッドをまとめたもの
@@ -14,12 +13,12 @@ using UnityEngine.Serialization;
 public class BossAttackPattern : MonoBehaviour
 {
     [SerializeField] private Transform _target; //プレイヤーのTransform
-    [SerializeField] private LaserParticle _laserParticle;
-    [SerializeField] private GameObject _verticalLaserPrefab;
-    [SerializeField] private GameObject _thornPrefab;
-    [SerializeField] private GameObject _abovePrefab;
-    [SerializeField] private Volume _timeStopVolume;
-    [SerializeField] private AudioMixerGroup _bgmMixer;
+    [SerializeField] private LaserParticle _laserParticle; //水平レーザーのパーティクル
+    [SerializeField] private GameObject _verticalLaserPrefab; //垂直レーザーのプレハブ
+    [SerializeField] private GameObject _thornPrefab; //茨攻撃のプレハブ
+    [SerializeField] private GameObject _abovePrefab; //上から降ってくる攻撃のプレハブ
+    [SerializeField] private Volume _timeStopVolume; //時間停止中のGlobalVolume
+    [SerializeField] private AudioMixerGroup _bgmMixer; 
     [SerializeField] private Material _glitchy; //グリッチシェーダーをかけたマテリアル
 
     private PlayerInput _playerInput;
@@ -41,6 +40,8 @@ public class BossAttackPattern : MonoBehaviour
     public void HorizontalLaser(Transform position, float effectTime)
     {
         float elapsedTime = 0f;
+        _laserParticle.transform.position = position.position; //レーザーの始点を調整
+        _laserParticle.gameObject.SetActive(true);
         
         Observable
             .EveryUpdate()
@@ -53,6 +54,7 @@ public class BossAttackPattern : MonoBehaviour
             }, () =>
             {
                 _laserParticle.Stop(); //レーザーを止める
+                _laserParticle.gameObject.SetActive(false);
             })
             .AddTo(this);
     }

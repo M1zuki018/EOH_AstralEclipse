@@ -23,7 +23,7 @@ public class EnemyFall : MonoBehaviour
             .Subscribe(_ =>
             {
                 gameObject.SetActive(false);
-                _brain.Health.TakeDamage(_brain.GetCurrentHP(), gameObject); //ダメージを受けて死亡判定にする
+                _brain.Health.TakeDamage(_brain.GetCurrentHP(), GameObject.FindWithTag("Player")); //ダメージを受けて死亡判定にする
                 UIManager.Instance.UnregisterEnemy(this.gameObject.GetComponent<EnemyBrain>()); //HPスライダーを削除する
                 CameraManager.Instance.DeregisterTargetGroup(this.transform);
                 CameraManager.Instance.UseCamera(0);
