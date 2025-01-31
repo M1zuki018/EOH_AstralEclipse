@@ -22,7 +22,7 @@ public class DamageAmountUI : MonoBehaviour, ITextUI
     private void Awake()
     {
         _mainCamera = Camera.main;
-        _rectTransform = GetComponent<RectTransform>();
+        _rectTransform = gameObject.transform.parent.GetComponent<RectTransform>();
     }
 
     /// <summary>
@@ -38,6 +38,13 @@ public class DamageAmountUI : MonoBehaviour, ITextUI
     /// </summary>
     public async void Show(int damage, Transform target)
     {
+        
+        if (_mainCamera == null)
+        {
+            //nullの場合もう一度取得を試してみる
+            _mainCamera = Camera.main;
+        } 
+            
         //数字の散らばりを作成
         Vector3 randomOffset = new Vector3(Random.Range(-_dispersion.x, _dispersion.x), Random.Range(-_dispersion.y, _dispersion.y), 0);
         
@@ -45,8 +52,11 @@ public class DamageAmountUI : MonoBehaviour, ITextUI
         Vector3 worldPosition = target.position + _offset + randomOffset;
         Vector3 screenPosition = _mainCamera.WorldToScreenPoint(worldPosition);
         
+        screenPosition.z = 0; //Z座標は0に固定する
+        
         _rectTransform.position = screenPosition; //移動
         SetText(damage.ToString()); //値を書き換える
+        _canvasGroup.alpha = 1;
         
         await UniTask.DelayFrame(100);
         _pool.ReturnToPool(this); //プールに戻す
