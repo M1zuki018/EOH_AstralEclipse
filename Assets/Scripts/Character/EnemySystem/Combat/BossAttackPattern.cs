@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
@@ -12,10 +13,11 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private LaserParticle _laserParticle;
     [SerializeField] private GameObject _verticalLaserPrefab;
     [SerializeField] private GameObject _thornPrefab;
+    [SerializeField] private GameObject _abovePrefab;
     
     private List<GameObject > _verticalLasers = new List<GameObject>();
     private float _speed = 120f; //垂直レーザーのスピード
-    private float _premotionTime = 2f; //茨攻撃の予兆時間
+    private float _premotionTime = 1f; //茨攻撃の予兆時間
 
     /// <summary>
     /// 水平方向のレーザー
@@ -98,17 +100,25 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     private async void FireThorns(ThornContorl thornCtrl)
     {
-        await UniTask.Delay(1000); //少し時間を置く
+        await UniTask.Delay(1500); //少し時間を置く
         thornCtrl.ChangedMesh(); //メッシュ変更とオブジェクト破棄
     }
 
     /// <summary>
     /// 頭上から落とす広範囲攻撃(走って避ける)
-    /// 「影」エフェクトを地面に表示し、どこに落ちるかを予告。落下地点に入ると、強力なダメージ＋吹き飛ばしを実装。
     /// </summary>
-    public void AttackFromAbove(Transform position)
+    public async void AttackFromAbove()
     {
+        //プレイヤーの頭上にエリアを生成
+        GameObject aboveObj = Instantiate(_abovePrefab);
+        aboveObj.transform.position = new Vector3(
+            _target.transform.position.x, _target.transform.position.y + 10f, _target.transform.position.z); 
         
+        await UniTask.Delay(3000); //待って避けられるようにする
+        
+        //地面に墜落した後オブジェクト削除
+        aboveObj.transform.DOMoveY(-1, 0.5f).OnComplete(() => Destroy(aboveObj)); 
+        //TODO:強力なダメージ＋吹き飛ばしを実装
     }
 
     /// <summary>

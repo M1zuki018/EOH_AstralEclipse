@@ -63,21 +63,26 @@ public class BossMover : MonoBehaviour
             _attackPattern.FireVerticalLaser((i % 2 == 0) ? (i / 2) : (6 - 1 - (i / 2)));
             await UniTask.Delay(200);
         }
-        
         //TODO:ボス自身も自然に移動させたい
         
-        await UniTask.Delay(3000);
+        await UniTask.Delay(2500);
         
-        //茨を生やす攻撃（生成→予兆→攻撃→消滅までのセット）
+        //茨攻撃（生成→予兆→攻撃→消滅までのセット）
         _attackPattern.GenerateThorns();
         
-        await UniTask.Delay(10000);
+        await UniTask.Delay(5000);
         
-        _attackPattern.GenerateThorns(); //茨を生やす攻撃2回目
+        //茨攻撃2回目
+        _attackPattern.GenerateThorns();
         
-        await UniTask.Delay(10000);
+        await UniTask.Delay(5000);
 
-        _attackPattern.AttackFromAbove(transform); //頭上からの攻撃
+        //頭上からの攻撃
+        _attackPattern.AttackFromAbove();
+        
+        await UniTask.Delay(4000);
+        
+        Break();
     }
 
     /// <summary>
