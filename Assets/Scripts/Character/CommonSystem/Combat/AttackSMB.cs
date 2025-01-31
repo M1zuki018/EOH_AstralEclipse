@@ -14,7 +14,7 @@ public class AttackSMB : StateMachineBehaviour
     private ICombat _combat;
     private CharacterController _cc;
     private Transform _player;
-    private IAttackCorrection _attackCorrection; //移動・回転補正を行うクラス
+    private AttackAdjustBase _attackCorrection; //移動・回転補正を行うクラス
     
     //アニメーションが開始されたとき
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,12 +24,12 @@ public class AttackSMB : StateMachineBehaviour
             _combat = animator.GetComponent<ICombat>();
             _cc = animator.GetComponent<CharacterController>();
             _player = animator.transform;
-            _attackCorrection = animator.GetComponent<NormalAttackCorrection>();
         }
         
         animator.applyRootMotion = false; //補正をかけるため一度ルートモーションを無効にする
         _combat.PerformAttack(_attackIndex); //攻撃処理
         _attackCorrection = GetAttackCorrection(animator); //攻撃に応じた補正を設定する
+        _attackCorrection.StartAttack();
         
         if (_useRootMotion) //ルートモーションを使用する場合
         {
@@ -41,7 +41,7 @@ public class AttackSMB : StateMachineBehaviour
     {
         if (_attackCorrection != null)
         {
-            //補正処理を呼び出す
+            //移動補正処理を呼び出す
             _attackCorrection.CorrectMovement(_player.forward);
         }
     }
@@ -49,7 +49,7 @@ public class AttackSMB : StateMachineBehaviour
     /// <summary>
     /// 攻撃タイプごとの補正クラスを決定する
     /// </summary>
-    private IAttackCorrection GetAttackCorrection(Animator animator)
+    private AttackAdjustBase GetAttackCorrection(Animator animator)
     {
         switch (_attackIndex)
         {

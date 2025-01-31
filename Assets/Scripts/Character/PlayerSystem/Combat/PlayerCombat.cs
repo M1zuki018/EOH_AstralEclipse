@@ -121,11 +121,11 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     public void PerformAttack(int index)
     {
-        
+        /*
         switch (index)
         {
             case 0:
-                _first.StartAttack(_adjustDirection.Target);
+                _first.StartAttack();
                 break;
             case 1:
                 //_second.StartAttack(_adjustDirection.Target);
@@ -138,9 +138,10 @@ public class PlayerCombat : MonoBehaviour, ICombat
                 AudioManager.Instance?.PlaySEDelay(3, 100);
                 break;
             case 4:
-                _end.StartAttack(_adjustDirection.Target);
+                _end.StartAttack();
                 break;
         }
+        */
     }
 
     /// <summary>

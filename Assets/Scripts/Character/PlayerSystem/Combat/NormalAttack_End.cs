@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class NormalAttack_End : AttackAdjustBase
 {
-    public override async void StartAttack(Transform target)
+    public override async void StartAttack()
     {
         _animator.SetFloat("AttackSpeed", 1f);
         

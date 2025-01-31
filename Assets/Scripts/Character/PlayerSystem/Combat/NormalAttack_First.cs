@@ -30,9 +30,8 @@ public class NormalAttack_First : AttackAdjustBase
     /// <summary>
     /// 攻撃開始時に呼び出される処理
     /// </summary>
-    public override void StartAttack(Transform target)
+    public override void StartAttack()
     {
-        _target = target;
         if(_target!= null) _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
         
         if (_distance > _adjustDistance && _distance < _attackDistance) //補正がかかる距離よりも遠く、かつ有効距離内にいる場合

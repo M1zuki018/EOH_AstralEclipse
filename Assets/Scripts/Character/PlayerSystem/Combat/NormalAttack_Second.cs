@@ -22,12 +22,10 @@ public class NormalAttack_Second : AttackAdjustBase
     /// <summary>
     /// 攻撃開始時に呼び出される処理
     /// </summary>
-    public override void StartAttack(Transform target)
+    public override void StartAttack()
     {
-        Debug.Log(target.name);
         _adjustDirection.AdjustDirectionToTarget(); //体の向きを敵の方向に合わせる
         transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
-        _target = target;
         _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
         
         TriggerSlash(); //斬撃モーションを即座に再生する
