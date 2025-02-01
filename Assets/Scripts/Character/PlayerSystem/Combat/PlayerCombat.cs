@@ -18,11 +18,6 @@ public class PlayerCombat : MonoBehaviour, ICombat
     
     [Header("攻撃補正用")]
     [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection;
-
-    [SerializeField, HighlightIfNull] private NormalAttack_First _first;
-    [SerializeField, HighlightIfNull] private NormalAttack_Second _second;
-    [SerializeField, HighlightIfNull] private NormalAttack_End _end;
-    
     public AdjustDirection AdjustDirection => _adjustDirection;
     public DamageHandler DamageHandler => _damageHandler;
     

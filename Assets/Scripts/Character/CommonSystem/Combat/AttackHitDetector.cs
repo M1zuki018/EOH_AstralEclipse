@@ -23,7 +23,7 @@ public class AttackHitDetector : MonoBehaviour
     
     private void OnEnable()
     {
-        _combat = GetComponent<ICombat>(); 
+        _combat = GetComponentInParent<ICombat>(); 
     }
 
     /// <summary>

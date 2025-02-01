@@ -28,7 +28,7 @@ public class AttackSMB : StateMachineBehaviour
         }
         
         animator.applyRootMotion = false; //補正をかけるため一度ルートモーションを無効にする
-        _attackCorrection = GetAttackCorrection(animator); //攻撃に応じた補正を設定する
+        _attackCorrection = GetAttackCorrection(animator); //補正クラスを取得する
         _attackCorrection.StartAttack();
         
         if (_useRootMotion) //ルートモーションを使用する場合
