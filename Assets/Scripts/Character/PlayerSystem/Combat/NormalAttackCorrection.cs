@@ -13,7 +13,7 @@ public class NormalAttackCorrection : AttackAdjustBase
     public override void StartAttack()
     {
         _combat?.AdjustDirection.AdjustDirectionToTarget();  //向きの補正
-        _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration);
+        _hitDetector.DetectHit(_hitDetectionInfo);
     }
 
     /// <summary>

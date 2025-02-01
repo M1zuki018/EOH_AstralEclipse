@@ -19,7 +19,7 @@ public class AttackHitDetector : MonoBehaviour
     private bool _isHitDetected = false; //ヒット検出フラグ
     private ICombat _combat;
     private float _hitDetectionDuration; //攻撃判定の持続時間
-    private Collider _detectedCollider; 
+    [SerializeField] private Collider _detectedCollider; 
     
     private void OnEnable()
     {
@@ -29,12 +29,18 @@ public class AttackHitDetector : MonoBehaviour
     /// <summary>
     /// 判定を行うメソッド。IAttackCorrectionから呼び出すように
     /// </summary>
-    public void DetectHit(Vector3 detectedCollider, float duration)
+    public void DetectHit(HitDetectionInfo info)
     {
         if(_isHitDetected) return; //既にヒットしていたら以降の処理は行わない
         
-        _detectedCollider.transform.position = detectedCollider;
-        _hitDetectionDuration = duration;
+        //初期化
+        _detectedCollider.transform.localPosition = info.Position;
+        _detectedCollider.transform.localScale = info.Size;
+        _detectedCollider.transform.localRotation = info.Rotation;
+        _hitDetectionDuration = info.Duration;
+        
+        //コライダーを有効にする
+        _detectedCollider.enabled = true;
         
         // ヒット判定の範囲を指定して範囲内の敵を検出
         if (_detectedCollider.isTrigger)
@@ -70,6 +76,7 @@ public class AttackHitDetector : MonoBehaviour
     private IEnumerator HitDetectionCooldown()
     {
         yield return new WaitForSeconds(_hitDetectionDuration);
+        _detectedCollider.enabled = false; //無効化
         _isHitDetected = false;
     }
 }

@@ -26,7 +26,7 @@ public class NormalAttack_End : AttackAdjustBase
         
         AudioManager.Instance?.PlaySEDelay(4, 150); //着地
         _animator.SetFloat("AttackSpeed", 1f);
-        _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる
+        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
     }
 
     public override void CorrectMovement(Vector3 forwardDirection) { }

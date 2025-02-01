@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
@@ -89,10 +90,8 @@ public class NormalAttack_First : AttackAdjustBase
     /// <summary>
     /// 斬撃モーションに移る
     /// </summary>
-    private void TriggerSlash()
+    private async void TriggerSlash()
     {
-        _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる;
-        
         _isAttacking = false;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
         _animator.applyRootMotion = true;
@@ -117,6 +116,10 @@ public class NormalAttack_First : AttackAdjustBase
         */
         
         AudioManager.Instance?.PlaySE(3);
+
+        await UniTask.Delay(200);
+        
+        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる;
     }
     
     /// <summary>

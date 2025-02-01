@@ -563,10 +563,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1.5, z: 0.7}
 --- !u!23 &453547936
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -625,13 +625,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453547934}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97.83219, y: 5.0189424, z: 214.78609}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.23344536, w: 0.97236997}
+  m_LocalPosition: {x: 0, y: 0.92, z: 0}
+  m_LocalScale: {x: 1, y: 0.35, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 591953650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 27}
 --- !u!1 &478818260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,8 +1753,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Collider: {fileID: 453547935}
-    Duration: 1
+    Position: {x: 0, y: 0.6, z: 0}
+    Rotation: {x: 0, y: 0, z: 0.2334454, w: 0.9723699}
+    Size: {x: 1, y: 0.35, z: 1}
+    Duration: 0.3
   _approachSpeed: 30
   _attackDistance: 10
   _adjustDistance: 2
@@ -1773,7 +1775,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Collider: {fileID: 453547935}
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    Size: {x: 0, y: 0, z: 0}
     Duration: 1
 --- !u!114 &1211293811
 MonoBehaviour:
@@ -1788,7 +1792,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Collider: {fileID: 453547935}
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    Size: {x: 0, y: 0, z: 0}
     Duration: 1
   _initializeAnimationSpeed: 1.1
   _forwardDistance: 1.5
@@ -1830,7 +1836,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Collider: {fileID: 453547935}
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    Size: {x: 0, y: 0, z: 0}
     Duration: 1
   _moveSpeed: 1
   _adjustDirection: 1
@@ -1847,7 +1855,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Collider: {fileID: 453547935}
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    Size: {x: 0, y: 0, z: 0}
     Duration: 1
 --- !u!114 &1211293844
 MonoBehaviour:
@@ -1862,7 +1872,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Collider: {fileID: 453547935}
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    Size: {x: 0, y: 0, z: 0}
     Duration: 1
 --- !u!1 &1226154182
 GameObject:
@@ -3323,6 +3335,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7065331270525496237, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}
+      propertyPath: _detectedCollider
+      value: 
+      objectReference: {fileID: 453547935}
+    - target: {fileID: 7065331270525496237, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
       propertyPath: _hitTags.Array.data[0]
       value: Enemy
       objectReference: {fileID: 0}
@@ -3724,6 +3741,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 4
       addedObject: {fileID: 1557636803}
+    - targetCorrespondingSourceObject: {fileID: 452623936381996790, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 453547938}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2948384498827725439, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}
@@ -3948,5 +3969,4 @@ SceneRoots:
   - {fileID: 1226154184}
   - {fileID: 1485501464}
   - {fileID: 747228939}
-  - {fileID: 453547938}
   - {fileID: 1703231860}

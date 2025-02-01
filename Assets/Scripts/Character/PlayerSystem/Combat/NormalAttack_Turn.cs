@@ -10,7 +10,7 @@ public class NormalAttack_Turn : AttackAdjustBase
 
     public override async void StartAttack()
     {
-        _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる
+        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
         
         if (_target != null)
         {

@@ -48,7 +48,7 @@ public class NormalAttack_Second : AttackAdjustBase
     /// </summary>
     private async void TriggerSlash()
     {
-        _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる
+        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
         
         _isAttacking = false;
 

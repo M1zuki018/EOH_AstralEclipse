@@ -7,6 +7,8 @@ using UnityEngine;
 [Serializable]
 public struct HitDetectionInfo
 {
-    public Vector3 Collider;
+    public Vector3 Position;
+    public Quaternion Rotation;
+    public Vector3 Size;
     public float Duration;
 }
