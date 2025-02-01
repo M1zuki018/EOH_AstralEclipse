@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ public class NormalAttack_Second : AttackAdjustBase
     /// <summary>
     /// 斬撃モーションに移る
     /// </summary>
-    private void TriggerSlash()
+    private async void TriggerSlash()
     {
         _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる
         
@@ -73,6 +74,14 @@ public class NormalAttack_Second : AttackAdjustBase
         else
         {
             _animator.applyRootMotion = true;
+
+            /*
+            await UniTask.Delay(500);
+            
+            _animator.applyRootMotion = false;
+            transform.rotation = _adjustDirection.InitialRotation;
+            _animator.applyRootMotion = true;
+            */
         }
         
         

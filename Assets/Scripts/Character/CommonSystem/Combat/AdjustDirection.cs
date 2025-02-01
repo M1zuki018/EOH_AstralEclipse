@@ -7,6 +7,13 @@ public class AdjustDirection : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     public Transform Target { get; set; } // ターゲットのTransform
+    private Quaternion _initialRotation;
+    public Quaternion InitialRotation => _initialRotation;
+
+    public void Start()
+    {
+        _initialRotation = transform.rotation;
+    }
     
     /// <summary>
     /// ターゲット方向にプレイヤーを回転させる
