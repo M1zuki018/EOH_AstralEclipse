@@ -29,11 +29,11 @@ public class AttackHitDetector : MonoBehaviour
     /// <summary>
     /// 判定を行うメソッド。IAttackCorrectionから呼び出すように
     /// </summary>
-    public void DetectHit(Collider detectedCollider, float duration)
+    public void DetectHit(Vector3 detectedCollider, float duration)
     {
         if(_isHitDetected) return; //既にヒットしていたら以降の処理は行わない
         
-        _detectedCollider = detectedCollider;
+        _detectedCollider.transform.position = detectedCollider;
         _hitDetectionDuration = duration;
         
         // ヒット判定の範囲を指定して範囲内の敵を検出

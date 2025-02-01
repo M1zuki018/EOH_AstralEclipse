@@ -7,6 +7,6 @@ using UnityEngine;
 [Serializable]
 public struct HitDetectionInfo
 {
-    public Collider Collider;
+    public Vector3 Collider;
     public float Duration;
 }

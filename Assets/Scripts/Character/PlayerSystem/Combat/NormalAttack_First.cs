@@ -91,7 +91,7 @@ public class NormalAttack_First : AttackAdjustBase
     /// </summary>
     private void TriggerSlash()
     {
-        _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる
+        _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる;
         
         _isAttacking = false;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
