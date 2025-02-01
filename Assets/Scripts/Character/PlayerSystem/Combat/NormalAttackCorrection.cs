@@ -12,6 +12,7 @@ public class NormalAttackCorrection : AttackAdjustBase
 
     public override void StartAttack()
     {
+        _combat?.AdjustDirection.AdjustDirectionToTarget();  //向きの補正
         _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration);
     }
 
@@ -22,17 +23,10 @@ public class NormalAttackCorrection : AttackAdjustBase
     {
         if (_adjustDirection)
         {
-            AdjustDirectionToTarget();
+            _combat?.AdjustDirection.AdjustDirectionToTarget(); 
         }
         Vector3 move = forwardDirection * _moveSpeed * Time.deltaTime; // 移動量の計算
         _cc.Move(move);  // 実際の移動処理
     }
-
-    /// <summary>
-    /// 回転補正の処理
-    /// </summary>
-    public override void AdjustDirectionToTarget()
-    {
-        _combat?.AdjustDirection.AdjustDirectionToTarget();  //向きの補正
-    }
+    
 }

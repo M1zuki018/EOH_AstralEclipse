@@ -24,6 +24,4 @@ public class NormalAttack_End : AttackAdjustBase
     }
 
     public override void CorrectMovement(Vector3 forwardDirection) { }
-
-    public override void AdjustDirectionToTarget() { }
 }

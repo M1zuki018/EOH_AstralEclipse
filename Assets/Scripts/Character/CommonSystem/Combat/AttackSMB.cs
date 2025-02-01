@@ -54,6 +54,8 @@ public class AttackSMB : StateMachineBehaviour
         {
             case 0:
                 return animator.GetComponent<NormalAttack_First>();  //1段目
+            case 1:
+                return animator.GetComponent<NormalAttack_Second>(); //2段目
             case 4:
                 return animator.GetComponent<NormalAttack_End>(); //5段目
             default:

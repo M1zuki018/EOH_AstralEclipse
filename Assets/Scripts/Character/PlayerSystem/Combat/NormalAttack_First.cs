@@ -58,20 +58,18 @@ public class NormalAttack_First : AttackAdjustBase
         else
         {
             //振りかぶっている時間のアニメーション再生スピードを変更する
-            _animator.SetFloat("AttackSpeed", 2f);
+            _animator.SetFloat("AttackSpeed", 1.8f);
             
             float elapsedTime = 0;
             Observable
                 .EveryUpdate()
-                .TakeWhile(_ => elapsedTime < 0.2f)
+                .TakeWhile(_ => elapsedTime < 0.05f)
                 .Subscribe(_ => elapsedTime += Time.deltaTime, () => TriggerSlash())
                 .AddTo(this);
         }
     }
 
     public override void CorrectMovement(Vector3 forwardDirection) { }
-
-    public override void AdjustDirectionToTarget() { }
 
     /// <summary>
     /// 突進処理
