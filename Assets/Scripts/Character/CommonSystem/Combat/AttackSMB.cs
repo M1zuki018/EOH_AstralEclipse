@@ -13,7 +13,6 @@ public class AttackSMB : StateMachineBehaviour
     [SerializeField, Comment("ルートモーションの使用")] private bool _useRootMotion = false; 
     
     private ICombat _combat;
-    private CharacterController _cc;
     private Transform _player;
     private AttackAdjustBase _attackCorrection; //移動・回転補正を行うクラス
     
@@ -23,13 +22,16 @@ public class AttackSMB : StateMachineBehaviour
         if (_combat == null) //nullだったら取得する
         {
             _combat = animator.GetComponent<ICombat>();
-            _cc = animator.GetComponent<CharacterController>();
             _player = animator.transform;
         }
         
         animator.applyRootMotion = false; //補正をかけるため一度ルートモーションを無効にする
-        _attackCorrection = GetAttackCorrection(animator); //補正クラスを取得する
-        _attackCorrection.StartAttack();
+        
+        if (animator.CompareTag("Player"))
+        {
+            _attackCorrection = GetAttackCorrection(animator); //補正クラスを取得する
+            _attackCorrection.StartAttack();
+        }
         
         if (_useRootMotion) //ルートモーションを使用する場合
         {
@@ -51,20 +53,35 @@ public class AttackSMB : StateMachineBehaviour
     /// </summary>
     private AttackAdjustBase GetAttackCorrection(Animator animator)
     {
+        AttackAdjustBase collection = null;
+        
         switch (_attackIndex)
         {
             case 0:
-                return animator.GetComponent<NormalAttack_First>();  //1段目
+                collection = animator.GetComponent<NormalAttack_First>();  //1段目
+                break;
             case 1:
-                return animator.GetComponent<NormalAttack_Second>(); //2段目
+                collection =  animator.GetComponent<NormalAttack_Second>(); //2段目
+                break;
             case 2:
-                return animator.GetComponent<NormalAttack_Kick>(); //3段目
+                collection = animator.GetComponent<NormalAttack_Kick>(); //3段目
+                break;
             case 3:
-                return animator.GetComponent<NormalAttack_Turn>(); //4段目
+                collection = animator.GetComponent<NormalAttack_Turn>(); //4段目
+                break;
             case 4:
-                return animator.GetComponent<NormalAttack_End>(); //5段目
+                collection = animator.GetComponent<NormalAttack_End>(); //5段目
+                break;
             default:
-                return animator.GetComponent<NormalAttackCorrection>(); //デフォルトの攻撃補正
+                collection =  animator.GetComponent<NormalAttackCorrection>(); //デフォルトの攻撃補正
+                break;
         }
+
+        if (collection == null)
+        {
+            Debug.LogWarning("補正クラスが取得できませんでした");
+        }
+
+        return collection;
     }
 }

@@ -51,37 +51,7 @@ MonoBehaviour:
     m_Bits: 1
   _hitTags:
   - Player
-  _frame: 0
-  _attackType: 0
-  _hitPositions:
-  - Range: {x: 0, y: 1}
-    Collisions:
-    - Range: {x: 0, y: 0.47}
-      Offset: {x: 0, y: 0, z: 0}
-      Rotation: {x: 0, y: 0, z: 0}
-      Scale: {x: 0, y: 0, z: 0}
-    - Range: {x: 0.48, y: 0.52}
-      Offset: {x: 0, y: 0.63, z: 0.61}
-      Rotation: {x: 0, y: 0, z: 0}
-      Scale: {x: 2.26, y: 2.32, z: 2.42}
-    - Range: {x: 0.53, y: 1}
-      Offset: {x: 0, y: 0, z: 0}
-      Rotation: {x: 0, y: 0, z: 0}
-      Scale: {x: 0, y: 0, z: 0}
-  - Range: {x: 0, y: 1}
-    Collisions:
-    - Range: {x: 0, y: 0.42}
-      Offset: {x: 0, y: 0, z: 0}
-      Rotation: {x: 0, y: 0, z: 0}
-      Scale: {x: 0, y: 0, z: 0}
-    - Range: {x: 0.43, y: 0.5}
-      Offset: {x: 0, y: 0.71, z: 1.29}
-      Rotation: {x: 0, y: 0, z: 0}
-      Scale: {x: 1.69, y: 2.56, z: 4.05}
-    - Range: {x: 0.51, y: 0}
-      Offset: {x: 0, y: 0, z: 0}
-      Rotation: {x: 0, y: 0, z: 0}
-      Scale: {x: 0, y: 0, z: 0}
+  _detectedCollider: {fileID: 0}
 --- !u!114 &3444035731517609805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +82,7 @@ GameObject:
   - component: {fileID: 5392053718713652237}
   - component: {fileID: 6229713828416033114}
   - component: {fileID: 9115073611720309100}
+  - component: {fileID: 4814454651625115121}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -152,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lockOnFunction: {fileID: 0}
   _readyForBattleChecker: {fileID: 0}
+  _isBossEnemy: 0
 --- !u!143 &1930933002873819709
 CharacterController:
   m_ObjectHideFlags: 0
@@ -277,6 +249,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fallHeight: -10
+--- !u!114 &4814454651625115121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004980298510743935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f8cd12fa8deca408751f4394ba4957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitDetectionInfo:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    Size: {x: 0, y: 0, z: 0}
+    Duration: 0
+  _moveSpeed: 1
+  _adjustDirection: 1
 --- !u!1 &8053602586090778407
 GameObject:
   m_ObjectHideFlags: 0
