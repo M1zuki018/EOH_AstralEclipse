@@ -1756,7 +1756,7 @@ MonoBehaviour:
     Position: {x: 0, y: 0.6, z: 0}
     Rotation: {x: 0, y: 0, z: 0.2334454, w: 0.9723699}
     Size: {x: 1, y: 0.35, z: 1}
-    Duration: 0.3
+    Duration: 0.2
   _approachSpeed: 30
   _attackDistance: 10
   _adjustDistance: 2
@@ -1775,10 +1775,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Size: {x: 0, y: 0, z: 0}
+  - Position: {x: 0, y: 0.6, z: 0}
+    Rotation: {x: 0, y: 0, z: 0.23344536, w: 0.9723699}
+    Size: {x: 1, y: 0.35, z: 1}
+    Duration: 0.3
+  - Position: {x: 0, y: 0.6, z: 0}
+    Rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+    Size: {x: 1, y: 0.35, z: 1}
     Duration: 1
+  - Position: {x: 0, y: -2.15, z: 0.1}
+    Rotation: {x: 0, y: 0.25881904, z: 0, w: 0.9659258}
+    Size: {x: 0.7, y: 2.18, z: 2.5}
+    Duration: 0.4
 --- !u!114 &1211293811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1792,10 +1800,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Size: {x: 0, y: 0, z: 0}
-    Duration: 1
+    Position: {x: 0, y: 0.6, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Size: {x: 1, y: 0.35, z: 1}
+    Duration: 0.2
   _initializeAnimationSpeed: 1.1
   _forwardDistance: 1.5
   _adjustDirection: {fileID: 2001829449}
@@ -1855,10 +1863,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Position: {x: 0, y: 0, z: 0}
+  - Position: {x: -0.78, y: 0.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Size: {x: 0, y: 0, z: 0}
-    Duration: 1
+    Size: {x: 1, y: 0.35, z: 1}
+    Duration: 0.3
+  - Position: {x: 0, y: 0.5, z: 0}
+    Rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+    Size: {x: 1, y: 0.35, z: 1}
+    Duration: 0.25
 --- !u!114 &1211293844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872,10 +1884,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Size: {x: 0, y: 0, z: 0}
-    Duration: 1
+    Position: {x: 0, y: 0.3, z: 0.7}
+    Rotation: {x: 0, y: 0.25881904, z: 0, w: 0.9659258}
+    Size: {x: 0.6, y: 0.6, z: 0.6}
+    Duration: 0.2
 --- !u!1 &1226154182
 GameObject:
   m_ObjectHideFlags: 0

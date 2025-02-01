@@ -67,6 +67,12 @@ public class AttackHitDetector : MonoBehaviour
                     StartCoroutine(HitDetectionCooldown());
                 }
             }
+            
+            //衝突した敵がいなかった場合、ここで判定持続時間を待って判定をリセットする
+            if (!_isHitDetected)
+            {
+                StartCoroutine(HitDetectionCooldown());
+            }
         }
     }
     
