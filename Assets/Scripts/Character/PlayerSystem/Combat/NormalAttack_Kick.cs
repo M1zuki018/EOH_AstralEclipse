@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +8,7 @@ public class NormalAttack_Kick : AttackAdjustBase
 {
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;   
 
-    public override void StartAttack()
+    public override async void StartAttack()
     {
         _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる
         
@@ -20,6 +21,9 @@ public class NormalAttack_Kick : AttackAdjustBase
             _animator.applyRootMotion = true;
         }
         
+        await UniTask.Delay(50);
+     
+        AudioManager.Instance?.PlaySE(5);
     }
 
     public override void CorrectMovement(Vector3 forwardDirection){ }

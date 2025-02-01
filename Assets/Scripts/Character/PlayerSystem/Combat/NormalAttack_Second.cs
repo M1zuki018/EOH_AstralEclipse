@@ -83,7 +83,8 @@ public class NormalAttack_Second : AttackAdjustBase
             _animator.applyRootMotion = true;
             */
         }
-        
+
+        await UniTask.Delay(130);
         
         AudioManager.Instance?.PlaySE(3);
     }

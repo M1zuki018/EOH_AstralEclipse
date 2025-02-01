@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +8,7 @@ public class NormalAttack_Turn : AttackAdjustBase
 {
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;   
 
-    public override void StartAttack()
+    public override async void StartAttack()
     {
         _hitDetector.DetectHit(_hitDetectionInfo.Collider, _hitDetectionInfo.Duration); //当たり判定を発生させる
         
@@ -19,7 +20,8 @@ public class NormalAttack_Turn : AttackAdjustBase
         {
             _animator.applyRootMotion = true;
         }
-        
+
+        AudioManager.Instance?.PlaySE(8);
     }
 
     public override void CorrectMovement(Vector3 forwardDirection){ }
