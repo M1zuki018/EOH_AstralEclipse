@@ -1,5 +1,4 @@
 using DG.Tweening;
-using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +8,6 @@ public class NormalAttack_Second : AttackAdjustBase
 {
     [Header("初期設定")]
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;
-    [SerializeField] private float _slashFream = 0.14f; //アニメーションの進行度合い。正規化したもの
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
     [SerializeField] private float _forwardDistance = 1.5f; //ロックオンしていない時に移動する距離
     [SerializeField] private AdjustDirection _adjustDirection;

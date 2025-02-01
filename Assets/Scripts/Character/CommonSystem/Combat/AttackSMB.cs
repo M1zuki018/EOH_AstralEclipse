@@ -1,4 +1,5 @@
 using PlayerSystem.Fight;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -56,6 +57,10 @@ public class AttackSMB : StateMachineBehaviour
                 return animator.GetComponent<NormalAttack_First>();  //1段目
             case 1:
                 return animator.GetComponent<NormalAttack_Second>(); //2段目
+            case 2:
+                return animator.GetComponent<NormalAttack_Kick>(); //3段目
+            case 3:
+                return animator.GetComponent<NormalAttack_Turn>(); //4段目
             case 4:
                 return animator.GetComponent<NormalAttack_End>(); //5段目
             default:

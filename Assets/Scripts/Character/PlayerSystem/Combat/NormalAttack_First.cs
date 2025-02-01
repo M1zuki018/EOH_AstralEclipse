@@ -12,7 +12,6 @@ public class NormalAttack_First : AttackAdjustBase
     [SerializeField] private float _approachSpeed = 30f; //突進速度
     [SerializeField] private float _attackDistance = 10f; //有効距離
     [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
-    [SerializeField] private float _slashFream = 0.14f; //アニメーションの進行度合い。正規化したもの
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
     [SerializeField] private float _forwardDistance = 1.5f; //ロックオンしていない時に移動する距離
 
