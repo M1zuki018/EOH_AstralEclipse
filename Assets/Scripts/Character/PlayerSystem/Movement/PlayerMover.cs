@@ -16,8 +16,8 @@ namespace PlayerSystem.Movement
         private readonly float _runSpeed = 2f;
         private readonly float _walkSpeed = 1f;
         private readonly float _jumpPower = 0.7f;
-        private readonly float _jumpMoveSpeed = 3.5f; //ジャンプ中の移動速度
-        private readonly float _gravity = -19.5f;
+        private readonly float _jumpMoveSpeed = 2f; //ジャンプ中の移動速度
+        private readonly float _gravity = -17.5f;
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
         

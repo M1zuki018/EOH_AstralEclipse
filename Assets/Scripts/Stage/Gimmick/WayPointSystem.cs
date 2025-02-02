@@ -34,10 +34,14 @@ public class WayPointSystem : MonoBehaviour
     /// </summary>
     public void NextWaypoint()
     {
-        if (_currentIndex < _waypoints.Length - 1)
+        if (_currentIndex < _waypoints.Length - 1) //次の目的地がある場合
         {
             _currentIndex++;
             UpdateWaypoints();
+        }
+        else if (_currentIndex == _waypoints.Length - 1) //これ以上目的地がない場合
+        {
+            _waypoints[_waypoints.Length - 1].SetActive(false);
         }
     }
 }
