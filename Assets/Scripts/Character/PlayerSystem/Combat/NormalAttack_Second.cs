@@ -14,7 +14,6 @@ public class NormalAttack_Second : AttackAdjustBase
     [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
     private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
     
-    private bool _isAttacking = false; //突進中かどうか
     private float _distance; //敵との距離
     private float _totalDistanceToCover; //_distanceと_adjustDistanceの差
     
@@ -46,10 +45,6 @@ public class NormalAttack_Second : AttackAdjustBase
     /// </summary>
     private async void TriggerSlash()
     {
-        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
-        
-        _isAttacking = false;
-
         //ターゲットがいる場合、移動補正を行う
         if (_target != null) 
         {
@@ -78,6 +73,10 @@ public class NormalAttack_Second : AttackAdjustBase
         await UniTask.Delay(130);
         
         AudioManager.Instance?.PlaySE(3);
+        
+        await UniTask.Delay(100);
+        
+        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
     }
 
     public override void CorrectMovement(Vector3 forwardDirection)

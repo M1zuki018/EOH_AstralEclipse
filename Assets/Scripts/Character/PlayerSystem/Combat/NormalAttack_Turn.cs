@@ -31,7 +31,7 @@ public class NormalAttack_Turn : AttackAdjustBase
         
         await UniTask.Delay(300);
         
-        _hitDetector.DetectHit(_hitDetectionInfo[1]); //回転後の判定
+        _hitDetector.DetectHitOnce(_hitDetectionInfo[1]); //回転後の判定
     }
 
     public override void CorrectMovement(Vector3 forwardDirection)

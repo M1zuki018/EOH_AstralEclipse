@@ -44,7 +44,7 @@ public class GroundTrigger : MonoBehaviour
         }
     }
 
-    
+    /*
     /// <summary>
     /// デバッグ用
     /// </summary>
@@ -54,5 +54,6 @@ public class GroundTrigger : MonoBehaviour
         Gizmos.color = _playerMovement.PlayerState.IsGrounded ? Color.green : Color.red; 
         Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
     }
+    */
     
 }

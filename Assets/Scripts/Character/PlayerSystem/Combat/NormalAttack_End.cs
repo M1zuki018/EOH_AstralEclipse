@@ -47,7 +47,9 @@ public class NormalAttack_End : AttackAdjustBase
         AudioManager.Instance?.PlaySEDelay(4, 150); //着地
         _animator.SetFloat("AttackSpeed", 1f);
         
-        await UniTask.Delay(250);
+        await UniTask.Delay(300);
+        Debug.Log(
+            _hitDetectionInfo[2]);
         _hitDetector.DetectHit(_hitDetectionInfo[2]); 
     }
 
