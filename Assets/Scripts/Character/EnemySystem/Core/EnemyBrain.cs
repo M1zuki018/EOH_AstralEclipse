@@ -63,9 +63,13 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         
         if (!_isBossEnemy) //通常の敵
         {
-            UIManager.Instance?.ShowDamageAmount(damage, transform);
-            UIManager.Instance?.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
-            AudioManager.Instance?.PlayVoice(1); //ダメージの声
+            //プレイヤーの探知範囲内の時のみ行う
+            if(_readyForBattleChecker.EnemiesInRange.Contains(this))
+            {
+                UIManager.Instance?.ShowDamageAmount(damage, transform);
+                UIManager.Instance?.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
+                AudioManager.Instance?.PlayVoice(1); //ダメージの声
+            }
         }
         else //ボス
         {
