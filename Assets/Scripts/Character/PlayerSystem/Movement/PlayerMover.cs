@@ -15,7 +15,7 @@ namespace PlayerSystem.Movement
 
         private readonly float _runSpeed = 2f;
         private readonly float _walkSpeed = 1f;
-        private readonly float _jumpPower = 3f;
+        private readonly float _jumpPower = 1.5f;
         private readonly float _gravity = -9.81f;
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
@@ -52,9 +52,7 @@ namespace PlayerSystem.Movement
             {
                 _state.IsJumping = true;
                 _state.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
-                Vector3 velocity = _state.Velocity;
-                velocity.y += Mathf.Sqrt(_jumpPower * -2f * _gravity); //初速度を計算
-                _state.Velocity = velocity;
+                _state.Velocity = new Vector3(0f, Mathf.Sqrt(_jumpPower * -2f * _gravity), 0f); //初速度を計算
                 _animator.SetTrigger("Jump");
                 _animator.SetBool("IsJumping", true);
                 _animator.applyRootMotion = false;
@@ -114,40 +112,39 @@ namespace PlayerSystem.Movement
                 Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
                 Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
                 Vector3 moveDirection = cameraForward *_state.MoveDirection.z + cameraRight * _state.MoveDirection.x;
-                Vector3 moveNormal = moveDirection.normalized;
-                _moveNormal = moveNormal; //減速用
+                
+                _moveNormal = moveDirection.normalized;
                 
                 // 回転をカメラの向きに合わせる
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-                _characterController.transform.rotation = Quaternion.Slerp(_characterController.transform.rotation, 
-                    targetRotation, _rotationSpeed * Time.deltaTime);
+                _characterController.transform.rotation = Quaternion.Slerp(
+                    _characterController.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
 
                 if (_animator.applyRootMotion)
                 {
                     // Animatorの速度を設定
-                    _animator.SetFloat("Speed", moveNormal.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
+                    _animator.SetFloat("Speed", _moveNormal.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
                 }
                 else
                 {
                     //ルートモーションがオンじゃないとき＝ジャンプ中は、CharacterControllerのMoveメソッドを使用する
                     
-                    //水平方向の入力と高さのVelocityを組み合わせる
-                    float velocity = _state.Velocity.y;
-                    velocity += _gravity * Time.deltaTime;
-                    _state.Velocity = new Vector3(moveNormal.x, velocity, moveNormal.z) + moveDirection;
+                    float velocityY = _state.Velocity.y; //Y軸の速度を保存する
+                    _state.Velocity = new Vector3(_moveNormal.x * _state.MoveSpeed, velocityY, _moveNormal.z * _state.MoveSpeed);
                     
-                    if (_state.Velocity.y < 0) //落下中なら早く落下するようにする
-                    { 
-                        _characterController.Move( new Vector3(moveNormal.x, _state.Velocity.y * 5f, moveNormal.z) * Time.deltaTime);
-                    }
-                    else
-                    {
-                        _characterController.Move( _state.Velocity * Time.deltaTime);
-                    }
+                    _characterController.Move(_state.Velocity * Time.deltaTime);
                 }
             }
             else
             {
+                //ジャンプ中の処理
+                if (_state.IsJumping)
+                {
+                    float velocityY = _state.Velocity.y; //Y軸の速度を保存する
+                    _state.Velocity = new Vector3(0, velocityY, 0);
+                    
+                    _characterController.Move(_state.Velocity * Time.deltaTime);
+                }
                 //緩やかに減速する。2fの部分を変化させると、減速の強さを変更できる
                 _moveNormal = Vector3.Lerp(_moveNormal, Vector3.zero, 2f * Time.deltaTime);
                 float speed = _moveNormal.magnitude * _state.MoveSpeed;
@@ -171,7 +168,7 @@ namespace PlayerSystem.Movement
         /// </summary>
         private void ApplyGravity()
         {
-            if (!_state.IsGrounded)
+            if (!_state.IsGrounded) //空中にいるとき
             {
                 Vector3 velocity = _state.Velocity;
                 velocity.y += _gravity * Time.deltaTime;
