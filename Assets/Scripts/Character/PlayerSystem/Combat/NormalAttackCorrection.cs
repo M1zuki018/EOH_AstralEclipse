@@ -1,4 +1,3 @@
-using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
@@ -8,11 +7,11 @@ public class NormalAttackCorrection : AttackAdjustBase
 {
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;
     [SerializeField] private float _moveSpeed = 1.0f;
-    [SerializeField] private bool _adjustDirection = true;
+    [SerializeField] private bool _useAdjustDirection = true;
 
     public override void StartAttack()
     {
-        _combat?.AdjustDirection.AdjustDirectionToTarget();  //向きの補正
+        _adjustDirection.AdjustDirectionToTarget();  //向きの補正
         _hitDetector.DetectHit(_hitDetectionInfo);
     }
 
@@ -21,9 +20,9 @@ public class NormalAttackCorrection : AttackAdjustBase
     /// </summary>
     public override void CorrectMovement(Vector3 forwardDirection)
     {
-        if (_adjustDirection)
+        if (_useAdjustDirection)
         {
-            _combat?.AdjustDirection.AdjustDirectionToTarget(); 
+            _adjustDirection.AdjustDirectionToTarget(); 
         }
         Vector3 move = forwardDirection * _moveSpeed * Time.deltaTime; // 移動量の計算
         _cc.Move(move);  // 実際の移動処理

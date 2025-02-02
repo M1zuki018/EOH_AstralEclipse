@@ -10,12 +10,13 @@ public class NormalAttack_Kick : AttackAdjustBase
 
     public override async void StartAttack()
     {
-        _target = _combat.AdjustDirection.Target;
+        _target = _adjustDirection.Target;
         _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
         
         if (_target != null)
         {
-            //TODO:ターゲットがいるときの補正処理を書く
+            _adjustDirection.AdjustDirectionToTargetEarly();
+            _animator.applyRootMotion = true;
         }
         else
         {
