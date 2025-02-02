@@ -14,7 +14,8 @@ public class NormalAttack_First : AttackAdjustBase
     [SerializeField] private float _attackDistance = 10f; //有効距離
     [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
-    [SerializeField] private float _forwardDistance = 1.5f; //ロックオンしていない時に移動する距離
+    [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
+    private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
 
     private bool _isAttacking = false; //突進中かどうか
     private float _distance; //敵との距離
@@ -33,10 +34,15 @@ public class NormalAttack_First : AttackAdjustBase
     /// </summary>
     public override void StartAttack()
     {
-        //_target = _combat.AdjustDirection.Target;
-        
-        if(_target!= null) _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
-        
+        _target = _adjustDirection.Target;
+
+        //ターゲットがいる場合のみ行う処理
+        if (_target != null)
+        {
+            _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
+            _adjustDirection.AdjustDirectionToTarget(30); //キャラクターを敵の方向に向ける
+        }
+
         if (_distance > _adjustDistance && _distance < _attackDistance) //補正がかかる距離よりも遠く、かつ有効距離内にいる場合
         {
             _totalDistanceToCover = _distance - _adjustDistance; // 距離の差を計算
@@ -71,8 +77,6 @@ public class NormalAttack_First : AttackAdjustBase
         }
     }
 
-    public override void CorrectMovement(Vector3 forwardDirection) { }
-
     /// <summary>
     /// 突進処理
     /// </summary>
@@ -97,25 +101,6 @@ public class NormalAttack_First : AttackAdjustBase
         _isAttacking = false;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
         _animator.applyRootMotion = true;
-        
-        /*
-        //移動
-        float elapsedDistance = 0f; //移動した距離を記録する
-        
-        
-         DOTween.To(
-             () => elapsedDistance,
-             value =>
-             {
-                 float delta = value - elapsedDistance; //前回との差分を計算
-                 elapsedDistance = value; //現在の値を更新
-                 
-                 _cc.Move(transform.forward * delta); //差分だけ移動させる
-             },
-             _forwardDistance,
-             0.5f)
-             .SetEase(Ease.Linear);
-        */
         
         AudioManager.Instance?.PlaySE(3);
 
@@ -145,5 +130,27 @@ public class NormalAttack_First : AttackAdjustBase
         
         // スピードをアニメーションに適用
         _animator.SetFloat("AttackSpeed", speedFactor); 
+    }
+
+    public override void CorrectMovement(Vector3 forwardDirection)
+    {
+        // 敵との距離を測る
+        float distanceToEnemy = Vector3.Distance(transform.position, _adjustDirection.Target.position);
+
+        if (distanceToEnemy > _stopDistance)
+        {
+            // 敵に向かって移動（ルートモーションと補正を併用）
+            Vector3 direction = (_adjustDirection.Target.position - transform.position).normalized;
+            direction.y = 0; // Y方向の影響を無視
+            _cc.Move(direction * Time.deltaTime);
+            _lastValidPosition = transform.position; //現在の位置を更新
+        }
+        else
+        {
+            // 近づきすぎた場合、前フレームの適正な座標との差分を求めて補正
+            Vector3 correction = _lastValidPosition - transform.position;
+            correction.y = 0;
+            _cc.Move(correction); // 差分を使って元の位置へ引き戻す
+        }
     }
 }

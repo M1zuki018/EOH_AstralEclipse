@@ -31,13 +31,12 @@ public class AttackHitDetector : MonoBehaviour
     /// </summary>
     public void DetectHit(HitDetectionInfo info)
     {
-        if(_isHitDetected) return; //既にヒットしていたら以降の処理は行わない
-        
         //初期化
         _detectedCollider.transform.localPosition = info.Position;
         _detectedCollider.transform.localScale = info.Size;
         _detectedCollider.transform.localRotation = info.Rotation;
         _hitDetectionDuration = info.Duration;
+        Physics.SyncTransforms();
         
         //コライダーを有効にする
         _detectedCollider.enabled = true;
@@ -45,8 +44,11 @@ public class AttackHitDetector : MonoBehaviour
         // ヒット判定の範囲を指定して範囲内の敵を検出
         if (_detectedCollider.isTrigger)
         {
+            Vector3 boxCenter = _detectedCollider.transform.position;
+            Vector3 boxSize = _detectedCollider.bounds.size;
+            
             //コライダー内の全てのオブジェクトを取得
-            Collider[] hitCollidrs = Physics.OverlapBox(_detectedCollider.bounds.center, _detectedCollider.bounds.extents, Quaternion.identity);
+            Collider[] hitCollidrs = Physics.OverlapBox(boxCenter, boxSize, _detectedCollider.transform.rotation);
 
             foreach (var hit in hitCollidrs)
             {
@@ -74,6 +76,15 @@ public class AttackHitDetector : MonoBehaviour
                 StartCoroutine(HitDetectionCooldown());
             }
         }
+    }
+    
+    /// <summary>
+    /// 既にヒットしていたら以降の処理は行わない場合の、判定を行うメソッド
+    /// </summary>
+    public void DetectHitOnce(HitDetectionInfo info)
+    {
+        if(_isHitDetected) return; //既にヒットしていたら以降の処理は行わない
+        DetectHit(info);
     }
     
     /// <summary>

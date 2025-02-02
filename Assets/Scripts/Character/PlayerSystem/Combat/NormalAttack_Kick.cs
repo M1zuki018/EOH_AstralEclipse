@@ -10,11 +10,12 @@ public class NormalAttack_Kick : AttackAdjustBase
 
     public override async void StartAttack()
     {
-        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
+        _target = _adjustDirection.Target;
         
         if (_target != null)
         {
-            //TODO:ターゲットがいるときの補正処理を書く
+            _adjustDirection.AdjustDirectionToTargetEarly();
+            _animator.applyRootMotion = true;
         }
         else
         {
@@ -24,6 +25,10 @@ public class NormalAttack_Kick : AttackAdjustBase
         await UniTask.Delay(50);
      
         AudioManager.Instance?.PlaySE(5);
+        
+        await UniTask.Delay(80);
+        
+        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
     }
 
     public override void CorrectMovement(Vector3 forwardDirection){ }
