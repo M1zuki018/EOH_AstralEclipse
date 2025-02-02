@@ -16,8 +16,8 @@ namespace PlayerSystem.Movement
         private readonly float _runSpeed = 2f;
         private readonly float _walkSpeed = 1f;
         private readonly float _jumpPower = 0.7f;
-        private readonly float _jumpMoveSpeed = 7f; //ジャンプ中の移動速度
-        private readonly float _gravity = -21.5f;
+        private readonly float _jumpMoveSpeed = 3.5f; //ジャンプ中の移動速度
+        private readonly float _gravity = -19.5f;
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
         
@@ -131,7 +131,9 @@ namespace PlayerSystem.Movement
                     //ルートモーションがオンじゃないとき＝ジャンプ中は、CharacterControllerのMoveメソッドを使用する
                     
                     float velocityY = _state.Velocity.y; //Y軸の速度を保存する
-                    _state.Velocity = new Vector3(_moveNormal.x * _jumpMoveSpeed, velocityY, _moveNormal.z * _jumpMoveSpeed);
+                    //移動中の速度は入力方向×ジャンプ中のスピード×現在のスピード（歩き/走り）
+                    _state.Velocity = new Vector3(_moveNormal.x * _jumpMoveSpeed * _state.MoveSpeed,
+                        velocityY, _moveNormal.z * _jumpMoveSpeed * _state.MoveSpeed);
                     
                     _characterController.Move(_state.Velocity * Time.deltaTime);
                 }
