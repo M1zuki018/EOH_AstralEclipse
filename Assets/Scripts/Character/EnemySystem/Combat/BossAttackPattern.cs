@@ -13,6 +13,7 @@ using UnityEngine.Rendering;
 public class BossAttackPattern : MonoBehaviour
 {
     [SerializeField] private Transform _target; //プレイヤーのTransform
+    [SerializeField] private EnemyCombat _combat;
     [SerializeField] private LaserParticle _laserParticle; //水平レーザーのパーティクル
     [SerializeField] private GameObject _verticalLaserPrefab; //垂直レーザーのプレハブ
     [SerializeField] private GameObject _thornPrefab; //茨攻撃のプレハブ
@@ -66,6 +67,8 @@ public class BossAttackPattern : MonoBehaviour
     {
         GameObject obj = Instantiate(_verticalLaserPrefab);
         obj.transform.position = position;
+        var controller = obj.GetComponent<VirticalLaserControl>();
+        controller.SetCombat(_combat);
         _verticalLasers.Add(obj);
     }
 
