@@ -11,7 +11,7 @@ public class NormalAttack_Second : AttackAdjustBase
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
     [SerializeField, Comment("攻撃時に動ける距離")] private float _forwardDistance = 1.5f;
-    [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.5f;
+    [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
     private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
     
     private bool _isAttacking = false; //突進中かどうか
@@ -23,6 +23,8 @@ public class NormalAttack_Second : AttackAdjustBase
     /// </summary>
     public override void StartAttack()
     {
+        _lastValidPosition = transform.position; //初期化
+        
         _target = _adjustDirection.Target;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
         
