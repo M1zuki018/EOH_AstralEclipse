@@ -219,9 +219,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         if (_playerState.IsGrounded && _playerState.Velocity.y < 0)
         {
             _playerState.IsJumping = false;
-            Vector3 velocity = _playerState.Velocity;
-            velocity.y = 0f; //地面にいる場合、垂直速度をリセットする
-            _playerState.Velocity = velocity;
+            _playerState.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
             _animator.SetBool("IsJumping", false);
             _animator.applyRootMotion = true;
         }
