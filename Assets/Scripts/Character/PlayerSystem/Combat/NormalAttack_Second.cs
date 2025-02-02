@@ -11,38 +11,30 @@ public class NormalAttack_Second : AttackAdjustBase
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
     [SerializeField] private float _forwardDistance = 1.5f; //ロックオンしていない時に移動する距離
-    [SerializeField] private AdjustDirection _adjustDirection;
     
     private bool _isAttacking = false; //突進中かどうか
     private float _distance; //敵との距離
     private float _totalDistanceToCover; //_distanceと_adjustDistanceの差
     
-
     /// <summary>
     /// 攻撃開始時に呼び出される処理
     /// </summary>
     public override void StartAttack()
     {
-        _target = _combat.AdjustDirection.Target;
-        
+        _target = _adjustDirection.Target;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
         
+        //ターゲットがいる場合の処理
         if (_target != null)
         {
             _adjustDirection.AdjustDirectionToTarget(); //体の向きを敵の方向に合わせる
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
-            _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
-        
-            TriggerSlash(); //斬撃モーションを即座に再生する
+            TriggerSlash(); //斬撃モーションを再生する
         }
+        //ターゲットがいない場合の処理
         else
         {
             TriggerSlash();
         }
-    }
-
-    public override void CorrectMovement(Vector3 forwardDirection)
-    {
     }
 
     /// <summary>
@@ -54,7 +46,8 @@ public class NormalAttack_Second : AttackAdjustBase
         
         _isAttacking = false;
 
-        if (_target != null) //ターゲットがいる場合、移動補正を行う
+        //ターゲットがいる場合、移動補正を行う
+        if (_target != null) 
         {
             //移動
             float elapsedDistance = 0f; //移動した距離を記録する
@@ -76,18 +69,12 @@ public class NormalAttack_Second : AttackAdjustBase
         else
         {
             _animator.applyRootMotion = true;
-
-            /*
-            await UniTask.Delay(500);
-            
-            _animator.applyRootMotion = false;
-            transform.rotation = _adjustDirection.InitialRotation;
-            _animator.applyRootMotion = true;
-            */
         }
 
         await UniTask.Delay(130);
         
         AudioManager.Instance?.PlaySE(3);
     }
+    
+    public override void CorrectMovement(Vector3 forwardDirection) { }
 }

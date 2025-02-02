@@ -14,7 +14,6 @@ public class NormalAttack_First : AttackAdjustBase
     [SerializeField] private float _attackDistance = 10f; //有効距離
     [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
-    [SerializeField] private AdjustDirection _adjustDirection;
 
     private bool _isAttacking = false; //突進中かどうか
     private float _distance; //敵との距離
@@ -33,7 +32,7 @@ public class NormalAttack_First : AttackAdjustBase
     /// </summary>
     public override void StartAttack()
     {
-        _target = _combat.AdjustDirection.Target;
+        _target = _adjustDirection.Target;
 
         //ターゲットがいる場合のみ行う処理
         if (_target != null)
