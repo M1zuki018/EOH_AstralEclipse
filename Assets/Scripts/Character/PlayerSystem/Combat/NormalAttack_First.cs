@@ -14,7 +14,7 @@ public class NormalAttack_First : AttackAdjustBase
     [SerializeField] private float _attackDistance = 10f; //有効距離
     [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
-    [SerializeField] private float _forwardDistance = 1.5f; //ロックオンしていない時に移動する距離
+    [SerializeField] private AdjustDirection _adjustDirection;
 
     private bool _isAttacking = false; //突進中かどうか
     private float _distance; //敵との距離
@@ -34,9 +34,14 @@ public class NormalAttack_First : AttackAdjustBase
     public override void StartAttack()
     {
         _target = _combat.AdjustDirection.Target;
-        
-        if(_target!= null) _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
-        
+
+        //ターゲットがいる場合のみ行う処理
+        if (_target != null)
+        {
+            _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
+            _adjustDirection.AdjustDirectionToTarget(30); //キャラクターを敵の方向に向ける
+        }
+
         if (_distance > _adjustDistance && _distance < _attackDistance) //補正がかかる距離よりも遠く、かつ有効距離内にいる場合
         {
             _totalDistanceToCover = _distance - _adjustDistance; // 距離の差を計算
@@ -97,25 +102,6 @@ public class NormalAttack_First : AttackAdjustBase
         _isAttacking = false;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
         _animator.applyRootMotion = true;
-        
-        /*
-        //移動
-        float elapsedDistance = 0f; //移動した距離を記録する
-        
-        
-         DOTween.To(
-             () => elapsedDistance,
-             value =>
-             {
-                 float delta = value - elapsedDistance; //前回との差分を計算
-                 elapsedDistance = value; //現在の値を更新
-                 
-                 _cc.Move(transform.forward * delta); //差分だけ移動させる
-             },
-             _forwardDistance,
-             0.5f)
-             .SetEase(Ease.Linear);
-        */
         
         AudioManager.Instance?.PlaySE(3);
 

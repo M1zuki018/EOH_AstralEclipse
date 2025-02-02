@@ -37,16 +37,16 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         if (!_isBossEnemy)
         {
             //通常の敵の処理
-            UIManager.Instance.RegisterEnemy(this, GetCurrentHP()); //HPバーを頭上に生成する
-            UIManager.Instance.HideEnemyHP(this); //隠す
+            UIManager.Instance?.RegisterEnemy(this, GetCurrentHP()); //HPバーを頭上に生成する
+            UIManager.Instance?.HideEnemyHP(this); //隠す
         }
         else
         {
             //ボス用の処理
-            UIManager.Instance.InitializeBossHP(_health.MaxHP, _health.CurrentHP); //HPバーを初期化
-            UIManager.Instance.UpdateBossName("Unknown"); //名前更新
-            UIManager.Instance.UpdateRemainingHP(Mathf.RoundToInt(GetCurrentHP() / _health.MaxHP * 100)); //HPパーセントの表記を更新
-            UIManager.Instance.HideBossUI();
+            UIManager.Instance?.InitializeBossHP(_health.MaxHP, _health.CurrentHP); //HPバーを初期化
+            UIManager.Instance?.UpdateBossName("Unknown"); //名前更新
+            UIManager.Instance?.UpdateRemainingHP(Mathf.RoundToInt(GetCurrentHP() / _health.MaxHP * 100)); //HPパーセントの表記を更新
+            UIManager.Instance?.HideBossUI();
         }
 
         //ターゲットマッチング用
@@ -63,14 +63,14 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         
         if (!_isBossEnemy) //通常の敵
         {
-            UIManager.Instance.ShowDamageAmount(damage, transform);
-            UIManager.Instance.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
-            AudioManager.Instance.PlayVoice(1); //ダメージの声
+            UIManager.Instance?.ShowDamageAmount(damage, transform);
+            UIManager.Instance?.UpdateEnemyHP(this, GetCurrentHP()); //HPスライダーを更新する
+            AudioManager.Instance?.PlayVoice(1); //ダメージの声
         }
         else //ボス
         {
-            UIManager.Instance.UpdateBossHP(GetCurrentHP()); //スライダー更新
-            UIManager.Instance.UpdateRemainingHP(Mathf.RoundToInt((float)GetCurrentHP() / _health.MaxHP * 100)); //パーセント表記更新
+            UIManager.Instance?.UpdateBossHP(GetCurrentHP()); //スライダー更新
+            UIManager.Instance?.UpdateRemainingHP(Mathf.RoundToInt((float)GetCurrentHP() / _health.MaxHP * 100)); //パーセント表記更新
         }
         
         Animator.SetTrigger("Damage");
@@ -83,7 +83,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         if (!_isBossEnemy) //通常の敵
         {
             _readyForBattleChecker.RemoveEnemy(this);
-            UIManager.Instance.UnregisterEnemy(this); //HPスライダーを削除する
+            UIManager.Instance?.UnregisterEnemy(this); //HPスライダーを削除する
             gameObject.tag = "Untagged";
             Animator.SetTrigger("Dead");
             _lockOnFunction.LockOn();

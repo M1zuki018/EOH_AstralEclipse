@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307987ec694b38741a818bc79e769528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rayLength: 0.52
+  _rayLength: 0.35
   _rayOffset: 0.1
   _layerMask:
     serializedVersion: 2
@@ -797,7 +797,7 @@ MonoBehaviour:
     Size: {x: 1, y: 0.35, z: 1}
     Duration: 0.2
   _initializeAnimationSpeed: 1.1
-  _forwardDistance: 1.5
+  _forwardDistance: 0.7
   _adjustDirection: {fileID: 1503685255541221325}
 --- !u!114 &5649851467364679967
 MonoBehaviour:

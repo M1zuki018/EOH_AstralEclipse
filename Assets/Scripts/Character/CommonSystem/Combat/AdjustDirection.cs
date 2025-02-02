@@ -33,6 +33,24 @@ public class AdjustDirection : MonoBehaviour
     }
     
     /// <summary>
+    /// ターゲット方向にプレイヤーを回転させる
+    /// </summary>
+    public void AdjustDirectionToTarget(float correctionAngle)
+    {
+        if (Target == null) return;
+
+        Vector3 direction = (Target.position - _player.transform.position).normalized; //敵の方向を取得
+        direction.y = 0; // 垂直方向の補正。Y軸を無視する
+        
+        if (direction.sqrMagnitude > 0.01f) // 回転すべき角度が小さすぎない場合
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            targetRotation = new Quaternion(targetRotation.x, targetRotation.y + correctionAngle, targetRotation.z, targetRotation.w);
+            _player.transform.rotation = Quaternion.Slerp(_player.transform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+    }
+    
+    /// <summary>
     /// ルートモーション使用時用。即座にターゲット方向にプレイヤーを回転させる
     /// </summary>
     public void AdjustDirectionToTargetEarly()
