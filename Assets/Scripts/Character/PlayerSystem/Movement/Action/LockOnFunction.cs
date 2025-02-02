@@ -71,6 +71,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         
         Transform nextTarget = SelectNextLockOnTarget(); //別の敵をロックオンする
         _lockedOnEnemy.Value = nextTarget;
+        _adjustDirection.Target = nextTarget;
         //CameraManager.Instance.UseTargetGroup(nextTarget.transform.GetChild(3), 1f, 0.3f);
         //CameraManager.Instance.UseCamera(1);
     }

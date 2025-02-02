@@ -23,6 +23,8 @@ public class NormalAttack_Second : AttackAdjustBase
     /// </summary>
     public override void StartAttack()
     {
+        _target = _combat.AdjustDirection.Target;
+        
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
         
         if (_target != null)

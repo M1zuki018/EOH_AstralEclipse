@@ -33,7 +33,7 @@ public class NormalAttack_First : AttackAdjustBase
     /// </summary>
     public override void StartAttack()
     {
-        //_target = _combat.AdjustDirection.Target;
+        _target = _combat.AdjustDirection.Target;
         
         if(_target!= null) _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
         

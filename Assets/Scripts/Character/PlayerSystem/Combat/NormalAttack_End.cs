@@ -10,6 +10,8 @@ public class NormalAttack_End : AttackAdjustBase
     
     public override async void StartAttack()
     {
+        _target = _combat.AdjustDirection.Target;
+        
         _animator.SetFloat("AttackSpeed", 1f);
         AudioManager.Instance?.PlaySEDelay(3, 100); //右上から切り降ろす
         AudioManager.Instance?.PlaySEDelay(3, 330); //切りながらジャンプ

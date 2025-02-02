@@ -18,7 +18,9 @@ public class PlayerCombat : MonoBehaviour, ICombat
     
     [Header("攻撃補正用")]
     [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection;
+
     public AdjustDirection AdjustDirection => _adjustDirection;
+
     public DamageHandler DamageHandler => _damageHandler;
     
     public SkillSO SkillSet => _skillSet;

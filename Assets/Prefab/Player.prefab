@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e41f2146c231094d9fe1eca33ba23f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHPData: 100
+  _maxHPData: 200
 --- !u!114 &8589648353841238299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,11 +517,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skillSet: {fileID: 11400000, guid: 8511c6d56ed44b441beefae0f23af607, type: 2}
-  _weaponObj: {fileID: 7571305447489545679}
+  _weaponObj: {fileID: 3618803812023233148}
   _adjustDirection: {fileID: 1503685255541221325}
-  _first: {fileID: 2693181612641013700}
-  _second: {fileID: 3015479510788123060}
-  _end: {fileID: 4861366130119134965}
 --- !u!114 &6503842622023526717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1181,7 +1178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d895ac5e6fe43d347aced8a24047ebb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 9
+  _radius: 12
   _lockOnFunction: {fileID: 2347095184082615406}
 --- !u!1001 &7337427988299192478
 PrefabInstance:
@@ -1343,15 +1340,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 709912ca41e0af4428317dc4cd5db691, type: 3}
---- !u!4 &7086834698083139445 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 709912ca41e0af4428317dc4cd5db691,
+--- !u!1 &3618803812023233148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6335250783087129314, guid: 709912ca41e0af4428317dc4cd5db691,
     type: 3}
   m_PrefabInstance: {fileID: 7337427988299192478}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7571305447489545679 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 709912ca41e0af4428317dc4cd5db691,
+--- !u!4 &7086834698083139445 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 709912ca41e0af4428317dc4cd5db691,
     type: 3}
   m_PrefabInstance: {fileID: 7337427988299192478}
   m_PrefabAsset: {fileID: 0}
@@ -1641,6 +1638,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AABB.m_Extent.z
       value: 0.07222613
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140606858727328969, guid: f9aebfaba885ead45a74914ab63eaaad,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140606858727328969, guid: f9aebfaba885ead45a74914ab63eaaad,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[6]
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140606858727328969, guid: f9aebfaba885ead45a74914ab63eaaad,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[13]
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
