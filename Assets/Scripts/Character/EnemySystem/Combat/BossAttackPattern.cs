@@ -99,6 +99,7 @@ public class BossAttackPattern : MonoBehaviour
     {
         GameObject thorn = Instantiate(_thornPrefab); //予兆エリアを生成
         thorn.TryGetComponent(out ThornContorl thornCtrl);
+        thornCtrl.SetCombat(_combat);
         
         float elapsedTime = 0f;
         Observable
@@ -132,6 +133,8 @@ public class BossAttackPattern : MonoBehaviour
     {
         //プレイヤーの頭上にエリアを生成
         GameObject aboveObj = Instantiate(_abovePrefab);
+        aboveObj.TryGetComponent(out AboveControl aboveCtrl);
+        aboveCtrl.SetCombat(_combat);
         aboveObj.transform.position = new Vector3(
             _target.transform.position.x, _target.transform.position.y + 10f, _target.transform.position.z); 
         
