@@ -28,7 +28,11 @@ public class KeyItem : InteractableItemBase
         {
             if (!target.IsDead)
             {
-                Debug.Log("まだ敵を倒しきっていません");
+                UIManager.Instance.ShowQuestMessage(); //警告メッセージを表示
+                
+                await UniTask.DelayFrame(100);
+                
+                UIManager.Instance.HideQuestMessage(); //警告メッセージを非表示
                 return;
             }
         }

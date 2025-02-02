@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private SliderUI _bossWillUI; //ボスのWillゲージ
     [SerializeField] private TextUI _bossName; //ボスの名前UI
     [SerializeField] private TextUI _bossRemainingHP; //ボスの残りHPのパーセント表記のUI
+    [SerializeField] private TextUI _questMessage; //クエスト中の警告を表示するテキスト
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
@@ -204,4 +205,10 @@ public class UIManager : MonoBehaviour
         _bossName.Hide();
         _bossRemainingHP.Hide();
     }
+
+    /// <summary>クエスト進行中の警告を表示する</summary>
+    public void ShowQuestMessage() => _questMessage.Show();
+    
+    /// <summary>クエスト進行中の警告を非表示にする</summary>
+    public void HideQuestMessage() => _questMessage.Hide();
 }
