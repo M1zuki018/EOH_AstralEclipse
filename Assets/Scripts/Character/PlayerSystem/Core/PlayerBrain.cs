@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Cinemachine;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
@@ -36,6 +35,7 @@ public class PlayerBrain : CharacterBase
             CameraManager.Instance?.UseCamera(3);
             UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
             UIManager.Instance?.HideRightUI();
+            UIManager.Instance?.HideFirstText();
         }
         
         //TODO: 最初からモーションを流せるように変更する
@@ -50,6 +50,26 @@ public class PlayerBrain : CharacterBase
         
         //操作開始
         CameraManager.Instance?.UseCamera(0);
+        
+        await UniTask.Delay(1200);
+        
+        UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
+        _moveActions[1].action.Enable(); //有効化
+        
+        // ボタンが押されたら入力を有効化
+        Observable.FromEvent<InputAction.CallbackContext>(
+                h => _moveActions[1].action.performed += h,
+                h => _moveActions[1].action.performed -= h)
+            .Take(1) // 最初の1回だけ
+            .Subscribe(GameStart)
+            .AddTo(this);
+        
+    }
+
+    private void GameStart(InputAction.CallbackContext context)
+    {
+        Debug.Log("Game started");
+        UIManager.Instance?.HideFirstText();
         UIManager.Instance?.ShowRightUI();
         _playerInput.ActivateInput();
     }
