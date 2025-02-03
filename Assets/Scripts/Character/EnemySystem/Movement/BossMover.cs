@@ -81,6 +81,8 @@ public class BossMover : MonoBehaviour
         
         await UniTask.Delay(5000);
 
+        _attackPattern.Animator.SetInteger("AttackType", 1);
+        _attackPattern.Animator.SetTrigger("Attack");
         //垂直レーザーを生成
         float generatoPos = transform.position.x - 14f;
         for (int i = 0; i < 6; i++)
@@ -91,6 +93,7 @@ public class BossMover : MonoBehaviour
         
         await UniTask.Delay(4000);
 
+        _attackPattern.Animator.SetTrigger("Attack");
         //垂直レーザーを放つ
         for (int i = 0; i < 6; i++)
         {

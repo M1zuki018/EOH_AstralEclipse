@@ -6937,3 +6937,245 @@ Assets/Resource/Matthew Guz/Slash Effects FREE/Textures/5-Spark.png.meta
 Assets/Resource/Matthew Guz/Slash Effects FREE/Textures/Mesh.meta
 Assets/Resource/Matthew Guz/Slash Effects FREE/Textures/Mesh/Slash1.fbx
 Assets/Resource/Matthew Guz/Slash Effects FREE/Textures/Mesh/Slash1.fbx.meta
+Assets/Resource/Frank_Mage.meta
+Assets/Resource/Anim/Boss.meta
+Assets/Resource/Anim/Boss/Boss_AttackIdle.fbx
+Assets/Resource/Anim/Boss/Boss_AttackIdle.fbx.meta
+Assets/Resource/Anim/Boss/Boss_BigDamage.fbx
+Assets/Resource/Anim/Boss/Boss_BigDamage.fbx.meta
+Assets/Resource/Anim/Boss/Boss_Idle.fbx
+Assets/Resource/Anim/Boss/Boss_Idle.fbx.meta
+Assets/Resource/Anim/Boss/Boss_VerticalLaser.fbx
+Assets/Resource/Anim/Boss/Boss_VerticalLaser.fbx.meta
+Assets/Resource/Frank_Mage/Assets.meta
+Assets/Resource/Frank_Mage/Demo.meta
+Assets/Resource/Frank_Mage/Documentation.meta
+Assets/Resource/Frank_Mage/Assets/Animations.meta
+Assets/Resource/Frank_Mage/Assets/Materials.meta
+Assets/Resource/Frank_Mage/Assets/Meshes.meta
+Assets/Resource/Frank_Mage/Assets/Textures.meta
+Assets/Resource/Frank_Mage/Assets/Animations/Demo.controller
+Assets/Resource/Frank_Mage/Assets/Animations/Demo.controller.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation.meta
+Assets/Resource/Frank_Mage/Assets/Animations/Frank_Mage_Mask.mask
+Assets/Resource/Frank_Mage/Assets/Animations/Frank_Mage_Mask.mask.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack01_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack01_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack02_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack02_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack03_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack03_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack04_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack04_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack05_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack05_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack06_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Attack06_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Combo01_All_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Combo01_All_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Combo02_All_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Combo02_All_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Combo03_All_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Combo03_All_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Combo04_All_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Combo04_All_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill01_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill01_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill02_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill02_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill03_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill03_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill04_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill04_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill05_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill05_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill06_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill06_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill07_Demo.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Demo/Frank_RPG_Mage_Skill07_Demo.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_4Way_Spell_Walk_B.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_4Way_Spell_Walk_B.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_4Way_Spell_Walk_F.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_4Way_Spell_Walk_F.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_4Way_Spell_Walk_L.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_4Way_Spell_Walk_L.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_4Way_Spell_Walk_R.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_4Way_Spell_Walk_R.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_B.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_B.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_BL.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_BL.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_BR.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_BR.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_F.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_F.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_FL.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_FL.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_FR.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_FR.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_L.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_L.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_R.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Run_R.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_B.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_B.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_BL.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_BL.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_BR.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_BR.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_F.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_F.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_FL.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_FL.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_FR.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_FR.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_L.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_L.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_R.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_8Way_Walk_R.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack01.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack01.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack02.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack02.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack03.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack03.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack04.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack04.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack05.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack05.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack06.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Attack06.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Block.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Block.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo01_1.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo01_1.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo01_2.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo01_2.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo01_3.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo01_3.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo01_All.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo01_All.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo02_1.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo02_1.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo02_2.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo02_2.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo02_3.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo02_3.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo02_All.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo02_All.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo03_1.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo03_1.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo03_2.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo03_2.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo03_3.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo03_3.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo03_All.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo03_All.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_1.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_1.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_2.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_2.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_3.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_3.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_4.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_4.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_All.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Combo04_All.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Die.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Die.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Die02.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Die02.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Equip.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Equip.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Evade_B.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Evade_B.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Evade_F.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Evade_F.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Evade_L.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Evade_L.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Evade_R.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Evade_R.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Getup01.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Getup01.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Getup02.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Getup02.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Guard.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Guard.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit_Knockback.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit_Knockback.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit_Knockdown.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit_Knockdown.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit_Knockdown_Loop.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit_Knockdown_Loop.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit01.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit01.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit02.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit02.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit03.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Hit03.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Idle.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Idle.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Jump_01.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Jump_01.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Jump_02.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Jump_02.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Jump_ZeroHeight.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Jump_ZeroHeight.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Run01.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Run01.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Run02.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Run02.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill01.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill01.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill02.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill02.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill03.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill03.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill04.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill04.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill05.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill05.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill06.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill06.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill07.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Skill07.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Step_B.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Step_B.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Step_F.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Step_F.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Step_L.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Step_L.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Step_R.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Step_R.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Unequip.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Unequip.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Unequip_Idle.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Unequip_Idle.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Unequip_Run.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Unequip_Run.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Unequip_Run_Faster.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Unequip_Run_Faster.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Walk.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Walk.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Walk_Faster.FBX
+Assets/Resource/Frank_Mage/Assets/Animations/FBX Animation/Root_Motion/Frank_RPG_Mage_Walk_Faster.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage.mat
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage.mat.meta
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage_Body_Parts.mat
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage_Body_Parts.mat.meta
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage_FX_Ring.mat
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage_FX_Ring.mat.meta
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage_Glow.mat
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage_Glow.mat.meta
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage_Weapon.mat
+Assets/Resource/Frank_Mage/Assets/Materials/Frank_Mage_Weapon.mat.meta
+Assets/Resource/Frank_Mage/Assets/Meshes/Frank_RPG_Mage_Unity.FBX
+Assets/Resource/Frank_Mage/Assets/Meshes/Frank_RPG_Mage_Unity.FBX.meta
+Assets/Resource/Frank_Mage/Assets/Textures/Frank_Mage_FX_Ring.TGA
+Assets/Resource/Frank_Mage/Assets/Textures/Frank_Mage_FX_Ring.TGA.meta
+Assets/Resource/Frank_Mage/Demo/Frank_Mage.unity
+Assets/Resource/Frank_Mage/Demo/Frank_Mage.unity.meta
+Assets/Resource/Frank_Mage/Documentation/Frank_Mage_Motion_List.txt
+Assets/Resource/Frank_Mage/Documentation/Frank_Mage_Motion_List.txt.meta

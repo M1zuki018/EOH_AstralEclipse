@@ -22,6 +22,8 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private AudioMixerGroup _bgmMixer; 
     [SerializeField] private Material _glitchy; //グリッチシェーダーをかけたマテリアル
 
+    private Animator _animator;
+    public Animator Animator => _animator;
     private PlayerInput _playerInput;
     private Material _defaultMaterial;
     
@@ -31,6 +33,7 @@ public class BossAttackPattern : MonoBehaviour
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
         _defaultMaterial = RenderSettings.skybox;
         _playerInput = _target.gameObject.GetComponent<PlayerInput>();
     }
@@ -97,6 +100,9 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     public void GenerateThorns()
     {
+        _animator.SetInteger("AttackType", 2);
+        _animator.SetTrigger("Attack");
+        
         GameObject thorn = Instantiate(_thornPrefab); //予兆エリアを生成
         thorn.TryGetComponent(out ThornContorl thornCtrl);
         thornCtrl.SetCombat(_combat);
@@ -122,6 +128,7 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     private async void FireThorns(ThornContorl thornCtrl)
     {
+        _animator.SetTrigger("Attack");
         await UniTask.Delay(1500); //少し時間を置く
         thornCtrl.ChangedMesh(); //メッシュ変更とオブジェクト破棄
     }
@@ -131,6 +138,9 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     public async void AttackFromAbove()
     {
+        _animator.SetInteger("AttackType", 3);
+        _animator.SetTrigger("Attack");
+        
         //プレイヤーの頭上にエリアを生成
         GameObject aboveObj = Instantiate(_abovePrefab);
         aboveObj.TryGetComponent(out AboveControl aboveCtrl);
@@ -139,6 +149,8 @@ public class BossAttackPattern : MonoBehaviour
             _target.transform.position.x, _target.transform.position.y + 10f, _target.transform.position.z); 
         
         await UniTask.Delay(3000); //待って避けられるようにする
+        
+        _animator.SetTrigger("Attack");
         
         //地面に墜落した後オブジェクト削除
         aboveObj.transform.DOMoveY(-1, 0.5f).OnComplete(() => Destroy(aboveObj)); 
