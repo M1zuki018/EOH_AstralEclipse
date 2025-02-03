@@ -13,6 +13,9 @@ namespace PlayerSystem.State
         /// <summary>垂直方向の速度</summary>
         public Vector3 Velocity { get; set; }
         
+        /// <summary>カメラの向きに合わせて補正された後の移動方向</summary>
+        public Vector3 CorrectedDirection { get; set; }
+        
         /// <summary>移動する速度</summary>
         public float MoveSpeed { get; set; }
 

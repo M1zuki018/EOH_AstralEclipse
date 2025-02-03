@@ -25,12 +25,12 @@ public class StepCorrection : StateMachineBehaviour
 
         _playerMovement.PlayerState.IsSteping = true; //ステップ状態にする
 
-        Vector3 direction = _playerMovement.PlayerState.MoveDirection.normalized;
+        Vector3 direction = _playerMovement.PlayerState.CorrectedDirection.normalized;
         
         if (direction.magnitude > 0.05f)
         {
             //入力があったらプレイヤーの入力を保存しておく
-            _moveDirection = _playerMovement.PlayerState.MoveDirection.normalized;
+            _moveDirection = direction;
         }
         else
         {

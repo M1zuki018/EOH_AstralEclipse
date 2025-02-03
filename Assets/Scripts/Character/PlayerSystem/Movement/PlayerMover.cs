@@ -114,6 +114,7 @@ namespace PlayerSystem.Movement
                 Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
                 Vector3 moveDirection = cameraForward *_state.MoveDirection.z + cameraRight * _state.MoveDirection.x;
                 
+                _state.CorrectedDirection = moveDirection;
                 _moveNormal = moveDirection.normalized;
                 
                 // 回転をカメラの向きに合わせる
