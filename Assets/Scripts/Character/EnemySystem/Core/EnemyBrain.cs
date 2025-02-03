@@ -12,7 +12,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     private ICombat _combat;
     private Collider _collider;
     public Animator Animator { get; private set; }
-    [SerializeField] private LockOnFunction _lockOnFunction;
+    [SerializeField] private LockOnFunction _lockOnFunction; //プレイヤーのLockOn機能
     [SerializeField] private ReadyForBattleChecker _readyForBattleChecker;
     [SerializeField, Highlight(1,0,0.2f)] private bool _isBossEnemy = false;
     

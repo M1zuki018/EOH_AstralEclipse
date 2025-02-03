@@ -107,7 +107,6 @@ GameObject:
   - component: {fileID: 4814454651625115121}
   - component: {fileID: 2339259411046704878}
   - component: {fileID: 1144663450389710944}
-  - component: {fileID: 763615797393632703}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -327,23 +326,6 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 0}
     Size: {x: 0, y: 0, z: 0}
     Duration: 0
---- !u!114 &763615797393632703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7004980298510743935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2ff6b28059536042b4a6bc833274ebc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetGroup: {fileID: 0}
-  _camera: {fileID: 0}
-  _lockOnRadius: 0.5
-  _battleChecker: {fileID: 0}
-  _adjustDirection: {fileID: 0}
 --- !u!1 &8053602586090778407
 GameObject:
   m_ObjectHideFlags: 0

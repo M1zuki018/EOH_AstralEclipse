@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -7,10 +8,13 @@ public class EnemyNormalAttack_Swiping : AttackAdjustBase
 {
     [Header("初期設定")]
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;
+    private Transform _player;
     
-    public override void StartAttack()
+    public override async void StartAttack()
     {
-        _target = _adjustDirection.Target;
+        if(_player == null) _player = GameObject.FindGameObjectWithTag("Player").transform; 
+        
+        _target = _player;
         
         if (_target != null)
         {
@@ -21,6 +25,8 @@ public class EnemyNormalAttack_Swiping : AttackAdjustBase
         {
             Debug.LogWarning($"{gameObject}：{_target}が存在しません！");
         }
+        
+        await UniTask.DelayFrame(5000);
         
         _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
     }

@@ -12,7 +12,7 @@ public class AttackSMB : StateMachineBehaviour
     [SerializeField, Comment("ルートモーションの使用")] private bool _useRootMotion = false; 
     
     private ICombat _combat;
-    private Transform _player;
+    private Transform _actor;
     private AttackAdjustBase _attackCorrection; //移動・回転補正を行うクラス
     
     //アニメーションが開始されたとき
@@ -21,7 +21,7 @@ public class AttackSMB : StateMachineBehaviour
         if (_combat == null) //nullだったら取得する
         {
             _combat = animator.GetComponent<ICombat>();
-            _player = animator.transform;
+            _actor = animator.transform;
         }
         
         animator.applyRootMotion = false; //補正をかけるため一度ルートモーションを無効にする
@@ -48,7 +48,7 @@ public class AttackSMB : StateMachineBehaviour
         if (_attackCorrection != null)
         {
             //移動補正処理を呼び出す
-            _attackCorrection.CorrectMovement(_player.forward);
+            _attackCorrection.CorrectMovement(_actor.forward);
         }
     }
 
