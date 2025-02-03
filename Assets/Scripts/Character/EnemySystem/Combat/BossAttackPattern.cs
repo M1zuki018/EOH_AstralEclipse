@@ -68,6 +68,7 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     public void GenerateVerticalLaser(Vector3 position)
     {
+        _verticalLasers.Clear(); //リストを初期化
         GameObject obj = Instantiate(_verticalLaserPrefab);
         obj.transform.position = position;
         var controller = obj.GetComponent<VirticalLaserControl>();
@@ -128,8 +129,11 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     private async void FireThorns(ThornContorl thornCtrl)
     {
+        await UniTask.Delay(520);
+        
         _animator.SetTrigger("Attack");
-        await UniTask.Delay(1500); //少し時間を置く
+        
+        await UniTask.Delay(980); //少し時間を置く
         thornCtrl.ChangedMesh(); //メッシュ変更とオブジェクト破棄
     }
 
@@ -148,9 +152,11 @@ public class BossAttackPattern : MonoBehaviour
         aboveObj.transform.position = new Vector3(
             _target.transform.position.x, _target.transform.position.y + 10f, _target.transform.position.z); 
         
-        await UniTask.Delay(3000); //待って避けられるようにする
+        await UniTask.Delay(1400); //待って避けられるようにする
         
         _animator.SetTrigger("Attack");
+        
+        await UniTask.Delay(1600);
         
         //地面に墜落した後オブジェクト削除
         aboveObj.transform.DOMoveY(-1, 0.5f).OnComplete(() => Destroy(aboveObj)); 
@@ -169,7 +175,7 @@ public class BossAttackPattern : MonoBehaviour
     {
         //transform.DOMoveY(-5, 0.5f); //影に潜る
         
-        float moveSpeed = 8f; //移動速度
+        float moveSpeed = 10f; //移動速度
         float snakeAmplitude = 0.3f; //振れ幅
         float snakeFrequency = 1.5f; //周波数
         float elapsedTime = 0f; //経過時間
@@ -218,6 +224,8 @@ public class BossAttackPattern : MonoBehaviour
     private void ShadowFire()
     {
         Debug.Log("攻撃");
+        _animator.SetInteger("AttackType", 5);
+        _animator.SetTrigger("Attack");
     }
 
     /// <summary>
@@ -226,6 +234,9 @@ public class BossAttackPattern : MonoBehaviour
     public async void TimeControl()
     {
         Debug.Log("時間操作攻撃開始");
+     
+        _animator.SetInteger("AttackType", 6);
+        _animator.SetTrigger("Attack");
         
         //TODO:背景が歪むエフェクト
         _timeStopVolume.enabled = true; //色彩をモノクロに変更
@@ -240,11 +251,12 @@ public class BossAttackPattern : MonoBehaviour
         await UniTask.Delay(200);
         
         Debug.Log("時間停止発動の合図の演出");
-        //発動の演出
+        
+        _animator.SetTrigger("Attack"); //発動の演出
         _playerInput.DeactivateInput(); //一瞬操作できなくする
         //TODO: 画面に時計の針や歯車エフェクトを一瞬表示して「発動の合図」
         
-        await UniTask.Delay(50); //演出を待つ
+        await UniTask.Delay(200); //演出を待つ
         
         FireTimeAttack();
     }

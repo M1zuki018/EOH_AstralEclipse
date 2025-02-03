@@ -34,7 +34,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     private async void Break()
     {
-        transform.DOMoveY(_initializePos.y, 1f);
+        _cc.Move(new Vector3(0, _initializePos.y - transform.position.y, 0)); //初期位置と現在の位置の差分だけ移動する
         Debug.Log("休み");
         await UniTask.Delay(6000);
         
@@ -53,7 +53,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     private async void Emerge()
     {
-        transform.DOMoveY( 4f, 1f);
+        _cc.Move(new Vector3(0, 4, 0));
         await UniTask.Delay(1000);
         
         //次の攻撃を行う
@@ -66,7 +66,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     private void Warp(Vector3 position)
     {
-        transform.position = position;
+        _cc.Move(position - transform.position);
     }
     
     
@@ -91,9 +91,12 @@ public class BossMover : MonoBehaviour
             _attackPattern.GenerateVerticalLaser(new Vector3(generatoPos, transform.position.y, transform.position.z));
         }
         
-        await UniTask.Delay(4000);
+        await UniTask.Delay(3300);
 
         _attackPattern.Animator.SetTrigger("Attack");
+        
+        await UniTask.Delay(700);
+        
         //垂直レーザーを放つ
         for (int i = 0; i < 6; i++)
         {
@@ -132,7 +135,7 @@ public class BossMover : MonoBehaviour
     {
         _attackPattern.ShadowAttack();
 
-        await UniTask.Delay(8000);
+        await UniTask.Delay(9000);
         
         Warp(new Vector3(100f, 4f, 230f));
         _attackPattern.ShadowAttack();
@@ -140,7 +143,7 @@ public class BossMover : MonoBehaviour
         //TODO:ガード成功時：火花のようなエフェクト＋ボスが軽く後退。回避成功時：スローモーションを一瞬入れる
         //TODO: ヒット時：プレイヤーが「のけぞる」 or 「吹き飛ばされる」。
 
-        await UniTask.Delay(8000);
+        await UniTask.Delay(9000);
         _patternCount = 2;
         Break();
     }
