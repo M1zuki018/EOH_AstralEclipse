@@ -15,11 +15,13 @@ public class AttackHitDetector : MonoBehaviour
     [SerializeField, Comment("衝突検出の所有者")] private CharacterBase _owner; 
     [SerializeField, Comment("衝突検出を行うレイヤー")] private LayerMask _hitLayer;
     [SerializeField, Comment("衝突するタグ")] private string[] _hitTags;
+    [SerializeField] private Collider _detectedCollider; 
     
     private bool _isHitDetected = false; //ヒット検出フラグ
     private ICombat _combat;
     private float _hitDetectionDuration; //攻撃判定の持続時間
-    [SerializeField] private Collider _detectedCollider; 
+    private Coroutine _hitDetectionCoroutine;
+    
     
     private void OnEnable()
     {
@@ -36,7 +38,7 @@ public class AttackHitDetector : MonoBehaviour
         _detectedCollider.transform.localScale = info.Size;
         _detectedCollider.transform.localRotation = info.Rotation;
         _hitDetectionDuration = info.Duration;
-        Physics.SyncTransforms();
+        //Physics.SyncTransforms();
         
         //コライダーを有効にする
         _detectedCollider.enabled = true;
@@ -66,14 +68,22 @@ public class AttackHitDetector : MonoBehaviour
                     }
                 
                     _isHitDetected = true;
-                    StartCoroutine(HitDetectionCooldown());
+                    if (_hitDetectionCoroutine != null)
+                    {
+                        StopCoroutine(_hitDetectionCoroutine);
+                    }
+                    _hitDetectionCoroutine = StartCoroutine(HitDetectionCooldown());
                 }
             }
             
             //衝突した敵がいなかった場合、ここで判定持続時間を待って判定をリセットする
             if (!_isHitDetected)
             {
-                StartCoroutine(HitDetectionCooldown());
+                if (_hitDetectionCoroutine != null)
+                {
+                    StopCoroutine(_hitDetectionCoroutine);
+                }
+                _hitDetectionCoroutine = StartCoroutine(HitDetectionCooldown());
             }
         }
     }
@@ -95,5 +105,6 @@ public class AttackHitDetector : MonoBehaviour
         yield return new WaitForSeconds(_hitDetectionDuration);
         _detectedCollider.enabled = false; //無効化
         _isHitDetected = false;
+        _hitDetectionCoroutine = null;
     }
 }

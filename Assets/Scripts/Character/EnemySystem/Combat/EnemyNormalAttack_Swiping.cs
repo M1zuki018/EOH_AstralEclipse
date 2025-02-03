@@ -13,6 +13,7 @@ public class EnemyNormalAttack_Swiping : AttackAdjustBase
     public override async void StartAttack()
     {
         if(_player == null) _player = GameObject.FindGameObjectWithTag("Player").transform; 
+        Debug.Log("開始");
         
         _target = _player;
         
@@ -26,8 +27,9 @@ public class EnemyNormalAttack_Swiping : AttackAdjustBase
             Debug.LogWarning($"{gameObject}：{_target}が存在しません！");
         }
         
-        await UniTask.DelayFrame(5000);
+        await UniTask.DelayFrame(150);
         
+        Debug.Log("判定");
         _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
     }
 

@@ -1540,6 +1540,11 @@ PrefabInstance:
       propertyPath: _maxHPData
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 4492475331529795892, guid: 0cc65954127eda9458915203ff1b6837,
+        type: 3}
+      propertyPath: _hitDetectionInfo.Position.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5298803877411945345, guid: 0cc65954127eda9458915203ff1b6837,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1670,11 +1675,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7588866828373959929, guid: 0cc65954127eda9458915203ff1b6837,
-        type: 3}
-      propertyPath: _detectedCollider
-      value: 
-      objectReference: {fileID: 3682449292928637082}
     - target: {fileID: 7932169029448913952, guid: 0cc65954127eda9458915203ff1b6837,
         type: 3}
       propertyPath: m_Enabled
@@ -1715,6 +1715,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 137.44057
       objectReference: {fileID: 0}
+    - target: {fileID: 8938135316940354937, guid: 0cc65954127eda9458915203ff1b6837,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8316656661314170021, guid: 0cc65954127eda9458915203ff1b6837, type: 3}
     m_RemovedGameObjects:
@@ -1737,10 +1742,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8870237213209010240}
-    - targetCorrespondingSourceObject: {fileID: 3163181429116153515, guid: 0cc65954127eda9458915203ff1b6837,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3682449292928637082}
     - targetCorrespondingSourceObject: {fileID: 8938135316940354937, guid: 0cc65954127eda9458915203ff1b6837,
         type: 3}
       insertIndex: -1
@@ -1790,33 +1791,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8026838514192793575}
   m_SourcePrefab: {fileID: 100100000, guid: 0cc65954127eda9458915203ff1b6837, type: 3}
---- !u!1 &86677875351373152 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3163181429116153515, guid: 0cc65954127eda9458915203ff1b6837,
-    type: 3}
-  m_PrefabInstance: {fileID: 3086674186649791435}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &3682449292928637082
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 86677875351373152}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 1.18, z: 0.71}
 --- !u!114 &121677913648866343 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3127284552858193900, guid: 0cc65954127eda9458915203ff1b6837,
@@ -2215,10 +2189,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: 0, y: 1, z: 0.8}
     Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Size: {x: 0, y: 0, z: 0}
-    Duration: 0
+    Size: {x: 1, y: 1, z: 1}
+    Duration: 1
   _moveSpeed: 1
   _useAdjustDirection: 1
 --- !u!114 &9024773131720291264 stripped
@@ -2611,7 +2585,7 @@ PrefabInstance:
     - target: {fileID: 3523529247091088925, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 2993
+      value: 3164
       objectReference: {fileID: 0}
     - target: {fileID: 3523529247091088925, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
@@ -3465,8 +3439,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9163316227830692891, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9163316227830692891, guid: b030092036f44d2428559a9be8dc02f5,
+        type: 3}
       propertyPath: m_VersionIndex
-      value: 2222
+      value: 2393
       objectReference: {fileID: 0}
     - target: {fileID: 9190107017669069269, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}

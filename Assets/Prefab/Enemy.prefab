@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 69002722234307094}
   - component: {fileID: 6407428168464614829}
   - component: {fileID: 3444035731517609805}
-  - component: {fileID: 5295822307510250795}
   m_Layer: 0
   m_Name: AttackArea
   m_TagString: Untagged
@@ -52,7 +51,7 @@ MonoBehaviour:
     m_Bits: 1
   _hitTags:
   - Player
-  _detectedCollider: {fileID: 5295822307510250795}
+  _detectedCollider: {fileID: 401979011627151842}
 --- !u!114 &3444035731517609805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,13 +65,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 7604241476636173517}
---- !u!65 &5295822307510250795
+--- !u!1 &2470976778976974261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7864994387446542460}
+  - component: {fileID: 401979011627151842}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7864994387446542460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2470976778976974261}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7604241476636173517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &401979011627151842
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1900293732042231807}
+  m_GameObject: {fileID: 2470976778976974261}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -131,6 +162,7 @@ Transform:
   - {fileID: 944957729366105609}
   - {fileID: 3639539374557842710}
   - {fileID: 6906883041602166167}
+  - {fileID: 7864994387446542460}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &678146923130267298
@@ -307,8 +339,8 @@ MonoBehaviour:
   _hitDetectionInfo:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Size: {x: 0, y: 0, z: 0}
-    Duration: 0
+    Size: {x: 1, y: 1, z: 1}
+    Duration: 0.2
 --- !u!114 &1144663450389710944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,10 +354,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Size: {x: 0, y: 0, z: 0}
-    Duration: 0
+    Position: {x: 0, y: -0.5, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Size: {x: 1.5, y: 1.5, z: 1.5}
+    Duration: 0.2
 --- !u!1 &8053602586090778407
 GameObject:
   m_ObjectHideFlags: 0
