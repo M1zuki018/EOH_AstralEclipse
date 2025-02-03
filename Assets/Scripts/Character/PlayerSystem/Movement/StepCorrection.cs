@@ -61,7 +61,7 @@ public class StepCorrection : StateMachineBehaviour
 
     private void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        CameraManager.Instance?.StepEffectEnd();
+        CameraManager.Instance?.EndStepEffect();
         _playerMovement.PlayerState.IsSteping = false; //ステップ状態を解除する
     }
 }

@@ -48,6 +48,8 @@ public class NormalAttack_First : AttackAdjustBase
             _totalDistanceToCover = _distance - _adjustDistance; // 距離の差を計算
             _isAttacking = true; //突進の処理を有効化
             
+            CameraManager.Instance?.DashEffect(); //ブラーなどの効果をかける
+            
             //突進が完了するまでアニメーションのスピードを設定する
             Observable
                 .EveryUpdate()
@@ -98,6 +100,8 @@ public class NormalAttack_First : AttackAdjustBase
     /// </summary>
     private async void TriggerSlash()
     {
+        CameraManager.Instance?.EndDashEffect(); //通常のエフェクトに戻す
+        
         _isAttacking = false;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
         _animator.applyRootMotion = true;

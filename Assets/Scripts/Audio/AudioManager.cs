@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Audio;
 
 /// <summary>
 /// Audio全体を管理するクラス
@@ -12,6 +13,7 @@ public class AudioManager : MonoBehaviour
     
     [SerializeField] private List<AudioSource> _audioSources = new List<AudioSource>();
     [SerializeField] private List<AudioDataSO> _audioDatas = new List<AudioDataSO>();
+    [SerializeField] private AudioMixer _bgmMixer;
 
     private void Awake()
     {

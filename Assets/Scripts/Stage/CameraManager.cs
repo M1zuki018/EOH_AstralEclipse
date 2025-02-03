@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cinemachine;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -15,6 +16,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private List<CinemachineVirtualCamera> _virtualCameras = new List<CinemachineVirtualCamera>();
     [SerializeField] private CinemachineTargetGroup _targetGroup;
     [SerializeField] private CinemachineImpulseSource _impulseSource;
+    private float _defaultFOV;
+    private int _currentCameraIndex; //現在のカメラ
     
     //Volume
     [SerializeField] private Volume _volume;
@@ -22,8 +25,6 @@ public class CameraManager : MonoBehaviour
     private Vignette _vignette;
     private ChromaticAberration _chromaticAberration;
     private Bloom _bloom;
-
-    private int _currentCameraIndex; //現在のカメラ
     
     private void Awake()
     {
@@ -58,6 +59,7 @@ public class CameraManager : MonoBehaviour
             {
                 _virtualCameras[i].Priority = 15; //使用するカメラ
                 _currentCameraIndex = index;
+                _defaultFOV = _virtualCameras[i].m_Lens.FieldOfView; //FOVを更新・保存
             }
         }
     }
@@ -100,20 +102,64 @@ public class CameraManager : MonoBehaviour
     {
         //FOVの調整
         _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView
-            = Mathf.Lerp(_virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView + 2, 0.2f);
+            = Mathf.Lerp(_defaultFOV, _defaultFOV + 2, 0.2f);
 
         _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.8f, 0.2f); //モーションブラー
         _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.5f, 0.2f); //ビネット
         _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.5f, 0.2f); //色収差
     }
     
-    public void StepEffectEnd()
+    /// <summary>
+    /// ステップエフェクトを解除する
+    /// </summary>
+    public void EndStepEffect()
     {
         _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView
-            = Mathf.Lerp(_virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView - 2, 0.3f);
+            = Mathf.Lerp(_defaultFOV, _defaultFOV - 2, 0.3f);
 
         _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.2f, 0.3f);
         _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.25f, 0.3f);
         _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.05f, 0.3f);
     }
+
+    /// <summary>
+    /// ダッシュエフェクト（プレイヤーの一段目の攻撃などに使用）
+    /// </summary>
+    public void DashEffect()
+    {
+        // FOVを拡張してスピード感を演出
+        DOTween.To(
+            () => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
+            x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x, 
+            _defaultFOV + 20, 
+            0.2f); // 20度拡大する
+
+        // モーションブラー & 色収差強化
+        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.8f, 0.3f);
+        _chromaticAberration.intensity.value =  Mathf.Lerp(_chromaticAberration.intensity.value, 0.6f, 0.3f);
+
+        // カメラを揺らす（突進の力強さ）
+        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.3f, 0.5f, 20);
+    }
+    
+    /// <summary>
+    /// 突進終了時のエフェクト
+    /// </summary>
+    public void EndDashEffect()
+    {
+        // FOVを元に戻す
+        DOTween.To(
+            () => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
+            x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x, 
+            _defaultFOV, 
+            0.3f);
+
+        // モーションブラー & 色収差を元に戻す
+        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.2f, 0.3f);
+        _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.05f, 0.3f);
+
+        // 軽くズームして衝撃感を出す
+        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.2f, 0.3f, 10);
+    }
+    
 }
