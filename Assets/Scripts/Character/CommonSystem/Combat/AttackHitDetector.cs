@@ -38,7 +38,6 @@ public class AttackHitDetector : MonoBehaviour
         _detectedCollider.transform.localScale = info.Size;
         _detectedCollider.transform.localRotation = info.Rotation;
         _hitDetectionDuration = info.Duration;
-        //Physics.SyncTransforms();
         
         //コライダーを有効にする
         _detectedCollider.enabled = true;
@@ -97,6 +96,14 @@ public class AttackHitDetector : MonoBehaviour
     {
         if(_isHitDetected) return; //既にヒットしていたら以降の処理は行わない
         DetectHit(info);
+    }
+
+    /// <summary>
+    /// ヒットしたか取得する
+    /// </summary>
+    public bool IsHit()
+    {
+        return _isHitDetected;
     }
     
     /// <summary>

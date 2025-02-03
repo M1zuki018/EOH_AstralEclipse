@@ -13,9 +13,11 @@ public class NormalAttack_Turn : AttackAdjustBase
     public override async void StartAttack()
     {
         _lastValidPosition = transform.position; //初期化
-        
+     
+        CameraManager.Instance?.TurnEffect();
         _target = _adjustDirection.Target;
         _hitDetector.DetectHit(_hitDetectionInfo[0]); //当たり判定を発生させる
+        CameraManager.Instance?.ApplyHitStop(0.007f);
         
         if (_target != null)
         {
@@ -31,6 +33,7 @@ public class NormalAttack_Turn : AttackAdjustBase
         
         await UniTask.Delay(300);
         
+        CameraManager.Instance?.EndDashEffect();
         _hitDetector.DetectHitOnce(_hitDetectionInfo[1]); //回転後の判定
     }
 

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -25,6 +27,9 @@ public class CameraManager : MonoBehaviour
     private Vignette _vignette;
     private ChromaticAberration _chromaticAberration;
     private Bloom _bloom;
+    
+    //そのほか
+    [SerializeField] private HitStop _hitStop;
     
     private void Awake()
     {
@@ -131,15 +136,16 @@ public class CameraManager : MonoBehaviour
         DOTween.To(
             () => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
             x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x, 
-            _defaultFOV + 20, 
-            0.2f); // 20度拡大する
+            _defaultFOV + 30, 
+            0.2f); // 30度拡大する
 
-        // モーションブラー & 色収差強化
+        // 画面効果を加える
         _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.8f, 0.3f);
+        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.7f, 0.2f); //ビネット
         _chromaticAberration.intensity.value =  Mathf.Lerp(_chromaticAberration.intensity.value, 0.6f, 0.3f);
 
         // カメラを揺らす（突進の力強さ）
-        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.3f, 0.5f, 20);
+        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.3f, 0.5f, 30);
     }
     
     /// <summary>
@@ -154,12 +160,60 @@ public class CameraManager : MonoBehaviour
             _defaultFOV, 
             0.3f);
 
-        // モーションブラー & 色収差を元に戻す
+        // 画面効果を元に戻す
         _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.2f, 0.3f);
+        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.25f, 0.3f);
         _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.05f, 0.3f);
 
         // 軽くズームして衝撃感を出す
         _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.2f, 0.3f, 10);
+    }
+    
+    /// <summary>
+    /// 回転斬りのエフェクト（プレイヤーの四段目の攻撃などに使用）
+    /// </summary>
+    public void TurnEffect()
+    {
+        // FOVの拡張は控えめ
+        DOTween.To(
+            () => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
+            x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x, 
+            _defaultFOV - 10, 
+            0.2f);
+
+        // 画面効果を加える
+        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 1.2f, 0.15f);
+        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.7f, 0.15f); //ビネット
+        _chromaticAberration.intensity.value =  Mathf.Lerp(_chromaticAberration.intensity.value, 1f, 0.15f);
+
+        // カメラを揺らす（突進の力強さ）
+        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.15f, 0.5f, 30);
+    }
+
+    /// <summary>
+    /// ヒットストップ
+    /// </summary>
+    public void ApplyHitStop(float duration)
+    {
+        _hitStop.ApplyHitStop(duration);
+    }
+    
+    /// <summary>
+    /// エフェクトつきのヒットストップ
+    /// </summary>
+    public async void ApplyHitStopWithEffects(float duration)
+    {
+        //_vignette.color.value = new Color(1f, 0.5f, 0.26f, 0.5f); //ビネットの色を変更する
+        _vignette.intensity.value = Mathf.Lerp(0.5f, _vignette.intensity.value, duration); //ビネット
+        _hitStop.ApplyHitStop(duration); //ヒットストップの処理
+        
+        await UniTask.Delay(TimeSpan.FromSeconds(duration));
+        
+        //徐々に戻す
+        DOTween.To(
+            () => _vignette.color.value, 
+            x => _vignette.color.value = x, 
+            Color.black, duration);
     }
     
 }

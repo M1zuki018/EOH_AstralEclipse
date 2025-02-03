@@ -33,6 +33,7 @@ public class NormalAttack_End : AttackAdjustBase
         await UniTask.Delay(250);
         
         _animator.SetFloat("AttackSpeed", 1.8f);
+        if(_hitDetector.IsHit()) CameraManager.Instance?.TurnEffect();
         
         await UniTask.Delay(80);
         
@@ -47,9 +48,11 @@ public class NormalAttack_End : AttackAdjustBase
         AudioManager.Instance?.PlaySEDelay(4, 150); //着地
         _animator.SetFloat("AttackSpeed", 1f);
         
+        if(_hitDetector.IsHit()) CameraManager.Instance?.ApplyHitStopWithEffects(0.006f);
+        CameraManager.Instance?.EndDashEffect();
+        
         await UniTask.Delay(300);
-        Debug.Log(
-            _hitDetectionInfo[2]);
+        Debug.Log(_hitDetectionInfo[2]);
         _hitDetector.DetectHit(_hitDetectionInfo[2]); 
     }
 

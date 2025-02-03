@@ -49,6 +49,7 @@ public class NormalAttack_First : AttackAdjustBase
             _isAttacking = true; //突進の処理を有効化
             
             CameraManager.Instance?.DashEffect(); //ブラーなどの効果をかける
+            CameraManager.Instance?.ApplyHitStop(0.007f);
             
             //突進が完了するまでアニメーションのスピードを設定する
             Observable
