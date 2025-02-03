@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e49b959d142d1fe459d946af3c2bbeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugMode: 6
+  _debugMode: 0
   _skipOpening: 0
   _enemies:
   - {fileID: 1054818439}
@@ -4555,7 +4555,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.680001
+  m_CameraDistance: 4.400001
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -4682,7 +4682,7 @@ Transform:
   m_GameObject: {fileID: 707531206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.660215, z: -3.680001}
+  m_LocalPosition: {x: 0, y: 5.7365613, z: -4.400001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

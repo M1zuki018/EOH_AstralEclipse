@@ -1,5 +1,6 @@
 
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UI.Interface;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 /// </summary>
 public class DamageAmountUI : MonoBehaviour, ITextUI
 {
-    [SerializeField, HighlightIfNull] private Text _text;
+    [SerializeField, HighlightIfNull] private TMP_Text _text;
     [SerializeField, HighlightIfNull] private CanvasGroup _canvasGroup;
     [SerializeField, Comment("オフセット")] private Vector3 _offset = new Vector3(0, 2.5f, 0);
     [SerializeField, Comment("数字の散らばる範囲")] private Vector2 _dispersion = new Vector2(50, 50);

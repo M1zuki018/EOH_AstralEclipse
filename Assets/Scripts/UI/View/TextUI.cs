@@ -1,7 +1,7 @@
+using TMPro;
 using UI.Base;
 using UI.Interface;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI.View
 {
@@ -10,7 +10,7 @@ namespace UI.View
     /// </summary>
     public class TextUI : UIElementBase, ITextUI
     {
-        [SerializeField] private Text _text;
+        [SerializeField] private TMP_Text _text;
     
         /// <summary>
         /// テキストを更新する

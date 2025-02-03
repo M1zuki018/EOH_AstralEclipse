@@ -1,8 +1,8 @@
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 using UI.Base;
 using UI.Interface;
-using UnityEngine.UI;
 
 namespace UI.View
 {
@@ -11,7 +11,7 @@ namespace UI.View
     /// </summary>
     public class NumberUI : UIElementBase, INumberUI
     {
-        [SerializeField] private Text _numberText;
+        [SerializeField] private TMP_Text _numberText;
 
         /// <summary>
         /// 数字を少しずつ変更する

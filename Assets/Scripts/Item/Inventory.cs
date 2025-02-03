@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         UIManager.Instance?.UpdateQuestText(
-            $"Collect the keys\nGoal {_collectedKeys.Count} / 3");
+            $"ドアを起動するためのスイッチを\n操作する ( {_collectedKeys.Count} / 3 )");
     }
     
     /// <summary>
@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
     {
         _collectedKeys.Add(keyName);
         UIManager.Instance?.UpdateQuestText(
-            $"Collect the keys\nGoal {_collectedKeys.Count} / 3");
+            $"ドアを起動するためのスイッチを\n操作する ( {_collectedKeys.Count} / 3 )");
 
         if (HasAllKeys())
         {
@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
     /// </summary>
     private void QuestFinished()
     {
-        UIManager.Instance?.UpdateQuestText($"Head to the boss door.");
+        UIManager.Instance?.UpdateQuestText($"ドアへ向かう");
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
     public void UseKey()
     {
         _collectedKeys.Clear();
-        UIManager.Instance?.UpdateQuestText($"Fight the boss.");
+        UIManager.Instance?.UpdateQuestText($"敵を倒す");
         UIManager.Instance?.ShowBossUI();
     }
 }
