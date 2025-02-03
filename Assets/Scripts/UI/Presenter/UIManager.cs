@@ -166,7 +166,15 @@ public class UIManager : MonoBehaviour
     public void ShowDamageAmount(int damage, Transform target)
     {
         DamageAmountUI damageAmount = _damegeUIPool.GetInstance();
-        damageAmount.Show(damage, target); //表示
+        if (target.gameObject.CompareTag("Player"))
+        {
+            damageAmount.Show(damage, target, false, true); //プレイヤーの場合
+        }
+        else
+        {
+            damageAmount.Show(damage, target, false, false); //敵の場合
+        }
+        
     }
 
     /// <summary>クエスト更新時に黄色い光のアニメーションを表示する</summary>
