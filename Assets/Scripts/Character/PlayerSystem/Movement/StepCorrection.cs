@@ -14,7 +14,9 @@ public class StepCorrection : StateMachineBehaviour
     private Vector3 _moveDirection;
     private CharacterController _cc;
     private PlayerMovement _playerMovement;
+    
     private CompositeDisposable _disposables = new CompositeDisposable();
+    
     
     private void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -24,7 +26,6 @@ public class StepCorrection : StateMachineBehaviour
         _playerMovement.PlayerState.IsSteping = true; //ステップ状態にする
 
         Vector3 direction = _playerMovement.PlayerState.MoveDirection.normalized;
-
         
         if (direction.magnitude > 0.05f)
         {
@@ -38,9 +39,9 @@ public class StepCorrection : StateMachineBehaviour
         }
         _moveDirection.y = 0; //Y成分を除く
         animator.gameObject.transform.rotation = Quaternion.LookRotation(_moveDirection); //プレイヤーの向きを変更する
-        
+
+        CameraManager.Instance?.StepEffect();
         AudioManager.Instance?.PlaySE(7);
-        
         
         //指定時間の間補正を行う
         Observable.Timer(TimeSpan.FromSeconds(_correctionStartTime))
@@ -60,6 +61,7 @@ public class StepCorrection : StateMachineBehaviour
 
     private void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        CameraManager.Instance?.StepEffectEnd();
         _playerMovement.PlayerState.IsSteping = false; //ステップ状態を解除する
     }
 }

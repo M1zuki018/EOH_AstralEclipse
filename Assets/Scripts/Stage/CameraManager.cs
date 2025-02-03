@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// カメラの管理を行うクラス
@@ -9,9 +11,19 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance;
 
+    //カメラ
     [SerializeField] private List<CinemachineVirtualCamera> _virtualCameras = new List<CinemachineVirtualCamera>();
     [SerializeField] private CinemachineTargetGroup _targetGroup;
     [SerializeField] private CinemachineImpulseSource _impulseSource;
+    
+    //Volume
+    [SerializeField] private Volume _volume;
+    private MotionBlur _motionBlur;
+    private Vignette _vignette;
+    private ChromaticAberration _chromaticAberration;
+    private Bloom _bloom;
+
+    private int _currentCameraIndex; //現在のカメラ
     
     private void Awake()
     {
@@ -24,6 +36,11 @@ public class CameraManager : MonoBehaviour
         {
             Destroy(this);
         }
+        
+        _volume.profile.TryGet(out _motionBlur);
+        _volume.profile.TryGet(out _vignette);
+        _volume.profile.TryGet(out _chromaticAberration);
+        
     }
 
     /// <summary>
@@ -40,6 +57,7 @@ public class CameraManager : MonoBehaviour
             else
             {
                 _virtualCameras[i].Priority = 15; //使用するカメラ
+                _currentCameraIndex = index;
             }
         }
     }
@@ -73,5 +91,29 @@ public class CameraManager : MonoBehaviour
     public void TriggerCameraShake()
     {
         _impulseSource.GenerateImpulse();
+    }
+
+    /// <summary>
+    /// ステップ中のエフェクト
+    /// </summary>
+    public void StepEffect()
+    {
+        //FOVの調整
+        _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView
+            = Mathf.Lerp(_virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView + 2, 0.2f);
+
+        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.8f, 0.2f); //モーションブラー
+        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.5f, 0.2f); //ビネット
+        _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.5f, 0.2f); //色収差
+    }
+    
+    public void StepEffectEnd()
+    {
+        _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView
+            = Mathf.Lerp(_virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView - 2, 0.3f);
+
+        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.2f, 0.3f);
+        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.25f, 0.3f);
+        _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.05f, 0.3f);
     }
 }
