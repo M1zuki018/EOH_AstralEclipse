@@ -73,6 +73,7 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         }
         else //ボス
         {
+            UIManager.Instance?.ShowDamageAmount(damage, transform);
             UIManager.Instance?.UpdateBossHP(GetCurrentHP()); //スライダー更新
             UIManager.Instance?.UpdateRemainingHP(Mathf.RoundToInt((float)GetCurrentHP() / _health.MaxHP * 100)); //パーセント表記更新
         }

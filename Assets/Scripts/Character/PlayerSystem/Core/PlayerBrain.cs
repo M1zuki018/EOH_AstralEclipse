@@ -118,6 +118,7 @@ public class PlayerBrain : CharacterBase
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
+        UIManager.Instance?.ShowDamageAmount(damage, transform); //TODO:どうするか
         UIManager.Instance?.UpdatePlayerHP(GetCurrentHP());
         _playerMovement._animator.SetTrigger("Damage");
         CameraManager.Instance?.TriggerCameraShake();

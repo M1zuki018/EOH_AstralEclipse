@@ -30,6 +30,12 @@ public class Health : MonoBehaviour, IHealth
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
         if(attacker.tag == this.tag) return;
+
+        if (this.gameObject.CompareTag("Player"))
+        {
+            TryGetComponent(out PlayerMovement movement);
+            if(movement.PlayerState.IsSteping) return; //ステップ中の場合、ダメージを受けない
+        }
         
         CurrentHP -= amount;
         OnDamaged?.Invoke(amount, attacker); //ダメージイベント発火
