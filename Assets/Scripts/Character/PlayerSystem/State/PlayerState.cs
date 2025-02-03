@@ -24,6 +24,7 @@ namespace PlayerSystem.State
         public bool IsVaulting { get; set; } //乗り越えアクション中か
         public bool IsGuarding { get; set; } //ガード中か
         public bool IsAttacking { get; set; } //攻撃中か
+        public bool IsSteping { get; set; } //ステップ中か
 
         public bool CanClimb { get; set; } //壁のぼりできるか
         public bool CanBigJump { get; set; } //大ジャンプできるか

@@ -64,25 +64,9 @@ public class StepFunction : MonoBehaviour, ISteppable
         //ステップ回数を減らすのと、UIを更新する
         _currentSteps--;
         UIManager.Instance?.UpdateStepCount(_currentSteps);
-
-        Vector3 velocity = _playerMovement.PlayerState.MoveDirection;
-        float moveSpeed = _playerMovement.PlayerState.MoveSpeed;
-        
-        if (velocity.magnitude < 0.1f) //入力がなかったら正面方向にステップ
-        {
-            _playerMovement._animator.SetFloat("XVelocity", 1);
-            _playerMovement._animator.SetFloat("ZVelocity", 0);            
-        }
-        else //入力があれば、それに応じた方向にステップできるようにAnimatorに値を渡す
-        {
-            _playerMovement._animator.SetFloat("XVelocity", velocity.x * moveSpeed);
-            _playerMovement._animator.SetFloat("ZVelocity", velocity.z * moveSpeed);
-        }
         
         //ステップアニメーションをトリガーする
         _playerMovement._animator.SetTrigger("Step");
-        
-        //AudioManager.Instance.PlaySE(7);
     }
     
     /// <summary>
