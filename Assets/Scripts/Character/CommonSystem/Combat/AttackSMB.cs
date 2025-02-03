@@ -1,5 +1,4 @@
 using PlayerSystem.Fight;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -29,7 +28,12 @@ public class AttackSMB : StateMachineBehaviour
         
         if (animator.CompareTag("Player"))
         {
-            _attackCorrection = GetAttackCorrection(animator); //補正クラスを取得する
+            _attackCorrection = GetAttackCorrectionByPlayer(animator); //補正クラスを取得する
+            _attackCorrection.StartAttack();
+        }
+        else if (animator.CompareTag("Enemy"))
+        {
+            _attackCorrection = GetAttackCorrectionByEnemy(animator);
             _attackCorrection.StartAttack();
         }
         
@@ -51,7 +55,7 @@ public class AttackSMB : StateMachineBehaviour
     /// <summary>
     /// 攻撃タイプごとの補正クラスを決定する
     /// </summary>
-    private AttackAdjustBase GetAttackCorrection(Animator animator)
+    private AttackAdjustBase GetAttackCorrectionByPlayer(Animator animator)
     {
         AttackAdjustBase collection = null;
         
@@ -71,6 +75,34 @@ public class AttackSMB : StateMachineBehaviour
                 break;
             case 4:
                 collection = animator.GetComponent<NormalAttack_End>(); //5段目
+                break;
+            default:
+                collection =  animator.GetComponent<NormalAttackCorrection>(); //デフォルトの攻撃補正
+                break;
+        }
+
+        if (collection == null)
+        {
+            Debug.LogWarning("補正クラスが取得できませんでした");
+        }
+
+        return collection;
+    }
+
+    /// <summary>
+    /// 攻撃タイプごとの補正クラスを決定する（Enemy用）
+    /// </summary>
+    private AttackAdjustBase GetAttackCorrectionByEnemy(Animator animator)
+    {
+        AttackAdjustBase collection = null;
+        
+        switch (_attackIndex)
+        {
+            case 0:
+                collection = animator.GetComponent<EnemyNormalAttack_Swiping>();  //殴り
+                break;
+            case 1:
+                collection =  animator.GetComponent<EnemyNormalAttack_JumpAttack>(); //飛び上がる
                 break;
             default:
                 collection =  animator.GetComponent<NormalAttackCorrection>(); //デフォルトの攻撃補正
