@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce1f7dcc1c29db4aaf7633e7f4fa289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackDamage: 40
+  _attackDamage: 5
   _adjustDirection: {fileID: 3444035731517609805}
   _attackCooldown: 4
 --- !u!114 &9115073611720309100
@@ -337,9 +337,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitDetectionInfo:
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: -0.3, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Size: {x: 1, y: 1, z: 1}
+    Size: {x: 0.8, y: 1, z: 1}
     Duration: 0.2
 --- !u!114 &1144663450389710944
 MonoBehaviour:

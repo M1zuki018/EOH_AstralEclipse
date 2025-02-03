@@ -27,7 +27,7 @@ public class BossAttackPattern : MonoBehaviour
     private PlayerInput _playerInput;
     private Material _defaultMaterial;
     
-    private List<GameObject > _verticalLasers = new List<GameObject>();
+    private List<GameObject> _verticalLasers = new List<GameObject>();
     private float _speed = 120f; //垂直レーザーのスピード
     private float _premotionTime = 1f; //茨攻撃の予兆時間
 
@@ -68,12 +68,19 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     public void GenerateVerticalLaser(Vector3 position)
     {
-        _verticalLasers.Clear(); //リストを初期化
         GameObject obj = Instantiate(_verticalLaserPrefab);
         obj.transform.position = position;
         var controller = obj.GetComponent<VirticalLaserControl>();
         controller.SetCombat(_combat);
         _verticalLasers.Add(obj);
+    }
+
+    /// <summary>
+    /// 垂直方向のレーザーのリストをリセットする
+    /// </summary>
+    public void ResetVerticalLasers()
+    {
+        _verticalLasers.Clear();
     }
 
     /// <summary>

@@ -82,6 +82,8 @@ public class AttackHitDetector : MonoBehaviour
                 if (_hitDetectionCoroutine != null)
                 {
                     StopCoroutine(_hitDetectionCoroutine);
+                    _detectedCollider.enabled = false; //無効化
+                    _isHitDetected = false;
                 }
                 _hitDetectionCoroutine = StartCoroutine(HitDetectionCooldown());
             }
@@ -106,5 +108,18 @@ public class AttackHitDetector : MonoBehaviour
         _detectedCollider.enabled = false; //無効化
         _isHitDetected = false;
         _hitDetectionCoroutine = null;
+    }
+
+    /// <summary>
+    /// コルーチンをリセットする
+    /// </summary>
+    public void DetectReset()
+    {
+        if (_hitDetectionCoroutine != null)
+        {
+            StopCoroutine(_hitDetectionCoroutine); //コルーチンの処理が行われていたら処理をやめる
+            _detectedCollider.enabled = false; //そのうえでコライダーを無効にする
+            _isHitDetected = false;
+        }
     }
 }

@@ -7214,3 +7214,5 @@ Assets/Resource/Fonts/Zen_Kaku_Gothic_New/ZenKakuGothicNew-Regular.ttf
 Assets/Resource/Fonts/Zen_Kaku_Gothic_New/ZenKakuGothicNew-Regular.ttf.meta
 Assets/Audio/Clip/SE/GameStart.mp3
 Assets/Audio/Clip/SE/GameStart.mp3.meta
+Assets/Scripts/AnimatorUtility/DetecterResetSMB.cs
+Assets/Scripts/AnimatorUtility/DetecterResetSMB.cs.meta

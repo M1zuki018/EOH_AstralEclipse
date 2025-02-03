@@ -83,6 +83,7 @@ public class BossMover : MonoBehaviour
 
         _attackPattern.Animator.SetInteger("AttackType", 1);
         _attackPattern.Animator.SetTrigger("Attack");
+        _attackPattern.ResetVerticalLasers();
         //垂直レーザーを生成
         float generatoPos = transform.position.x - 14f;
         for (int i = 0; i < 6; i++)
