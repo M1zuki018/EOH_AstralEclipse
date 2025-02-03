@@ -62,7 +62,7 @@ public class DamageAmountUI : MonoBehaviour, ITextUI
         _canvasGroup.alpha = 1; //透明度をリセット
         
         //演出のための判断
-        Vector3 moveDirection = isPlayerHit ? Vector3.down * 15f : Vector3.up * 25f; //被ダメージなら下向きに移動させる
+        Vector3 moveDirection = isPlayerHit ? Vector3.down * 5f : Vector3.up * 10f; //被ダメージなら下向きに移動させる
         Color textColor = isPlayerHit ? Color.red : //被ダメなら赤
             (isCritical ? new Color(1f, 0.5f, 0f) : Color.white); //敵のダメージの場合、クリティカルならオレンジにする 
         float scaleMultiplier = isCritical ? 1.5f : 1.2f; //テキストの拡大率。クリティカルならより大きくする

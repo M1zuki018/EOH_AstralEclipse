@@ -136,8 +136,8 @@ public class CameraManager : MonoBehaviour
         DOTween.To(
             () => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
             x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x, 
-            _defaultFOV + 30, 
-            0.2f); // 30度拡大する
+            _defaultFOV + 15, 
+            0.2f);
 
         // 画面効果を加える
         _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.8f, 0.3f);

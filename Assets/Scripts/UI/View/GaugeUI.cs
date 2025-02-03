@@ -18,8 +18,7 @@ namespace UI.View
         /// </summary>
         public void SetValue(float endValue, float duration)
         {
-            Debug.Log("呼ばれた");
-            _gaugeImage.DOFillAmount(endValue, duration).SetEase(Ease.OutQuad);
+            _gaugeImage.DOFillAmount(endValue, duration).SetEase(Ease.Linear);
         }
         
         /// <summary>
@@ -28,7 +27,7 @@ namespace UI.View
         public void ResetAndSetValue(float endValue, float duration)
         {
             _gaugeImage.fillAmount = 0;
-            _gaugeImage.DOFillAmount(endValue, duration).SetEase(Ease.OutQuad);
+            _gaugeImage.DOFillAmount(endValue, duration).SetEase(Ease.Linear);
         }
     }
 }
