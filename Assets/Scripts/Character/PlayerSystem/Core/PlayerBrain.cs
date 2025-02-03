@@ -36,6 +36,7 @@ public class PlayerBrain : CharacterBase
             UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
             UIManager.Instance?.HideRightUI();
             UIManager.Instance?.HideFirstText();
+            UIManager.Instance?.HideStartText();
         }
         
         //TODO: 最初からモーションを流せるように変更する
@@ -66,12 +67,18 @@ public class PlayerBrain : CharacterBase
         
     }
 
-    private void GameStart(InputAction.CallbackContext context)
+    private async void GameStart(InputAction.CallbackContext context)
     {
         Debug.Log("Game started");
+        AudioManager.Instance?.PlaySE(9);
+        UIManager.Instance?.ShowStartText();
         UIManager.Instance?.HideFirstText();
         UIManager.Instance?.ShowRightUI();
         _playerInput.ActivateInput();
+        
+        await UniTask.Delay(500);
+        
+        UIManager.Instance.HideStartText(); //「GameStart」の文字を非表示にする
     }
     
     /// <summary>

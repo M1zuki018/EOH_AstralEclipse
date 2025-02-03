@@ -1311,6 +1311,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &307624514 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8455293815239576386, guid: d68890645e5d79843a8c72504bed5cc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406826974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fbff9dc98c520145a46b44be9d20e03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &310657876
 Mesh:
   m_ObjectHideFlags: 0
@@ -8593,6 +8605,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908f5674b15c4a3479d297f6b269a42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1825901562 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4963438802613735818, guid: d68890645e5d79843a8c72504bed5cc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406826974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158fc2b617a2ad3448ed08229ee85eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1829853019
 GameObject:
   m_ObjectHideFlags: 0
@@ -10379,9 +10403,19 @@ PrefabInstance:
       objectReference: {fileID: 721584072}
     - target: {fileID: 6359940143694788718, guid: 05ea3c650f31ab343bfef522fd1f83b6,
         type: 3}
+      propertyPath: _firstExplain
+      value: 
+      objectReference: {fileID: 307624514}
+    - target: {fileID: 6359940143694788718, guid: 05ea3c650f31ab343bfef522fd1f83b6,
+        type: 3}
       propertyPath: _questMessage
       value: 
       objectReference: {fileID: 1115500726}
+    - target: {fileID: 6359940143694788718, guid: 05ea3c650f31ab343bfef522fd1f83b6,
+        type: 3}
+      propertyPath: _gameStartText
+      value: 
+      objectReference: {fileID: 1825901562}
     - target: {fileID: 6359940143694788718, guid: 05ea3c650f31ab343bfef522fd1f83b6,
         type: 3}
       propertyPath: _questUpdateUI

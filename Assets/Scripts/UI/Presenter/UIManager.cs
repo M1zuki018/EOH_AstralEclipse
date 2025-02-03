@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextUI _bossRemainingHP; //ボスの残りHPのパーセント表記のUI
     [SerializeField] private TextUI _questMessage; //クエスト中の警告を表示するテキスト
     [SerializeField] private IconUI _firstExplain; //最初のゲーム説明のテキストウィンドウ
+    [SerializeField] private TextUI _gameStartText; //「GameStart」の文字UI
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
@@ -218,4 +219,11 @@ public class UIManager : MonoBehaviour
     
     /// <summary>ゲーム開始時の説明を非表示にする</summary>
     public void HideFirstText() => _firstExplain.Hide();
+    
+    /// <summary>「GameStart」テキストを表示する</summary>
+    public void ShowStartText() => _gameStartText.Show();
+    
+    
+    /// <summary>「GameStart」テキストを非表示にする</summary>
+    public void HideStartText() => _gameStartText.Hide();
 }
