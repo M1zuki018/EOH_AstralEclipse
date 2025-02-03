@@ -122,7 +122,7 @@ public class CameraManager : MonoBehaviour
         _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView
             = Mathf.Lerp(_defaultFOV, _defaultFOV - 2, 0.3f);
 
-        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.2f, 0.3f);
+        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.1f, 0.3f);
         _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.25f, 0.3f);
         _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.05f, 0.3f);
     }
@@ -161,7 +161,7 @@ public class CameraManager : MonoBehaviour
             0.3f);
 
         // 画面効果を元に戻す
-        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.2f, 0.3f);
+        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.1f, 0.3f);
         _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.25f, 0.3f);
         _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.05f, 0.3f);
 
