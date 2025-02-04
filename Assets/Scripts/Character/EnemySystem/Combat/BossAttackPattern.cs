@@ -255,7 +255,7 @@ public class BossAttackPattern : MonoBehaviour
         //TODO: ボスが魔法陣を展開
         //TODO: プレイヤーの移動速度や攻撃速度が低下。ボスは通常の1.5倍速で移動しながら攻撃する
         
-        await UniTask.Delay(200);
+        await UniTask.Delay(2000);
         
         Debug.Log("時間停止発動の合図の演出");
         

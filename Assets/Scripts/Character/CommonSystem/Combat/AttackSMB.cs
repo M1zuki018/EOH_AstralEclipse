@@ -26,6 +26,8 @@ public class AttackSMB : StateMachineBehaviour
         
         animator.applyRootMotion = false; //補正をかけるため一度ルートモーションを無効にする
         
+        Debug.Log("呼ばれた");
+        
         if (animator.CompareTag("Player"))
         {
             _attackCorrection = GetAttackCorrectionByPlayer(animator); //補正クラスを取得する
@@ -103,6 +105,18 @@ public class AttackSMB : StateMachineBehaviour
                 break;
             case 1:
                 collection =  animator.GetComponent<EnemyNormalAttack_JumpAttack>(); //飛び上がる
+                break;
+            case 2:
+                collection =  animator.GetComponent<BossAttack_First>(); //ボスの攻撃
+                break;
+            case 3:
+                collection =  animator.GetComponent<BossAttack_Second>();
+                break;
+            case 4:
+                collection =  animator.GetComponent<BossAttack_Tried>();
+                break;
+            case 5:
+                collection =  animator.GetComponent<BossAttack_Fourth>();
                 break;
             default:
                 collection =  animator.GetComponent<NormalAttackCorrection>(); //デフォルトの攻撃補正
