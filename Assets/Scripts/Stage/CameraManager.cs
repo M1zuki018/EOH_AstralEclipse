@@ -46,7 +46,11 @@ public class CameraManager : MonoBehaviour
         _volume.profile.TryGet(out _motionBlur);
         _volume.profile.TryGet(out _vignette);
         _volume.profile.TryGet(out _chromaticAberration);
-        
+
+        CinemachineFramingTransposer transposer =
+            _virtualCameras[0].GetCinemachineComponent<CinemachineFramingTransposer>();
+        transposer.m_CameraDistance = 3f; //メインカメラの距離を初期化
+
     }
 
     /// <summary>
