@@ -71,6 +71,18 @@ public class CameraManager : MonoBehaviour
                 _defaultFOV = _virtualCameras[i].m_Lens.FieldOfView; //FOVを更新・保存
             }
         }
+
+        //カメラのFOVをリセットする処理
+        if (index == 0) SetFOV(0,60);
+        else if (index == 4) SetFOV(4, 40);
+    }
+
+    /// <summary>
+    /// カメラのインデックスと値を指定してFOVを変更する
+    /// </summary>
+    public void SetFOV(int cameraIndex, float value)
+    {
+        _virtualCameras[cameraIndex].m_Lens.FieldOfView = value;
     }
 
     /// <summary>
