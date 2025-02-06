@@ -2988,6 +2988,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 571220578}
+    - target: {fileID: 2094251460255474032, guid: 2396eb465f87e90459e7eae7e6b935d0,
+        type: 3}
+      propertyPath: _maxHPData
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2136940095460296981, guid: 2396eb465f87e90459e7eae7e6b935d0,
         type: 3}
       propertyPath: m_Mesh

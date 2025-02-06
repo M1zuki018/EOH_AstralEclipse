@@ -1,6 +1,8 @@
 using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using PlayerSystem.Fight;
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -10,6 +12,7 @@ public class BossMover : MonoBehaviour
 {
     [SerializeField] private BossAttackPattern _attackPattern;
 
+    private Health _health;
     private CharacterController _cc;
     private Vector3 _initializePos;
     private int _patternCount;
@@ -17,9 +20,17 @@ public class BossMover : MonoBehaviour
 
     private void Start()
     {
+        _health = GetComponent<Health>();
         _cc = GetComponent<CharacterController>();
         _initializePos = transform.position;
         transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //空中に移動
+        
+        Observable
+            .EveryUpdate()
+            .Where(_ => _health != null && _health.CurrentHP <= _health.MaxHP * 0.1f) //HP10%以下になったら
+            .Take(1) //一度だけに制限
+            .Subscribe(_ => _attackPattern.FinalTimeControl()) //特殊攻撃パターンを実行
+            .AddTo(this);
     }
 
     /// <summary>
