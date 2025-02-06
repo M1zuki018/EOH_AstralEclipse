@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -18,6 +20,9 @@ public class NormalAttack_Second : AttackAdjustBase
     private float _distance; //敵との距離
     private float _totalDistanceToCover; //_distanceと_adjustDistanceの差
     
+    private CancellationTokenSource _cts;
+    private bool _isAttacking;
+    
     /// <summary>
     /// 攻撃開始時に呼び出される処理
     /// </summary>
@@ -26,6 +31,9 @@ public class NormalAttack_Second : AttackAdjustBase
         _lastValidPosition = transform.position; //初期化
         
         _target = _adjustDirection.Target;
+        _isAttacking = true;
+        _cts = new CancellationTokenSource();
+        
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
         
         //ターゲットがいる場合の処理
@@ -65,20 +73,33 @@ public class NormalAttack_Second : AttackAdjustBase
                     _forwardDistance,
                     0.5f)
                 .SetEase(Ease.Linear);
+                
         }
         else
         {
             _animator.applyRootMotion = true;
         }
-
-        await UniTask.Delay(130);
         
-        AudioManager.Instance?.PlaySE(3);
+        try
+        {
+            await UniTask.Delay(130);
         
-        await UniTask.Delay(100);
-
-        _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
-        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
+            AudioManager.Instance?.PlaySE(3);
+        
+            await UniTask.Delay(100);
+            
+            _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
+            _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("攻撃処理がキャンセルされました");
+        }
+        finally
+        {
+            _isAttacking = false;
+            _cts.Dispose();
+        }
     }
 
     public override void CorrectMovement(Vector3 forwardDirection)
@@ -103,8 +124,15 @@ public class NormalAttack_Second : AttackAdjustBase
         }
     }
 
+    /// <summary>
+    /// 攻撃処理を中断したい時に呼ぶMethod
+    /// </summary>
     public override void CancelAttack()
     {
-        
+        if (_isAttacking && _cts != null)
+        {
+            _cts.Cancel();
+            Debug.Log("攻撃がキャンセルされました");
+        }
     }
 }

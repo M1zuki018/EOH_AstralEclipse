@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -10,16 +12,22 @@ public class NormalAttack_Turn : AttackAdjustBase
     [SerializeField] private EffectPositionInfo _effectPositionInfo;
     [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
     private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
+    
+    private CancellationTokenSource _cts;
+    private bool _isAttacking;
 
     public override async void StartAttack()
     {
         _lastValidPosition = transform.position; //初期化
-        _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
         
-        CameraManager.Instance?.TurnEffect();
         _target = _adjustDirection.Target;
+        _isAttacking = true;
+        _cts = new CancellationTokenSource();
+        
+        CameraManager.Instance?.TurnEffect(); //画面エフェクトを適用
         _hitDetector.DetectHit(_hitDetectionInfo[0]); //当たり判定を発生させる
-        CameraManager.Instance?.ApplyHitStop(0.007f);
+        _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
+        CameraManager.Instance?.ApplyHitStop(0.007f); //ヒットストップをかける
         
         if (_target != null)
         {
@@ -31,12 +39,26 @@ public class NormalAttack_Turn : AttackAdjustBase
             _animator.applyRootMotion = true;
         }
 
-        AudioManager.Instance?.PlaySE(8);
+        try
+        {
+            AudioManager.Instance?.PlaySE(8);
         
-        await UniTask.Delay(300);
+            await UniTask.Delay(300);
         
-        CameraManager.Instance?.EndDashEffect();
-        _hitDetector.DetectHitOnce(_hitDetectionInfo[1]); //回転後の判定
+            CameraManager.Instance?.EndDashEffect();
+            _hitDetector.DetectHitOnce(_hitDetectionInfo[1]); //回転後の判定
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("攻撃処理がキャンセルされました");
+        }
+        finally
+        {
+            _isAttacking = false;
+            CameraManager.Instance?.EndDashEffect();
+            _cts.Dispose();
+        }
+        
     }
 
     public override void CorrectMovement(Vector3 forwardDirection)
@@ -61,8 +83,15 @@ public class NormalAttack_Turn : AttackAdjustBase
         }
     }
 
+    /// <summary>
+    /// 攻撃処理を中断したい時に呼ぶMethod
+    /// </summary>
     public override void CancelAttack()
     {
-        
+        if (_isAttacking && _cts != null)
+        {
+            _cts.Cancel();
+            Debug.Log("攻撃がキャンセルされました");
+        }
     }
 }

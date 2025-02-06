@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UniRx;
@@ -18,13 +20,16 @@ public class NormalAttack_First : AttackAdjustBase
     [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
     private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
 
-    private bool _isAttacking = false; //突進中かどうか
+    private bool _isRush = false; //突進中かどうか
     private float _distance; //敵との距離
     private float _totalDistanceToCover; //_distanceと_adjustDistanceの差
     
+    private CancellationTokenSource _cts;
+    private bool _isAttacking;
+    
     private void Update()
     {
-        if (_isAttacking && _target != null)
+        if (_isRush && _target != null)
         {
             HandleApproach(); //突進処理
         }
@@ -36,6 +41,8 @@ public class NormalAttack_First : AttackAdjustBase
     public override void StartAttack()
     {
         _target = _adjustDirection.Target;
+        _isAttacking = true;
+        _cts = new CancellationTokenSource();
 
         //ターゲットがいる場合のみ行う処理
         if (_target != null)
@@ -47,7 +54,7 @@ public class NormalAttack_First : AttackAdjustBase
         if (_distance > _adjustDistance && _distance < _attackDistance) //補正がかかる距離よりも遠く、かつ有効距離内にいる場合
         {
             _totalDistanceToCover = _distance - _adjustDistance; // 距離の差を計算
-            _isAttacking = true; //突進の処理を有効化
+            _isRush = true; //突進の処理を有効化
             
             CameraManager.Instance?.DashEffect(); //ブラーなどの効果をかける
             CameraManager.Instance?.ApplyHitStop(0.007f);
@@ -102,18 +109,30 @@ public class NormalAttack_First : AttackAdjustBase
     /// </summary>
     private async void TriggerSlash()
     {
-        CameraManager.Instance?.EndDashEffect(); //通常のエフェクトに戻す
-        _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
-        
-        _isAttacking = false;
-        _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
-        _animator.applyRootMotion = true;
-        
-        AudioManager.Instance?.PlaySE(3);
+        try
+        {
+            CameraManager.Instance?.EndDashEffect(); //通常のエフェクトに戻す
+            _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
 
-        await UniTask.Delay(200);
-        
-        _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる;
+            _isRush = false;
+            _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);
+            _animator.applyRootMotion = true;
+
+            AudioManager.Instance?.PlaySE(3);
+
+            await UniTask.Delay(200);
+
+            _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる;
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("攻撃処理がキャンセルされました");
+        }
+        finally
+        {
+            _isAttacking = false;
+            _cts.Dispose();
+        }
     }
     
     /// <summary>
@@ -161,8 +180,16 @@ public class NormalAttack_First : AttackAdjustBase
         }
     }
 
+    /// <summary>
+    /// 攻撃処理を中断したい時に呼ぶMethod
+    /// </summary>
     public override void CancelAttack()
     {
-        
+        if (_isAttacking && _cts != null)
+        {
+            _cts.Cancel();
+            CameraManager.Instance?.EndDashEffect();
+            Debug.Log("攻撃がキャンセルされました");
+        }
     }
 }
