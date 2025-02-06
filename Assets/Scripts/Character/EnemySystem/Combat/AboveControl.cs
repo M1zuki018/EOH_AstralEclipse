@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
 
@@ -6,17 +7,33 @@ using UnityEngine;
 /// </summary>
 public class AboveControl : MonoBehaviour
 {
+    [SerializeField] private GameObject _arm;
     private Collider _collider;
     private ICombat _combat;
 
     private void OnEnable()
     {
         _collider = GetComponent<Collider>();
+        _collider.enabled = false;
+        _arm.SetActive(false); //最初は非表示
     }
 
     public void SetCombat(ICombat combat)
     {
         _combat = combat;
+    }
+
+    /// <summary>
+    /// 攻撃時に呼び出すメソッド
+    /// </summary>
+    public async void Attack()
+    {
+        _collider.enabled = true;
+        _arm.SetActive(true);
+        
+        await UniTask.Delay(2500);
+        
+        Destroy(gameObject);
     }
     
     private void OnTriggerEnter(Collider other)

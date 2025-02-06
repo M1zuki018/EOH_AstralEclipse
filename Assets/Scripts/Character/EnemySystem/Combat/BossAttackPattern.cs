@@ -156,17 +156,14 @@ public class BossAttackPattern : MonoBehaviour
         GameObject aboveObj = Instantiate(_abovePrefab);
         aboveObj.TryGetComponent(out AboveControl aboveCtrl);
         aboveCtrl.SetCombat(_combat);
-        aboveObj.transform.position = new Vector3(
-            _target.transform.position.x, _target.transform.position.y + 10f, _target.transform.position.z); 
         
         await UniTask.Delay(1400); //待って避けられるようにする
         
+        aboveCtrl.Attack();
         _animator.SetTrigger("Attack");
         
         await UniTask.Delay(1600);
         
-        //地面に墜落した後オブジェクト削除
-        aboveObj.transform.DOMoveY(-1, 0.5f).OnComplete(() => Destroy(aboveObj)); 
         //TODO:強力なダメージ＋吹き飛ばしを実装
     }
 

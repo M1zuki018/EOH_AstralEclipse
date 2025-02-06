@@ -9,12 +9,12 @@ using UnityEngine;
 public class ThornContorl : MonoBehaviour
 {
     [SerializeField] private GameObject _thorn; //棘のオブジェクト
-    private BoxCollider _collider;
+    private Collider _collider;
     private ICombat _combat;
 
     private void OnEnable()
     {
-        _collider = GetComponent<BoxCollider>();
+        _collider = GetComponent<Collider>();
         _collider.enabled = false; //最初は判定をとらない
         _thorn.SetActive(false); //棘のオブジェクトは最初は非表示にする
         //_thorn.transform.position = new Vector3(
