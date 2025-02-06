@@ -18,6 +18,7 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private GameObject _verticalLaserPrefab; //垂直レーザーのプレハブ
     [SerializeField] private GameObject _thornPrefab; //茨攻撃のプレハブ
     [SerializeField] private GameObject _abovePrefab; //上から降ってくる攻撃のプレハブ
+    [SerializeField] private GameObject _magicCirclePrefab; //魔法陣のプレハブ
     [SerializeField] private Volume _timeStopVolume; //時間停止中のGlobalVolume
     [SerializeField] private AudioMixerGroup _bgmMixer; 
     [SerializeField] private Material _glitchy; //グリッチシェーダーをかけたマテリアル
@@ -31,6 +32,7 @@ public class BossAttackPattern : MonoBehaviour
     private Material _defaultMaterial;
     private GameObject _shadowObj;
     private CharacterController _cc;
+    public Vector3 DefaultTransform { get; set; }
     
     private List<GameObject> _verticalLasers = new List<GameObject>();
     private float _speed = 120f; //垂直レーザーのスピード
@@ -68,6 +70,8 @@ public class BossAttackPattern : MonoBehaviour
             })
             .AddTo(this);
     }
+
+    #region 垂直レーザー
 
     /// <summary>
     /// 垂直方向のレーザーを生成して位置を変更してからリストに加える
@@ -109,6 +113,9 @@ public class BossAttackPattern : MonoBehaviour
             .AddTo(this);
     }
 
+    #endregion
+    
+    #region 茨
     /// <summary>
     /// 茨を生成する。プレイヤーの位置を一定時間ごとに更新してターゲット設定
     /// </summary>
@@ -150,6 +157,10 @@ public class BossAttackPattern : MonoBehaviour
         thornCtrl.ChangedMesh(); //メッシュ変更とオブジェクト破棄
     }
 
+    #endregion
+
+    #region パターン2
+
     /// <summary>
     /// 頭上から落とす広範囲攻撃(走って避ける)
     /// </summary>
@@ -178,6 +189,7 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     public void ShadowLatent()
     {
+        _cc.Move(DefaultTransform - transform.position); //デフォルトのTransformとの差分だけ移動させておく
         _shadowObj = Instantiate(_shadowPrefab, transform); //子オブジェクトに影オブジェクトを追加して保持
         _boss.transform.DOMoveY(-2.5f, 1.5f).OnComplete(() => ShadowMove()); //影に潜る
     }
@@ -230,6 +242,7 @@ public class BossAttackPattern : MonoBehaviour
         await UniTask.Delay(500); //一瞬おいてから攻撃開始
         
         ShadowFire();
+        Destroy(_shadowObj);
     }
 
     /// <summary>
@@ -241,6 +254,8 @@ public class BossAttackPattern : MonoBehaviour
         _animator.SetInteger("AttackType", 5);
         _animator.SetTrigger("Attack");
     }
+
+    #endregion
 
     /// <summary>
     /// 時間操作
@@ -259,7 +274,7 @@ public class BossAttackPattern : MonoBehaviour
         //演出
         Debug.Log("演出作成予定");
         //TODO: 空中にエネルギーが集まる
-        //TODO: ボスが魔法陣を展開
+        SpawnMagicCircle(); //魔法陣を展開
         //TODO: プレイヤーの移動速度や攻撃速度が低下。ボスは通常の1.5倍速で移動しながら攻撃する
         
         await UniTask.Delay(2000);
@@ -286,6 +301,44 @@ public class BossAttackPattern : MonoBehaviour
         //レーザー一斉照射
         //画面がフラッシュする
     }
+
+    /// <summary>
+    /// 魔法陣を生成する
+    /// </summary>
+    private void SpawnMagicCircle()
+    {
+        int countLower = 4; //下段に表示する魔法陣の数
+        int countUpper = 5; //上段に表示する魔法陣の数
+        float yOffsetLower = 0f; //ボスのY座標からどれだけ下に配置するか
+        float yOffsetUpper = 12f; //ボスのY座標からどれだけ上に配置するか
+        
+        
+        SpawnRow(countLower, yOffsetLower); //下段を生成
+        SpawnRow(countUpper, yOffsetUpper); //上段を生成
+    }
+
+    /// <summary>
+    /// 魔法陣のプレハブを生成する
+    /// </summary>
+    private void SpawnRow(int count, float baseYOffset)
+    {
+        float spacing = 18f; //魔法陣同士の間隔
+        float yDropFactor = 2f; //外側に向かうほど下げるY座標の変化量
+        
+        float startX = DefaultTransform.x - (spacing * (count - 1) / 2); 
+        float centerIndex = (count - 1) / 2f; 
+        
+        for (int i = 0; i < count; i++)
+        {
+            float x = startX + (i * spacing);
+            float yDrop = Mathf.Abs(i - centerIndex) * yDropFactor; // 中心から離れるほど下げる
+            float y =DefaultTransform.y + baseYOffset - yDrop;
+
+            Vector3 position = new Vector3(x, y, DefaultTransform.z);
+            Instantiate(_magicCirclePrefab, position, Quaternion.identity);
+        }
+    }
+    
 
     /// <summary>
     /// 死に際の時間操作（残りHP10%で発動）

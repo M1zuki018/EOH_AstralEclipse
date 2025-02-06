@@ -28,7 +28,8 @@ public class BossMover : MonoBehaviour
     public void BattleStart()
     {
         //Pattern1();
-        Pattern2();
+        //Pattern2();
+        Pattern3();
     }
 
     /// <summary>
@@ -136,6 +137,7 @@ public class BossMover : MonoBehaviour
     [ContextMenu("Pattern2")]
     public void Pattern2()
     {
+        _attackPattern.DefaultTransform = transform.position;
         _attackPattern.ShadowLatent();
         
         //TODO:ガード成功時：火花のようなエフェクト＋ボスが軽く後退。回避成功時：スローモーションを一瞬入れる
@@ -173,6 +175,7 @@ public class BossMover : MonoBehaviour
     public async void Pattern3()
     {
         Warp(new Vector3(100f, 15f, 250f));
+        _attackPattern.DefaultTransform = transform.position;
         
         await UniTask.Delay(500); //発動予兆0.5秒
         
