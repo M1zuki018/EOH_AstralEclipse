@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using PlayerSystem.Fight;
 using UnityEngine;
 
@@ -6,8 +8,7 @@ using UnityEngine;
 /// </summary>
 public class ThornContorl : MonoBehaviour
 {
-    [SerializeField] private MeshFilter _meshRenderer;
-    [SerializeField] private Mesh _cheangedMesh;
+    [SerializeField] private GameObject _thorn; //棘のオブジェクト
     private BoxCollider _collider;
     private ICombat _combat;
 
@@ -15,6 +16,9 @@ public class ThornContorl : MonoBehaviour
     {
         _collider = GetComponent<BoxCollider>();
         _collider.enabled = false; //最初は判定をとらない
+        _thorn.SetActive(false); //棘のオブジェクトは最初は非表示にする
+        //_thorn.transform.position = new Vector3(
+        //    _thorn.transform.position.x, _thorn.transform.position.y, transform.position.z - 2f); //地中に埋める
     }
 
     public void SetCombat(ICombat newCombat)
@@ -23,13 +27,19 @@ public class ThornContorl : MonoBehaviour
     }
     
     /// <summary>
-    /// メッシュを変更する
+    /// 棘オブジェクトを表示する
     /// </summary>
-    public void ChangedMesh()
+    public async void ChangedMesh()
     {
         _collider.enabled = true;
-        _meshRenderer.mesh = _cheangedMesh;
-        Destroy(this.gameObject, 2f); //時間経過でオブジェクトを削除する
+        _thorn.SetActive(true);
+        //_thorn.transform.DOMoveZ(0, 0.1f);
+        
+        await UniTask.Delay(2000);
+        
+        //一定時間経過したらオブジェクトを削除する
+        Destroy(this.gameObject);
+        //_thorn.transform.DOMoveZ(-2, 0.5f).OnComplete(() => Destroy(this.gameObject));
     }
 
     private void OnTriggerEnter(Collider other)

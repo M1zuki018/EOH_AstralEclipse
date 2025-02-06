@@ -123,7 +123,7 @@ public class BossAttackPattern : MonoBehaviour
             {
                 elapsedTime += Time.deltaTime;
                 thorn.transform.position =
-                    new Vector3(_target.transform.position.x, 0.7f, _target.transform.position.z); //プレイヤーの足元に表示
+                    new Vector3(_target.transform.position.x, 0.2f, _target.transform.position.z); //プレイヤーの足元に表示
             }, () => 
             {
                 FireThorns(thornCtrl); //攻撃を行う
