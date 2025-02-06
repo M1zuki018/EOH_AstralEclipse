@@ -181,7 +181,7 @@ public class BossMover : MonoBehaviour
         
         _attackPattern.TimeControl(); //攻撃
         
-        await UniTask.Delay(6000);
+        await UniTask.Delay(5000);
 
         _patternCount = 3;
         Break();

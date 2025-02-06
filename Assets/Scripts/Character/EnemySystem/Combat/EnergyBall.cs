@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
 
@@ -14,16 +15,18 @@ public class EnergyBall : MonoBehaviour
     [SerializeField] private float _overshootAmount = 1.2f; //目的地をどれくらいオーバーシュートするか
     
     private Transform _player;  // 追尾対象（プレイヤー）
+    private ICombat _combat;
     private bool _isChasing = true;  // 追尾中かどうか
     private bool _isFire = false; //発射されたかどうか
     private Vector3 _straightDirection; // 直線移動用の方向ベクトル
     
     /// <summary>
-    /// プレイヤーの座標をセットする
+    /// 初期化
     /// </summary>
-    public void SetPlayer(Transform player)
+    public void SetPlayer(Transform player, ICombat combat)
     {
         _player = player;   
+        _combat = combat;
     }
 
     /// <summary>
@@ -78,6 +81,16 @@ public class EnergyBall : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Ground")) // プレイヤーまたは地面に衝突
         {
+            if (other.CompareTag("Player"))
+            {
+                other.TryGetComponent(out IDamageable damageable);
+                _combat.DamageHandler.ApplyDamage(
+                    target: damageable, //攻撃対象
+                    baseDamage: _combat.BaseAttackPower, //攻撃力 
+                    defense: 0, //相手の防御力
+                    attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
+            }
+            
             Destroy(gameObject); // エネルギー弾を削除
         }
     }

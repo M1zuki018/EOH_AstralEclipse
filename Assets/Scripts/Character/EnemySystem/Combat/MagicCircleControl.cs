@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +9,7 @@ public class MagicCircleControl : MonoBehaviour
 {
     [SerializeField] private GameObject _energyPrefab;
     public Transform Player { get; set; }
+    public ICombat Combat { get; set; }
     private List<EnergyBall> _energies = new List<EnergyBall>();
 
     private void OnEnable()
@@ -40,7 +42,7 @@ public class MagicCircleControl : MonoBehaviour
     {
         foreach (var energyBall in _energies)
         {
-            energyBall.SetPlayer(Player);
+            energyBall.SetPlayer(Player, Combat);
             energyBall.Fire();
         }
     }

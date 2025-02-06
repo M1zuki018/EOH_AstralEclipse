@@ -278,8 +278,8 @@ public class BossAttackPattern : MonoBehaviour
         //TODO: 空中にエネルギーが集まる
         //TODO: プレイヤーの移動速度や攻撃速度が低下。ボスは通常の1.5倍速で移動しながら攻撃する
         
-        //await UniTask.Delay(800);
-        await UniTask.Delay(200);
+        await UniTask.Delay(800);
+        //await UniTask.Delay(100); //テスト用
         
         Debug.Log("時間停止発動の合図の演出");
         
@@ -307,10 +307,11 @@ public class BossAttackPattern : MonoBehaviour
         foreach (var magicCircleCtrl in _magicCircles)
         {
             magicCircleCtrl.Player = _target;
+            magicCircleCtrl.Combat = _combat;
             magicCircleCtrl.Fire();
         }
         
-        await UniTask.Delay(3000);
+        await UniTask.Delay(1500);
         
         //魔法陣のオブジェクトを削除したあと、リストをクリアする
         foreach (var magicCircle in _magicCircles)
