@@ -21,7 +21,7 @@ public abstract class AttackAdjustBase : MonoBehaviour, IAdjustableAttack, IAtta
         _hitDetector = GetComponentInChildren<AttackHitDetector>();
         _combat = GetComponent<ICombat>();
         _adjustDirection = GetComponentInChildren<AdjustDirection>();
-        _effectPool = GameObject.FindGameObjectWithTag("Effect").GetComponent<EffectPool>();
+        _effectPool = GetComponentInChildren<EffectPool>();
     }
 
     public abstract void StartAttack(); //攻撃時に呼び出される処理

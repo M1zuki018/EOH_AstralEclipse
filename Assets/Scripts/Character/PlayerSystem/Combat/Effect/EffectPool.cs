@@ -45,7 +45,7 @@ public class EffectPool : MonoBehaviour
         effect.SetActive(true);
 
         // 一定時間後にエフェクトをプールに戻す
-        StartCoroutine(ReturnToPool(effect, 1.0f)); // 1秒後に戻す（必要に応じて変更）
+        StartCoroutine(ReturnToPool(effect, 0.9f));
     }
 
     // エフェクトを非アクティブにしてプールへ戻す

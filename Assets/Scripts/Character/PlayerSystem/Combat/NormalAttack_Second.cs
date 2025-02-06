@@ -9,6 +9,7 @@ public class NormalAttack_Second : AttackAdjustBase
 {
     [Header("初期設定")]
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;
+    [SerializeField] private EffectPositionInfo _effectPositionInfo;
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
     [SerializeField, Comment("攻撃時に動ける距離")] private float _forwardDistance = 1.5f;
     [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
@@ -75,7 +76,8 @@ public class NormalAttack_Second : AttackAdjustBase
         AudioManager.Instance?.PlaySE(3);
         
         await UniTask.Delay(100);
-        
+
+        _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
         _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
     }
 

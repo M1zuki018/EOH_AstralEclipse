@@ -7,6 +7,7 @@ using UnityEngine;
 public class NormalAttack_End : AttackAdjustBase
 {
     [SerializeField] private HitDetectionInfo[] _hitDetectionInfo; 
+    [SerializeField] private EffectPositionInfo[] _effectPositionInfo;
     [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
     private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
     
@@ -28,6 +29,7 @@ public class NormalAttack_End : AttackAdjustBase
         AudioManager.Instance?.PlaySEDelay(3, 330); //切りながらジャンプ
         
         await UniTask.Delay(80);
+        _effectPool.GetEffect(_effectPositionInfo[0].Position, _effectPositionInfo[0].Rotation);
         _hitDetector.DetectHit(_hitDetectionInfo[0]);
         
         await UniTask.Delay(250);
@@ -37,6 +39,7 @@ public class NormalAttack_End : AttackAdjustBase
         
         await UniTask.Delay(80);
         
+        _effectPool.GetEffect(_effectPositionInfo[1].Position, _effectPositionInfo[1].Rotation);
         _hitDetector.DetectHit(_hitDetectionInfo[1]);
         
         await UniTask.Delay(150);
@@ -45,6 +48,8 @@ public class NormalAttack_End : AttackAdjustBase
         
         await UniTask.Delay(220);
         
+        
+        _effectPool.GetEffect(_effectPositionInfo[2].Position, _effectPositionInfo[2].Rotation);
         AudioManager.Instance?.PlaySEDelay(4, 150); //着地
         _animator.SetFloat("AttackSpeed", 1f);
         

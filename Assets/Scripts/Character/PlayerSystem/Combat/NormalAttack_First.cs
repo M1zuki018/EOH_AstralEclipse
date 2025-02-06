@@ -10,12 +10,12 @@ public class NormalAttack_First : AttackAdjustBase
 {
     [Header("初期設定")]
     [SerializeField] private HitDetectionInfo _hitDetectionInfo;
+    [SerializeField] private EffectPositionInfo _effectPositionInfo;
     [SerializeField] private float _approachSpeed = 30f; //突進速度
     [SerializeField] private float _attackDistance = 10f; //有効距離
     [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
     [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
-    [SerializeField] private EffectPositionInfo _effectPositionInfo;
     private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
 
     private bool _isAttacking = false; //突進中かどうか

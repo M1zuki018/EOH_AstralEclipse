@@ -7,13 +7,15 @@ using UnityEngine;
 public class NormalAttack_Turn : AttackAdjustBase
 {
     [SerializeField] private HitDetectionInfo[] _hitDetectionInfo;  
+    [SerializeField] private EffectPositionInfo _effectPositionInfo;
     [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
     private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
 
     public override async void StartAttack()
     {
         _lastValidPosition = transform.position; //初期化
-     
+        _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
+        
         CameraManager.Instance?.TurnEffect();
         _target = _adjustDirection.Target;
         _hitDetector.DetectHit(_hitDetectionInfo[0]); //当たり判定を発生させる
