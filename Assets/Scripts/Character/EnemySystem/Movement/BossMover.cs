@@ -27,8 +27,8 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public void BattleStart()
     {
-        Pattern1();
-        //Pattern2();
+        //Pattern1();
+        Pattern2();
     }
 
     /// <summary>
@@ -136,7 +136,7 @@ public class BossMover : MonoBehaviour
     [ContextMenu("Pattern2")]
     public void Pattern2()
     {
-        _attackPattern.ShadowAttack();
+        _attackPattern.ShadowLatent();
         
         //TODO:ガード成功時：火花のようなエフェクト＋ボスが軽く後退。回避成功時：スローモーションを一瞬入れる
         //TODO: ヒット時：プレイヤーが「のけぞる」 or 「吹き飛ばされる」。
@@ -145,14 +145,17 @@ public class BossMover : MonoBehaviour
     /// <summary>
     /// 攻撃パターン2の次に進む
     /// </summary>
-    public void TransitionPattern2()
+    public async void TransitionPattern2()
     {
         _pattern2Count++;
         if (_pattern2Count == 1)
         {
             //パターン2の一回目の攻撃なら、2回目の攻撃を行う
-            Warp(new Vector3(100f, 4f, 230f));
-            _attackPattern.ShadowAttack();
+            _attackPattern.ShadowLatent();
+            
+            await UniTask.Delay(1600);
+            
+            Warp(new Vector3(100f, 0f, 230f));
         }
         else
         {

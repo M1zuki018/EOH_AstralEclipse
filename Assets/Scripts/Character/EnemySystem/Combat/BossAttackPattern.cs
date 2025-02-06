@@ -22,10 +22,15 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private AudioMixerGroup _bgmMixer; 
     [SerializeField] private Material _glitchy; //グリッチシェーダーをかけたマテリアル
 
+    [SerializeField] private GameObject _boss;
+    [SerializeField] private GameObject _shadowPrefab;
+    
     private Animator _animator;
     public Animator Animator => _animator;
     private PlayerInput _playerInput;
     private Material _defaultMaterial;
+    private GameObject _shadowObj;
+    private CharacterController _cc;
     
     private List<GameObject> _verticalLasers = new List<GameObject>();
     private float _speed = 120f; //垂直レーザーのスピード
@@ -36,6 +41,7 @@ public class BossAttackPattern : MonoBehaviour
         _animator = GetComponent<Animator>();
         _defaultMaterial = RenderSettings.skybox;
         _playerInput = _target.gameObject.GetComponent<PlayerInput>();
+        _cc = GetComponent<CharacterController>();
     }
     
     /// <summary>
@@ -166,18 +172,22 @@ public class BossAttackPattern : MonoBehaviour
         
         //TODO:強力なダメージ＋吹き飛ばしを実装
     }
-
-    public  void ShadowAttack()
+    
+    /// <summary>
+    /// 影に潜る
+    /// </summary>
+    public void ShadowLatent()
     {
-        ShadowMove();
+        _shadowObj = Instantiate(_shadowPrefab, transform); //子オブジェクトに影オブジェクトを追加して保持
+        _boss.transform.DOMoveY(-2.5f, 1.5f).OnComplete(() => ShadowMove()); //影に潜る
     }
     
     /// <summary>
     /// 影移動
     /// </summary>
-    private void ShadowMove()
+    public void ShadowMove()
     {
-        //transform.DOMoveY(-5, 0.5f); //影に潜る
+        _cc.Move(new Vector3(0f, -4.9f, 0f)); //オブジェクトの位置をずらす
         
         float moveSpeed = 10f; //移動速度
         float snakeAmplitude = 0.3f; //振れ幅
@@ -187,7 +197,7 @@ public class BossAttackPattern : MonoBehaviour
         //移動処理
         Observable
             .EveryUpdate()
-            .TakeWhile(_ => Vector3.Distance(transform.position, _target.position) > 0.5f) //プレイヤーとの距離が0.5f以下になるまで処理を行う
+            .TakeWhile(_ => Vector3.Distance(transform.position, _target.position) > 1f) //プレイヤーとの距離が1f以下になるまで処理を行う
             .Subscribe(_ =>
             {
                 elapsedTime += Time.deltaTime;
@@ -198,8 +208,7 @@ public class BossAttackPattern : MonoBehaviour
                 float snakeOffset = Mathf.Sin(elapsedTime * snakeFrequency) * snakeAmplitude; //サイン波を求める
                 Vector3 moveVector =  (direction * moveSpeed * Time.deltaTime) + (sideVector * snakeOffset * 0.5f); //移動量を計算
 
-                transform.position += moveVector;
-                //transform.position += new Vector3(moveVector.x, 0f, moveVector.z); //高さは固定
+                _cc.Move(moveVector); //高さは固定
             }, () =>
             {
                 ShadowArrived();
@@ -215,7 +224,8 @@ public class BossAttackPattern : MonoBehaviour
         //TODO:溶けて出てくるような、ディゾルブ効果をつけたい
         Debug.Log("影が到達");
         // 実体化処理
-        //transform.DOMoveY(5f, 0.5f);
+        _boss.transform.DOMoveY(0, 0.4f); //影から出る
+        _shadowObj.SetActive(false);
 
         await UniTask.Delay(500); //一瞬おいてから攻撃開始
         
