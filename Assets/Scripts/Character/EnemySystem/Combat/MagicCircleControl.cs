@@ -7,13 +7,14 @@ using UnityEngine;
 public class MagicCircleControl : MonoBehaviour
 {
     [SerializeField] private GameObject _energyPrefab;
-    private List<GameObject> _energies = new List<GameObject>();
+    public Transform Player { get; set; }
+    private List<EnergyBall> _energies = new List<EnergyBall>();
 
     private void OnEnable()
     {
         //中央の1つ
         Vector3 position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-        _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform));
+        _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform).GetComponent<EnergyBall>());
 
         //外側に円周上に等間隔で配置する
         float radius = 3f; //外側のエネルギー弾の配置半径
@@ -28,7 +29,7 @@ public class MagicCircleControl : MonoBehaviour
                 transform.position.z - 1
             );
 
-            _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform));
+            _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform).GetComponent<EnergyBall>());
         }
     }
 
@@ -37,6 +38,10 @@ public class MagicCircleControl : MonoBehaviour
     /// </summary>
     public void Fire()
     {
-        
+        foreach (var energyBall in _energies)
+        {
+            energyBall.SetPlayer(Player);
+            energyBall.Fire();
+        }
     }
 }
