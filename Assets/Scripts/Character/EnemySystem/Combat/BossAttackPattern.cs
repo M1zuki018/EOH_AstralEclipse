@@ -35,7 +35,7 @@ public class BossAttackPattern : MonoBehaviour
     public Vector3 DefaultTransform { get; set; }
     
     private List<GameObject> _verticalLasers = new List<GameObject>();
-    private List<GameObject> _magicCircles = new List<GameObject>();
+    private List<MagicCircleControl> _magicCircles = new List<MagicCircleControl>();
     private float _speed = 120f; //垂直レーザーのスピード
     private float _premotionTime = 1f; //茨攻撃の予兆時間
 
@@ -294,22 +294,31 @@ public class BossAttackPattern : MonoBehaviour
     /// <summary>
     /// 時間減速解除後の攻撃
     /// </summary>
-    private void FireTimeAttack()
+    private async void FireTimeAttack()
     {
         _timeStopVolume.enabled = false; //画面のフィルターを元に戻す
         Time.timeScale = 1f; //時間の進みを戻す
         _playerInput.ActivateInput(); //プレイヤーの入力を解放
         
-        //魔法陣のオブジェクトを削除したあと、リストをクリアする
-        foreach (var obj in _magicCircles)
+        //画面がフラッシュする
+        
+        //攻撃を放つ
+        foreach (var magicCircleCtrl in _magicCircles)
         {
-            Destroy(obj);
+            magicCircleCtrl.Fire();
+        }
+        
+        await UniTask.Delay(3000);
+        
+        //魔法陣のオブジェクトを削除したあと、リストをクリアする
+        foreach (var magicCircle in _magicCircles)
+        {
+            Destroy(magicCircle.gameObject);
         }
         _magicCircles.Clear();
-        
-        //レーザー一斉照射
-        //画面がフラッシュする
     }
+
+    #region 魔法陣
 
     /// <summary>
     /// 魔法陣を生成する
@@ -326,7 +335,7 @@ public class BossAttackPattern : MonoBehaviour
     }
 
     /// <summary>
-    /// 魔法陣のプレハブを生成する
+    /// 魔法陣のプレハブを生成する処理
     /// </summary>
     private void SpawnRow(int count, float baseYOffset)
     {
@@ -343,9 +352,13 @@ public class BossAttackPattern : MonoBehaviour
             float y =DefaultTransform.y + baseYOffset - yDrop;
 
             Vector3 position = new Vector3(x, y, DefaultTransform.z);
-            _magicCircles.Add(Instantiate(_magicCirclePrefab, position, Quaternion.identity));
+            GameObject magicCircle = Instantiate(_magicCirclePrefab, position, Quaternion.identity);
+            _magicCircles.Add(magicCircle.GetComponent<MagicCircleControl>()); //リストに追加
         }
     }
+    
+    #endregion
+    
     
 
     /// <summary>

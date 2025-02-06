@@ -13,8 +13,8 @@ public class MagicCircleControl : MonoBehaviour
     {
         //中央の1つ
         Vector3 position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-        _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform)); 
-        
+        _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform));
+
         //外側に円周上に等間隔で配置する
         float radius = 3f; //外側のエネルギー弾の配置半径
         float randomAngle = Random.Range(0f, 360f) * Mathf.Deg2Rad; // ランダムな角度を作成
@@ -25,10 +25,18 @@ public class MagicCircleControl : MonoBehaviour
             position = new Vector3(
                 transform.position.x + Mathf.Cos(randomAngle) * radius,
                 transform.position.y + Mathf.Sin(randomAngle) * radius,
-                transform.position.z - 1 
+                transform.position.z - 1
             );
 
-            _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform)); 
+            _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform));
         }
+    }
+
+    /// <summary>
+    /// エネルギー弾を発射する
+    /// </summary>
+    public void Fire()
+    {
+        
     }
 }
