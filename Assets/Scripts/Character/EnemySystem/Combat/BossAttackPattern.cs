@@ -167,7 +167,7 @@ public class BossAttackPattern : MonoBehaviour
         //TODO:強力なダメージ＋吹き飛ばしを実装
     }
 
-    public async void ShadowAttack()
+    public  void ShadowAttack()
     {
         ShadowMove();
     }
