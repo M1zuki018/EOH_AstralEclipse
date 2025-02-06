@@ -35,6 +35,7 @@ public class BossAttackPattern : MonoBehaviour
     public Vector3 DefaultTransform { get; set; }
     
     private List<GameObject> _verticalLasers = new List<GameObject>();
+    private List<GameObject> _magicCircles = new List<GameObject>();
     private float _speed = 120f; //垂直レーザーのスピード
     private float _premotionTime = 1f; //茨攻撃の予兆時間
 
@@ -273,11 +274,11 @@ public class BossAttackPattern : MonoBehaviour
         
         //演出
         Debug.Log("演出作成予定");
-        //TODO: 空中にエネルギーが集まる
         SpawnMagicCircle(); //魔法陣を展開
+        //TODO: 空中にエネルギーが集まる
         //TODO: プレイヤーの移動速度や攻撃速度が低下。ボスは通常の1.5倍速で移動しながら攻撃する
         
-        await UniTask.Delay(2000);
+        await UniTask.Delay(800);
         
         Debug.Log("時間停止発動の合図の演出");
         
@@ -298,6 +299,14 @@ public class BossAttackPattern : MonoBehaviour
         _timeStopVolume.enabled = false; //画面のフィルターを元に戻す
         Time.timeScale = 1f; //時間の進みを戻す
         _playerInput.ActivateInput(); //プレイヤーの入力を解放
+        
+        //魔法陣のオブジェクトを削除したあと、リストをクリアする
+        foreach (var obj in _magicCircles)
+        {
+            Destroy(obj);
+        }
+        _magicCircles.Clear();
+        
         //レーザー一斉照射
         //画面がフラッシュする
     }
@@ -311,7 +320,6 @@ public class BossAttackPattern : MonoBehaviour
         int countUpper = 5; //上段に表示する魔法陣の数
         float yOffsetLower = 0f; //ボスのY座標からどれだけ下に配置するか
         float yOffsetUpper = 12f; //ボスのY座標からどれだけ上に配置するか
-        
         
         SpawnRow(countLower, yOffsetLower); //下段を生成
         SpawnRow(countUpper, yOffsetUpper); //上段を生成
@@ -335,7 +343,7 @@ public class BossAttackPattern : MonoBehaviour
             float y =DefaultTransform.y + baseYOffset - yDrop;
 
             Vector3 position = new Vector3(x, y, DefaultTransform.z);
-            Instantiate(_magicCirclePrefab, position, Quaternion.identity);
+            _magicCircles.Add(Instantiate(_magicCirclePrefab, position, Quaternion.identity));
         }
     }
     
