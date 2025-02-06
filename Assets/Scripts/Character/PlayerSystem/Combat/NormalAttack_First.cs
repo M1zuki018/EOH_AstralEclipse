@@ -160,4 +160,9 @@ public class NormalAttack_First : AttackAdjustBase
             _cc.Move(correction); // 差分を使って元の位置へ引き戻す
         }
     }
+
+    public override void CancelAttack()
+    {
+        
+    }
 }

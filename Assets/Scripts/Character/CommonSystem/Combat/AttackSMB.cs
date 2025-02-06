@@ -26,8 +26,6 @@ public class AttackSMB : StateMachineBehaviour
         
         animator.applyRootMotion = false; //補正をかけるため一度ルートモーションを無効にする
         
-        Debug.Log("呼ばれた");
-        
         if (animator.CompareTag("Player"))
         {
             _attackCorrection = GetAttackCorrectionByPlayer(animator); //補正クラスを取得する
@@ -52,6 +50,12 @@ public class AttackSMB : StateMachineBehaviour
             //移動補正処理を呼び出す
             _attackCorrection.CorrectMovement(_actor.forward);
         }
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        //中断処理
+        _attackCorrection.CancelAttack();
     }
 
     /// <summary>

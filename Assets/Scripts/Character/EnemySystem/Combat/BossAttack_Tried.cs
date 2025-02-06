@@ -30,4 +30,8 @@ public class BossAttack_Tried : AttackAdjustBase
     }
 
     public override void CorrectMovement(Vector3 forwardDirection) { }
+    public override void CancelAttack()
+    {
+        
+    }
 }

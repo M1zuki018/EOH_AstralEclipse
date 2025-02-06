@@ -31,4 +31,8 @@ public class BossAttack_First : AttackAdjustBase
     }
 
     public override void CorrectMovement(Vector3 forwardDirection) { }
+    public override void CancelAttack()
+    {
+        
+    }
 }

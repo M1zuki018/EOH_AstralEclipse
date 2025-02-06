@@ -57,7 +57,7 @@ public class NormalAttack_End : AttackAdjustBase
         CameraManager.Instance?.EndDashEffect();
         
         await UniTask.Delay(300);
-        Debug.Log(_hitDetectionInfo[2]);
+        
         _hitDetector.DetectHit(_hitDetectionInfo[2]); 
     }
 
@@ -81,5 +81,9 @@ public class NormalAttack_End : AttackAdjustBase
             correction.y = 0;
             _cc.Move(correction); // 差分を使って元の位置へ引き戻す
         }
+    }
+
+    public override void CancelAttack()
+    {
     }
 }

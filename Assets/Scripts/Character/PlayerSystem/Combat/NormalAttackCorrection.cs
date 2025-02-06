@@ -27,5 +27,9 @@ public class NormalAttackCorrection : AttackAdjustBase
         Vector3 move = forwardDirection * _moveSpeed * Time.deltaTime; // 移動量の計算
         _cc.Move(move);  // 実際の移動処理
     }
-    
+
+    public override void CancelAttack()
+    {
+        
+    }
 }

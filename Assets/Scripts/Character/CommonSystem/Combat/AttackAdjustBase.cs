@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
 
@@ -26,4 +27,6 @@ public abstract class AttackAdjustBase : MonoBehaviour, IAdjustableAttack, IAtta
 
     public abstract void StartAttack(); //攻撃時に呼び出される処理
     public abstract void CorrectMovement(Vector3 forwardDirection); //移動補正
+
+    public abstract void CancelAttack();
 }
