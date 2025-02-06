@@ -94,7 +94,6 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
             Debug.Log("ロックオン可能な敵がいません");
             _lockedOnEnemy.Value = null;
             UIManager.Instance?.HideLockOnUI();
-            CameraManager.Instance?.UseCamera(0);
             //CameraManager.Instance.UseCamera(0);
         }
     }
