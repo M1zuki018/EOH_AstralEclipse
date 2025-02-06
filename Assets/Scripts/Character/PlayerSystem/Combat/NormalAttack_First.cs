@@ -15,6 +15,7 @@ public class NormalAttack_First : AttackAdjustBase
     [SerializeField] private float _adjustDistance = 2f; //補正がかかる距離
     [SerializeField] private float _initializeAnimationSpeed = 1.3f; //初期アニメーションスピード
     [SerializeField, Comment("これ以上近付かない距離")] private float _stopDistance = 1.8f;
+    [SerializeField] private EffectPositionInfo _effectPositionInfo;
     private Vector3 _lastValidPosition; //敵に近付きすぎたときの座標
 
     private bool _isAttacking = false; //突進中かどうか
@@ -102,6 +103,7 @@ public class NormalAttack_First : AttackAdjustBase
     private async void TriggerSlash()
     {
         CameraManager.Instance?.EndDashEffect(); //通常のエフェクトに戻す
+        _effectPool.GetEffect(_effectPositionInfo.Position, _effectPositionInfo.Rotation);
         
         _isAttacking = false;
         _animator.SetFloat("AttackSpeed", _initializeAnimationSpeed);

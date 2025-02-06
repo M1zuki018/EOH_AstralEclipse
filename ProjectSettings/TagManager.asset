@@ -10,6 +10,7 @@ TagManager:
   - VaultObject
   - JumpObject
   - Interactable
+  - Effect
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Obstacles
   - Enemy
   - Cheaker
-  - 
+  - Effect
   - 
   - 
   - 

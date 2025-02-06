@@ -12,6 +12,7 @@ public abstract class AttackAdjustBase : MonoBehaviour, IAdjustableAttack, IAtta
     protected AttackHitDetector _hitDetector; //当たり判定の処理を行うクラス
     protected ICombat _combat;
     protected AdjustDirection _adjustDirection;
+    protected EffectPool _effectPool;
     
     protected virtual void Awake()
     {
@@ -20,6 +21,7 @@ public abstract class AttackAdjustBase : MonoBehaviour, IAdjustableAttack, IAtta
         _hitDetector = GetComponentInChildren<AttackHitDetector>();
         _combat = GetComponent<ICombat>();
         _adjustDirection = GetComponentInChildren<AdjustDirection>();
+        _effectPool = GameObject.FindGameObjectWithTag("Effect").GetComponent<EffectPool>();
     }
 
     public abstract void StartAttack(); //攻撃時に呼び出される処理

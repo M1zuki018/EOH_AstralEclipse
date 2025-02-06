@@ -73,7 +73,7 @@ public class CameraManager : MonoBehaviour
 
         //カメラのFOVをリセットする処理
         if (index == 0) SetFOV(0,60);
-        else if (index == 4) SetFOV(4, 40);
+        //else if (index == 4) SetFOV(4, 40);
     }
 
     /// <summary>
