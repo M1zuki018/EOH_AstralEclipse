@@ -71,7 +71,7 @@ public class BossMover : MonoBehaviour
     /// <summary>
     /// 地上で休憩する
     /// </summary>
-    private async void Break()
+    public async void Break()
     {
         _cc.Move(new Vector3(0, _initializePos.y - transform.position.y, 0)); //初期位置と現在の位置の差分だけ移動する
         Debug.Log("休み");

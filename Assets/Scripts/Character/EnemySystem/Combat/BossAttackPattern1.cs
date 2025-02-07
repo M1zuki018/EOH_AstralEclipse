@@ -7,6 +7,7 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     
     [Header("攻撃設定")]
     [SerializeField] private BossAttackPattern _attackPattern;
+    [SerializeField] private BossMover _bossMover;
     
     [Header("タイミング設定")]
     [SerializeField] private float _laserDelay = 3f;
@@ -96,9 +97,15 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     /// <summary>
     /// パターン1の終了処理
     /// </summary>
-    private void FinishPattern()
+    private async void FinishPattern()
     {
         Debug.Log("次のパターンへ移行");
-        // 休憩フェーズ or 次の攻撃パターンを開始する処理を追加
+
+        if (_bossMover != null)
+        {
+            _bossMover.Break();
+        }
+
+        await UniTask.Yield(); // すぐに処理を返す
     }
 }
