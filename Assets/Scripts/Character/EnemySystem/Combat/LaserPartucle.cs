@@ -9,16 +9,14 @@ public class LaserParticle : MonoBehaviour, IBossAttack
 {
     public string AttackName => "HorizontalLaser";
 
-    [SerializeField] private GameObject _laser;
     [SerializeField] private ParticleSystem _laserEffect;
     [SerializeField] private TriggerControl _triggerControl;
+    [SerializeField] private EnemyCombat _combat;
     public GameObject LaserEffect => _laserEffect.gameObject;
 
-    private ICombat _combat;
 
     private void Start()
     {
-        _combat = GetComponent<ICombat>();
         _triggerControl.OnTrigger += HandleHit; //登録
     }
 
@@ -32,8 +30,8 @@ public class LaserParticle : MonoBehaviour, IBossAttack
     /// </summary>
     public void Fire(Transform firePoint)
     {
-        _laser.transform.position = firePoint.position;
-        _laser.gameObject.SetActive(true);
+        transform.position = firePoint.position;
+        gameObject.SetActive(true);
         _laserEffect.Play();
     }
 
@@ -43,7 +41,7 @@ public class LaserParticle : MonoBehaviour, IBossAttack
     public void Stop()
     {
         _laserEffect.Stop();
-        _laser.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void HandleHit(Collider other)

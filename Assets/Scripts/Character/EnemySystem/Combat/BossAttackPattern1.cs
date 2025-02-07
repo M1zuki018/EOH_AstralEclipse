@@ -45,8 +45,10 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     /// </summary>
     private async UniTask FireHorizontalLaser()
     {
-        _attackPattern.HorizontalLaser(transform, _laserDelay);
+        _attackPattern.HorizontalLaserPlus(transform, _laserDelay);
         await UniTask.Delay((int)(_laserDelay * 1000));
+        
+        //TODO:レーザーの爆風・床が燃えているなどのエフェクトを作ってもいいかもしれない
     }
 
     /// <summary>

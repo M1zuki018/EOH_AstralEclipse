@@ -14,7 +14,7 @@ public class BossAttackPattern : MonoBehaviour
 {
     [SerializeField] private Transform _target; //プレイヤーのTransform
     [SerializeField] private EnemyCombat _combat;
-    [SerializeField] private LaserParticle _laserParticle; //水平レーザーのパーティクル
+    [SerializeField] private LaserParticle[] _laserParticle; //水平レーザーのパーティクル
     [SerializeField] private GameObject _verticalLaserPrefab; //垂直レーザーのプレハブ
     [SerializeField] private GameObject _thornPrefab; //茨攻撃のプレハブ
     [SerializeField] private GameObject _abovePrefab; //上から降ってくる攻撃のプレハブ
@@ -71,11 +71,60 @@ public class BossAttackPattern : MonoBehaviour
     /// <summary>
     /// 水平方向のレーザー
     /// </summary>
-    public void HorizontalLaser(Transform position, float effectTime)
+    public async void HorizontalLaser(Transform position, float effectTime)
     {
+        //TODO:チャージの処理
+        /*
+        _animator.SetInteger("AttackType", 0);
+        _animator.SetTrigger("Attack");
+       */
+        
+        await UniTask.Delay(3000);
+        
+        FireLaser(position, effectTime,0);
+
+        //ボスが後方に後ずさる
+        Vector3 recoilPosition = transform.position + transform.forward * -3f;
+        transform.DOMove(recoilPosition, 0.7f).SetEase(Ease.OutQuad);
+    }
+    
+    /// <summary>
+    /// 水平方向のレーザー(強化版)
+    /// </summary>
+    public async void HorizontalLaserPlus(Transform position, float effectTime)
+    {
+        //TODO:チャージの処理
+        /*
+        _animator.SetInteger("AttackType", 0);
+        _animator.SetTrigger("Attack");
+       */
+        
+        await UniTask.Delay(3000);
+
+        //新しい座標を作成
+        Transform position1 = position;
+        Transform position2 = position;
+        position1.position = new Vector3(position1.position.x - 50, position1.position.y, position1.position.z);
+        position2.position = new Vector3(position1.position.x + 50, position1.position.y, position1.position.z);
+        
+        FireLaser(position, effectTime,0);
+        FireLaser(position1, effectTime,1);
+        FireLaser(position2, effectTime,2);
+
+        //ボスが後方に後ずさる
+        Vector3 recoilPosition = transform.position + transform.forward * -4f;
+        transform.DOMove(recoilPosition, 0.7f).SetEase(Ease.OutQuad);
+    }
+
+    /// <summary>
+    /// 水平レーザーを放つ
+    /// </summary>
+    private void FireLaser(Transform position, float effectTime, int index)
+    {
+        //レーザーを放つ
         float elapsedTime = 0f;
-        _laserParticle.transform.position = position.position; //レーザーの始点を調整
-        _laserParticle.LaserEffect.SetActive(true);
+        _laserParticle[index].transform.position = position.position; //レーザーの始点を調整
+        _laserParticle[index].LaserEffect.SetActive(true);
         
         Observable
             .EveryUpdate()
@@ -83,12 +132,13 @@ public class BossAttackPattern : MonoBehaviour
             .Subscribe(_ => 
             { 
                 elapsedTime += Time.deltaTime;
-                _laserParticle.transform.position = position.position; //レーザーの始点を調整
-                _laserParticle.Fire(position);
+                _laserParticle[index].transform.position = position.position; //レーザーの始点を調整
+                _laserParticle[index].Fire(position);
             }, () =>
             {
-                _laserParticle.Stop(); //レーザーを止める
-                _laserParticle.LaserEffect.SetActive(false);
+                _laserParticle[index].Stop(); //レーザーを止める
+                _laserParticle[index].LaserEffect.SetActive(false);
+                _animator.applyRootMotion = false;
             })
             .AddTo(this);
     }

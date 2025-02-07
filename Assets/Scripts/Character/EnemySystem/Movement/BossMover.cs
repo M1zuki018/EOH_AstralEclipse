@@ -26,7 +26,7 @@ public class BossMover : MonoBehaviour
         _health = GetComponent<Health>();
         _cc = GetComponent<CharacterController>();
         _initializePos = transform.position;
-        transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //空中に移動
+        transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //初期位置に移動
         
         //HPが50%以下になったら攻撃パターンを変更する
         Observable
