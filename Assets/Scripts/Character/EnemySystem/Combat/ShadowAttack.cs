@@ -14,10 +14,13 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     [SerializeField, Comment("移動速度")] private float moveSpeed = 10f;
     [SerializeField, Comment("振れ幅")] private float snakeAmplitude = 0.3f;
     [SerializeField, Comment("周波数")] private float snakeFrequency = 1.5f;
+    [SerializeField, Comment("ワープの幅(X)")] private Vector2 xRange = new Vector2(85f, 130f);
+    [SerializeField, Comment("ワープの幅(Z)")] private Vector2 zRange = new Vector2(210f, 250f);
     
     [SerializeField] private GameObject _shadowPrefab;
     [SerializeField] private Transform _bossObj;
     [SerializeField] private Renderer _bossRenderer;
+    [SerializeField] private GameObject _warpPrefab;
     
     private CharacterController _cc;
     private GameObject _shadowObj;
@@ -128,12 +131,43 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     /// </summary>
     public async UniTask WarpToPosition()
     {
-        Vector3 position = new Vector3(93, 2, 230);
-        _cc.Move(position - transform.position);
+        Sequence warpSequence = DOTween.Sequence();
         
-        await UniTask.Delay(500);
+        float duration = 1f; //縮小にかける時間
+        
+        GameObject warpHole = Instantiate(_warpPrefab, new Vector3(transform.position.x, 2.5f, transform.position.z - 1),
+            Quaternion.identity); //その場にワープホールを召喚
+        
+        //収縮
+        warpSequence.Append(_bossObj.DOScale(Vector3.one * 0.1f, duration).SetEase(Ease.InBack)); //縮める
+        warpSequence.Join(_bossObj.DOShakePosition(duration, 0.1f)); //揺らす
+        warpSequence.Join(warpHole.transform.DOScale(Vector3.one * 0.1f, duration)
+            .SetEase(Ease.InBack)); // ワープエフェクトも縮小させる
+        
+        //収縮後、テレポートする処理        
+        warpSequence.AppendCallback(() =>
+        {
+            //テレポート先をランダムに決定する
+            float randomX = Random.Range(xRange.x, xRange.y);
+            float randomZ = Random.Range(zRange.x, zRange.y);
+            Vector3 newPosition = new Vector3(randomX, 2.5f, randomZ);
+            
+            warpHole.transform.position = new Vector3(randomX, 2.5f, randomZ - 1);
+            _cc.Move(newPosition - transform.position); //差分だけ移動させる);
+        });
+        
+        
+        //拡大
+        duration = 0.7f; //拡大にかける時間
+        warpSequence.Append(_bossObj.DOScale(Vector3.one, duration).SetEase(Ease.OutBack)); // 拡大
+        warpSequence.Join(warpHole.transform.DOScale(new Vector3(1.5f, 2f, 1f), duration)
+            .SetEase(Ease.OutBack)); // ワープエフェクトも拡大
 
-        await ShadowLatent();
+        warpSequence.AppendCallback(() =>
+        {
+            Destroy(warpHole);
+            ShadowLatent();
+        });
     }
 
     /// <summary>
