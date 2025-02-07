@@ -26,12 +26,21 @@ public class LaserParticle : MonoBehaviour, IBossAttack
     }
 
     /// <summary>
+    /// レーザーを放つ前、魔法陣だけアクティブにする
+    /// </summary>
+    public void Sty(Vector3 position)
+    {
+        transform.position = position;
+        gameObject.SetActive(true);
+    }
+
+    /// <summary>
     /// レーザーを放つ
     /// </summary>
     public void Fire(Vector3 firePoint)
     {
         transform.position = firePoint;
-        gameObject.SetActive(true);
+        gameObject.transform.GetChild(0).gameObject.SetActive(true); //ビームオブジェクトもアクティブにする
         _laserEffect.Play();
     }
 
@@ -41,6 +50,7 @@ public class LaserParticle : MonoBehaviour, IBossAttack
     public void Stop()
     {
         _laserEffect.Stop();
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
 

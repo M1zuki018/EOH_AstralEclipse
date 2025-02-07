@@ -243,20 +243,18 @@ public class CameraManager : MonoBehaviour
     /// <summary>
     /// レーザー発射前の演出（ズーム）
     /// </summary>
-    public async void PreLaserShot()
+    public void PreLaserShot()
     {
-        Debug.Log("呼ばれた");
-        float zoomDuration = 0.5f; //ズームにかける時間
-        UseCamera(4); //レーザー演出カメラを優先
+        float zoomDuration = 1.5f; //ズームにかける時間
         
-        // ズームイン演出
-        _virtualCameras[4].m_Lens.FieldOfView = 50;
+        UseCamera(4); //レーザー演出カメラを優先
+        _virtualCameras[4].m_Lens.FieldOfView = 60;
         DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 
-            35, zoomDuration).SetEase(Ease.InOutQuad);
+            50, zoomDuration).SetEase(Ease.InOutQuad);
     }
     
     /// <summary>
-    /// レーザー照射時のカメラの揺れを作る
+    /// レーザー照射時のカメラの揺れ
     /// </summary>
     public async void CameraShakeOnFire()
     {
@@ -271,6 +269,14 @@ public class CameraManager : MonoBehaviour
 
         _noise.m_AmplitudeGain = 0; //解除
         _noise.m_FrequencyGain = 0;
-
+    }
+    
+    /// <summary>
+    /// 爆発の余韻を映す（遠景にカメラを引く）
+    /// </summary>
+    public void ExplosionEffect()
+    {
+        UseCamera(0); //メインカメラに戻す
+        DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 60, 1.5f).SetEase(Ease.OutQuad);
     }
 }

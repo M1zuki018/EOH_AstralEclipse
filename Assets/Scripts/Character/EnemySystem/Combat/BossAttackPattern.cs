@@ -79,11 +79,19 @@ public class BossAttackPattern : MonoBehaviour
         _animator.SetTrigger("Attack");
        */
         
-        await UniTask.Delay(2500);
+        //魔法陣を生成
+        _laserParticle[0].Sty(position.position);
+        
+        await UniTask.Delay(1500);
 
         CameraManager.Instance.PreLaserShot(); //レーザー用カメラを使用
         
-        await UniTask.Delay(500);
+        await UniTask.Delay(1500);
+        
+        //スローモーション演出
+        Time.timeScale = 0.2f;
+        await UniTask.Delay(30);
+        Time.timeScale = 1.0f;
         
         CameraManager.Instance.CameraShakeOnFire();
         
@@ -99,21 +107,31 @@ public class BossAttackPattern : MonoBehaviour
     /// </summary>
     public async void HorizontalLaserPlus(Transform position, float effectTime)
     {
+        //新しい座標を作成
+        Vector3 position1 = position.position + new Vector3(-10, 0, 0);
+        Vector3 position2 = position.position + new Vector3(10, 0, 0);
+        
         //TODO:チャージの処理
         /*
         _animator.SetInteger("AttackType", 0);
         _animator.SetTrigger("Attack");
        */
+
+        //魔法陣を生成
+        _laserParticle[0].Sty(position.position);
+        _laserParticle[1].Sty(position1);
+        _laserParticle[2].Sty(position2);
         
-        await UniTask.Delay(2500);
+        await UniTask.Delay(1500);
 
         CameraManager.Instance.PreLaserShot(); //レーザー用カメラを使用
         
-        await UniTask.Delay(500);
+        await UniTask.Delay(1500);
 
-        //新しい座標を作成
-        Vector3 position1 = position.position + new Vector3(-10, 0, 0);
-        Vector3 position2 = position.position + new Vector3(10, 0, 0);
+        //スローモーション演出
+        Time.timeScale = 0.2f;
+        await UniTask.Delay(30);
+        Time.timeScale = 1.0f;
         
         CameraManager.Instance.CameraShakeOnFire();
         
@@ -149,7 +167,7 @@ public class BossAttackPattern : MonoBehaviour
                 _laserParticle[index].Stop(); //レーザーを止める
                 _laserParticle[index].LaserEffect.SetActive(false);
                 _animator.applyRootMotion = false;
-                CameraManager.Instance.UseCamera(0); //元のカメラに戻す
+                CameraManager.Instance.ExplosionEffect(); //元のカメラに戻す
             })
             .AddTo(this);
     }
