@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using PlayerSystem.Fight;
@@ -15,32 +16,55 @@ public class BossMover : MonoBehaviour
     private Health _health;
     private CharacterController _cc;
     private Vector3 _initializePos;
-    private int _patternCount;
+    private int _currentPattern = 0; //現在の攻撃パターン
     private int _pattern2Count; //パターン2で使用する
+    private bool _isDPSCheak; //DPSチェック中かどうか
+
+    private readonly List<Func<UniTask>> _attackPatterns = new();
 
     private void Start()
     {
+        //コンポーネントの取得と初期化
         _health = GetComponent<Health>();
         _cc = GetComponent<CharacterController>();
         _initializePos = transform.position;
         transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //空中に移動
         
+        //HPが50%以下になったら攻撃パターンを変更する
+        Observable
+            .EveryUpdate()
+            .Where(_ => _health.CurrentHP <= _health.MaxHP * 0.5f)
+            .Take(1)
+            .Subscribe(_ => ChangeAttackPattern())
+            .AddTo(this);
+        
+        //HPが10%以下になったらDPSチェックを始める
         Observable
             .EveryUpdate()
             .Where(_ => _health != null && _health.CurrentHP <= _health.MaxHP * 0.1f) //HP10%以下になったら
             .Take(1) //一度だけに制限
             .Subscribe(_ => _attackPattern.FinalTimeControl()) //特殊攻撃パターンを実行
             .AddTo(this);
+        
+        //攻撃パターンを登録
+        _attackPatterns.Add(Pattern1);
+        _attackPatterns.Add(Pattern2);
+        _attackPatterns.Add(Pattern3);
+        
+        BattleStart().Forget();
     }
 
     /// <summary>
-    /// ボス戦を始めるメソッド
+    /// ボス戦開始
     /// </summary>
-    public void BattleStart()
+    public async UniTask BattleStart()
     {
-        //Pattern1();
-        //Pattern2();
-        Pattern3();
+        while (!_isDPSCheak)
+        {
+            await _attackPatterns[_currentPattern]();
+            _currentPattern = (_currentPattern + 1) % _attackPatterns.Count;
+            await UniTask.Delay(2000);
+        }
     }
 
     /// <summary>
@@ -53,11 +77,11 @@ public class BossMover : MonoBehaviour
         await UniTask.Delay(6000);
         
         //次の攻撃に向けて移動する
-        if(_patternCount == 1) Emerge();
-        else if(_patternCount == 2) Pattern3();
-        else if (_patternCount == 3)
+        if(_currentPattern == 1) Emerge();
+        else if(_currentPattern == 2) Pattern3();
+        else if (_currentPattern == 3)
         {
-            _patternCount = 0; //初期化
+            _currentPattern = 0; //初期化
             Emerge();
         }
     }
@@ -71,8 +95,8 @@ public class BossMover : MonoBehaviour
         await UniTask.Delay(1000);
         
         //次の攻撃を行う
-        if(_patternCount == 1) Pattern2(); //パターン2に繋げる
-        else if (_patternCount == 0) Pattern1();
+        if(_currentPattern == 1) Pattern2(); //パターン2に繋げる
+        else if (_currentPattern == 0) Pattern1();
     }
 
     /// <summary>
@@ -88,7 +112,7 @@ public class BossMover : MonoBehaviour
     /// 攻撃パターン1 レーザーメインの回避パート
     /// </summary>
     [ContextMenu("Pattern1")]
-    public async void Pattern1()
+    public async UniTask Pattern1()
     {
         //水平レーザーを照射
         _attackPattern.HorizontalLaser(transform, 3f);
@@ -138,7 +162,7 @@ public class BossMover : MonoBehaviour
         
         await UniTask.Delay(4000);
 
-        _patternCount = 1;
+        _currentPattern = 1;
         Break();
     }
 
@@ -146,7 +170,7 @@ public class BossMover : MonoBehaviour
     /// 攻撃パターン2 影移動と近接戦闘
     /// </summary>
     [ContextMenu("Pattern2")]
-    public void Pattern2()
+    public async UniTask Pattern2()
     {
         _attackPattern.DefaultTransform = transform.position;
         _attackPattern.ShadowLatent();
@@ -173,7 +197,7 @@ public class BossMover : MonoBehaviour
         else
         {
             //パターン2の二回目の攻撃なら、地上に降りる
-            _patternCount = 2;
+            _currentPattern = 2;
             Break();
             _pattern2Count = 0; //リセットする
         }
@@ -183,7 +207,7 @@ public class BossMover : MonoBehaviour
     /// 攻撃パターン3　時間操作
     /// </summary>
     [ContextMenu("Pattern3")]
-    public async void Pattern3()
+    public async UniTask Pattern3()
     {
         Warp(new Vector3(100f, 15f, 250f));
         _attackPattern.DefaultTransform = transform.position;
@@ -194,7 +218,7 @@ public class BossMover : MonoBehaviour
         
         await UniTask.Delay(5000);
 
-        _patternCount = 3;
+        _currentPattern = 3;
         Break();
     }
 
@@ -207,5 +231,16 @@ public class BossMover : MonoBehaviour
     public void After()
     {
         _attackPattern.After();
+    }
+    
+    /// <summary>
+    /// 攻撃パターンを変更する
+    /// </summary>
+    private void ChangeAttackPattern()
+    {
+        Debug.Log("攻撃パターン変更");
+        _attackPatterns.Clear();
+        _attackPatterns.Add(Pattern2);
+        _attackPatterns.Add(Pattern3);
     }
 }
