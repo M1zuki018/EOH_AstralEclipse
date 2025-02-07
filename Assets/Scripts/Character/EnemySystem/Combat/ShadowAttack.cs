@@ -31,26 +31,20 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     public async UniTask Fire()
     {
         Debug.Log("影に潜る → 影移動 → 出現して攻撃 → ワープ → 繰り返し");
-        
-        await ShadowLatent(); //影に潜る
-        
-        ShadowMove();
-        
-        WarpToPosition();
-        await UniTask.Delay(1000);
-
-        ShadowLatent();
+        ShadowLatent(); //影に潜る
     }
     
     /// <summary>
     /// 影に潜る
     /// </summary>
-    private async UniTask ShadowLatent()
+    private async void ShadowLatent()
     {
         _cc.Move(Vector3.down * 2.5f); //影に潜る
         _shadowObj = Instantiate(_shadowPrefab, transform); //子オブジェクトに影オブジェクトを追加して保持
         
-        await UniTask.Delay(500); //少し待機
+        await UniTask.Delay(2000); //少し待機
+        
+        ShadowMove();
     }
 
     /// <summary>
@@ -110,11 +104,15 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     }
     
     /// <summary>
-    /// ワープ処理
+    /// ワープ処理（攻撃四段目のスクリプトから呼び出される）
     /// </summary>
-    private void WarpToPosition()
+    public async void WarpToPosition()
     {
-        Vector3 position = new Vector3(_playerTransform.position.x, _playerTransform.position.y, _playerTransform.position.z);
+        Vector3 position = new Vector3(93, 2, 230);
         _cc.Move(position - transform.position);
+        
+        await UniTask.Delay(500);
+
+        ShadowLatent();
     }
 }

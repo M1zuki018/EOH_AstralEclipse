@@ -7,13 +7,12 @@ using UnityEngine;
 public class BossAttack_Fourth : AttackAdjustBase
 {
     [SerializeField] private HitDetectionInfo _hitDetectionInfo; 
+    [SerializeField] private ShadowAttack _shadowAttack;
     private Transform _player;
-    private BossMover _bossMover;
     
     public override async void StartAttack()
     {
         if(_player == null) _player = GameObject.FindGameObjectWithTag("Player").transform; 
-        if(_bossMover == null) _bossMover = GetComponent<BossMover>();
         _target = _player;
         
         if (_target != null)
@@ -32,7 +31,7 @@ public class BossAttack_Fourth : AttackAdjustBase
         
         await UniTask.Delay(700);
         
-        //_bossMover.TransitionPattern2(); //次の攻撃に遷移する
+        _shadowAttack.WarpToPosition();
     }
 
     public override void CorrectMovement(Vector3 forwardDirection) { }
