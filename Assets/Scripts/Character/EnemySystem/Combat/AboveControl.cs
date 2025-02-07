@@ -5,8 +5,10 @@ using UnityEngine;
 /// <summary>
 /// ボスの頭上からの攻撃を管理するクラス
 /// </summary>
-public class AboveControl : MonoBehaviour
+public class AboveControl : MonoBehaviour, IBossAttack
 {
+    public string AttackName => "Above";
+    
     [SerializeField] private GameObject _arm;
     private Collider _collider;
     private ICombat _combat;
@@ -47,5 +49,11 @@ public class AboveControl : MonoBehaviour
                 defense: 0, //相手の防御力
                 attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
         }
+    }
+
+    
+    public UniTask Fire()
+    {
+        throw new System.NotImplementedException();
     }
 }

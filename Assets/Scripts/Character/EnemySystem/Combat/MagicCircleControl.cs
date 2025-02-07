@@ -1,12 +1,15 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
 /// パターン3の攻撃で使用する魔法陣の管理スクリプト
 /// </summary>
-public class MagicCircleControl : MonoBehaviour
+public class MagicCircleControl : MonoBehaviour, IBossAttack
 {
+    public string AttackName => "MagicCircle";
+    
     [SerializeField] private GameObject _energyPrefab;
     public Transform Player { get; set; }
     public ICombat Combat { get; set; }
@@ -33,6 +36,12 @@ public class MagicCircleControl : MonoBehaviour
 
             _energies.Add(Instantiate(_energyPrefab, position, Quaternion.identity, transform).GetComponent<EnergyBall>());
         }
+    }
+
+    
+    UniTask IBossAttack.Fire()
+    {
+        throw new System.NotImplementedException();
     }
 
     /// <summary>

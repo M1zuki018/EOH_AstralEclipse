@@ -1,10 +1,13 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
-/// レーザービームPrefabにつけるクラス。詳細な設定を行える
+/// レーザービームPrefabにつけるクラス
 /// </summary>
-public class LaserParticle : MonoBehaviour
+public class LaserParticle : MonoBehaviour, IBossAttack
 {
+    public string AttackName => "HorizontalLaser";
+    
     [SerializeField] private ParticleSystem _laserEffect;
     public GameObject LaserEffect => _laserEffect.gameObject;
 
@@ -23,5 +26,10 @@ public class LaserParticle : MonoBehaviour
     public void Stop()
     {
         _laserEffect.Stop();
+    }
+    
+    public UniTask Fire()
+    {
+        throw new System.NotImplementedException();
     }
 }
