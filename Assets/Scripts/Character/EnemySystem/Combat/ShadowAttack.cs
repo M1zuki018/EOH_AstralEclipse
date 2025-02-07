@@ -31,15 +31,16 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     public async UniTask Fire()
     {
         Debug.Log("影に潜る → 影移動 → 出現して攻撃 → ワープ → 繰り返し");
-        ShadowLatent(); //影に潜る
+        await ShadowLatent(); //影に潜る
     }
     
     /// <summary>
     /// 影に潜る
     /// </summary>
-    private async void ShadowLatent()
+    private async UniTask ShadowLatent()
     {
-        _cc.Move(Vector3.down * 2.5f); //影に潜る
+        Debug.Log("影に潜る");
+        _cc.Move(Vector3.down * 4f); //影に潜る
         _shadowObj = Instantiate(_shadowPrefab, transform); //子オブジェクトに影オブジェクトを追加して保持
         
         await UniTask.Delay(2000); //少し待機
@@ -84,7 +85,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
         //TODO:溶けて出てくるような、ディゾルブ効果をつけたい
         Debug.Log("影が到達");
         // 実体化処理
-        _cc.Move(Vector3.up * 2.5f); //影から出現
+        _cc.Move(Vector3.up * 4f); //影から出現
         _shadowObj.SetActive(false);
 
         await UniTask.Delay(500); //一瞬おいてから攻撃開始
@@ -106,13 +107,13 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     /// <summary>
     /// ワープ処理（攻撃四段目のスクリプトから呼び出される）
     /// </summary>
-    public async void WarpToPosition()
+    public async UniTask WarpToPosition()
     {
         Vector3 position = new Vector3(93, 2, 230);
         _cc.Move(position - transform.position);
         
         await UniTask.Delay(500);
 
-        ShadowLatent();
+        await ShadowLatent();
     }
 }
