@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     [SerializeField, Comment("周波数")] private float snakeFrequency = 1.5f;
     
     [SerializeField] private GameObject _shadowPrefab;
+    [SerializeField] private Transform _bossObj;
     
     private CharacterController _cc;
     private GameObject _shadowObj;
@@ -40,10 +42,13 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     private async UniTask ShadowLatent()
     {
         Debug.Log("影に潜る");
-        _cc.Move(Vector3.down * 4f); //影に潜る
-        _shadowObj = Instantiate(_shadowPrefab, transform); //子オブジェクトに影オブジェクトを追加して保持
         
-        await UniTask.Delay(2000); //少し待機
+        _shadowObj = Instantiate(_shadowPrefab, transform); //影を子オブジェクトに生成
+        Quaternion parentRotation = transform.rotation;
+        _shadowObj.transform.localRotation = parentRotation * Quaternion.Euler(90f, 0f, 0f); //90度回転させる
+        _shadowObj.transform.localPosition = new Vector3(0f, 0.1f, 0f); //影の位置をY=0.1に設定
+        
+        await _bossObj.DOMoveY(-2.5f, 1.5f).SetEase(Ease.InOutQuad).AsyncWaitForCompletion(); //影に潜る
         
         ShadowMove();
     }
@@ -85,10 +90,11 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
         //TODO:溶けて出てくるような、ディゾルブ効果をつけたい
         Debug.Log("影が到達");
         // 実体化処理
-        _cc.Move(Vector3.up * 4f); //影から出現
+        
+        await _bossObj.DOMoveY(0f, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion();
         _shadowObj.SetActive(false);
 
-        await UniTask.Delay(500); //一瞬おいてから攻撃開始
+        await UniTask.Delay(300); //一瞬おいてから攻撃開始
         
         ShadowFire();
         Destroy(_shadowObj);
