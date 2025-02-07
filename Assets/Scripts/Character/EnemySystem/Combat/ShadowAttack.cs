@@ -17,6 +17,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     
     [SerializeField] private GameObject _shadowPrefab;
     [SerializeField] private Transform _bossObj;
+    [SerializeField] private Renderer _bossRenderer;
     
     private CharacterController _cc;
     private GameObject _shadowObj;
@@ -28,6 +29,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
         _cc = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _playerTransform = GameObject.FindWithTag("Player").transform; // プレイヤーの参照を取得
+        SetDissolveValue(0);
     }
 
     public async UniTask Fire()
@@ -43,12 +45,18 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     {
         Debug.Log("影に潜る");
         
-        _shadowObj = Instantiate(_shadowPrefab, transform); //影を子オブジェクトに生成
+        //影のオブジェクトを生成する処理
+        _shadowObj = Instantiate(_shadowPrefab, transform);
         Quaternion parentRotation = transform.rotation;
         _shadowObj.transform.localRotation = parentRotation * Quaternion.Euler(90f, 0f, 0f); //90度回転させる
         _shadowObj.transform.localPosition = new Vector3(0f, 0.1f, 0f); //影の位置をY=0.1に設定
-        
-        await _bossObj.DOMoveY(-2.5f, 1.5f).SetEase(Ease.InOutQuad).AsyncWaitForCompletion(); //影に潜る
+
+        //影に潜る処理
+        float duration = 1.5f;
+        _bossObj.DOMoveY(-2.5f, duration).SetEase(Ease.InOutQuad).AsyncWaitForCompletion();
+        UpdateDissolveValue(1, duration);
+
+        await UniTask.Delay(1500);
         
         ShadowMove();
     }
@@ -89,9 +97,14 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     { 
         //TODO:溶けて出てくるような、ディゾルブ効果をつけたい
         Debug.Log("影が到達");
-        // 実体化処理
         
-        await _bossObj.DOMoveY(0f, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion();
+        //実体化処理
+        float duration = 0.7f;
+        _bossObj.DOMoveY(0f, duration).SetEase(Ease.OutQuad);
+        UpdateDissolveValue(0, duration);
+
+        await UniTask.Delay(600);
+        
         _shadowObj.SetActive(false);
 
         await UniTask.Delay(300); //一瞬おいてから攻撃開始
@@ -121,5 +134,23 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
         await UniTask.Delay(500);
 
         await ShadowLatent();
+    }
+
+    /// <summary>
+    /// マテリアルのディゾルブ効果の値をすぐに変更する
+    /// </summary>
+    private void SetDissolveValue(float cutOff)
+    {
+        _bossRenderer.materials[0].SetFloat("_Cutoff", cutOff);
+        _bossRenderer.materials[1].SetFloat("_Cutoff", cutOff);
+    }
+    
+    /// <summary>
+    /// マテリアルのディゾルブ効果の値を徐々に変更する
+    /// </summary>
+    private void UpdateDissolveValue(float cutOff, float duration)
+    {
+        _bossRenderer.materials[0].DOFloat(cutOff, "_Cutoff", duration).SetEase(Ease.InOutQuad);
+        _bossRenderer.materials[1].DOFloat(cutOff, "_Cutoff", duration).SetEase(Ease.InOutQuad);
     }
 }
