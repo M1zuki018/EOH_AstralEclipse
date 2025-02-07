@@ -10,7 +10,8 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     [SerializeField] private BossMover _bossMover;
     
     [Header("タイミング設定")]
-    [SerializeField] private float _laserDelay = 3f;
+    [SerializeField, Comment("レーザー照射時間")] private float _laserDelay = 3f;
+    [SerializeField, Comment("水平レーザー演出時間")] private float _laserPerformance = 3.5f;
     [SerializeField] private float _thornDelay = 5f;
     [SerializeField] private float _aboveDelay = 4f;
     
@@ -46,7 +47,7 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     private async UniTask FireHorizontalLaser()
     {
         _attackPattern.HorizontalLaserPlus(transform, _laserDelay);
-        await UniTask.Delay((int)(_laserDelay * 1000));
+        await UniTask.Delay((int)(_laserDelay * 1000 + _laserPerformance)); //レーザー照射時間＋演出時間
         
         //TODO:レーザーの爆風・床が燃えているなどのエフェクトを作ってもいいかもしれない
     }
