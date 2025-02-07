@@ -326,10 +326,8 @@ public class BossAttackPattern : MonoBehaviour
     /// <summary>
     /// 魔法陣を生成する
     /// </summary>
-    private void SpawnMagicCircle()
+    private void SpawnMagicCircle(int countLower = 4, int countUpper = 5)
     {
-        int countLower = 4; //下段に表示する魔法陣の数
-        int countUpper = 5; //上段に表示する魔法陣の数
         float yOffsetLower = 0f; //ボスのY座標からどれだけ下に配置するか
         float yOffsetUpper = 12f; //ボスのY座標からどれだけ上に配置するか
         
@@ -378,7 +376,7 @@ public class BossAttackPattern : MonoBehaviour
         Time.timeScale = 0.1f; //遅延
         _timeStopVolume.enabled = true; //画面のモノクロ化
         RenderSettings.skybox = _glitchy; //Skyboxを変更
-        //_bgmMixer.audioMixer.SetFloat("MasterVolume", 1f); //音をくぐもらせる
+        _bgmMixer.audioMixer.SetFloat("MasterVolume", 1f); //音をくぐもらせる
         _playerInput.DeactivateInput(); //プレイヤーの入力を制限
         
         await UniTask.Delay(200);
@@ -396,7 +394,9 @@ public class BossAttackPattern : MonoBehaviour
         //BGMのvolumeを完全にゼロにする
         //SEにもエコーがかかったような遅延音に聞こえるような効果をかける
         
-        await UniTask.Delay(300);
+        SpawnMagicCircle(10, 11); //魔法陣を展開
+        
+        await UniTask.Delay(4000);
         
         FinalAttack();
     }
@@ -413,6 +413,13 @@ public class BossAttackPattern : MonoBehaviour
         RenderSettings.skybox = _defaultMaterial; //Skyboxを元に戻す
         _playerInput.ActivateInput(); //入力制限解除
         //即死攻撃の処理
+        
+        //魔法陣のオブジェクトを削除したあと、リストをクリアする
+        foreach (var magicCircle in _magicCircles)
+        {
+            Destroy(magicCircle.gameObject);
+        }
+        _magicCircles.Clear();
     }
 
     /// <summary>
