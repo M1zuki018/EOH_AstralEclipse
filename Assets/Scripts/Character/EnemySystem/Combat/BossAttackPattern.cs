@@ -23,6 +23,7 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private AudioMixerGroup _bgmMixer; 
     [SerializeField] private Material _glitchy; //グリッチシェーダーをかけたマテリアル
 
+    private ShadowAttack _shadowAttack;
     
     private Animator _animator;
     public Animator Animator => _animator;
@@ -43,6 +44,7 @@ public class BossAttackPattern : MonoBehaviour
         _defaultMaterial = RenderSettings.skybox;
         _playerInput = _target.gameObject.GetComponent<PlayerInput>();
         _cc = GetComponent<CharacterController>();
+        _shadowAttack = GetComponent<ShadowAttack>();
     }
     
     /// <summary>
@@ -180,6 +182,14 @@ public class BossAttackPattern : MonoBehaviour
         await UniTask.Delay(1600);
         
         //TODO:強力なダメージ＋吹き飛ばしを実装
+    }
+
+    /// <summary>
+    /// 影攻撃を開始する
+    /// </summary>
+    public async UniTask StartShadowAttack()
+    {
+        await _shadowAttack.Fire();
     }
 
     /// <summary>

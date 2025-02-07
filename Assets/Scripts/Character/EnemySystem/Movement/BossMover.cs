@@ -59,12 +59,15 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public async UniTask BattleStart()
     {
+        await _attackPatterns[1]();
+        /*
         while (!_isDPSCheak)
         {
             await _attackPatterns[_currentPattern]();
             _currentPattern = (_currentPattern + 1) % _attackPatterns.Count;
             await UniTask.Delay(2000);
         }
+        */
     }
 
     /// <summary>
@@ -172,34 +175,11 @@ public class BossMover : MonoBehaviour
     [ContextMenu("Pattern2")]
     public async UniTask Pattern2()
     {
-        _attackPattern.DefaultTransform = transform.position;
-        
+
+        await _attackPattern.StartShadowAttack();
+
         //TODO:ガード成功時：火花のようなエフェクト＋ボスが軽く後退。回避成功時：スローモーションを一瞬入れる
         //TODO: ヒット時：プレイヤーが「のけぞる」 or 「吹き飛ばされる」。
-    }
-
-    /// <summary>
-    /// 攻撃パターン2の次に進む
-    /// </summary>
-    public async void TransitionPattern2()
-    {
-        _pattern2Count++;
-        if (_pattern2Count == 1)
-        {
-            //パターン2の一回目の攻撃なら、2回目の攻撃を行う
-            //_attackPattern.ShadowLatent();
-            
-            await UniTask.Delay(1600);
-            
-            Warp(new Vector3(100f, 0f, 230f));
-        }
-        else
-        {
-            //パターン2の二回目の攻撃なら、地上に降りる
-            _currentPattern = 2;
-            Break();
-            _pattern2Count = 0; //リセットする
-        }
     }
 
     /// <summary>

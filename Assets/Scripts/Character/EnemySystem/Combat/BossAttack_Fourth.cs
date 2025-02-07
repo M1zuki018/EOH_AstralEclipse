@@ -32,7 +32,7 @@ public class BossAttack_Fourth : AttackAdjustBase
         
         await UniTask.Delay(700);
         
-        _bossMover.TransitionPattern2(); //次の攻撃に遷移する
+        //_bossMover.TransitionPattern2(); //次の攻撃に遷移する
     }
 
     public override void CorrectMovement(Vector3 forwardDirection) { }

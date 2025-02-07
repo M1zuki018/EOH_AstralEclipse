@@ -15,7 +15,6 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     [SerializeField, Comment("周波数")] private float snakeFrequency = 1.5f;
     
     [SerializeField] private GameObject _shadowPrefab;
-    [SerializeField] private GameObject _boss; //ボスのモデル
     
     private CharacterController _cc;
     private GameObject _shadowObj;
@@ -25,6 +24,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     private void Start()
     {
         _cc = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
         _playerTransform = GameObject.FindWithTag("Player").transform; // プレイヤーの参照を取得
     }
 
