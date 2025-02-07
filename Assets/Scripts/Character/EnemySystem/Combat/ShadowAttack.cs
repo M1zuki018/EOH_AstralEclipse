@@ -29,12 +29,16 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     private GameObject _shadowObj;
     private Animator _animator;
     private Transform _playerTransform; //プレイヤーの位置参照
+    private BossMover _bossMover;
+
+    private int _count = 0;
     
     private void Start()
     {
         _cc = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _playerTransform = GameObject.FindWithTag("Player").transform; // プレイヤーの参照を取得
+        _bossMover = GetComponent<BossMover>();
         SetDissolveValue(0);
     }
 
@@ -170,6 +174,16 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
         warpSequence.AppendCallback(() =>
         {
             Destroy(warpHole);
+
+            _count++; //攻撃した回数を増やす
+
+            //2回攻撃したら休憩
+            if (_count >= 2)
+            {
+                _bossMover.Break();
+                return;
+            }
+            
             ShadowLatent();
         });
     }
