@@ -272,15 +272,18 @@ public class BossAttackPattern : MonoBehaviour
         //プレイヤーの頭上にエリアを生成
         GameObject aboveObj = Instantiate(_abovePrefab);
         aboveObj.TryGetComponent(out AboveControl aboveCtrl);
-        aboveCtrl.SetCombat(_combat);
+        aboveCtrl.SetCombat(_combat, _target);
         
+        await UniTask.Delay(3000); //待って避けられるようにする
+        /*
         await UniTask.Delay(1400); //待って避けられるようにする
         
-        aboveCtrl.Attack();
+        await aboveCtrl.Fire();
         _animator.SetTrigger("Attack");
         
         await UniTask.Delay(1600);
         
+        */
         //TODO:強力なダメージ＋吹き飛ばしを実装
     }
     
