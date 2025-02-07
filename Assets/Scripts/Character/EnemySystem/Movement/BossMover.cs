@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
 
@@ -59,7 +57,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public async UniTask BattleStart()
     {
-        await _attackPatterns[1]();
+        await _attackPatterns[0]();
         /*
         while (!_isDPSCheak)
         {
@@ -117,56 +115,11 @@ public class BossMover : MonoBehaviour
     [ContextMenu("Pattern1")]
     public async UniTask Pattern1()
     {
-        //水平レーザーを照射
-        _attackPattern.HorizontalLaser(transform, 3f);
-        
-        await UniTask.Delay(5000);
-
-        _attackPattern.Animator.SetInteger("AttackType", 1);
-        _attackPattern.Animator.SetTrigger("Attack");
-        _attackPattern.ResetVerticalLasers();
-        //垂直レーザーを生成
-        float generatoPos = transform.position.x - 14f;
-        for (int i = 0; i < 6; i++)
-        {
-            generatoPos += 4;
-            _attackPattern.GenerateVerticalLaser(new Vector3(generatoPos, transform.position.y, transform.position.z));
-        }
-        
-        await UniTask.Delay(3300);
-
-        _attackPattern.Animator.SetTrigger("Attack");
-        
-        await UniTask.Delay(700);
-        
-        //垂直レーザーを放つ
-        for (int i = 0; i < 6; i++)
-        {
-            //順番は0、5、1、4、2、3（外側から内側へ）
-            _attackPattern.FireVerticalLaser((i % 2 == 0) ? (i / 2) : (6 - 1 - (i / 2)));
-            await UniTask.Delay(200);
-        }
-        //TODO:ボス自身も自然に移動させたい
-        
-        await UniTask.Delay(2500);
-        
-        //茨攻撃（生成→予兆→攻撃→消滅までのセット）
-        _attackPattern.GenerateThorns();
-        
-        await UniTask.Delay(5000);
-        
-        //茨攻撃2回目
-        _attackPattern.GenerateThorns();
-        
-        await UniTask.Delay(5000);
-
-        //頭上からの攻撃
-        _attackPattern.AttackFromAbove();
-        
-        await UniTask.Delay(4000);
-
+        _attackPattern.StartAttackPattern1();
+        /*
         _currentPattern = 1;
         Break();
+        */
     }
 
     /// <summary>

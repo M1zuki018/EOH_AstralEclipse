@@ -1,4 +1,3 @@
-using System.Numerics;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UniRx;
@@ -41,7 +40,6 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
 
     public async UniTask Fire()
     {
-        Debug.Log("影に潜る → 影移動 → 出現して攻撃 → ワープ → 繰り返し");
         await ShadowLatent(); //影に潜る
     }
     
@@ -50,8 +48,6 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     /// </summary>
     private async UniTask ShadowLatent()
     {
-        Debug.Log("影に潜る");
-        
         //影のオブジェクトを生成する処理
         _shadowObj = Instantiate(_shadowPrefab, transform);
         Quaternion parentRotation = transform.rotation;
@@ -102,9 +98,6 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     /// </summary>
     private async void ShadowArrived()
     { 
-        //TODO:溶けて出てくるような、ディゾルブ効果をつけたい
-        Debug.Log("影が到達");
-        
         //実体化処理
         float duration = 0.7f;
         _bossObj.DOMoveY(0f, duration).SetEase(Ease.OutQuad);
@@ -125,7 +118,6 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     /// </summary>
     private void ShadowFire()
     {
-        Debug.Log("攻撃");
         _animator.SetInteger("AttackType", 5);
         _animator.SetTrigger("Attack");
     }
