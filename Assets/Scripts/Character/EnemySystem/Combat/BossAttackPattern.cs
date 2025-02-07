@@ -23,8 +23,6 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private AudioMixerGroup _bgmMixer; 
     [SerializeField] private Material _glitchy; //グリッチシェーダーをかけたマテリアル
 
-    [SerializeField] private GameObject _boss;
-    [SerializeField] private GameObject _shadowPrefab;
     
     private Animator _animator;
     public Animator Animator => _animator;
@@ -159,8 +157,7 @@ public class BossAttackPattern : MonoBehaviour
     }
 
     #endregion
-
-    #region パターン2
+    
 
     /// <summary>
     /// 頭上から落とす広範囲攻撃(走って避ける)
@@ -184,79 +181,6 @@ public class BossAttackPattern : MonoBehaviour
         
         //TODO:強力なダメージ＋吹き飛ばしを実装
     }
-    
-    /// <summary>
-    /// 影に潜る
-    /// </summary>
-    public void ShadowLatent()
-    {
-        _cc.Move(DefaultTransform - transform.position); //デフォルトのTransformとの差分だけ移動させておく
-        _shadowObj = Instantiate(_shadowPrefab, transform); //子オブジェクトに影オブジェクトを追加して保持
-        _boss.transform.DOMoveY(-2.5f, 1.5f).OnComplete(() => ShadowMove()); //影に潜る
-    }
-    
-    /// <summary>
-    /// 影移動
-    /// </summary>
-    public void ShadowMove()
-    {
-        _cc.Move(new Vector3(0f, -4.9f, 0f)); //オブジェクトの位置をずらす
-        
-        float moveSpeed = 10f; //移動速度
-        float snakeAmplitude = 0.3f; //振れ幅
-        float snakeFrequency = 1.5f; //周波数
-        float elapsedTime = 0f; //経過時間
-        
-        //移動処理
-        Observable
-            .EveryUpdate()
-            .TakeWhile(_ => Vector3.Distance(transform.position, _target.position) > 1f) //プレイヤーとの距離が1f以下になるまで処理を行う
-            .Subscribe(_ =>
-            {
-                elapsedTime += Time.deltaTime;
-                
-                Vector3 direction = (_target.position - transform.position).normalized; //プレイヤーとのベクトルを求める
-                Vector3 sideVector = Vector3.Cross(Vector3.up, direction);
-                
-                float snakeOffset = Mathf.Sin(elapsedTime * snakeFrequency) * snakeAmplitude; //サイン波を求める
-                Vector3 moveVector =  (direction * moveSpeed * Time.deltaTime) + (sideVector * snakeOffset * 0.5f); //移動量を計算
-
-                _cc.Move(moveVector); //高さは固定
-            }, () =>
-            {
-                ShadowArrived();
-            })
-            .AddTo(this);
-    }
-    
-    /// <summary>
-    /// 影から実体化する処理
-    /// </summary>
-    private async void ShadowArrived()
-    { 
-        //TODO:溶けて出てくるような、ディゾルブ効果をつけたい
-        Debug.Log("影が到達");
-        // 実体化処理
-        _boss.transform.DOMoveY(0, 0.4f); //影から出る
-        _shadowObj.SetActive(false);
-
-        await UniTask.Delay(500); //一瞬おいてから攻撃開始
-        
-        ShadowFire();
-        Destroy(_shadowObj);
-    }
-
-    /// <summary>
-    /// 近接攻撃
-    /// </summary>
-    private void ShadowFire()
-    {
-        Debug.Log("攻撃");
-        _animator.SetInteger("AttackType", 5);
-        _animator.SetTrigger("Attack");
-    }
-
-    #endregion
 
     /// <summary>
     /// 時間操作

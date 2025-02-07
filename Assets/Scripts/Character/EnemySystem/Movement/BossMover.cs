@@ -173,7 +173,6 @@ public class BossMover : MonoBehaviour
     public async UniTask Pattern2()
     {
         _attackPattern.DefaultTransform = transform.position;
-        _attackPattern.ShadowLatent();
         
         //TODO:ガード成功時：火花のようなエフェクト＋ボスが軽く後退。回避成功時：スローモーションを一瞬入れる
         //TODO: ヒット時：プレイヤーが「のけぞる」 or 「吹き飛ばされる」。
@@ -188,7 +187,7 @@ public class BossMover : MonoBehaviour
         if (_pattern2Count == 1)
         {
             //パターン2の一回目の攻撃なら、2回目の攻撃を行う
-            _attackPattern.ShadowLatent();
+            //_attackPattern.ShadowLatent();
             
             await UniTask.Delay(1600);
             
