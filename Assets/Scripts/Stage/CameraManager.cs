@@ -20,6 +20,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineImpulseSource _impulseSource;
     private float _defaultFOV;
     private int _currentCameraIndex; //現在のカメラ
+    private CinemachineBasicMultiChannelPerlin _noise; // シェイク用ノイズ
     
     //Volume
     [SerializeField] private Volume _volume;
@@ -50,6 +51,14 @@ public class CameraManager : MonoBehaviour
         CinemachineFramingTransposer transposer =
             _virtualCameras[0].GetCinemachineComponent<CinemachineFramingTransposer>();
         transposer.m_CameraDistance = 3f; //メインカメラの距離を初期化
+        
+        //レーザーカメラの設定
+        _noise = _virtualCameras[4].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        if (_noise != null)
+        {
+            _noise.m_AmplitudeGain = 0f; // 初期状態ではシェイクなし
+            _noise.m_FrequencyGain = 0f; // 振動なし
+        }
     }
 
     /// <summary>
@@ -232,13 +241,36 @@ public class CameraManager : MonoBehaviour
     }
     
     /// <summary>
+    /// レーザー発射前の演出（ズーム）
+    /// </summary>
+    public async void PreLaserShot()
+    {
+        Debug.Log("呼ばれた");
+        float zoomDuration = 0.5f; //ズームにかける時間
+        UseCamera(4); //レーザー演出カメラを優先
+        
+        // ズームイン演出
+        _virtualCameras[4].m_Lens.FieldOfView = 50;
+        DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 
+            35, zoomDuration).SetEase(Ease.InOutQuad);
+    }
+    
+    /// <summary>
     /// レーザー照射時のカメラの揺れを作る
     /// </summary>
-    public async UniTask CameraShakeOnFire()
+    public async void CameraShakeOnFire()
     {
-        Camera.main.transform.DOShakePosition(0.5f, 0.5f, 10, 90);
-        Camera.main.transform.DOMoveZ(Camera.main.transform.position.z - 2f, 0.2f).SetEase(Ease.InOutQuad);
-        await UniTask.Delay(200);
-        Camera.main.transform.DOMoveZ(Camera.main.transform.position.z + 2f, 0.5f);
+        float shakeAmplitude = 2.0f; //振幅（シェイクの強さ）
+        float shakeFrequency = 1.5f; //周波数（振動の速さ）
+        float shakeDuration = 3f;  //シェイク時間
+        
+        _noise.m_AmplitudeGain = shakeAmplitude; // シェイク開始
+        _noise.m_FrequencyGain = shakeFrequency; // シェイクの振動速度
+        
+        await UniTask.Delay((int)(shakeDuration * 1000));
+
+        _noise.m_AmplitudeGain = 0; //解除
+        _noise.m_FrequencyGain = 0;
+
     }
 }

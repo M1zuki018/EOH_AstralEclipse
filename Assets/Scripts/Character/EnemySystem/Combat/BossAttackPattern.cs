@@ -79,7 +79,13 @@ public class BossAttackPattern : MonoBehaviour
         _animator.SetTrigger("Attack");
        */
         
-        await UniTask.Delay(3000);
+        await UniTask.Delay(2500);
+
+        CameraManager.Instance.PreLaserShot(); //レーザー用カメラを使用
+        
+        await UniTask.Delay(500);
+        
+        CameraManager.Instance.CameraShakeOnFire();
         
         FireLaser(position.position, effectTime,0);
 
@@ -99,11 +105,17 @@ public class BossAttackPattern : MonoBehaviour
         _animator.SetTrigger("Attack");
        */
         
-        await UniTask.Delay(3000);
+        await UniTask.Delay(2500);
+
+        CameraManager.Instance.PreLaserShot(); //レーザー用カメラを使用
+        
+        await UniTask.Delay(500);
 
         //新しい座標を作成
         Vector3 position1 = position.position + new Vector3(-10, 0, 0);
         Vector3 position2 = position.position + new Vector3(10, 0, 0);
+        
+        CameraManager.Instance.CameraShakeOnFire();
         
         FireLaser(position.position, effectTime,0);
         FireLaser(position1, effectTime,1);
@@ -123,8 +135,6 @@ public class BossAttackPattern : MonoBehaviour
         float elapsedTime = 0f;
         _laserParticle[index].transform.position = position; //レーザーの始点を調整
         _laserParticle[index].LaserEffect.SetActive(true);
-
-        CameraManager.Instance.CameraShakeOnFire();
         
         Observable
             .EveryUpdate()
@@ -139,6 +149,7 @@ public class BossAttackPattern : MonoBehaviour
                 _laserParticle[index].Stop(); //レーザーを止める
                 _laserParticle[index].LaserEffect.SetActive(false);
                 _animator.applyRootMotion = false;
+                CameraManager.Instance.UseCamera(0); //元のカメラに戻す
             })
             .AddTo(this);
     }
