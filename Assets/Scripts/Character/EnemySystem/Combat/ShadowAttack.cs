@@ -1,7 +1,11 @@
+using System.Numerics;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 /// <summary>
 /// ボスの影攻撃を管理するクラス
@@ -132,14 +136,22 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     public async UniTask WarpToPosition()
     {
         Sequence warpSequence = DOTween.Sequence();
+        Vector3 initialPosition = _bossObj.position; // 初期位置を保存
         
         float duration = 1f; //縮小にかける時間
+        float liftHeight = 1f; //縮小時に上に持ち上げる高さ
         
         GameObject warpHole = Instantiate(_warpPrefab, new Vector3(transform.position.x, 2.5f, transform.position.z - 1),
             Quaternion.identity); //その場にワープホールを召喚
         
         //収縮
-        warpSequence.Append(_bossObj.DOScale(Vector3.one * 0.1f, duration).SetEase(Ease.InBack)); //縮める
+        warpSequence.Append(_bossObj.DOScale(new Vector3(1f, 1f, 0.1f), duration / 2).SetEase(Ease.InBack)//Z軸方向に縮める
+            .OnComplete(() =>
+            {
+                _bossObj.DOScale(Vector3.one * 0.1f, duration / 2).SetEase(Ease.OutQuad); //全体的に縮める
+                _bossObj.DOMoveY(initialPosition.y + liftHeight, duration / 2).SetEase(Ease.OutQuad); //少し上に持ち上げる
+            })); 
+        warpSequence.Join(_bossObj.DOLocalMoveZ(-1, duration)); //ワープホール方向に移動させる
         warpSequence.Join(_bossObj.DOShakePosition(duration, 0.1f)); //揺らす
         warpSequence.Join(warpHole.transform.DOScale(Vector3.one * 0.1f, duration)
             .SetEase(Ease.InBack)); // ワープエフェクトも縮小させる
