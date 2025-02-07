@@ -81,7 +81,7 @@ public class BossAttackPattern : MonoBehaviour
         
         await UniTask.Delay(3000);
         
-        FireLaser(position, effectTime,0);
+        FireLaser(position.position, effectTime,0);
 
         //ボスが後方に後ずさる
         Vector3 recoilPosition = transform.position + transform.forward * -3f;
@@ -102,12 +102,10 @@ public class BossAttackPattern : MonoBehaviour
         await UniTask.Delay(3000);
 
         //新しい座標を作成
-        Transform position1 = position;
-        Transform position2 = position;
-        position1.position = new Vector3(position1.position.x - 50, position1.position.y, position1.position.z);
-        position2.position = new Vector3(position1.position.x + 50, position1.position.y, position1.position.z);
+        Vector3 position1 = position.position + new Vector3(-10, 0, 0);
+        Vector3 position2 = position.position + new Vector3(10, 0, 0);
         
-        FireLaser(position, effectTime,0);
+        FireLaser(position.position, effectTime,0);
         FireLaser(position1, effectTime,1);
         FireLaser(position2, effectTime,2);
 
@@ -119,12 +117,14 @@ public class BossAttackPattern : MonoBehaviour
     /// <summary>
     /// 水平レーザーを放つ
     /// </summary>
-    private void FireLaser(Transform position, float effectTime, int index)
+    private void FireLaser(Vector3 position, float effectTime, int index)
     {
         //レーザーを放つ
         float elapsedTime = 0f;
-        _laserParticle[index].transform.position = position.position; //レーザーの始点を調整
+        _laserParticle[index].transform.position = position; //レーザーの始点を調整
         _laserParticle[index].LaserEffect.SetActive(true);
+
+        CameraManager.Instance.CameraShakeOnFire();
         
         Observable
             .EveryUpdate()
@@ -132,7 +132,7 @@ public class BossAttackPattern : MonoBehaviour
             .Subscribe(_ => 
             { 
                 elapsedTime += Time.deltaTime;
-                _laserParticle[index].transform.position = position.position; //レーザーの始点を調整
+                _laserParticle[index].transform.position = position; //レーザーの始点を調整
                 _laserParticle[index].Fire(position);
             }, () =>
             {

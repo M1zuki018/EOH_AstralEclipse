@@ -28,9 +28,9 @@ public class LaserParticle : MonoBehaviour, IBossAttack
     /// <summary>
     /// レーザーを放つ
     /// </summary>
-    public void Fire(Transform firePoint)
+    public void Fire(Vector3 firePoint)
     {
-        transform.position = firePoint.position;
+        transform.position = firePoint;
         gameObject.SetActive(true);
         _laserEffect.Play();
     }

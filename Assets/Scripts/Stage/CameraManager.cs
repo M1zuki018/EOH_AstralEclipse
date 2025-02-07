@@ -231,4 +231,14 @@ public class CameraManager : MonoBehaviour
             Color.black, duration);
     }
     
+    /// <summary>
+    /// レーザー照射時のカメラの揺れを作る
+    /// </summary>
+    public async UniTask CameraShakeOnFire()
+    {
+        Camera.main.transform.DOShakePosition(0.5f, 0.5f, 10, 90);
+        Camera.main.transform.DOMoveZ(Camera.main.transform.position.z - 2f, 0.2f).SetEase(Ease.InOutQuad);
+        await UniTask.Delay(200);
+        Camera.main.transform.DOMoveZ(Camera.main.transform.position.z + 2f, 0.5f);
+    }
 }
