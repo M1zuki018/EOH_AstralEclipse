@@ -7,7 +7,6 @@ using UnityEngine;
 public class BossAttack_Fourth : AttackAdjustBase
 {
     [SerializeField] private HitDetectionInfo _hitDetectionInfo; 
-    [SerializeField] private ShadowAttack _shadowAttack;
     private Transform _player;
     
     public override async void StartAttack()
@@ -28,10 +27,6 @@ public class BossAttack_Fourth : AttackAdjustBase
         await UniTask.Delay(300);
         
         _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
-        
-        await UniTask.Delay(700);
-        
-        _shadowAttack.WarpToPosition();
     }
 
     public override void CorrectMovement(Vector3 forwardDirection) { }

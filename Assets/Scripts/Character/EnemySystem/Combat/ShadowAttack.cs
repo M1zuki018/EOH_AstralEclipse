@@ -32,7 +32,8 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     private BossMover _bossMover;
 
     private int _count = 0;
-    
+    [SerializeField] private int _attackDuration = 3;
+
     private void Start()
     {
         _cc = GetComponent<CharacterController>();
@@ -120,14 +121,18 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     /// <summary>
     /// 近接攻撃
     /// </summary>
-    private void ShadowFire()
+    private async void ShadowFire()
     {
         _animator.SetInteger("AttackType", 5);
         _animator.SetTrigger("Attack");
+
+        await UniTask.Delay((int)(_attackDuration * 1000));
+        
+        WarpToPosition().Forget();
     }
     
     /// <summary>
-    /// ワープ処理（攻撃四段目のスクリプトから呼び出される）
+    /// ワープ処理
     /// </summary>
     public async UniTask WarpToPosition()
     {
