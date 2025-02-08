@@ -43,7 +43,7 @@ public class AboveControl : MonoBehaviour, IBossAttack
         
         await UniTask.Delay(800); // 持ち上げ時間
         
-        _arm.transform.DOMoveY(-2, 0.3f)
+        _arm.transform.DOMoveY(-3.5f, 0.3f)
             .SetEase(Ease.InQuad)
             .OnComplete(() =>
             {

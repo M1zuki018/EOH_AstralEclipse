@@ -84,7 +84,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         if (newTarget != null) //新しいターゲットがいた場合
         {
             UIManager.Instance?.SetLockOnUI(newTarget);
-            CameraManager.Instance?.UseCamera(4);
+            //CameraManager.Instance?.UseCamera(4);
             AudioManager.Instance.PlaySE(2);
             _adjustDirection.Target = newTarget; //攻撃対象を書き換える
             //CameraManager.Instance.UseTargetGroup(newTarget.transform.GetChild(3), 1f, 0.3f);

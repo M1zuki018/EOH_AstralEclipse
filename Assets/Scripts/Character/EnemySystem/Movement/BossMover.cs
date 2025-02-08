@@ -48,8 +48,6 @@ public class BossMover : MonoBehaviour
         _attackPatterns.Add(Pattern1);
         _attackPatterns.Add(Pattern2);
         _attackPatterns.Add(Pattern3);
-        
-        BattleStart().Forget();
     }
 
     /// <summary>

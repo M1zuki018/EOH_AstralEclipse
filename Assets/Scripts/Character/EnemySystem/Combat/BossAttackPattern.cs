@@ -40,7 +40,7 @@ public class BossAttackPattern : MonoBehaviour
     private float _speed = 120f; //垂直レーザーのスピード
     private float _premotionTime = 1f; //茨攻撃の予兆時間
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
         _defaultMaterial = RenderSettings.skybox;
