@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -124,12 +125,29 @@ public class PlayerBrain : CharacterBase
         CameraManager.Instance?.TriggerCameraShake();
     }
 
-    protected override void HandleDeath(GameObject attacker)
+    protected override async void HandleDeath(GameObject attacker)
     {
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
         _playerMovement._animator.SetTrigger("Damage");
+        _playerInput.DeactivateInput(); //入力制限
         //TODO:死亡エフェクト等の処理
-        Time.timeScale = 0.2f; //スローモーションにする
+        
+        //UI処理
+        UIManager.Instance.HidePlayerBattleUI();
+        UIManager.Instance.HideRightUI();
+        UIManager.Instance.HideLockOnUI();
+        UIManager.Instance.HideBossUI();
+        
+        await UniTask.Delay(1000);
+        
+        UIManager.Instance.ShowDeathPanel();
+        
+        //スローモーションにする
+        Time.timeScale = 0.2f; 
+        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0f, 0.5f)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() => Debug.Log("完全停止"));
+        
     }
 
     [ContextMenu("Shake")]

@@ -5016,6 +5016,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1908852194}
+    - target: {fileID: 5555367974327589829, guid: 2396eb465f87e90459e7eae7e6b935d0,
+        type: 3}
+      propertyPath: _attackDamage
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 5628914638841128218, guid: 2396eb465f87e90459e7eae7e6b935d0,
         type: 3}
       propertyPath: m_Mesh
