@@ -128,6 +128,14 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
 
         await UniTask.Delay((int)(_attackDuration * 1000));
         
+        //攻撃無効状態になっていたらDPSチェックに遷移する
+        if (_bossMover.IsDamageImmunity)
+        {
+            _count = 0;
+            _bossMover.DPSCheak();
+            return;
+        }
+        
         WarpToPosition().Forget();
     }
     
@@ -181,10 +189,11 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
             Destroy(warpHole);
 
             _count++; //攻撃した回数を増やす
-
+            
             //2回攻撃したら休憩
             if (_count >= 2)
             {
+                _count = 0;
                 _bossMover.Break();
                 return;
             }

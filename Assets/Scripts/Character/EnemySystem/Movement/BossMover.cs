@@ -81,7 +81,7 @@ public class BossMover : MonoBehaviour
         {
             //ダメージ無効状態を解除してDPSチェックを始める
             _isDamageImmunity = false;
-            DPSCheak().Forget();
+            DPSCheak();
             return;
         }
         
@@ -93,7 +93,7 @@ public class BossMover : MonoBehaviour
         {
             //ダメージ無効状態を解除してDPSチェックを始める
             _isDamageImmunity = false;
-            DPSCheak().Forget();
+            DPSCheak();
             return;
         }
         
@@ -172,7 +172,7 @@ public class BossMover : MonoBehaviour
     /// DPSチェックの操作
     /// </summary>
     [ContextMenu("DPSCheak")]
-    public async UniTask DPSCheak()
+    public void DPSCheak()
     {
         _isDPSCheak = true;
         
