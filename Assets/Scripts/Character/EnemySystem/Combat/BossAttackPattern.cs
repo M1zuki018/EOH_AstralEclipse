@@ -26,7 +26,6 @@ public class BossAttackPattern : MonoBehaviour
     private BossAttackPattern1 _attackPattern1;
     private ShadowAttack _shadowAttack;
     
-    
     private Animator _animator;
     public Animator Animator => _animator;
     private PlayerInput _playerInput;
@@ -277,7 +276,8 @@ public class BossAttackPattern : MonoBehaviour
         */
         //TODO:強力なダメージ＋吹き飛ばしを実装
     }
-    
+
+    #region 時間操作攻撃
 
     /// <summary>
     /// 時間操作
@@ -342,6 +342,8 @@ public class BossAttackPattern : MonoBehaviour
         _magicCircles.Clear();
     }
 
+    #endregion
+    
     #region 魔法陣
 
     /// <summary>
@@ -380,10 +382,11 @@ public class BossAttackPattern : MonoBehaviour
     }
     
     #endregion
-    
-    
+
+    #region DPSチェック失敗時の攻撃
+
     /// <summary>
-    /// 死に際の時間操作（残りHP10%で発動）
+    /// DPSチェック失敗時の即死攻撃
     /// 画面の色彩が徐々に色が抜けていく 周囲の空間が歪み始め、背景エフェクトが「時空の裂け目」みたいになる。
     /// UIの時計やカウントダウン的な演出を画面端に表示（「00:03… 00:02… 00:01…」）。BGMがフェードアウトし、無音になる（緊張感を増す）。
     /// </summary>
@@ -400,16 +403,15 @@ public class BossAttackPattern : MonoBehaviour
         _bgmMixer.audioMixer.SetFloat("MasterVolume", 1f); //音をくぐもらせる
         _playerInput.DeactivateInput(); //プレイヤーの入力を制限
         
-        await UniTask.Delay(200);
+        await UniTask.Delay(50);
         
         TimeStop();
     }
 
     /// <summary>
     /// 完全時間停止（約4〜5秒）
-    /// ボスは 自由に動きながらプレイヤーの周囲を回り、攻撃の準備 をする。巨大な魔法陣を展開し、解除時にフィールド全体を攻撃。
     /// </summary>
-    public async void TimeStop()
+    private async void TimeStop()
     {
         Debug.Log("時間停止");
         //BGMのvolumeを完全にゼロにする
@@ -417,7 +419,7 @@ public class BossAttackPattern : MonoBehaviour
         
         SpawnMagicCircle(10, 11); //魔法陣を展開
         
-        await UniTask.Delay(4000);
+        await UniTask.Delay(200);
         
         FinalAttack();
     }
@@ -426,7 +428,7 @@ public class BossAttackPattern : MonoBehaviour
     /// 時間解除 & 強力な攻撃発動（約1秒）
     /// 解除直前に「時計の針が高速回転」→「一瞬だけ時が動き出すエフェクト」。タイムスケールを一気に1.0に戻し、色彩が元に戻る（急激なコントラスト変化）。
     /// </summary>
-    public void FinalAttack()
+    private void FinalAttack()
     {
         Debug.Log("攻撃");
         Time.timeScale = 1f;
@@ -443,9 +445,10 @@ public class BossAttackPattern : MonoBehaviour
         _magicCircles.Clear();
     }
 
+    #endregion
+    
     /// <summary>
-    /// フィニッシュムーブ 本気の時間操作の後、ボスは弱体化（移動が遅くなる・攻撃が単調になる）。
-    /// プレイヤーが最後の攻撃を決めるチャンス。ボス撃破時、時間が一瞬スローモーションになり、「完全に時が崩壊する」
+    ///  DPSチェック成功時の処理
     /// </summary>
     public async UniTask SuccessDpsCheck()
     {

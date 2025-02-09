@@ -80,8 +80,7 @@ public class BossMover : MonoBehaviour
     {
         if (IsDamageImmunity)
         {
-            //ダメージ無効状態を解除してDPSチェックを始める
-            _isDamageImmunity = false;
+            //DPSチェックを始める
             DPSCheak();
             return;
         }
@@ -92,8 +91,7 @@ public class BossMover : MonoBehaviour
         
         if (IsDamageImmunity)
         {
-            //ダメージ無効状態を解除してDPSチェックを始める
-            _isDamageImmunity = false;
+            //DPSチェックを始める
             DPSCheak();
             return;
         }
@@ -175,6 +173,7 @@ public class BossMover : MonoBehaviour
     [ContextMenu("DPSCheak")]
     public void DPSCheak()
     {
+        _isDamageImmunity = false; //ダメージ無効状態解除
         _isDPSCheak = true;
         
         //UIの操作
@@ -226,6 +225,11 @@ public class BossMover : MonoBehaviour
     [ContextMenu("LastAttack")]
     private void LastAttack()
     {
+        //UIの操作
+        UIManager.Instance.HideBossDpsSlider();
+        UIManager.Instance.HidePlayerBattleUI();
+        UIManager.Instance.HideRightUI();
+        
         _attackPattern.FinalTimeControl();
     }
     
