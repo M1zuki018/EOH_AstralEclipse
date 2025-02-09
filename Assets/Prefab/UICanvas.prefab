@@ -1331,6 +1331,7 @@ GameObject:
   - component: {fileID: 1720569470647724505}
   - component: {fileID: 7725618870267914419}
   - component: {fileID: 2498354650471325180}
+  - component: {fileID: 5642833147412484326}
   m_Layer: 5
   m_Name: Death
   m_TagString: Untagged
@@ -1422,6 +1423,20 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &5642833147412484326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396858416789295248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49baae6e8f3c48b4a8da6743e67b6b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _restryButton: {fileID: 1678838663040165242}
+  _quitButton: {fileID: 1643487036229818629}
 --- !u!1 &3403740003864989032
 GameObject:
   m_ObjectHideFlags: 0
@@ -3811,6 +3826,7 @@ GameObject:
   - component: {fileID: 6338961021902009558}
   - component: {fileID: 494549466816051000}
   - component: {fileID: 3113001418095843840}
+  - component: {fileID: 4921315615914578339}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -3921,6 +3937,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _light: {fileID: 6336475118133110247}
   _mainCamera: {fileID: 0}
+--- !u!114 &4921315615914578339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7309619828914679584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5bec82021c0ea4ea5611723a183539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiCanvas: {fileID: 1791846002115777818}
+  _playerHP: {fileID: 3954105896649645658}
+  _playerTP: {fileID: 1799607782512440527}
+  _skillIcons:
+  - {fileID: 7321651186183431623}
+  - {fileID: 5302176618973280265}
+  - {fileID: 5637627384961420769}
+  - {fileID: 6466023590323064316}
+  _stepGauge: {fileID: 124906307737566435}
+  _stepCount: {fileID: 6243146895932850675}
+  _lockOnIcon: {fileID: 961598554205499219}
+  _enemyHPPrefab: {fileID: 6895794364114097232, guid: afef13a27f35839409c9a3c784e61ad9,
+    type: 3}
+  _questText: {fileID: 6970190892310142443}
+  _fadePanel: {fileID: 1813610101252397636}
+  _damegeUIPool: {fileID: 7270933500807994872}
+  _questUpdateUI: {fileID: 2997160756520444756}
+  _miniMapUI: {fileID: 8601252219520075061}
+  _bossHPUI: {fileID: 548185286440043916}
+  _bossWillUI: {fileID: 8120960091534311186}
+  _bossDpsCheakUI: {fileID: 3261745657769261228}
+  _bossName: {fileID: 3467851178311692806}
+  _bossRemainingHP: {fileID: 5869560926397132495}
+  _questMessage: {fileID: 4813233351089753925}
+  _firstExplain: {fileID: 8455293815239576386}
+  _gameStartText: {fileID: 4963438802613735818}
+  _deathPanel: {fileID: 7725618870267914419}
 --- !u!1 &7371949167856758224
 GameObject:
   m_ObjectHideFlags: 0
