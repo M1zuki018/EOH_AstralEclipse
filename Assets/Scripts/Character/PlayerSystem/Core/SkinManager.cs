@@ -14,15 +14,9 @@ public class SkinManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this);
-        }
+        Instance = this;
+
+        if (_skinnedMeshRenderer == null) _skinnedMeshRenderer = GameObject.Find("Face").GetComponent<SkinnedMeshRenderer>();
     }
 
     /// <summary>

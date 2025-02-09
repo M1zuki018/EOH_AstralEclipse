@@ -34,15 +34,7 @@ public class CameraManager : MonoBehaviour
     
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this);
-        }
+        Instance = this;
         
         _volume.profile.TryGet(out _motionBlur);
         _volume.profile.TryGet(out _vignette);
