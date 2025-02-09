@@ -1,10 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// ステートから抜けたらTriggerをOffにする
+/// ステートから抜けたタイミングでTriggerをOffにする
+/// 一つのアニメーションのステートを抜けたタイミングで使う
 /// </summary>
-public class ResetTriggerOnStateExit : StateMachineBehaviour
+public class ResetTriggerOnStateExitSMB : StateMachineBehaviour
 {
     [SerializeField] private string _triggerName;
     

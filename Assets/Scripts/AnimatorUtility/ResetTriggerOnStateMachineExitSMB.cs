@@ -2,8 +2,9 @@ using UnityEngine;
 
 /// <summary>
 /// ステートマシンから抜けたらTriggerをOffにする
+/// サブステートマシン全体を抜けた時にリセットする場合に使う
 /// </summary>
-public class ResetTriggerOnStateMachineExit : StateMachineBehaviour
+public class ResetTriggerOnStateMachineExitSMB : StateMachineBehaviour
 {
     [SerializeField] string _triggerName;
 
