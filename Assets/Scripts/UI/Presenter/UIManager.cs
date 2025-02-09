@@ -78,10 +78,18 @@ public class UIManager : MonoBehaviour
     public void UpdateStepCount(int value) => _stepCount.SetNumber(value);
 
     /// <summary>ステップUIを表示する</summary>
-    public void ShowStepUI() => _stepGauge.Show();
+    public void ShowStepUI()
+    {
+        _stepGauge.Show();
+        _stepCount.Show();
+    }
 
     /// <summary>ステップUIを隠す</summary>
-    public void HideStepUI() => _stepGauge.Hide();
+    public void HideStepUI()
+    {
+        _stepGauge.Hide();
+        _stepCount.Hide();
+    } 
     
     /// <summary>ロックオンアイコンの位置を変更する</summary>
     public void SetLockOnUI(Transform targetTransform) => _lockOnIcon.IsActive(targetTransform);
@@ -150,6 +158,8 @@ public class UIManager : MonoBehaviour
         {
             icon.HideAndSlide();
         }
+        _stepGauge.Hide();
+        _stepCount.Hide();
     }
 
     /// <summary>クエストテキストとミニマップを表示する</summary>

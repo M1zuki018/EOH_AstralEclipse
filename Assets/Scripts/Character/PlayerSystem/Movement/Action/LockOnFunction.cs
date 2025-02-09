@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
 
@@ -194,7 +195,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     /// </summary>
     private bool IsEnemyValid(EnemyBrain enemy)
     {
-        return enemy != null && !enemy.GetComponent<Health>().IsDead;
+        return enemy != null && !enemy.GetComponent<IHealth>().IsDead;
     }
 
     /// <summary>

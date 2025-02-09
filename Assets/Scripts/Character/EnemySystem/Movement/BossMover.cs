@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class BossMover : MonoBehaviour
 {
     [SerializeField] private BossAttackPattern _attackPattern;
 
-    private Health _health;
+    private BossHealth _health;
     private CharacterController _cc;
     private Vector3 _initializePos;
     private int _currentPattern = 0; //現在の攻撃パターン
@@ -24,7 +25,7 @@ public class BossMover : MonoBehaviour
     private void Start()
     {
         //コンポーネントの取得と初期化
-        _health = GetComponent<Health>();
+        _health = GetComponent<BossHealth>();
         _cc = GetComponent<CharacterController>();
         _initializePos = transform.position;
         transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //初期位置に移動
@@ -148,7 +149,7 @@ public class BossMover : MonoBehaviour
         _isDPSCheak = true;
         
         //UIの操作
-        UIManager.Instance.InitializeBossDpsSlider(150, 150);
+        UIManager.Instance.InitializeBossDpsSlider(_health.CurrentBreakAmount, _health.CurrentBreakAmount);
         UIManager.Instance.ShowBossDpsSlider();
         UIManager.Instance.HideBossUI();
         UIManager.Instance.HidePlayerHP();

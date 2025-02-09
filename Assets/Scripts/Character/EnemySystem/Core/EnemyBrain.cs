@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// エネミーの中心となるクラス
 /// </summary>
-[RequireComponent(typeof(EnemyMovement),typeof(Health),typeof(EnemyCombat))]
+[RequireComponent(typeof(EnemyMovement),typeof(IHealth),typeof(EnemyCombat))]
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class EnemyBrain : CharacterBase, IMatchTarget
 {
