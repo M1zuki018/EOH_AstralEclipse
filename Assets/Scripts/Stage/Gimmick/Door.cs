@@ -22,18 +22,21 @@ public class Door : InteractableItemBase
     
     public override void Interact()
     {
-        Inventory inventory = _player.GetComponent<Inventory>();
-        _inventory = inventory;
-        
-        if (_inventory.HasAllKeys())
+        if (_player != null)
         {
-            //キーが揃っていたらイベント発火
-            OnDoorOpened?.Invoke();
-        }
-        else
-        {
-            //キーが揃っていなかったら
-            Debug.Log("キーが足りません");
+            _player.TryGetComponent(out Inventory inventory);
+            _inventory = inventory;
+            
+            if (_inventory.HasAllKeys())
+            {
+                //キーが揃っていたらイベント発火
+                OnDoorOpened?.Invoke();
+            }
+            else
+            {
+                //キーが揃っていなかったら
+                Debug.Log("キーが足りません");
+            }
         }
     }
 
