@@ -11,6 +11,7 @@ using UnityEngine;
 public class BossMover : MonoBehaviour
 {
     [SerializeField] private BossAttackPattern _attackPattern;
+    [SerializeField] private int _dpsCheckTime = 20;
 
     private BossHealth _health;
     private CharacterController _cc;
@@ -69,7 +70,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public async UniTask BattleStart()
     {
-        await _attackPatterns[0]();
+        await _attackPatterns[1]();
     }
 
     /// <summary>
@@ -181,6 +182,27 @@ public class BossMover : MonoBehaviour
         UIManager.Instance.ShowBossDpsSlider();
         UIManager.Instance.HideBossUI();
         UIManager.Instance.HidePlayerHP();
+
+        int elapsedTime = _dpsCheckTime;
+        //DPSチェックのタイマー
+        Observable
+            .Interval(TimeSpan.FromSeconds(1)) //1秒ごとにチェックを行う
+            .TakeWhile(_ => elapsedTime >= 0) //タイマーが0秒になるまで行う
+            .Subscribe(_ =>
+            {
+                elapsedTime--;
+
+                if (elapsedTime <= 0)
+                {
+                    LastAttack();
+                }
+                else if (elapsedTime <= 5)
+                {
+                    //5秒前からカウントダウンを開始する
+                    Debug.Log($"カウントダウン開始 {elapsedTime}");
+                }
+            })
+            .AddTo(this);
     }
 
     /// <summary>
