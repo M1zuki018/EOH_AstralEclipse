@@ -279,4 +279,27 @@ public class CameraManager : MonoBehaviour
         UseCamera(0); //メインカメラに戻す
         DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 60, 1.5f).SetEase(Ease.OutQuad);
     }
+
+    /// <summary>
+    /// プレイヤーが死亡した時のカメラ処理
+    /// </summary>
+    public void PlayerDeath()
+    {
+        UseCamera(0);
+        
+        var framingTransposer = _virtualCameras[0].GetCinemachineComponent<CinemachineFramingTransposer>();
+        var pov = _virtualCameras[0].GetCinemachineComponent<CinemachinePOV>();
+        
+        // カメラをプレイヤーに寄せる
+        Vector3 targetPosition = GameObject.FindWithTag("Player").transform.position + new Vector3(0, 2, -3);
+        _virtualCameras[0].transform.DOMove(targetPosition, 1.5f).SetEase(Ease.InOutCubic);
+        
+        framingTransposer.m_DeadZoneWidth = 0.1f; 
+        framingTransposer.m_DeadZoneHeight = 0.1f;
+        
+        pov.m_VerticalAxis.Value = 10f;  //POVの調整
+
+        // ゆっくりズームアウト
+        DOTween.To(() => _virtualCameras[0].m_Lens.FieldOfView, x => _virtualCameras[0].m_Lens.FieldOfView = x, 40, 2f).SetEase(Ease.InOutQuad);
+    }
 }

@@ -145,6 +145,8 @@ public class PlayerBrain : CharacterBase
         UIManager.Instance.HideLockOnUI();
         UIManager.Instance.HideBossUI();
         
+        CameraManager.Instance.PlayerDeath();
+        
         await UniTask.Delay(3000);
         
         UIManager.Instance.ShowDeathPanel();
