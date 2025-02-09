@@ -119,18 +119,25 @@ public class PlayerBrain : CharacterBase
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
-        UIManager.Instance?.ShowDamageAmount(damage, transform); //TODO:どうするか
+        UIManager.Instance?.ShowDamageAmount(damage, transform);
         UIManager.Instance?.UpdatePlayerHP(GetCurrentHP());
-        _playerMovement._animator.SetTrigger("Damage");
-        CameraManager.Instance?.TriggerCameraShake();
+        CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
+        
+        if (!_health.IsDead)
+        {
+            //死亡していないときだけダメージアニメーションをトリガー
+            _playerMovement._animator.SetTrigger("Damage");
+        }
     }
 
     protected override async void HandleDeath(GameObject attacker)
     {
-        Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
-        _playerMovement._animator.SetTrigger("Damage");
+        _playerMovement._animator.SetTrigger("IsDeath");
         _playerInput.DeactivateInput(); //入力制限
         //TODO:死亡エフェクト等の処理
+
+        AudioManager.Instance.FadeOut(AudioType.BGM);
+        AudioManager.Instance.FadeOut(AudioType.SE);
         
         //UI処理
         UIManager.Instance.HidePlayerBattleUI();
@@ -138,14 +145,15 @@ public class PlayerBrain : CharacterBase
         UIManager.Instance.HideLockOnUI();
         UIManager.Instance.HideBossUI();
         
-        await UniTask.Delay(1000);
+        await UniTask.Delay(3000);
         
         UIManager.Instance.ShowDeathPanel();
         
         //スローモーションにする
-        Time.timeScale = 0.2f; 
-        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0f, 0.5f)
+        Time.timeScale = 0.3f; 
+        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0f, 2f)
             .SetEase(Ease.OutQuad)
+            .SetUpdate(true) // TimeScaleの影響を受けずにアニメーションする
             .OnComplete(() => Debug.Log("完全停止"));
         
     }
