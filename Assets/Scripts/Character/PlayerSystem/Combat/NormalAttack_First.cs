@@ -160,6 +160,10 @@ public class NormalAttack_First : AttackAdjustBase
 
     public override void CorrectMovement(Vector3 forwardDirection)
     {
+        //ターゲットがいなかったら以降の処理は行わない
+        //ボス戦開始時、ロックオン前だとここでnullReferenceExceptionが発生する
+        if(_adjustDirection.Target == null) return; 
+        
         // 敵との距離を測る
         float distanceToEnemy = Vector3.Distance(transform.position, _adjustDirection.Target.position);
 

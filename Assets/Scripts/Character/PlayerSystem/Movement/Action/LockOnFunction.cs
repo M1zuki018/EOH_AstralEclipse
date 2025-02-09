@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
 
@@ -84,7 +85,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         if (newTarget != null) //新しいターゲットがいた場合
         {
             UIManager.Instance?.SetLockOnUI(newTarget);
-            CameraManager.Instance?.UseCamera(4);
+            //CameraManager.Instance?.UseCamera(4);
             AudioManager.Instance.PlaySE(2);
             _adjustDirection.Target = newTarget; //攻撃対象を書き換える
             //CameraManager.Instance.UseTargetGroup(newTarget.transform.GetChild(3), 1f, 0.3f);
@@ -92,6 +93,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         else //次のターゲットがいない場合
         {
             Debug.Log("ロックオン可能な敵がいません");
+            _adjustDirection.Target = null;
             _lockedOnEnemy.Value = null;
             UIManager.Instance?.HideLockOnUI();
             //CameraManager.Instance.UseCamera(0);
@@ -194,7 +196,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     /// </summary>
     private bool IsEnemyValid(EnemyBrain enemy)
     {
-        return enemy != null && !enemy.GetComponent<Health>().IsDead;
+        return enemy != null && !enemy.GetComponent<IHealth>().IsDead;
     }
 
     /// <summary>

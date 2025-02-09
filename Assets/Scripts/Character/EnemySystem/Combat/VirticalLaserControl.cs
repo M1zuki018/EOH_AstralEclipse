@@ -1,16 +1,19 @@
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
 /// 垂直レーザーのオブジェクトにアタッチするクラス
 /// </summary>
-public class VirticalLaserControl : MonoBehaviour
+public class VirticalLaserControl : MonoBehaviour, IBossAttack
 {
+    public string AttackName => "VirticalLaser";
+    
     [SerializeField] private float _survivalTime = 10f;
     private ICombat _combat;
     private void OnEnable()
     {
-        Destroy(this.gameObject, _survivalTime); //生存時間
+        Destroy(gameObject, _survivalTime); //生存時間
     }
 
     public void SetCombat(ICombat newCombat)
@@ -32,5 +35,10 @@ public class VirticalLaserControl : MonoBehaviour
                     attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
             }
         }
+    }
+    
+    public UniTask Fire()
+    {
+        throw new System.NotImplementedException();
     }
 }

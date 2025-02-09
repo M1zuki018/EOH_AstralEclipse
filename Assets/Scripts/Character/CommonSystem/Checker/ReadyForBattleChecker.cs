@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
 
@@ -62,7 +63,7 @@ public class ReadyForBattleChecker : MonoBehaviour
         enemyBrain = null;
         return other.CompareTag("Enemy") //タグがEnemyか
                && other.TryGetComponent(out enemyBrain) //EnemyBrainが取得できるか
-               && !other.GetComponent<Health>().IsDead; //Enemyが死亡していないか
+               && !other.GetComponent<IHealth>().IsDead; //Enemyが死亡していないか
     }
 
     /// <summary>

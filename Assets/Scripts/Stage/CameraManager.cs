@@ -20,6 +20,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineImpulseSource _impulseSource;
     private float _defaultFOV;
     private int _currentCameraIndex; //現在のカメラ
+    private CinemachineBasicMultiChannelPerlin _noise; // シェイク用ノイズ
     
     //Volume
     [SerializeField] private Volume _volume;
@@ -33,15 +34,7 @@ public class CameraManager : MonoBehaviour
     
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this);
-        }
+        Instance = this;
         
         _volume.profile.TryGet(out _motionBlur);
         _volume.profile.TryGet(out _vignette);
@@ -50,6 +43,14 @@ public class CameraManager : MonoBehaviour
         CinemachineFramingTransposer transposer =
             _virtualCameras[0].GetCinemachineComponent<CinemachineFramingTransposer>();
         transposer.m_CameraDistance = 3f; //メインカメラの距離を初期化
+        
+        //レーザーカメラの設定
+        _noise = _virtualCameras[4].GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        if (_noise != null)
+        {
+            _noise.m_AmplitudeGain = 0f; // 初期状態ではシェイクなし
+            _noise.m_FrequencyGain = 0f; // 振動なし
+        }
     }
 
     /// <summary>
@@ -231,4 +232,66 @@ public class CameraManager : MonoBehaviour
             Color.black, duration);
     }
     
+    /// <summary>
+    /// レーザー発射前の演出（ズーム）
+    /// </summary>
+    public void PreLaserShot()
+    {
+        float zoomDuration = 1.5f; //ズームにかける時間
+        
+        UseCamera(4); //レーザー演出カメラを優先
+        _virtualCameras[4].m_Lens.FieldOfView = 60;
+        DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 
+            50, zoomDuration).SetEase(Ease.InOutQuad);
+    }
+    
+    /// <summary>
+    /// レーザー照射時のカメラの揺れ
+    /// </summary>
+    public async void CameraShakeOnFire()
+    {
+        float shakeAmplitude = 2.0f; //振幅（シェイクの強さ）
+        float shakeFrequency = 1.5f; //周波数（振動の速さ）
+        float shakeDuration = 3f;  //シェイク時間
+        
+        _noise.m_AmplitudeGain = shakeAmplitude; // シェイク開始
+        _noise.m_FrequencyGain = shakeFrequency; // シェイクの振動速度
+        
+        await UniTask.Delay((int)(shakeDuration * 1000));
+
+        _noise.m_AmplitudeGain = 0; //解除
+        _noise.m_FrequencyGain = 0;
+    }
+    
+    /// <summary>
+    /// 爆発の余韻を映す（遠景にカメラを引く）
+    /// </summary>
+    public void ExplosionEffect()
+    {
+        UseCamera(0); //メインカメラに戻す
+        DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 60, 1.5f).SetEase(Ease.OutQuad);
+    }
+
+    /// <summary>
+    /// プレイヤーが死亡した時のカメラ処理
+    /// </summary>
+    public void PlayerDeath()
+    {
+        UseCamera(0);
+        
+        var framingTransposer = _virtualCameras[0].GetCinemachineComponent<CinemachineFramingTransposer>();
+        var pov = _virtualCameras[0].GetCinemachineComponent<CinemachinePOV>();
+        
+        // カメラをプレイヤーに寄せる
+        Vector3 targetPosition = GameObject.FindWithTag("Player").transform.position + new Vector3(0, 2, -3);
+        _virtualCameras[0].transform.DOMove(targetPosition, 1.5f).SetEase(Ease.InOutCubic);
+        
+        framingTransposer.m_DeadZoneWidth = 0.1f; 
+        framingTransposer.m_DeadZoneHeight = 0.1f;
+        
+        pov.m_VerticalAxis.Value = 10f;  //POVの調整
+
+        // ゆっくりズームアウト
+        DOTween.To(() => _virtualCameras[0].m_Lens.FieldOfView, x => _virtualCameras[0].m_Lens.FieldOfView = x, 40, 2f).SetEase(Ease.InOutQuad);
+    }
 }

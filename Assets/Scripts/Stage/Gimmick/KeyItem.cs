@@ -14,7 +14,7 @@ public class KeyItem : InteractableItemBase
     [SerializeField] private float _moveY = 1.5f;
     private Transform _keyObject; //親オブジェクトのトランスフォーム
     
-    [SerializeField] private List<Health> _targets = new List<Health>();
+    [SerializeField] private List<Health> _targets = new List<Health>(); //倒さなければいけないエネミーのHealthクラスを管理する
     
     private void Start()
     {

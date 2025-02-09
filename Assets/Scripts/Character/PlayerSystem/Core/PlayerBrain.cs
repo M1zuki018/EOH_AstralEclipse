@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -118,17 +119,45 @@ public class PlayerBrain : CharacterBase
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
-        UIManager.Instance?.ShowDamageAmount(damage, transform); //TODO:どうするか
+        UIManager.Instance?.ShowDamageAmount(damage, transform);
         UIManager.Instance?.UpdatePlayerHP(GetCurrentHP());
-        _playerMovement._animator.SetTrigger("Damage");
-        CameraManager.Instance?.TriggerCameraShake();
+        CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
+        
+        if (!_health.IsDead)
+        {
+            //死亡していないときだけダメージアニメーションをトリガー
+            _playerMovement._animator.SetTrigger("Damage");
+        }
     }
 
-    protected override void HandleDeath(GameObject attacker)
+    protected override async void HandleDeath(GameObject attacker)
     {
-        Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
-        _playerMovement._animator.SetTrigger("Damage");
+        _playerMovement._animator.SetTrigger("IsDeath");
+        _playerInput.DeactivateInput(); //入力制限
         //TODO:死亡エフェクト等の処理
+
+        AudioManager.Instance.FadeOut(AudioType.BGM);
+        AudioManager.Instance.FadeOut(AudioType.SE);
+        
+        //UI処理
+        UIManager.Instance.HidePlayerBattleUI();
+        UIManager.Instance.HideRightUI();
+        UIManager.Instance.HideLockOnUI();
+        UIManager.Instance.HideBossUI();
+        
+        CameraManager.Instance.PlayerDeath();
+        
+        await UniTask.Delay(3000);
+        
+        UIManager.Instance.ShowDeathPanel();
+        
+        //スローモーションにする
+        Time.timeScale = 0.3f; 
+        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0f, 2f)
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(true) // TimeScaleの影響を受けずにアニメーションする
+            .OnComplete(() => Debug.Log("完全停止"));
+        
     }
 
     [ContextMenu("Shake")]

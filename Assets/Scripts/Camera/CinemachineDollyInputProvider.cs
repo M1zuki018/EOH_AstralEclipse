@@ -45,7 +45,7 @@ public class CinemachineDollyInputProvider : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{nameof(CinemachineFramingTransposer)} が存在しません。");
+            Debug.LogWarning($"{gameObject.name}:{nameof(CinemachineFramingTransposer)} が存在しません。");
         }
     }
 }

@@ -6,8 +6,10 @@ using UnityEngine;
 /// <summary>
 /// 茨のプレハブにアタッチするクラス
 /// </summary>
-public class ThornContorl : MonoBehaviour
+public class ThornContorl : MonoBehaviour, IBossAttack
 {
+    public string AttackName => "Thorn";
+    
     [SerializeField] private GameObject _thorn; //棘のオブジェクト
     private Collider _collider;
     private ICombat _combat;
@@ -53,5 +55,10 @@ public class ThornContorl : MonoBehaviour
                 defense: 0, //相手の防御力
                 attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
         }
+    }
+    
+    public UniTask Fire()
+    {
+        throw new System.NotImplementedException();
     }
 }

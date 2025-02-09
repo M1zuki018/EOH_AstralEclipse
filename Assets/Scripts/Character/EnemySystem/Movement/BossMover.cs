@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
@@ -11,54 +11,98 @@ using UnityEngine;
 public class BossMover : MonoBehaviour
 {
     [SerializeField] private BossAttackPattern _attackPattern;
+    [SerializeField] private int _dpsCheckTime = 20;
 
-    private Health _health;
+    private BossHealth _health;
     private CharacterController _cc;
     private Vector3 _initializePos;
-    private int _patternCount;
+    private int _currentPattern = 0; //現在の攻撃パターン
     private int _pattern2Count; //パターン2で使用する
+    private bool _isDamageImmunity; //ダメージ無効
+    private bool _isDPSCheak; //DPSチェック中かどうか
+    
+    public bool IsDamageImmunity => _isDamageImmunity;
+    public bool IsDPSCheak => _isDPSCheak;
+
+    private readonly List<Func<UniTask>> _attackPatterns = new();
 
     private void Start()
     {
-        _health = GetComponent<Health>();
+        //コンポーネントの取得と初期化
+        _health = GetComponent<BossHealth>();
         _cc = GetComponent<CharacterController>();
         _initializePos = transform.position;
-        transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //空中に移動
+        transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //初期位置に移動
+
+        _health.OnCheckComplete += SuccessDpsCheck; //DPSチェック成功時のイベントを登録
+       
+        /*
+        //HPが50%以下になったら攻撃パターンを変更する
+        Observable
+            .EveryUpdate()
+            .Where(_ => _health.CurrentHP <= _health.MaxHP * 0.5f)
+            .Take(1)
+            .Subscribe(_ => ChangeAttackPattern())
+            .AddTo(this);
+        */
         
+        //HPが10%以下になったらDPSチェックを始める
         Observable
             .EveryUpdate()
             .Where(_ => _health != null && _health.CurrentHP <= _health.MaxHP * 0.1f) //HP10%以下になったら
             .Take(1) //一度だけに制限
-            .Subscribe(_ => _attackPattern.FinalTimeControl()) //特殊攻撃パターンを実行
+            .Subscribe(_ => _isDamageImmunity = true) //ダメージ無効状態に変更する
             .AddTo(this);
+        
+        //攻撃パターンを登録
+        _attackPatterns.Add(Pattern1);
+        _attackPatterns.Add(Pattern2);
+        _attackPatterns.Add(Pattern3);
+    }
+
+    private void OnDestroy()
+    {
+        _health.OnCheckComplete -= SuccessDpsCheck; //解除
     }
 
     /// <summary>
-    /// ボス戦を始めるメソッド
+    /// ボス戦開始
     /// </summary>
-    public void BattleStart()
+    public async UniTask BattleStart()
     {
-        //Pattern1();
-        //Pattern2();
-        Pattern3();
+        await _attackPatterns[1]();
     }
 
     /// <summary>
     /// 地上で休憩する
     /// </summary>
-    private async void Break()
+    public async void Break()
     {
+        if (IsDamageImmunity)
+        {
+            //DPSチェックを始める
+            DPSCheak();
+            return;
+        }
+        
         _cc.Move(new Vector3(0, _initializePos.y - transform.position.y, 0)); //初期位置と現在の位置の差分だけ移動する
         Debug.Log("休み");
         await UniTask.Delay(6000);
         
-        //次の攻撃に向けて移動する
-        if(_patternCount == 1) Emerge();
-        else if(_patternCount == 2) Pattern3();
-        else if (_patternCount == 3)
+        if (IsDamageImmunity)
         {
-            _patternCount = 0; //初期化
-            Emerge();
+            //DPSチェックを始める
+            DPSCheak();
+            return;
+        }
+        
+        //次の攻撃に向けて移動する
+        if (_currentPattern == 1) await Pattern2();
+        else if (_currentPattern == 2) await Pattern3();
+        else if (_currentPattern == 3)
+        {
+            _currentPattern = 0; //初期化
+            await Pattern1();
         }
     }
 
@@ -71,8 +115,8 @@ public class BossMover : MonoBehaviour
         await UniTask.Delay(1000);
         
         //次の攻撃を行う
-        if(_patternCount == 1) Pattern2(); //パターン2に繋げる
-        else if (_patternCount == 0) Pattern1();
+        if(_currentPattern == 1) Pattern2(); //パターン2に繋げる
+        else if (_currentPattern == 0) Pattern1();
     }
 
     /// <summary>
@@ -88,102 +132,27 @@ public class BossMover : MonoBehaviour
     /// 攻撃パターン1 レーザーメインの回避パート
     /// </summary>
     [ContextMenu("Pattern1")]
-    public async void Pattern1()
+    public async UniTask Pattern1()
     {
-        //水平レーザーを照射
-        _attackPattern.HorizontalLaser(transform, 3f);
-        
-        await UniTask.Delay(5000);
-
-        _attackPattern.Animator.SetInteger("AttackType", 1);
-        _attackPattern.Animator.SetTrigger("Attack");
-        _attackPattern.ResetVerticalLasers();
-        //垂直レーザーを生成
-        float generatoPos = transform.position.x - 14f;
-        for (int i = 0; i < 6; i++)
-        {
-            generatoPos += 4;
-            _attackPattern.GenerateVerticalLaser(new Vector3(generatoPos, transform.position.y, transform.position.z));
-        }
-        
-        await UniTask.Delay(3300);
-
-        _attackPattern.Animator.SetTrigger("Attack");
-        
-        await UniTask.Delay(700);
-        
-        //垂直レーザーを放つ
-        for (int i = 0; i < 6; i++)
-        {
-            //順番は0、5、1、4、2、3（外側から内側へ）
-            _attackPattern.FireVerticalLaser((i % 2 == 0) ? (i / 2) : (6 - 1 - (i / 2)));
-            await UniTask.Delay(200);
-        }
-        //TODO:ボス自身も自然に移動させたい
-        
-        await UniTask.Delay(2500);
-        
-        //茨攻撃（生成→予兆→攻撃→消滅までのセット）
-        _attackPattern.GenerateThorns();
-        
-        await UniTask.Delay(5000);
-        
-        //茨攻撃2回目
-        _attackPattern.GenerateThorns();
-        
-        await UniTask.Delay(5000);
-
-        //頭上からの攻撃
-        _attackPattern.AttackFromAbove();
-        
-        await UniTask.Delay(4000);
-
-        _patternCount = 1;
-        Break();
+       await _attackPattern.StartAttackPattern1();
+       _currentPattern = 1;
     }
 
     /// <summary>
     /// 攻撃パターン2 影移動と近接戦闘
     /// </summary>
     [ContextMenu("Pattern2")]
-    public void Pattern2()
+    public async UniTask Pattern2()
     {
-        _attackPattern.DefaultTransform = transform.position;
-        _attackPattern.ShadowLatent();
-        
-        //TODO:ガード成功時：火花のようなエフェクト＋ボスが軽く後退。回避成功時：スローモーションを一瞬入れる
-        //TODO: ヒット時：プレイヤーが「のけぞる」 or 「吹き飛ばされる」。
-    }
-
-    /// <summary>
-    /// 攻撃パターン2の次に進む
-    /// </summary>
-    public async void TransitionPattern2()
-    {
-        _pattern2Count++;
-        if (_pattern2Count == 1)
-        {
-            //パターン2の一回目の攻撃なら、2回目の攻撃を行う
-            _attackPattern.ShadowLatent();
-            
-            await UniTask.Delay(1600);
-            
-            Warp(new Vector3(100f, 0f, 230f));
-        }
-        else
-        {
-            //パターン2の二回目の攻撃なら、地上に降りる
-            _patternCount = 2;
-            Break();
-            _pattern2Count = 0; //リセットする
-        }
+        await _attackPattern.StartShadowAttack();
+        _currentPattern = 2;
     }
 
     /// <summary>
     /// 攻撃パターン3　時間操作
     /// </summary>
     [ContextMenu("Pattern3")]
-    public async void Pattern3()
+    public async UniTask Pattern3()
     {
         Warp(new Vector3(100f, 15f, 250f));
         _attackPattern.DefaultTransform = transform.position;
@@ -194,18 +163,84 @@ public class BossMover : MonoBehaviour
         
         await UniTask.Delay(5000);
 
-        _patternCount = 3;
+        _currentPattern = 3;
         Break();
     }
 
-    [ContextMenu("LastAttack")]
-    public async void LastAttack()
+    /// <summary>
+    /// DPSチェックの操作
+    /// </summary>
+    [ContextMenu("DPSCheak")]
+    public void DPSCheak()
     {
-        _attackPattern.FinalTimeControl();
+        _isDamageImmunity = false; //ダメージ無効状態解除
+        _isDPSCheak = true;
+        
+        //UIの操作
+        UIManager.Instance.InitializeBossDpsSlider(_health.CurrentBreakAmount, _health.CurrentBreakAmount);
+        UIManager.Instance.ShowBossDpsSlider();
+        UIManager.Instance.HideBossUI();
+        UIManager.Instance.HidePlayerHP();
+
+        int elapsedTime = _dpsCheckTime;
+        //DPSチェックのタイマー
+        Observable
+            .Interval(TimeSpan.FromSeconds(1)) //1秒ごとにチェックを行う
+            .TakeWhile(_ => elapsedTime >= 0) //タイマーが0秒になるまで行う
+            .Subscribe(_ =>
+            {
+                elapsedTime--;
+
+                if (elapsedTime <= 0)
+                {
+                    LastAttack();
+                }
+                else if (elapsedTime <= 5)
+                {
+                    //5秒前からカウントダウンを開始する
+                    Debug.Log($"カウントダウン開始 {elapsedTime}");
+                }
+            })
+            .AddTo(this);
     }
 
-    public void After()
+    /// <summary>
+    /// DPSチェック成功時の処理
+    /// </summary>
+    private async void SuccessDpsCheck()
     {
-        _attackPattern.After();
+        //UIの操作
+        UIManager.Instance.HideBossDpsSlider();
+        UIManager.Instance.ShowBossUI();
+        UIManager.Instance.ShowPlayerHP();
+        
+        _isDPSCheak = false;
+        await _attackPattern.SuccessDpsCheck();
+        Break();
+    }
+    
+    /// <summary>
+    /// DPSチェック失敗時の処理
+    /// </summary>
+    [ContextMenu("LastAttack")]
+    private void LastAttack()
+    {
+        //UIの操作
+        UIManager.Instance.HideBossDpsSlider();
+        UIManager.Instance.HidePlayerBattleUI();
+        UIManager.Instance.HideRightUI();
+        
+        _attackPattern.FinalTimeControl();
+    }
+    
+    /// <summary>
+    /// 攻撃パターンを変更する
+    /// </summary>
+    private void ChangeAttackPattern()
+    {
+        Debug.Log("攻撃パターン変更");
+        _attackPatterns.Clear();
+        _attackPatterns.Add(Pattern2);
+        _attackPatterns.Add(Pattern3);
     }
 }

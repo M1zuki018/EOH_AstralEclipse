@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 932241fb352ca984b819deee28c48c09, type: 2}
   - {fileID: 11400000, guid: 1a7aa12aaff320943b90438761a228f2, type: 2}
   - {fileID: 11400000, guid: 383d527bc7752594b830324494f4f20e, type: 2}
+  _bgmMixer: {fileID: 24100000, guid: bde13255e467a8441b842b9501520942, type: 2}
 --- !u!114 &8079894947768653810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +261,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d48cd04659b721244877760e098e58ed, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

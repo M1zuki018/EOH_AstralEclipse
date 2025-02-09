@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -14,7 +15,7 @@ public class BossAttackPattern : MonoBehaviour
 {
     [SerializeField] private Transform _target; //プレイヤーのTransform
     [SerializeField] private EnemyCombat _combat;
-    [SerializeField] private LaserParticle _laserParticle; //水平レーザーのパーティクル
+    [SerializeField] private LaserParticle[] _laserParticle; //水平レーザーのパーティクル
     [SerializeField] private GameObject _verticalLaserPrefab; //垂直レーザーのプレハブ
     [SerializeField] private GameObject _thornPrefab; //茨攻撃のプレハブ
     [SerializeField] private GameObject _abovePrefab; //上から降ってくる攻撃のプレハブ
@@ -23,8 +24,8 @@ public class BossAttackPattern : MonoBehaviour
     [SerializeField] private AudioMixerGroup _bgmMixer; 
     [SerializeField] private Material _glitchy; //グリッチシェーダーをかけたマテリアル
 
-    [SerializeField] private GameObject _boss;
-    [SerializeField] private GameObject _shadowPrefab;
+    private BossAttackPattern1 _attackPattern1;
+    private ShadowAttack _shadowAttack;
     
     private Animator _animator;
     public Animator Animator => _animator;
@@ -39,22 +40,108 @@ public class BossAttackPattern : MonoBehaviour
     private float _speed = 120f; //垂直レーザーのスピード
     private float _premotionTime = 1f; //茨攻撃の予兆時間
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
         _defaultMaterial = RenderSettings.skybox;
         _playerInput = _target.gameObject.GetComponent<PlayerInput>();
         _cc = GetComponent<CharacterController>();
+        
+        _attackPattern1 = GetComponent<BossAttackPattern1>();
+        _shadowAttack = GetComponent<ShadowAttack>();
     }
     
     /// <summary>
+    /// パターン1の攻撃を開始する
+    /// </summary>
+    public async UniTask StartAttackPattern1()
+    {
+        await _attackPattern1.Fire();
+    }
+
+    /// <summary>
+    /// 影攻撃を開始する
+    /// </summary>
+    public async UniTask StartShadowAttack()
+    {
+        await _shadowAttack.Fire();
+    }
+
+    #region 水平レーザー
+
+     /// <summary>
     /// 水平方向のレーザー
     /// </summary>
-    public void HorizontalLaser(Transform position, float effectTime)
+    public async void HorizontalLaser(Transform position, float effectTime)
     {
+        //魔法陣を生成
+        _laserParticle[0].Sty(position.position);
+        
+        await UniTask.Delay(1500);
+
+        CameraManager.Instance.PreLaserShot(); //レーザー用カメラを使用
+        
+        await UniTask.Delay(1500);
+        
+        //スローモーション演出
+        Time.timeScale = 0.2f;
+        await UniTask.Delay(30);
+        Time.timeScale = 1.0f;
+        
+        CameraManager.Instance.CameraShakeOnFire();
+        
+        FireLaser(position.position, effectTime,0);
+
+        //ボスが後方に後ずさる
+        Vector3 recoilPosition = transform.position + transform.forward * -3f;
+        transform.DOMove(recoilPosition, 0.7f).SetEase(Ease.OutQuad);
+    }
+    
+    /// <summary>
+    /// 水平方向のレーザー(強化版)
+    /// </summary>
+    public async void HorizontalLaserPlus(Transform position, float effectTime)
+    {
+        //新しい座標を作成
+        Vector3 position1 = position.position + new Vector3(-10, 0, 0);
+        Vector3 position2 = position.position + new Vector3(10, 0, 0);
+
+        //魔法陣を生成
+        _laserParticle[0].Sty(position.position);
+        _laserParticle[1].Sty(position1);
+        _laserParticle[2].Sty(position2);
+        
+        await UniTask.Delay(1500);
+
+        CameraManager.Instance.PreLaserShot(); //レーザー用カメラを使用
+        
+        await UniTask.Delay(1500);
+
+        //スローモーション演出
+        Time.timeScale = 0.2f;
+        await UniTask.Delay(30);
+        Time.timeScale = 1.0f;
+        
+        CameraManager.Instance.CameraShakeOnFire();
+        
+        FireLaser(position.position, effectTime,0);
+        FireLaser(position1, effectTime,1);
+        FireLaser(position2, effectTime,2);
+
+        //ボスが後方に後ずさる
+        Vector3 recoilPosition = transform.position + transform.forward * -4f;
+        transform.DOMove(recoilPosition, 0.7f).SetEase(Ease.OutQuad);
+    }
+
+    /// <summary>
+    /// 水平レーザーを放つ
+    /// </summary>
+    private void FireLaser(Vector3 position, float effectTime, int index)
+    {
+        //レーザーを放つ
         float elapsedTime = 0f;
-        _laserParticle.transform.position = position.position; //レーザーの始点を調整
-        _laserParticle.LaserEffect.SetActive(true);
+        _laserParticle[index].transform.position = position; //レーザーの始点を調整
+        _laserParticle[index].LaserEffect.SetActive(true);
         
         Observable
             .EveryUpdate()
@@ -62,15 +149,19 @@ public class BossAttackPattern : MonoBehaviour
             .Subscribe(_ => 
             { 
                 elapsedTime += Time.deltaTime;
-                _laserParticle.transform.position = position.position; //レーザーの始点を調整
-                _laserParticle.Fire(position);
+                _laserParticle[index].transform.position = position; //レーザーの始点を調整
+                _laserParticle[index].Fire(position);
             }, () =>
             {
-                _laserParticle.Stop(); //レーザーを止める
-                _laserParticle.LaserEffect.SetActive(false);
+                _laserParticle[index].Stop(); //レーザーを止める
+                _laserParticle[index].LaserEffect.SetActive(false);
+                _animator.applyRootMotion = false;
+                CameraManager.Instance.ExplosionEffect(); //元のカメラに戻す
             })
             .AddTo(this);
     }
+
+    #endregion
 
     #region 垂直レーザー
 
@@ -159,8 +250,7 @@ public class BossAttackPattern : MonoBehaviour
     }
 
     #endregion
-
-    #region パターン2
+    
 
     /// <summary>
     /// 頭上から落とす広範囲攻撃(走って避ける)
@@ -173,90 +263,22 @@ public class BossAttackPattern : MonoBehaviour
         //プレイヤーの頭上にエリアを生成
         GameObject aboveObj = Instantiate(_abovePrefab);
         aboveObj.TryGetComponent(out AboveControl aboveCtrl);
-        aboveCtrl.SetCombat(_combat);
+        aboveCtrl.SetCombat(_combat, _target);
         
+        await UniTask.Delay(3000); //待って避けられるようにする
+        /*
         await UniTask.Delay(1400); //待って避けられるようにする
         
-        aboveCtrl.Attack();
+        await aboveCtrl.Fire();
         _animator.SetTrigger("Attack");
         
         await UniTask.Delay(1600);
         
+        */
         //TODO:強力なダメージ＋吹き飛ばしを実装
     }
-    
-    /// <summary>
-    /// 影に潜る
-    /// </summary>
-    public void ShadowLatent()
-    {
-        _cc.Move(DefaultTransform - transform.position); //デフォルトのTransformとの差分だけ移動させておく
-        _shadowObj = Instantiate(_shadowPrefab, transform); //子オブジェクトに影オブジェクトを追加して保持
-        _boss.transform.DOMoveY(-2.5f, 1.5f).OnComplete(() => ShadowMove()); //影に潜る
-    }
-    
-    /// <summary>
-    /// 影移動
-    /// </summary>
-    public void ShadowMove()
-    {
-        _cc.Move(new Vector3(0f, -4.9f, 0f)); //オブジェクトの位置をずらす
-        
-        float moveSpeed = 10f; //移動速度
-        float snakeAmplitude = 0.3f; //振れ幅
-        float snakeFrequency = 1.5f; //周波数
-        float elapsedTime = 0f; //経過時間
-        
-        //移動処理
-        Observable
-            .EveryUpdate()
-            .TakeWhile(_ => Vector3.Distance(transform.position, _target.position) > 1f) //プレイヤーとの距離が1f以下になるまで処理を行う
-            .Subscribe(_ =>
-            {
-                elapsedTime += Time.deltaTime;
-                
-                Vector3 direction = (_target.position - transform.position).normalized; //プレイヤーとのベクトルを求める
-                Vector3 sideVector = Vector3.Cross(Vector3.up, direction);
-                
-                float snakeOffset = Mathf.Sin(elapsedTime * snakeFrequency) * snakeAmplitude; //サイン波を求める
-                Vector3 moveVector =  (direction * moveSpeed * Time.deltaTime) + (sideVector * snakeOffset * 0.5f); //移動量を計算
 
-                _cc.Move(moveVector); //高さは固定
-            }, () =>
-            {
-                ShadowArrived();
-            })
-            .AddTo(this);
-    }
-    
-    /// <summary>
-    /// 影から実体化する処理
-    /// </summary>
-    private async void ShadowArrived()
-    { 
-        //TODO:溶けて出てくるような、ディゾルブ効果をつけたい
-        Debug.Log("影が到達");
-        // 実体化処理
-        _boss.transform.DOMoveY(0, 0.4f); //影から出る
-        _shadowObj.SetActive(false);
-
-        await UniTask.Delay(500); //一瞬おいてから攻撃開始
-        
-        ShadowFire();
-        Destroy(_shadowObj);
-    }
-
-    /// <summary>
-    /// 近接攻撃
-    /// </summary>
-    private void ShadowFire()
-    {
-        Debug.Log("攻撃");
-        _animator.SetInteger("AttackType", 5);
-        _animator.SetTrigger("Attack");
-    }
-
-    #endregion
+    #region 時間操作攻撃
 
     /// <summary>
     /// 時間操作
@@ -321,6 +343,8 @@ public class BossAttackPattern : MonoBehaviour
         _magicCircles.Clear();
     }
 
+    #endregion
+    
     #region 魔法陣
 
     /// <summary>
@@ -359,10 +383,11 @@ public class BossAttackPattern : MonoBehaviour
     }
     
     #endregion
-    
-    
+
+    #region DPSチェック失敗時の攻撃
+
     /// <summary>
-    /// 死に際の時間操作（残りHP10%で発動）
+    /// DPSチェック失敗時の即死攻撃
     /// 画面の色彩が徐々に色が抜けていく 周囲の空間が歪み始め、背景エフェクトが「時空の裂け目」みたいになる。
     /// UIの時計やカウントダウン的な演出を画面端に表示（「00:03… 00:02… 00:01…」）。BGMがフェードアウトし、無音になる（緊張感を増す）。
     /// </summary>
@@ -379,16 +404,15 @@ public class BossAttackPattern : MonoBehaviour
         _bgmMixer.audioMixer.SetFloat("MasterVolume", 1f); //音をくぐもらせる
         _playerInput.DeactivateInput(); //プレイヤーの入力を制限
         
-        await UniTask.Delay(200);
+        await UniTask.Delay(500);
         
         TimeStop();
     }
 
     /// <summary>
     /// 完全時間停止（約4〜5秒）
-    /// ボスは 自由に動きながらプレイヤーの周囲を回り、攻撃の準備 をする。巨大な魔法陣を展開し、解除時にフィールド全体を攻撃。
     /// </summary>
-    public async void TimeStop()
+    private async void TimeStop()
     {
         Debug.Log("時間停止");
         //BGMのvolumeを完全にゼロにする
@@ -396,7 +420,7 @@ public class BossAttackPattern : MonoBehaviour
         
         SpawnMagicCircle(10, 11); //魔法陣を展開
         
-        await UniTask.Delay(4000);
+        await UniTask.Delay(200);
         
         FinalAttack();
     }
@@ -405,14 +429,23 @@ public class BossAttackPattern : MonoBehaviour
     /// 時間解除 & 強力な攻撃発動（約1秒）
     /// 解除直前に「時計の針が高速回転」→「一瞬だけ時が動き出すエフェクト」。タイムスケールを一気に1.0に戻し、色彩が元に戻る（急激なコントラスト変化）。
     /// </summary>
-    public void FinalAttack()
+    private void FinalAttack()
     {
         Debug.Log("攻撃");
         Time.timeScale = 1f;
         _timeStopVolume.enabled = false; //画面エフェクトを通常に戻す
         RenderSettings.skybox = _defaultMaterial; //Skyboxを元に戻す
         _playerInput.ActivateInput(); //入力制限解除
+        
         //即死攻撃の処理
+        
+            _target.TryGetComponent(out IDamageable damageable);
+            _combat.DamageHandler.ApplyDamage(
+                target: damageable, //攻撃対象
+                baseDamage: 1000, //攻撃力 
+                defense: 0, //相手の防御力
+                attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
+        
         
         //魔法陣のオブジェクトを削除したあと、リストをクリアする
         foreach (var magicCircle in _magicCircles)
@@ -422,12 +455,13 @@ public class BossAttackPattern : MonoBehaviour
         _magicCircles.Clear();
     }
 
+    #endregion
+    
     /// <summary>
-    /// フィニッシュムーブ 本気の時間操作の後、ボスは弱体化（移動が遅くなる・攻撃が単調になる）。
-    /// プレイヤーが最後の攻撃を決めるチャンス。ボス撃破時、時間が一瞬スローモーションになり、「完全に時が崩壊する」
+    ///  DPSチェック成功時の処理
     /// </summary>
-    public void After()
+    public async UniTask SuccessDpsCheck()
     {
-        
+        await UniTask.Delay(10000);
     }
 }

@@ -21,7 +21,7 @@ namespace UI.Base
         /// </summary>
         public virtual void Show()
         {
-            _canvasGroup.DOFade(1, 0.3f).SetEase(Ease.OutQuad);
+            _canvasGroup.DOFade(1, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true) ;
             _canvasGroup.interactable = true;
             _canvasGroup.blocksRaycasts = true;
         }
@@ -31,7 +31,7 @@ namespace UI.Base
         /// </summary>
         public virtual void Hide()
         {
-            _canvasGroup.DOFade(0, 0.3f).SetEase(Ease.OutQuad);
+            _canvasGroup.DOFade(0, 0.3f).SetEase(Ease.OutQuad).SetUpdate(true);
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
         }

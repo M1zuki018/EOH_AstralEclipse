@@ -24,25 +24,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private MiniMapUI _miniMapUI;
     [SerializeField] private SliderUI _bossHPUI; //ボスのHPゲージ
     [SerializeField] private SliderUI _bossWillUI; //ボスのWillゲージ
+    [SerializeField] private SliderUI _bossDpsCheakUI; //DPSチェック用のゲージ
     [SerializeField] private TextUI _bossName; //ボスの名前UI
     [SerializeField] private TextUI _bossRemainingHP; //ボスの残りHPのパーセント表記のUI
     [SerializeField] private TextUI _questMessage; //クエスト中の警告を表示するテキスト
     [SerializeField] private IconUI _firstExplain; //最初のゲーム説明のテキストウィンドウ
     [SerializeField] private TextUI _gameStartText; //「GameStart」の文字UI
+    [SerializeField] private IconUI _deathPanel; //死亡時に表示するパネル
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); //インスタンスを生成
-        }
-        else
-        {
-            Destroy(gameObject); //既にあったら破棄する
-        }
+        Instance = this;
     }
 
     /// <summary>プレイヤーのHPゲージを更新する</summary>
@@ -50,6 +44,12 @@ public class UIManager : MonoBehaviour
     
     /// <summary>プレイヤーのHPゲージを初期化する</summary>
     public void InitializePlayerHP(int maxValue, int defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);
+    
+    /// <summary>プレイヤーのHPゲージを表示する</summary>
+    public void ShowPlayerHP() => _playerHP.Show();
+    
+    /// <summary>プレイヤーのHPゲージを非表示にする</summary>
+    public void HidePlayerHP() => _playerHP.Hide();
     
     /// <summary>プレイヤーのTPゲージを初期化する</summary>
     public void InitializePlayerTP(int maxValue, int defaultValue) => _playerTP.InitializeValue(maxValue, defaultValue);
@@ -74,10 +74,18 @@ public class UIManager : MonoBehaviour
     public void UpdateStepCount(int value) => _stepCount.SetNumber(value);
 
     /// <summary>ステップUIを表示する</summary>
-    public void ShowStepUI() => _stepGauge.Show();
+    public void ShowStepUI()
+    {
+        _stepGauge.Show();
+        _stepCount.Show();
+    }
 
     /// <summary>ステップUIを隠す</summary>
-    public void HideStepUI() => _stepGauge.Hide();
+    public void HideStepUI()
+    {
+        _stepGauge.Hide();
+        _stepCount.Hide();
+    } 
     
     /// <summary>ロックオンアイコンの位置を変更する</summary>
     public void SetLockOnUI(Transform targetTransform) => _lockOnIcon.IsActive(targetTransform);
@@ -146,6 +154,8 @@ public class UIManager : MonoBehaviour
         {
             icon.HideAndSlide();
         }
+        _stepGauge.Hide();
+        _stepCount.Hide();
     }
 
     /// <summary>クエストテキストとミニマップを表示する</summary>
@@ -192,6 +202,18 @@ public class UIManager : MonoBehaviour
     /// <summary>ボスのWillゲージを初期化する</summary>
     public void InitializeBossWill(int maxValue, int defaultValue) => _bossWillUI.InitializeValue(maxValue, defaultValue);
     
+    /// <summary>ボスのDPSチェック用ゲージを更新する</summary>
+    public void UpdateBossDpsSlider(int value) => _bossDpsCheakUI.SetValue(value);
+    
+    /// <summary>ボスのDPSチェック用ゲージを初期化する</summary>
+    public void InitializeBossDpsSlider(int maxValue, int defaultValue) => _bossDpsCheakUI.InitializeValue(maxValue, defaultValue);
+    
+    /// <summary>ボスのDPSチェック用ゲージを表示する</summary>
+    public void ShowBossDpsSlider() => _bossDpsCheakUI.Show();
+    
+    /// <summary>ボスのDPSチェック用ゲージを非表示にする</summary>
+    public void HideBossDpsSlider() => _bossDpsCheakUI.Hide();
+    
     /// <summary>ボスの名前表記を更新する</summary>
     public void UpdateBossName(string text) => _bossName.SetText(text);
     
@@ -231,7 +253,12 @@ public class UIManager : MonoBehaviour
     /// <summary>「GameStart」テキストを表示する</summary>
     public void ShowStartText() => _gameStartText.Show();
     
-    
     /// <summary>「GameStart」テキストを非表示にする</summary>
     public void HideStartText() => _gameStartText.Hide();
+    
+    /// <summary>死亡時のパネルを表示する</summary>
+    public void ShowDeathPanel() => _deathPanel.Show();
+    
+    /// <summary>死亡時のパネルを非表示にする</summary>
+    public void HideDeathPanel() => _deathPanel.Hide();
 }
