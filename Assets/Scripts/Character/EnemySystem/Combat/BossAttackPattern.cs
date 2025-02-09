@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -403,7 +404,7 @@ public class BossAttackPattern : MonoBehaviour
         _bgmMixer.audioMixer.SetFloat("MasterVolume", 1f); //音をくぐもらせる
         _playerInput.DeactivateInput(); //プレイヤーの入力を制限
         
-        await UniTask.Delay(50);
+        await UniTask.Delay(500);
         
         TimeStop();
     }
@@ -435,7 +436,16 @@ public class BossAttackPattern : MonoBehaviour
         _timeStopVolume.enabled = false; //画面エフェクトを通常に戻す
         RenderSettings.skybox = _defaultMaterial; //Skyboxを元に戻す
         _playerInput.ActivateInput(); //入力制限解除
+        
         //即死攻撃の処理
+        
+            _target.TryGetComponent(out IDamageable damageable);
+            _combat.DamageHandler.ApplyDamage(
+                target: damageable, //攻撃対象
+                baseDamage: 1000, //攻撃力 
+                defense: 0, //相手の防御力
+                attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
+        
         
         //魔法陣のオブジェクトを削除したあと、リストをクリアする
         foreach (var magicCircle in _magicCircles)
