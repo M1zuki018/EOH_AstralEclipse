@@ -51,6 +51,7 @@ public class Door : InteractableItemBase
         _player.TryGetComponent(out PlayerMovement playerMovement);
         playerMovement.PlayerState.IsBossBattle = true; //ステートを更新
         ReadyForBattleChecker battleChecker = _player.GetComponentInChildren<ReadyForBattleChecker>();
+        AudioManager.Instance.ClipChange(AudioType.BGM, 1);
         battleChecker.StartBossBattle(_bossEnemyBrain); //ボス戦開始のイベント発火
         BossMover bossMover = _bossEnemyBrain.gameObject.GetComponent<BossMover>();
         bossMover.BattleStart();
