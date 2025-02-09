@@ -43,7 +43,12 @@ public class BossHealth : MonoBehaviour, IHealth
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
         if(attacker.tag == this.tag) return;
-        
+
+        if (_bossMover.IsDamageImmunity)
+        {
+            //ダメージ無効中なら処理を行わない
+            return;
+        }
         if (!_bossMover.IsDPSCheak)
         {
             //DPSチェック中でなければ通常のダメージイベントを行う

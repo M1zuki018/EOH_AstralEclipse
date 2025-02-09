@@ -17,7 +17,10 @@ public class BossMover : MonoBehaviour
     private Vector3 _initializePos;
     private int _currentPattern = 0; //現在の攻撃パターン
     private int _pattern2Count; //パターン2で使用する
+    private bool _isDamageImmunity; //ダメージ無効
     private bool _isDPSCheak; //DPSチェック中かどうか
+    
+    public bool IsDamageImmunity => _isDamageImmunity;
     public bool IsDPSCheak => _isDPSCheak;
 
     private readonly List<Func<UniTask>> _attackPatterns = new();
@@ -29,7 +32,8 @@ public class BossMover : MonoBehaviour
         _cc = GetComponent<CharacterController>();
         _initializePos = transform.position;
         transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //初期位置に移動
-        
+       
+        /*
         //HPが50%以下になったら攻撃パターンを変更する
         Observable
             .EveryUpdate()
@@ -37,13 +41,14 @@ public class BossMover : MonoBehaviour
             .Take(1)
             .Subscribe(_ => ChangeAttackPattern())
             .AddTo(this);
+        */
         
         //HPが10%以下になったらDPSチェックを始める
         Observable
             .EveryUpdate()
             .Where(_ => _health != null && _health.CurrentHP <= _health.MaxHP * 0.1f) //HP10%以下になったら
             .Take(1) //一度だけに制限
-            .Subscribe(_ => DPSCheak()) //特殊攻撃パターンを実行
+            .Subscribe(_ => _isDamageImmunity = true) //ダメージ無効状態に変更する
             .AddTo(this);
         
         //攻撃パターンを登録
@@ -65,9 +70,25 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public async void Break()
     {
+        if (IsDamageImmunity)
+        {
+            //ダメージ無効状態を解除してDPSチェックを始める
+            _isDamageImmunity = false;
+            DPSCheak().Forget();
+            return;
+        }
+        
         _cc.Move(new Vector3(0, _initializePos.y - transform.position.y, 0)); //初期位置と現在の位置の差分だけ移動する
         Debug.Log("休み");
         await UniTask.Delay(6000);
+        
+        if (IsDamageImmunity)
+        {
+            //ダメージ無効状態を解除してDPSチェックを始める
+            _isDamageImmunity = false;
+            DPSCheak().Forget();
+            return;
+        }
         
         //次の攻撃に向けて移動する
         if (_currentPattern == 1) await Pattern2();
