@@ -93,6 +93,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         else //次のターゲットがいない場合
         {
             Debug.Log("ロックオン可能な敵がいません");
+            _adjustDirection.Target = null;
             _lockedOnEnemy.Value = null;
             UIManager.Instance?.HideLockOnUI();
             //CameraManager.Instance.UseCamera(0);
