@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private MiniMapUI _miniMapUI;
     [SerializeField] private SliderUI _bossHPUI; //ボスのHPゲージ
     [SerializeField] private SliderUI _bossWillUI; //ボスのWillゲージ
+    [SerializeField] private SliderUI _bossDpsCheakUI; //DPSチェック用のゲージ
     [SerializeField] private TextUI _bossName; //ボスの名前UI
     [SerializeField] private TextUI _bossRemainingHP; //ボスの残りHPのパーセント表記のUI
     [SerializeField] private TextUI _questMessage; //クエスト中の警告を表示するテキスト
@@ -50,6 +51,9 @@ public class UIManager : MonoBehaviour
     
     /// <summary>プレイヤーのHPゲージを初期化する</summary>
     public void InitializePlayerHP(int maxValue, int defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);
+    
+    /// <summary>プレイヤーのHPゲージを非表示にする</summary>
+    public void HidePlayerHP() => _playerHP.Hide();
     
     /// <summary>プレイヤーのTPゲージを初期化する</summary>
     public void InitializePlayerTP(int maxValue, int defaultValue) => _playerTP.InitializeValue(maxValue, defaultValue);
@@ -191,6 +195,18 @@ public class UIManager : MonoBehaviour
     
     /// <summary>ボスのWillゲージを初期化する</summary>
     public void InitializeBossWill(int maxValue, int defaultValue) => _bossWillUI.InitializeValue(maxValue, defaultValue);
+    
+    /// <summary>ボスのDPSチェック用ゲージを更新する</summary>
+    public void UpdateBossDpsSlider(int value) => _bossDpsCheakUI.SetValue(value);
+    
+    /// <summary>ボスのDPSチェック用ゲージを初期化する</summary>
+    public void InitializeBossDpsSlider(int maxValue, int defaultValue) => _bossDpsCheakUI.InitializeValue(maxValue, defaultValue);
+    
+    /// <summary>ボスのDPSチェック用ゲージを表示する</summary>
+    public void ShowBossDpsSlider() => _bossDpsCheakUI.Show();
+    
+    /// <summary>ボスのDPSチェック用ゲージを非表示にする</summary>
+    public void HideBossDpsSlider() => _bossDpsCheakUI.Hide();
     
     /// <summary>ボスの名前表記を更新する</summary>
     public void UpdateBossName(string text) => _bossName.SetText(text);

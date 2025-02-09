@@ -17,6 +17,7 @@ public class BossMover : MonoBehaviour
     private int _currentPattern = 0; //現在の攻撃パターン
     private int _pattern2Count; //パターン2で使用する
     private bool _isDPSCheak; //DPSチェック中かどうか
+    public bool IsDPSCheak => _isDPSCheak;
 
     private readonly List<Func<UniTask>> _attackPatterns = new();
 
@@ -41,7 +42,7 @@ public class BossMover : MonoBehaviour
             .EveryUpdate()
             .Where(_ => _health != null && _health.CurrentHP <= _health.MaxHP * 0.1f) //HP10%以下になったら
             .Take(1) //一度だけに制限
-            .Subscribe(_ => _attackPattern.FinalTimeControl()) //特殊攻撃パターンを実行
+            .Subscribe(_ => DPSCheak()) //特殊攻撃パターンを実行
             .AddTo(this);
         
         //攻撃パターンを登録
@@ -56,14 +57,6 @@ public class BossMover : MonoBehaviour
     public async UniTask BattleStart()
     {
         await _attackPatterns[0]();
-        /*
-        while (!_isDPSCheak)
-        {
-            await _attackPatterns[_currentPattern]();
-            _currentPattern = (_currentPattern + 1) % _attackPatterns.Count;
-            await UniTask.Delay(2000);
-        }
-        */
     }
 
     /// <summary>
@@ -144,6 +137,21 @@ public class BossMover : MonoBehaviour
 
         _currentPattern = 3;
         Break();
+    }
+
+    /// <summary>
+    /// DPSチェックの操作
+    /// </summary>
+    [ContextMenu("DPSCheak")]
+    public async UniTask DPSCheak()
+    {
+        _isDPSCheak = true;
+        
+        //UIの操作
+        UIManager.Instance.InitializeBossDpsSlider(150, 150);
+        UIManager.Instance.ShowBossDpsSlider();
+        UIManager.Instance.HideBossUI();
+        UIManager.Instance.HidePlayerHP();
     }
 
     [ContextMenu("LastAttack")]

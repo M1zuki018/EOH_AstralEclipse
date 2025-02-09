@@ -66,19 +66,14 @@ public class BossAttackPattern : MonoBehaviour
     {
         await _shadowAttack.Fire();
     }
-    
-    
-    /// <summary>
+
+    #region 水平レーザー
+
+     /// <summary>
     /// 水平方向のレーザー
     /// </summary>
     public async void HorizontalLaser(Transform position, float effectTime)
     {
-        //TODO:チャージの処理
-        /*
-        _animator.SetInteger("AttackType", 0);
-        _animator.SetTrigger("Attack");
-       */
-        
         //魔法陣を生成
         _laserParticle[0].Sty(position.position);
         
@@ -110,12 +105,6 @@ public class BossAttackPattern : MonoBehaviour
         //新しい座標を作成
         Vector3 position1 = position.position + new Vector3(-10, 0, 0);
         Vector3 position2 = position.position + new Vector3(10, 0, 0);
-        
-        //TODO:チャージの処理
-        /*
-        _animator.SetInteger("AttackType", 0);
-        _animator.SetTrigger("Attack");
-       */
 
         //魔法陣を生成
         _laserParticle[0].Sty(position.position);
@@ -171,6 +160,8 @@ public class BossAttackPattern : MonoBehaviour
             })
             .AddTo(this);
     }
+
+    #endregion
 
     #region 垂直レーザー
 
