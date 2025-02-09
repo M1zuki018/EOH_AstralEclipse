@@ -64,6 +64,7 @@ public class BossHealth : MonoBehaviour, IHealth
         {
             //DPSチェック中なら専用の値を変化させる
             CurrentBreakAmount -= amount;
+            
             UIManager.Instance.UpdateBossDpsSlider(CurrentBreakAmount); //スライダーを更新
 
             if (IsCheckComplete)
