@@ -2651,7 +2651,7 @@ Transform:
   m_GameObject: {fileID: 364916568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.795624, z: -3.5}
+  m_LocalPosition: {x: 0, y: 4.706021, z: -3.020001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2818,7 +2818,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 1595675504}
   m_Follow: {fileID: 277621503}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 50
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -3745,7 +3745,6 @@ GameObject:
   - component: {fileID: 507906980}
   - component: {fileID: 507906985}
   - component: {fileID: 507906984}
-  - component: {fileID: 507906983}
   - component: {fileID: 507906982}
   - component: {fileID: 507906981}
   m_Layer: 0
@@ -3825,23 +3824,6 @@ MonoBehaviour:
   m_Damping: 1
   m_DampingWhenOccluded: 0.5
   m_OptimalTargetDistance: 0
---- !u!114 &507906983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507906979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a51c7e2b10c8c2148a03d2729e2c074d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cinemachineVirtualCamera: {fileID: 507906985}
-  _cinemachineInputProvider: {fileID: 507906984}
-  _sensitivity: 1
-  _minDistance: 1
-  _maxDistance: 5
 --- !u!114 &507906984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6244,7 +6226,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.5
+  m_CameraDistance: 3
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
@@ -6371,7 +6353,7 @@ Transform:
   m_GameObject: {fileID: 707531206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.795624, z: -3.5}
+  m_LocalPosition: {x: 0, y: 4.7533917, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8589,7 +8571,7 @@ Transform:
   m_GameObject: {fileID: 1081295069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.795624, z: -3.5}
+  m_LocalPosition: {x: 0, y: 4.7533917, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11250,6 +11232,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5453022809917874669, guid: d68890645e5d79843a8c72504bed5cc2,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fa1c9056d4c2eac48ab583a2379614ee,
+        type: 2}
+    - target: {fileID: 5453022809917874669, guid: d68890645e5d79843a8c72504bed5cc2,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 121493388432663891, guid: fa1c9056d4c2eac48ab583a2379614ee,
+        type: 2}
+    - target: {fileID: 5453022809917874669, guid: d68890645e5d79843a8c72504bed5cc2,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7309619828914679584, guid: d68890645e5d79843a8c72504bed5cc2,
         type: 3}
@@ -14754,7 +14753,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.5
+  m_CameraDistance: 3.020001
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0
