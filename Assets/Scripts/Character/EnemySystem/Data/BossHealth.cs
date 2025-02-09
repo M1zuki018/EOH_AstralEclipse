@@ -28,7 +28,7 @@ public class BossHealth : MonoBehaviour, IHealth
     
     public event Action<GameObject> OnDeath;
     
-    public event Action<GameObject> OnCheckComplete; //DPSチェック終了時に呼び出すイベント
+    public event Action OnCheckComplete; //DPSチェック終了時に呼び出すイベント
     
     private void Awake()
     {
@@ -68,7 +68,7 @@ public class BossHealth : MonoBehaviour, IHealth
 
             if (IsCheckComplete)
             {
-                OnCheckComplete?.Invoke(attacker);
+                OnCheckComplete?.Invoke();
             }
         }
         

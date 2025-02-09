@@ -12677,7 +12677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHPData: 33
-  _breakAmountData: 150
+  _breakAmountData: 20
   _bossMover: {fileID: 1595675513}
 --- !u!43 &1603113471
 Mesh:

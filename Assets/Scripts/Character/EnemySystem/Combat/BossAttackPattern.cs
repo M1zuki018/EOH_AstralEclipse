@@ -447,8 +447,8 @@ public class BossAttackPattern : MonoBehaviour
     /// フィニッシュムーブ 本気の時間操作の後、ボスは弱体化（移動が遅くなる・攻撃が単調になる）。
     /// プレイヤーが最後の攻撃を決めるチャンス。ボス撃破時、時間が一瞬スローモーションになり、「完全に時が崩壊する」
     /// </summary>
-    public void After()
+    public async UniTask SuccessDpsCheck()
     {
-        
+        await UniTask.Delay(10000);
     }
 }

@@ -32,6 +32,8 @@ public class BossMover : MonoBehaviour
         _cc = GetComponent<CharacterController>();
         _initializePos = transform.position;
         transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //初期位置に移動
+
+        _health.OnCheckComplete += SuccessDpsCheck; //DPSチェック成功時のイベントを登録
        
         /*
         //HPが50%以下になったら攻撃パターンを変更する
@@ -55,6 +57,11 @@ public class BossMover : MonoBehaviour
         _attackPatterns.Add(Pattern1);
         _attackPatterns.Add(Pattern2);
         _attackPatterns.Add(Pattern3);
+    }
+
+    private void OnDestroy()
+    {
+        _health.OnCheckComplete -= SuccessDpsCheck; //解除
     }
 
     /// <summary>
@@ -176,15 +183,28 @@ public class BossMover : MonoBehaviour
         UIManager.Instance.HidePlayerHP();
     }
 
+    /// <summary>
+    /// DPSチェック成功時の処理
+    /// </summary>
+    private async void SuccessDpsCheck()
+    {
+        //UIの操作
+        UIManager.Instance.HideBossDpsSlider();
+        UIManager.Instance.ShowBossUI();
+        UIManager.Instance.ShowPlayerHP();
+        
+        _isDPSCheak = false;
+        await _attackPattern.SuccessDpsCheck();
+        Break();
+    }
+    
+    /// <summary>
+    /// DPSチェック失敗時の処理
+    /// </summary>
     [ContextMenu("LastAttack")]
-    public async void LastAttack()
+    private void LastAttack()
     {
         _attackPattern.FinalTimeControl();
-    }
-
-    public void After()
-    {
-        _attackPattern.After();
     }
     
     /// <summary>

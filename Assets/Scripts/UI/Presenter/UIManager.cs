@@ -52,6 +52,9 @@ public class UIManager : MonoBehaviour
     /// <summary>プレイヤーのHPゲージを初期化する</summary>
     public void InitializePlayerHP(int maxValue, int defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);
     
+    /// <summary>プレイヤーのHPゲージを表示する</summary>
+    public void ShowPlayerHP() => _playerHP.Show();
+    
     /// <summary>プレイヤーのHPゲージを非表示にする</summary>
     public void HidePlayerHP() => _playerHP.Hide();
     
