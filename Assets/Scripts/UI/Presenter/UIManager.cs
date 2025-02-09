@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextUI _questMessage; //クエスト中の警告を表示するテキスト
     [SerializeField] private IconUI _firstExplain; //最初のゲーム説明のテキストウィンドウ
     [SerializeField] private TextUI _gameStartText; //「GameStart」の文字UI
+    [SerializeField] private IconUI _deathPanel; //死亡時に表示するパネル
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
@@ -260,7 +261,12 @@ public class UIManager : MonoBehaviour
     /// <summary>「GameStart」テキストを表示する</summary>
     public void ShowStartText() => _gameStartText.Show();
     
-    
     /// <summary>「GameStart」テキストを非表示にする</summary>
     public void HideStartText() => _gameStartText.Hide();
+    
+    /// <summary>死亡時のパネルを表示する</summary>
+    public void ShowDeathPanel() => _deathPanel.Show();
+    
+    /// <summary>死亡時のパネルを非表示にする</summary>
+    public void HideDeathPanel() => _deathPanel.Hide();
 }

@@ -129,6 +129,7 @@ public class PlayerBrain : CharacterBase
         Debug.Log($"{gameObject.name}は{attacker.name}に倒された！");
         _playerMovement._animator.SetTrigger("Damage");
         //TODO:死亡エフェクト等の処理
+        Time.timeScale = 0.2f; //スローモーションにする
     }
 
     [ContextMenu("Shake")]
