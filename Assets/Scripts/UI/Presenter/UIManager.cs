@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextUI _bossRemainingHP; //ボスの残りHPのパーセント表記のUI
     [SerializeField] private TextUI _questMessage; //クエスト中の警告を表示するテキスト
     [SerializeField] private IconUI _firstExplain; //最初のゲーム説明のテキストウィンドウ
-    [SerializeField] private TextUI _gameStartText; //「GameStart」の文字UI
+    [SerializeField] private GameStartUI _gameStartText; //「GameStart」の文字UI
     [SerializeField] private IconUI _deathPanel; //死亡時に表示するパネル
     [SerializeField] private IconUI _startPanel; //タイトルとして使用するパネル
     
