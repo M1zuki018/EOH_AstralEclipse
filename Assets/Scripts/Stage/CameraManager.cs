@@ -109,6 +109,36 @@ public class CameraManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 汎用的なエフェクト適用メソッド
+    /// </summary>
+    private void ApplyEffect(float fovChange, float motionBlur, float vignette, float chromaticAberration, float duration)
+    {
+        Debug.Log("呼ばれた");
+        //FOVの調整
+        DOTween.To(() => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView,
+            x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x,
+            _defaultFOV + fovChange, duration);
+
+        //モーションブラー
+        DOTween.To(() => _motionBlur.intensity.value, x => _motionBlur.intensity.value = x,
+            motionBlur, duration);
+        //ビネット
+        DOTween.To(() => _vignette.intensity.value, x => _vignette.intensity.value = x,
+            vignette, duration);
+        //色収差
+        DOTween.To(() => _chromaticAberration.intensity.value, x => _chromaticAberration.intensity.value = x,
+            chromaticAberration, duration);
+    }
+    
+    /// <summary>
+    /// カメラを揺らし方を指定して揺らす
+    /// </summary>
+    private void ApplyCameraShake(float duration, float strength, int vibrato)
+    {
+        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(duration, strength, vibrato);
+    }
+
+    /// <summary>
     /// カメラを揺らす
     /// </summary>
     public void TriggerCameraShake()
@@ -119,49 +149,20 @@ public class CameraManager : MonoBehaviour
     /// <summary>
     /// ステップ中のエフェクト
     /// </summary>
-    public void StepEffect()
-    {
-        //FOVの調整
-        _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView
-            = Mathf.Lerp(_defaultFOV, _defaultFOV + 2, 0.2f);
-
-        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.8f, 0.2f); //モーションブラー
-        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.5f, 0.2f); //ビネット
-        _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.5f, 0.2f); //色収差
-    }
+    public void StepEffect() => ApplyEffect(2, 0.8f, 0.3f, 0.5f, 0.2f);
     
     /// <summary>
     /// ステップエフェクトを解除する
     /// </summary>
-    public void EndStepEffect()
-    {
-        _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView
-            = Mathf.Lerp(_defaultFOV, _defaultFOV - 2, 0.3f);
-
-        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.1f, 0.3f);
-        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.25f, 0.3f);
-        _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.05f, 0.3f);
-    }
+    public void EndStepEffect() => ApplyEffect(-2, 0.1f, 0.25f, 0.05f, 0.3f);
 
     /// <summary>
     /// ダッシュエフェクト（プレイヤーの一段目の攻撃などに使用）
     /// </summary>
     public void DashEffect()
     {
-        // FOVを拡張してスピード感を演出
-        DOTween.To(
-            () => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
-            x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x, 
-            _defaultFOV + 15, 
-            0.2f);
-
-        // 画面効果を加える
-        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.8f, 0.3f);
-        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.7f, 0.2f); //ビネット
-        _chromaticAberration.intensity.value =  Mathf.Lerp(_chromaticAberration.intensity.value, 0.6f, 0.3f);
-
-        // カメラを揺らす（突進の力強さ）
-        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.3f, 0.5f, 30);
+        ApplyEffect(10, 0.8f, 0.4f, 0.5f, 0.3f);
+        ApplyCameraShake(0.3f, 0.5f, 30);
     }
     
     /// <summary>
@@ -169,20 +170,8 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void EndDashEffect()
     {
-        // FOVを元に戻す
-        DOTween.To(
-            () => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
-            x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x, 
-            _defaultFOV, 
-            0.3f);
-
-        // 画面効果を元に戻す
-        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 0.1f, 0.3f);
-        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.25f, 0.3f);
-        _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0.05f, 0.3f);
-
-        // 軽くズームして衝撃感を出す
-        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.2f, 0.3f, 10);
+        ApplyEffect(-10, 0.1f, 0.25f, 0.05f, 0.3f);
+        ApplyCameraShake(0.2f, 0.3f, 10);
     }
     
     /// <summary>
@@ -190,20 +179,8 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void TurnEffect()
     {
-        // FOVの拡張は控えめ
-        DOTween.To(
-            () => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
-            x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x, 
-            _defaultFOV - 10, 
-            0.2f);
-
-        // 画面効果を加える
-        _motionBlur.intensity.value = Mathf.Lerp(_motionBlur.intensity.value, 1.2f, 0.15f);
-        _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0.7f, 0.15f); //ビネット
-        _chromaticAberration.intensity.value =  Mathf.Lerp(_chromaticAberration.intensity.value, 1f, 0.15f);
-
-        // カメラを揺らす（突進の力強さ）
-        _virtualCameras[_currentCameraIndex].transform.DOShakePosition(0.15f, 0.5f, 30);
+        ApplyEffect(-10f, 1f, 0.4f, 0.5f, 0.15f);
+        ApplyCameraShake(0.15f, 0.5f, 30);
     }
 
     /// <summary>
@@ -219,16 +196,18 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public async void ApplyHitStopWithEffects(float duration)
     {
-        //_vignette.color.value = new Color(1f, 0.5f, 0.26f, 0.5f); //ビネットの色を変更する
-        _vignette.intensity.value = Mathf.Lerp(0.5f, _vignette.intensity.value, duration); //ビネット
+        //ビネット
+        DOTween.To(() => _vignette.color.value, x => _vignette.color.value = x, 
+            new Color(1f, 0.2f, 0.2f, 0.5f), duration);
+        DOTween.To(() => _vignette.intensity.value, x => _vignette.intensity.value = x,
+            0.5f, duration);
+        
         _hitStop.ApplyHitStop(duration); //ヒットストップの処理
         
         await UniTask.Delay(TimeSpan.FromSeconds(duration));
         
         //徐々に戻す
-        DOTween.To(
-            () => _vignette.color.value, 
-            x => _vignette.color.value = x, 
+        DOTween.To(() => _vignette.color.value, x => _vignette.color.value = x, 
             Color.black, duration);
     }
     
@@ -269,7 +248,8 @@ public class CameraManager : MonoBehaviour
     public void ExplosionEffect()
     {
         UseCamera(0); //メインカメラに戻す
-        DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 60, 1.5f).SetEase(Ease.OutQuad);
+        DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 
+            60, 1.5f).SetEase(Ease.OutQuad);
     }
 
     /// <summary>
@@ -292,6 +272,7 @@ public class CameraManager : MonoBehaviour
         pov.m_VerticalAxis.Value = 10f;  //POVの調整
 
         // ゆっくりズームアウト
-        DOTween.To(() => _virtualCameras[0].m_Lens.FieldOfView, x => _virtualCameras[0].m_Lens.FieldOfView = x, 40, 2f).SetEase(Ease.InOutQuad);
+        DOTween.To(() => _virtualCameras[0].m_Lens.FieldOfView, x => _virtualCameras[0].m_Lens.FieldOfView = x,
+            40, 2f).SetEase(Ease.InOutQuad);
     }
 }
