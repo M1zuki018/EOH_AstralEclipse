@@ -113,11 +113,11 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     private void ApplyEffect(float fovChange, float motionBlur, float vignette, float chromaticAberration, float duration)
     {
-        Debug.Log("呼ばれた");
         //FOVの調整
         DOTween.To(() => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView,
             x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x,
-            _defaultFOV + fovChange, duration);
+            _defaultFOV + fovChange, duration)
+            .OnComplete(() => ResetFOV()); //FOVが低くなりすぎていないか確認し必要なら35まで戻す
 
         //モーションブラー
         DOTween.To(() => _motionBlur.intensity.value, x => _motionBlur.intensity.value = x,
@@ -181,6 +181,20 @@ public class CameraManager : MonoBehaviour
     {
         ApplyEffect(-20f, 1f, 0.4f, 0.5f, 0.15f);
         ApplyCameraShake(0.15f, 0.5f, 30);
+    }
+    
+    /// <summary>
+    /// メインカメラのFOVが35以下になったときに徐々にFOVを戻す
+    /// </summary>
+    private void ResetFOV()
+    {
+        if (_currentCameraIndex == 0 && _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView < 45f)
+        {
+            // 最小値以下になったら、DOTweenを使って自然に45まで戻す
+            DOTween.To(() => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView, 
+                x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x,
+                45f, 2f).SetEase(Ease.OutQuad);
+        }
     }
 
     /// <summary>
