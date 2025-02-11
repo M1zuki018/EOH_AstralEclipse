@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Dev_Action.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Main_Title.unity
+    guid: 8ad81bee7e5de3546a9ae63ac4571f31
   - enabled: 1
-    path: Assets/VRM10/Runtime/Scenes/SampleScene.unity
-    guid: 25e2f68464c55bf47a9d96514e9d207c
-  - enabled: 0
-    path: Assets/Plugins/UniRx/Examples/Sample12Scene.unity
-    guid: 4a4aea8df1ad11c47a1db84432dd30f8
+    path: Assets/Scenes/Dev_Stage.unity
+    guid: 202d17659c3e217428754ed192e94ff1
   m_configObjects: {}

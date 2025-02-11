@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,16 @@ public class BGMHandler : MonoBehaviour
     private AudioType _myType = AudioType.BGM;
 
     private void Start()
+    {
+        GameManager.Instance.OnPlay += GameStart;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnPlay -= GameStart;
+    }
+
+    private void GameStart()
     {
         AudioManager.Instance.ClipChange(_myType, _defaultBGMIndex); //BGMを初期化
         AudioManager.Instance.FadeIn(_myType);

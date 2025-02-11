@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     /// <summary>現在のゲームの進行状態</summary>
-    public ReactiveProperty<GameState> CurrentGameState { get; private set; } = new ReactiveProperty<GameState>(GameState.Playing);
+    public ReactiveProperty<GameState> CurrentGameState { get; private set; } = new ReactiveProperty<GameState>(GameState.Title);
 
     public event Action OnPlay; //プレイ開始
     public event Action OnPaused; //ポーズ

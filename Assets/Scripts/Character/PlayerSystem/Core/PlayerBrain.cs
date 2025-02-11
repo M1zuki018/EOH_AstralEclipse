@@ -28,17 +28,7 @@ public class PlayerBrain : CharacterBase
         _playerMovement = GetComponent<PlayerMovement>(); //Animator、State取得用
         _playerInput = GetComponent<PlayerInput>();
 
-        if (!_playerMovement.PlayerState.DebugMode)
-        {
-            //開始演出
-            _playerInput.DeactivateInput();
-            SkinManager.Instance?.ChangeSkin(0);
-            CameraManager.Instance?.UseCamera(3);
-            UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
-            UIManager.Instance?.HideRightUI();
-            UIManager.Instance?.HideFirstText();
-            UIManager.Instance?.HideStartText();
-        }
+        GameManager.Instance.OnPlay += StartPerformance;
         
         //TODO: 最初からモーションを流せるように変更する
         SubscribeToInputEvents(); //入力イベントを購読
@@ -66,6 +56,25 @@ public class PlayerBrain : CharacterBase
             .Subscribe(GameStart)
             .AddTo(this);
         
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        GameManager.Instance.OnPlay -= StartPerformance;
+    }
+
+    /// <summary>
+    /// 開始演出中の処理
+    /// </summary>
+    private void StartPerformance()
+    {
+        if (!_playerMovement.PlayerState.DebugMode)
+        {
+            _playerInput.DeactivateInput();
+            UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());   
+        }
+
     }
 
     private async void GameStart(InputAction.CallbackContext context)
