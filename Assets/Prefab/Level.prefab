@@ -261,7 +261,7 @@ MonoBehaviour:
     Position: {x: 12.980001, y: 10.79, z: 148.91}
     IsRotate: 1
   barrierPosB:
-    Position: {x: 5.1, y: 10.79, z: 154.28}
+    Position: {x: 75.6, y: 10.79, z: 146.9}
     IsRotate: 1
 --- !u!1 &5944603179263914802
 GameObject:
@@ -833,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 7480110011474014222, guid: 0cc65954127eda9458915203ff1b6837,
         type: 3}
       propertyPath: _attackDamage
-      value: 300
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7484479377202285707, guid: 0cc65954127eda9458915203ff1b6837,
         type: 3}
@@ -1131,8 +1131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fe4bdf32dfe1f479f39cd072dad05f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHPData: 33
-  _breakAmountData: 20
+  _maxHPData: 300
+  _breakAmountData: 150
   _bossMover: {fileID: 8026838514192793575}
 --- !u!114 &556403469234518541
 MonoBehaviour:
@@ -1583,12 +1583,12 @@ PrefabInstance:
     - target: {fileID: 1484325440537652288, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.1
+      value: 75.6
       objectReference: {fileID: 0}
     - target: {fileID: 1484325440537652288, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 154.28
+      value: 146.9
       objectReference: {fileID: 0}
     - target: {fileID: 1484325440537652288, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
@@ -1698,7 +1698,7 @@ PrefabInstance:
     - target: {fileID: 3523529247091088925, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 3449
+      value: 3455
       objectReference: {fileID: 0}
     - target: {fileID: 3691274729573444151, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
@@ -1773,7 +1773,7 @@ PrefabInstance:
     - target: {fileID: 9163316227830692891, guid: b030092036f44d2428559a9be8dc02f5,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 2678
+      value: 2684
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
