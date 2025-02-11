@@ -37,6 +37,7 @@ public class BarrierSystem : MonoBehaviour
         barrier.SetActive(true);
         
         AudioManager.Instance.PlaySE(15);
+        CameraManager.Instance.ChromaticAberration(1.3f, 0.3f);
     }
 
     /// <summary>

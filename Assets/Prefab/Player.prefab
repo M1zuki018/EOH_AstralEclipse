@@ -582,7 +582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetGroup: {fileID: 0}
   _camera: {fileID: 0}
-  _lockOnRadius: 0.5
+  _lockOnRadius: 0.7
   _battleChecker: {fileID: 5354095263494351068}
   _adjustDirection: {fileID: 1503685255541221325}
 --- !u!114 &2533374287445468311
@@ -777,8 +777,8 @@ MonoBehaviour:
   _effectPositionInfo:
     Position: {x: 0, y: 1.3, z: 0}
     Rotation: {x: -0.45451948, y: 0.5416752, z: -0.5416752, w: -0.45451948}
-  _approachSpeed: 30
-  _attackDistance: 10
+  _approachSpeed: 35
+  _attackDistance: 12
   _adjustDistance: 2
   _initializeAnimationSpeed: 1.3
   _stopDistance: 1.8

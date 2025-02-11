@@ -161,7 +161,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void DashEffect()
     {
-        ApplyEffect(10, 0.8f, 0.4f, 0.5f, 0.3f);
+        ApplyEffect(20, 0.8f, 0.4f, 0.5f, 0.3f);
         ApplyCameraShake(0.3f, 0.5f, 30);
     }
     
@@ -170,7 +170,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void EndDashEffect()
     {
-        ApplyEffect(-10, 0.1f, 0.25f, 0.05f, 0.3f);
+        ApplyEffect(-20, 0.1f, 0.25f, 0.05f, 0.3f);
         ApplyCameraShake(0.2f, 0.3f, 10);
     }
     
@@ -179,7 +179,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void TurnEffect()
     {
-        ApplyEffect(-10f, 1f, 0.4f, 0.5f, 0.15f);
+        ApplyEffect(-20f, 1f, 0.4f, 0.5f, 0.15f);
         ApplyCameraShake(0.15f, 0.5f, 30);
     }
 
@@ -274,5 +274,18 @@ public class CameraManager : MonoBehaviour
         // ゆっくりズームアウト
         DOTween.To(() => _virtualCameras[0].m_Lens.FieldOfView, x => _virtualCameras[0].m_Lens.FieldOfView = x,
             40, 2f).SetEase(Ease.InOutQuad);
+    }
+
+    /// <summary>
+    /// 一瞬色収差効果をかける
+    /// </summary>
+    public void ChromaticAberration(float endvalue, float duration)
+    {
+        float defaultValue = _chromaticAberration.intensity.value;
+        //色収差
+        DOTween.To(() => _chromaticAberration.intensity.value, x => _chromaticAberration.intensity.value = x,
+        endvalue, duration).OnComplete(()=> 
+            DOTween.To(() => _chromaticAberration.intensity.value, x => _chromaticAberration.intensity.value = x, 
+                defaultValue - endvalue, duration));
     }
 }
