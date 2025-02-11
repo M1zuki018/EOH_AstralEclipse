@@ -16,6 +16,8 @@ public class BariierSystem : MonoBehaviour
         {
             trigger.Initialize(this);
         }
+        
+        HideBariier();
     }
 
     /// <summary>
