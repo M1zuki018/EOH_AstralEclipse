@@ -25,7 +25,7 @@ public class ThirdKeyItemEvent : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //コライダーに接触したのがプレイヤーで、かつ既に2つキーを獲得している場合にイベント発生
-        if (other.CompareTag("Player") && _inventory.CurrentHasKeys() == 2)
+        if (other.CompareTag("Player") && _inventory?.CurrentHasKeys() == 2)
         {
             Event();
         }
