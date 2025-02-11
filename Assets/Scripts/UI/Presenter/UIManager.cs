@@ -29,8 +29,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextUI _bossRemainingHP; //ボスの残りHPのパーセント表記のUI
     [SerializeField] private TextUI _questMessage; //クエスト中の警告を表示するテキスト
     [SerializeField] private IconUI _firstExplain; //最初のゲーム説明のテキストウィンドウ
-    [SerializeField] private TextUI _gameStartText; //「GameStart」の文字UI
+    [SerializeField] private GameStartUI _gameStartText; //「GameStart」の文字UI
     [SerializeField] private IconUI _deathPanel; //死亡時に表示するパネル
+    [SerializeField] private IconUI _startPanel; //タイトルとして使用するパネル
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
@@ -50,21 +51,25 @@ public class UIManager : MonoBehaviour
     
     /// <summary>プレイヤーのHPゲージを非表示にする</summary>
     public void HidePlayerHP() => _playerHP.Hide();
-    
+
     /// <summary>プレイヤーのTPゲージを初期化する</summary>
-    public void InitializePlayerTP(int maxValue, int defaultValue) => _playerTP.InitializeValue(maxValue, defaultValue);
-    
+    public void InitializePlayerTP(int maxValue, int defaultValue) { }
+    //_playerTP.InitializeValue(maxValue, defaultValue);
+
     /// <summary>プレイヤーのTPゲージを更新する</summary>
-    public void UpdatePlayerTP(int value) => _playerTP.SetValue(value);
+    public void UpdatePlayerTP(int value) { }
+    //_playerTP.SetValue(value);
 
     /// <summary>スキルアイコンの操作を行う</summary>
     public void SelectedSkillIcon(int index)
     {
+        /*
         foreach (var icon in _skillIcons)
         {
             if (icon == _skillIcons[index - 1]) icon.Select();
             else icon.Deselect();
         }
+        */
     }
 
     /// <summary>ステップゲージの値を更新する</summary>
@@ -138,22 +143,26 @@ public class UIManager : MonoBehaviour
     public void ShowPlayerBattleUI()
     {
         _playerHP.ShowAndSlide();   
-        _playerTP.ShowAndSlide();
+        /*
+        _playerTP.ShowAndSlide(); 
         foreach (var icon in _skillIcons)
         {
             icon.ShowAndSlide();
         }
+        */
     }
 
     /// <summary>バトル用UIをすべて非表示にする</summary>
     public void HidePlayerBattleUI()
     {
         _playerHP.HideAndSlide();
+        /*
         _playerTP.HideAndSlide();
         foreach (var icon in _skillIcons)
         {
             icon.HideAndSlide();
         }
+        */
         _stepGauge.Hide();
         _stepCount.Hide();
     }
@@ -261,4 +270,10 @@ public class UIManager : MonoBehaviour
     
     /// <summary>死亡時のパネルを非表示にする</summary>
     public void HideDeathPanel() => _deathPanel.Hide();
+    
+    /// <summary>タイトル画面のパネルを表示する</summary>
+    public void ShowStartPanel() => _startPanel.Show();
+
+    /// <summary>タイトル画面のパネルを非表示にする</summary>
+    public void HideStartPanel() => _startPanel.Hide();
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
@@ -84,10 +85,10 @@ public class BossMover : MonoBehaviour
             DPSCheak();
             return;
         }
-        
-        _cc.Move(new Vector3(0, _initializePos.y - transform.position.y, 0)); //初期位置と現在の位置の差分だけ移動する
+
+        transform.DOMoveY(0.25f, 0.5f);
         Debug.Log("休み");
-        await UniTask.Delay(6000);
+        await UniTask.Delay(10000);
         
         if (IsDamageImmunity)
         {

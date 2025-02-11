@@ -4,6 +4,7 @@ using DG.Tweening;
 using PlayerSystem.Fight;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// ボスがいる部屋を開くためのキーアイテム
@@ -12,6 +13,7 @@ public class KeyItem : InteractableItemBase
 {
     [SerializeField] private string _keyName;
     [SerializeField] private float _moveY = 1.5f;
+    [FormerlySerializedAs("_bariierSystem")] [SerializeField] private BarrierSystem barrierSystem; //行動範囲を制限しているバリアを管理するクラス
     private Transform _keyObject; //親オブジェクトのトランスフォーム
     
     [SerializeField] private List<Health> _targets = new List<Health>(); //倒さなければいけないエネミーのHealthクラスを管理する
@@ -24,6 +26,7 @@ public class KeyItem : InteractableItemBase
     
     public override async void Interact()
     {
+        //まだ範囲内に敵が残っていた場合
         foreach (IHealth target in _targets)
         {
             if (!target.IsDead)
@@ -40,6 +43,8 @@ public class KeyItem : InteractableItemBase
         //CameraManager.Instance.UseTargetGroup(_keyObject, 1, 0.5f);
         //CameraManager.Instance.UseCamera(1);
         
+        //敵が残っておらず、キーアイテムが取得可能な状態の時
+        
         AudioManager.Instance.PlaySE(6);
         UIManager.Instance.QuestUpdate();
         
@@ -48,6 +53,7 @@ public class KeyItem : InteractableItemBase
         {
             inventory.AddKey(_keyName);
             Destroy(gameObject.transform.parent.gameObject); //キーを追加したらオブジェクトを削除する
+            barrierSystem.HideBarrier();
         }
         
         //CameraManager.Instance.UseCamera(0);

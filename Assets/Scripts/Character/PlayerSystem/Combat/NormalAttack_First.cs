@@ -97,6 +97,7 @@ public class NormalAttack_First : AttackAdjustBase
                     
         //プレイヤーを敵に近づける
         Vector3 direction = (_target.position - transform.position).normalized;
+        direction.y = 0;
         _cc.Move(direction * _approachSpeed * Time.deltaTime);
 
         //プレイヤーの向きを敵の方向へ合わせる

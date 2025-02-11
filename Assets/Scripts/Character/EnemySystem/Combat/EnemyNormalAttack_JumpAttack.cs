@@ -58,6 +58,8 @@ public class EnemyNormalAttack_JumpAttack : AttackAdjustBase
             await UniTask.DelayFrame(150, cancellationToken: _cts.Token);
 
             Debug.Log("判定");
+            
+            CameraManager.Instance.TriggerCameraShake(); //カメラを揺らす
             _hitDetector.DetectHit(_hitDetectionInfo); // 当たり判定を発生させる
         }
         catch (OperationCanceledException)

@@ -23,49 +23,59 @@ public class PlayerBrain : CharacterBase
     [SerializeField, HighlightIfNull] private InputActionReference _lookAction; //カメラ操作のアクション参照
     private Subject<Unit> _inputDetected = new Subject<Unit>();
     
-    private async void Start()
+    private void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>(); //Animator、State取得用
         _playerInput = GetComponent<PlayerInput>();
 
+        _playerInput.DeactivateInput(); //入力を受け付けない
+        CameraManager.Instance.UseCamera(3); //プレイヤー正面のカメラを使う
+        
+        GameManager.Instance.OnPlay += StartPerformance;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        GameManager.Instance.OnPlay -= StartPerformance;
+    }
+
+    /// <summary>
+    /// 開始演出中の処理
+    /// </summary>
+    private async void StartPerformance()
+    {
         if (!_playerMovement.PlayerState.DebugMode)
         {
-            //開始演出
             _playerInput.DeactivateInput();
-            SkinManager.Instance?.ChangeSkin(0);
-            CameraManager.Instance?.UseCamera(3);
-            UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());
-            UIManager.Instance?.HideRightUI();
-            UIManager.Instance?.HideFirstText();
-            UIManager.Instance?.HideStartText();
-        }
+            UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());   
+            
+            //TODO: 最初からモーションを流せるように変更する
+            SubscribeToInputEvents(); //入力イベントを購読
         
-        //TODO: 最初からモーションを流せるように変更する
-        SubscribeToInputEvents(); //入力イベントを購読
-        
-        _inputDetected
-            .Throttle(TimeSpan.FromSeconds(_idleThreshold)) //最後の入力から指定した間入力がなかったら以下の処理を行う
-            .Subscribe(_ => PlayRandomIdleMotion())
-            .AddTo(this);
+            _inputDetected
+                .Throttle(TimeSpan.FromSeconds(_idleThreshold)) //最後の入力から指定した間入力がなかったら以下の処理を行う
+                .Subscribe(_ => PlayRandomIdleMotion())
+                .AddTo(this);
 
-        await UniTask.Delay(2700);
+            await UniTask.Delay(2700);
         
-        //操作開始
-        CameraManager.Instance?.UseCamera(0);
+            //操作開始
+            CameraManager.Instance?.UseCamera(0);
         
-        await UniTask.Delay(1200);
+            await UniTask.Delay(1200);
         
-        UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
-        _moveActions[1].action.Enable(); //有効化
+            UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
+            _moveActions[1].action.Enable(); //有効化
         
-        // ボタンが押されたら入力を有効化
-        Observable.FromEvent<InputAction.CallbackContext>(
-                h => _moveActions[1].action.performed += h,
-                h => _moveActions[1].action.performed -= h)
-            .Take(1) // 最初の1回だけ
-            .Subscribe(GameStart)
-            .AddTo(this);
-        
+            // ボタンが押されたら入力を有効化
+            Observable.FromEvent<InputAction.CallbackContext>(
+                    h => _moveActions[1].action.performed += h,
+                    h => _moveActions[1].action.performed -= h)
+                .Take(1) // 最初の1回だけ
+                .Subscribe(GameStart)
+                .AddTo(this);
+        }
     }
 
     private async void GameStart(InputAction.CallbackContext context)
@@ -122,6 +132,7 @@ public class PlayerBrain : CharacterBase
         UIManager.Instance?.ShowDamageAmount(damage, transform);
         UIManager.Instance?.UpdatePlayerHP(GetCurrentHP());
         CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
+        AudioManager.Instance?.PlaySE(14); //ヒット時のSE
         
         if (!_health.IsDead)
         {
@@ -159,11 +170,4 @@ public class PlayerBrain : CharacterBase
             .OnComplete(() => Debug.Log("完全停止"));
         
     }
-
-    [ContextMenu("Shake")]
-    public void Shake()
-    {
-        CameraManager.Instance?.TriggerCameraShake();
-    }
-    
 }

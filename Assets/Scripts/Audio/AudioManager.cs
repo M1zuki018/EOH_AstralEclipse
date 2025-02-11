@@ -72,38 +72,32 @@ public class AudioManager : MonoBehaviour
     /// <summary>
     /// フェードイン機能
     /// </summary>
-    public void FadeIn(AudioType audioType)
+    public void FadeIn(AudioType audioType, float duration = 0.5f)
     {
         int index = GetAudioIndex(audioType);
         float volume = _audioSources[index].volume;
-        _audioSources[index].DOFade(volume, 0.5f);
+        _audioSources[index].DOFade(volume, duration);
     }
     
     /// <summary>
     /// フェードアウト機能
     /// </summary>
-    public void FadeOut(AudioType audioType)
+    public void FadeOut(AudioType audioType, float duration = 0.5f)
     {
-        _audioSources[GetAudioIndex(audioType)].DOFade(0, 0.5f);
+        _audioSources[GetAudioIndex(audioType)].DOFade(0, duration);
     }
-    
+
     /// <summary>
     /// AudioTypeに対応したIndex番号を返します
     /// </summary>
-    private int GetAudioIndex(AudioType audioType)
+    private int GetAudioIndex(AudioType audioType) => audioType switch
     {
-        //enumに応じて、返すAudioSourceのindex番号を取得
-        int index = audioType switch
-        {
-            AudioType.BGM => 0,
-            AudioType.SE => 1,
-            AudioType.Voice => 2,
-            AudioType.Environment => 3,
-            _ => 0
-        };
-
-        return index;
-    }
+        AudioType.BGM => 0,
+        AudioType.SE => 1,
+        AudioType.Voice => 2,
+        AudioType.Environment => 3,
+        _ => -1
+    };
 
     /// <summary>Clipデータの構造体を返します</summary>
     private ClipData GetClipData(AudioDataSO audioData, int index) => audioData.Clips[index];
