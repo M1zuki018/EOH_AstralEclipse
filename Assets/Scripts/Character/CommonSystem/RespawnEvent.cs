@@ -16,8 +16,8 @@ public class RespawnEvent : MonoBehaviour
     private PlayerInput _playerInput;
     
     private RespawnSystem _system;
-    private Vector3 _initialPosition; //初期位置を保存しておく
-    private Quaternion _initialRotation; //初期の回転を保存しておく
+    private Vector3 _respawnPosition; //リスポーン地点を保存しておく
+    private Quaternion _respawnRotation; //リスポーン時の回転を保存しておく
 
     private void Start()
     {
@@ -25,8 +25,8 @@ public class RespawnEvent : MonoBehaviour
         _system.OnRespawn += HandleRespawn; //登録
         
         //初期位置を保存しておく
-        _initialPosition = _player.gameObject.transform.position; 
-        _initialRotation = _player.gameObject.transform.rotation;
+        _respawnPosition = _player.gameObject.transform.position; 
+        _respawnRotation = _player.gameObject.transform.rotation;
         _playerController = _player.gameObject.GetComponent<CharacterController>();
         _playerInput = _player.gameObject.GetComponent<PlayerInput>();
     }
@@ -34,6 +34,15 @@ public class RespawnEvent : MonoBehaviour
     private void OnDestroy()
     {
         _system.OnRespawn -= HandleRespawn; //解除
+    }
+
+    /// <summary>
+    /// リスポーン地点を更新する
+    /// </summary>
+    public void SetRespawn(Vector3 respawnPosition, Quaternion respawnRotation)
+    {
+        _respawnPosition = respawnPosition;
+        _respawnRotation = respawnRotation;
     }
 
     /// <summary>
@@ -51,8 +60,8 @@ public class RespawnEvent : MonoBehaviour
         _player._animator.applyRootMotion = false; //一時的にルートモーション・CharacterControllerを無効化する
         _playerController.enabled = false;
         
-        _player.gameObject.transform.position = _initialPosition; //初期状態に戻す
-        _player.gameObject.transform.rotation = _initialRotation;
+        _player.gameObject.transform.position = _respawnPosition; //初期状態に戻す
+        _player.gameObject.transform.rotation = _respawnRotation;
         
         _player._animator.applyRootMotion = true; //有効に戻す
         _playerController.enabled = true;

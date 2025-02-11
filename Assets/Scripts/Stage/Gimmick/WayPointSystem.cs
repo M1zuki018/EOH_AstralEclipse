@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 全ての目的地アイコンを管理する
@@ -6,13 +7,14 @@ using UnityEngine;
 public class WayPointSystem : MonoBehaviour
 {
     [SerializeField] private Waypoint[] _waypoints;
+    [SerializeField] private RespawnEvent _respawn;
     private int _currentIndex = 0;
 
     private void Start()
     {
         foreach (Waypoint waypoint in _waypoints)
         {
-            waypoint.WayPointSystem = this;
+            waypoint.Initialize(this, _respawn);
         }
         
         UpdateWaypoints();
