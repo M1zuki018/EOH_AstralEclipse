@@ -35,6 +35,8 @@ public class BarrierSystem : MonoBehaviour
         barrier.transform.position = barrierConst.Position;
         barrier.transform.localRotation = barrierConst.IsRotate ? Quaternion.Euler(0,90,0) : Quaternion.identity;
         barrier.SetActive(true);
+        
+        AudioManager.Instance.PlaySE(15);
     }
 
     /// <summary>

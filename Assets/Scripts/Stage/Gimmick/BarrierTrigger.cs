@@ -23,7 +23,7 @@ public class BarrierTrigger : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _barrierSystem.SetBarrierPos(barrierPosA, barrierPosB); //バリアの位置を変更する
-            enabled = false; //以降このスクリプトは使用しない
+            gameObject.SetActive(false); //以降このスクリプトは使用しない
         }
     }
 }
