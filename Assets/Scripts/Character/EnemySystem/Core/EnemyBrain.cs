@@ -104,6 +104,9 @@ public class EnemyBrain : CharacterBase, IMatchTarget
         }
     }
 
+    /// <summary>アニメーションイベントでSEを再生するためのメソッド</summary>
+    public void PlaySE(int index) => AudioManager.Instance?.PlaySE(index);
+    
     #region デバッグ用メソッド
 
     [ContextMenu("Debug_EnemyDeath")]

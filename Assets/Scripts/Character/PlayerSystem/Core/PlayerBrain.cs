@@ -132,6 +132,7 @@ public class PlayerBrain : CharacterBase
         UIManager.Instance?.ShowDamageAmount(damage, transform);
         UIManager.Instance?.UpdatePlayerHP(GetCurrentHP());
         CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
+        AudioManager.Instance?.PlaySE(14); //ヒット時のSE
         
         if (!_health.IsDead)
         {
@@ -169,11 +170,4 @@ public class PlayerBrain : CharacterBase
             .OnComplete(() => Debug.Log("完全停止"));
         
     }
-
-    [ContextMenu("Shake")]
-    public void Shake()
-    {
-        CameraManager.Instance?.TriggerCameraShake();
-    }
-    
 }
