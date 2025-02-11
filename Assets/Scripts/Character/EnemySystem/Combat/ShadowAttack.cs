@@ -105,7 +105,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     { 
         //実体化処理
         float duration = 0.7f;
-        _bossObj.DOMoveY(0f, duration).SetEase(Ease.OutQuad);
+        _bossObj.DOMoveY(0.25f, duration).SetEase(Ease.OutQuad);
         UpdateDissolveValue(0, duration);
 
         await UniTask.Delay(600);
