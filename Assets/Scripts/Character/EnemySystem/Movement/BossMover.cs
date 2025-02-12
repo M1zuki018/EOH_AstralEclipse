@@ -72,7 +72,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public async UniTask BattleStart()
     {
-        await _attackPatterns[2]();
+        await _attackPatterns[0]();
     }
 
     /// <summary>
@@ -183,6 +183,20 @@ public class BossMover : MonoBehaviour
     [ContextMenu("Pattern1Plus")]
     public async UniTask Pattern1Plus()
     {
+        // 移動処理の呼び出し
+        Vector3 targetPosition =　new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z);  // 移動先は初期位置
+        float moveSpeed = 15f;  // 移動速度
+        
+        //ボスの体の向きをプレイヤーに合わせる
+        _attackPattern.Animator.applyRootMotion = false;
+        Vector3 direction = _attackPattern.Target.transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        await UniTask.WhenAll(
+            transform.DORotateQuaternion(targetRotation, 0.5f).ToUniTask(),
+            MoveToAsync(targetPosition, moveSpeed)
+        );
+        
         await _attackPattern.StartAttackPattern1Plus();
         _currentPattern = 1;
     }

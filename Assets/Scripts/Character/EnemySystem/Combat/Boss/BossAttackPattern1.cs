@@ -71,11 +71,15 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     {
         _attackPattern.ResetVerticalLasers();
 
-        float generatoPos = transform.position.x - 14f;
+        float raserDistance = 4;
+        Vector3 offset = transform.right * raserDistance; // ボスの向きに基づいて位置をずらす
+        //レーザーの本数の半分に間の間隔をかけたあと、レーザーの間にボスが入るようにする
+        Vector3 startPos = transform.position - (transform.right * (piece / 2 * raserDistance - raserDistance / 2));
+        
         for (int i = 0; i < piece; i++)
         {
-            generatoPos += 4;
-            _attackPattern.GenerateVerticalLaser(new Vector3(generatoPos, transform.position.y, transform.position.z));
+            Vector3 generatePos = startPos + offset * i; // 各レーザーの生成位置を計算
+            _attackPattern.GenerateVerticalLaser(generatePos);
         }
 
         await UniTask.Delay(3300);

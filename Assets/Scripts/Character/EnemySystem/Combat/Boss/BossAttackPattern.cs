@@ -95,7 +95,7 @@ public class BossAttackPattern : MonoBehaviour
 
         //ボスが後方に後ずさる
         Vector3 recoilPosition = transform.position + transform.forward * -3f;
-        transform.DOMove(recoilPosition, 0.7f).SetEase(Ease.OutQuad);
+        transform.DOMove(recoilPosition, 0.3f).SetEase(Ease.OutQuad);
     }
     
     /// <summary>
@@ -138,7 +138,7 @@ public class BossAttackPattern : MonoBehaviour
 
         //ボスが後方に後ずさる
         Vector3 recoilPosition = transform.position + transform.forward * -4f;
-        transform.DOMove(recoilPosition, 0.7f).SetEase(Ease.OutQuad);
+        transform.DOMove(recoilPosition, 0.3f).SetEase(Ease.OutQuad);
     }
 
     /// <summary>
