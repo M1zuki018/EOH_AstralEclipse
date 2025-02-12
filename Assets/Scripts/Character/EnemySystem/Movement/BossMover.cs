@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using PlayerSystem.Fight;
 using UniRx;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -37,8 +38,7 @@ public class BossMover : MonoBehaviour
         transform.position = new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z); //初期位置に移動
 
         _health.OnCheckComplete += SuccessDpsCheck; //DPSチェック成功時のイベントを登録
-       
-        /*
+        
         //HPが50%以下になったら攻撃パターンを変更する
         Observable
             .EveryUpdate()
@@ -46,7 +46,6 @@ public class BossMover : MonoBehaviour
             .Take(1)
             .Subscribe(_ => ChangeAttackPattern())
             .AddTo(this);
-        */
         
         //HPが10%以下になったらDPSチェックを始める
         Observable
@@ -72,7 +71,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public async UniTask BattleStart()
     {
-        await _attackPatterns[2]();
+        await _attackPatterns[0]();
     }
 
     /// <summary>
@@ -99,28 +98,15 @@ public class BossMover : MonoBehaviour
         }
         
         //次の攻撃に向けて移動する
-        if (_currentPattern == 1) await Pattern2();
-        else if (_currentPattern == 2) await Pattern3();
+        if (_currentPattern == 1) await _attackPatterns[1]();
+        else if (_currentPattern == 2) await _attackPatterns[2]();
         else if (_currentPattern == 3)
         {
             _currentPattern = 0; //初期化
-            await Pattern1();
+            await _attackPatterns[0]();
         }
     }
-
-    /// <summary>
-    /// ゆっくり飛び上がる
-    /// </summary>
-    private async void Emerge()
-    {
-        _cc.Move(new Vector3(0, 4, 0));
-        await UniTask.Delay(1000);
-        
-        //次の攻撃を行う
-        if(_currentPattern == 1) Pattern2(); //パターン2に繋げる
-        else if (_currentPattern == 0) Pattern1();
-    }
-
+    
     /// <summary>
     /// 特定の場所へワープする
     /// </summary>
@@ -156,6 +142,16 @@ public class BossMover : MonoBehaviour
     {
        await _attackPattern.StartAttackPattern1();
        _currentPattern = 1;
+    }
+    
+    /// <summary>
+    /// 強化版攻撃パターン1 レーザーメインの回避パート
+    /// </summary>
+    [ContextMenu("Pattern1Plus")]
+    public async UniTask Pattern1Plus()
+    {
+        await _attackPattern.StartAttackPattern1Plus();
+        _currentPattern = 1;
     }
 
     /// <summary>
@@ -260,6 +256,7 @@ public class BossMover : MonoBehaviour
     {
         Debug.Log("攻撃パターン変更");
         _attackPatterns.Clear();
+        _attackPatterns.Add(Pattern1Plus);
         _attackPatterns.Add(Pattern2);
         _attackPatterns.Add(Pattern3);
     }

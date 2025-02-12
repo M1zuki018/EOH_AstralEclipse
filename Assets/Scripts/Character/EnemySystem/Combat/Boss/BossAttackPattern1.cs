@@ -13,6 +13,7 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     [SerializeField, Comment("レーザー照射時間")] private float _laserDelay = 3f;
     [SerializeField, Comment("水平レーザー演出時間")] private float _laserPerformance = 3.5f;
     [SerializeField] private float _thornDelay = 5f;
+    [SerializeField] private float _thornPlusDelay = 3f;
     [SerializeField] private float _aboveDelay = 4f;
     
     /// <summary>
@@ -20,24 +21,24 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     /// </summary>
     public async UniTask Fire()
     {
-        Debug.Log("パターン1開始");
-
-        // 1. 水平レーザー（単独実行）
-        await FireHorizontalLaser();
-
-        // 2. 垂直レーザー（並列で準備しつつ、時間差で発射）
-        await FireVerticalLaser();
-
-        // 3. 茨攻撃 ×2（時間差で実行）
-        await FireThornAttack();
-
-        // 4. 頭上からの攻撃
-        await FireAboveAttack();
-
-        Debug.Log("パターン1終了");
-
-        // 次の行動へ
-        FinishPattern();
+        await FireHorizontalLaser(); //水平レーザー
+        await FireVerticalLaser(); //垂直レーザー
+        await FireThornAttack(); //茨攻撃
+        await FireAboveAttack(); //頭上からの攻撃
+        FinishPattern(); //次の攻撃へ
+    }
+    
+    /// <summary>
+    /// パターン1強化版開始
+    /// </summary>
+    public async UniTask FirePlus()
+    {
+        Debug.Log("強化版");
+        await FireHorizontalLaserPlus(); //水平レーザー(垂直レーザーへの待機時間なし)
+        await FireVerticalLaser(10); //垂直レーザー（6本→10本）
+        await FireThornAttackPlus(); //茨攻撃(2回→3回。猶予時間短縮)
+        await FireAboveAttack(2); //頭上からの攻撃(猶予時間3秒→2秒)
+        FinishPattern(); //次の攻撃へ
     }
 
 
@@ -46,8 +47,19 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     /// </summary>
     private async UniTask FireHorizontalLaser()
     {
+        _attackPattern.HorizontalLaser(transform, _laserDelay);
+        await UniTask.Delay((int)(_laserDelay + _laserPerformance) * 1000); //レーザー照射時間＋演出時間
+        
+        //TODO:レーザーの爆風・床が燃えているなどのエフェクトを作ってもいいかもしれない
+    }
+    
+    /// <summary>
+    /// 水平レーザーを発射する
+    /// </summary>
+    private async UniTask FireHorizontalLaserPlus()
+    {
         _attackPattern.HorizontalLaserPlus(transform, _laserDelay);
-        await UniTask.Delay((int)(_laserDelay * 1000 + _laserPerformance)); //レーザー照射時間＋演出時間
+        await UniTask.Delay((int)_laserDelay * 1000); //レーザー照射時間
         
         //TODO:レーザーの爆風・床が燃えているなどのエフェクトを作ってもいいかもしれない
     }
@@ -55,12 +67,12 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     /// <summary>
     /// 垂直レーザーの生成と発射
     /// </summary>
-    private async UniTask FireVerticalLaser()
+    private async UniTask FireVerticalLaser(int piece = 6)
     {
         _attackPattern.ResetVerticalLasers();
 
         float generatoPos = transform.position.x - 14f;
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < piece; i++)
         {
             generatoPos += 4;
             _attackPattern.GenerateVerticalLaser(new Vector3(generatoPos, transform.position.y, transform.position.z));
@@ -68,9 +80,9 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
 
         await UniTask.Delay(3300);
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < piece; i++)
         {
-            int index = (i % 2 == 0) ? (i / 2) : (6 - 1 - (i / 2));
+            int index = (i % 2 == 0) ? (i / 2) : (piece - 1 - (i / 2));
             _attackPattern.FireVerticalLaser(index);
             await UniTask.Delay(200);
         }
@@ -83,17 +95,29 @@ public class BossAttackPattern1 : MonoBehaviour, IBossAttack
     {
         for (int i = 0; i < 2; i++)
         {
-            _attackPattern.GenerateThorns();
+            _attackPattern.GenerateThorns(1);
             await UniTask.Delay((int)(_thornDelay * 1000));
+        }
+    }
+    
+    /// <summary>
+    /// 茨攻撃強化版。短い間隔で 3 回行う
+    /// </summary>
+    private async UniTask FireThornAttackPlus()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            _attackPattern.GenerateThorns(0.3f, 10);
+            await UniTask.Delay((int)(_thornPlusDelay * 1000));
         }
     }
 
     /// <summary>
     /// 頭上からの攻撃
     /// </summary>
-    private async UniTask FireAboveAttack()
+    private async UniTask FireAboveAttack(float delay = 3)
     {
-        _attackPattern.AttackFromAbove();
+        _attackPattern.AttackFromAbove(delay);
         await UniTask.Delay((int)(_aboveDelay * 1000));
     }
 

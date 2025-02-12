@@ -59,6 +59,14 @@ public class BossAttackPattern : MonoBehaviour
     {
         await _attackPattern1.Fire();
     }
+    
+    /// <summary>
+    /// 強化版パターン1の攻撃を開始する
+    /// </summary>
+    public async UniTask StartAttackPattern1Plus()
+    {
+        await _attackPattern1.FirePlus();
+    }
 
     /// <summary>
     /// 影攻撃を開始する
@@ -219,7 +227,7 @@ public class BossAttackPattern : MonoBehaviour
     /// <summary>
     /// 茨を生成する。プレイヤーの位置を一定時間ごとに更新してターゲット設定
     /// </summary>
-    public void GenerateThorns()
+    public void GenerateThorns(float premotionTime, int delay = 500)
     {
         _animator.SetInteger("AttackType", 2);
         _animator.SetTrigger("Attack");
@@ -233,7 +241,7 @@ public class BossAttackPattern : MonoBehaviour
         float elapsedTime = 0f;
         Observable
             .EveryUpdate()
-            .TakeWhile(_ => elapsedTime < _premotionTime) //予兆時間の間だけ行う
+            .TakeWhile(_ => elapsedTime < premotionTime) //予兆時間の間だけ行う
             .Subscribe(_ =>
             {
                 elapsedTime += Time.deltaTime;
@@ -241,7 +249,7 @@ public class BossAttackPattern : MonoBehaviour
                     new Vector3(_target.transform.position.x, 0.2f, _target.transform.position.z); //プレイヤーの足元に表示
             }, () => 
             {
-                FireThorns(thornCtrl); //攻撃を行う
+                FireThorns(thornCtrl, delay); //攻撃を行う
             }) 
             .AddTo(this);
     }
@@ -249,9 +257,9 @@ public class BossAttackPattern : MonoBehaviour
     /// <summary>
     /// 茨の攻撃を行う
     /// </summary>
-    private async void FireThorns(ThornContorl thornCtrl)
+    private async void FireThorns(ThornContorl thornCtrl, int deray)
     {
-        await UniTask.Delay(520);
+        await UniTask.Delay(deray);
         
         _animator.SetTrigger("Attack");
         
@@ -265,7 +273,7 @@ public class BossAttackPattern : MonoBehaviour
     /// <summary>
     /// 頭上から落とす広範囲攻撃(走って避ける)
     /// </summary>
-    public async void AttackFromAbove()
+    public async void AttackFromAbove(float delay)
     {
         _animator.SetInteger("AttackType", 3);
         _animator.SetTrigger("Attack");
@@ -275,7 +283,7 @@ public class BossAttackPattern : MonoBehaviour
         aboveObj.TryGetComponent(out AboveControl aboveCtrl);
         aboveCtrl.SetCombat(_combat, _target);
         
-        await UniTask.Delay(3000); //待って避けられるようにする
+        await UniTask.Delay((int)delay * 1000); //待って避けられるようにする
 
         //TODO:吹き飛ばしを実装
     }
