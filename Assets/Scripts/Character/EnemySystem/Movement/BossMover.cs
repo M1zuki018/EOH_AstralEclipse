@@ -72,7 +72,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public async UniTask BattleStart()
     {
-        await _attackPatterns[1]();
+        await _attackPatterns[0]();
     }
 
     /// <summary>

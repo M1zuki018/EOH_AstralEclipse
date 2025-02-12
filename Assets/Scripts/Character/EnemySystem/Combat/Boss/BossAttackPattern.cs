@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using PlayerSystem.Fight;
@@ -246,7 +247,7 @@ public class BossAttackPattern : MonoBehaviour
         _animator.SetTrigger("Attack");
         
         await UniTask.Delay(980); //少し時間を置く
-        thornCtrl.ChangedMesh(); //メッシュ変更とオブジェクト破棄
+        thornCtrl.ChangedMesh(CancellationToken.None); //メッシュ変更とオブジェクト破棄
     }
 
     #endregion

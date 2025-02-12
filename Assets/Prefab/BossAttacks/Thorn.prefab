@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cbf34aaf1a5d50c4684117f70271c7d3, type: 2}
+  - {fileID: 2100000, guid: ab6ed72bfc430e04d80230036e72025c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,6 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _thorn: {fileID: 200383834581980215}
+  _damageMag: 4
+  _duration: 0.1
+  _spikeCount: 28
+  _spikeHeight: 0.8
+  _delayBetweenSpikes: 0.1
 --- !u!136 &7269447858694017708
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -218,7 +223,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c6a66cd3ba9919343948ad08763259c0,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8645952742931618174, guid: c6a66cd3ba9919343948ad08763259c0,
         type: 3}
