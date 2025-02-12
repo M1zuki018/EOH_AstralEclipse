@@ -3,6 +3,7 @@ using DG.Tweening;
 using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 追尾するエネルギー弾の管理スクリプト
@@ -13,6 +14,7 @@ public class EnergyBall : MonoBehaviour
     [SerializeField] private float _moveDuration = 2.5f; //追尾にかける時間
     [SerializeField] private float _straightSpeed = 70f; //直線移動速度
     [SerializeField] private float _overshootAmount = 1.2f; //目的地をどれくらいオーバーシュートするか
+    [SerializeField] private float _damageMag = 0.5f;
     
     private Transform _player;  // 追尾対象（プレイヤー）
     private ICombat _combat;
@@ -86,7 +88,7 @@ public class EnergyBall : MonoBehaviour
                 other.TryGetComponent(out IDamageable damageable);
                 _combat.DamageHandler.ApplyDamage(
                     target: damageable, //攻撃対象
-                    baseDamage: _combat.BaseAttackPower, //攻撃力 
+                    baseDamage: Mathf.CeilToInt(_combat.BaseAttackPower * _damageMag), //攻撃力 
                     defense: 0, //相手の防御力
                     attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
             }

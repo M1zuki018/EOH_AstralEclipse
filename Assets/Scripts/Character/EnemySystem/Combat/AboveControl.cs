@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using PlayerSystem.Fight;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// ボスの頭上からの攻撃を管理するクラス
@@ -11,6 +12,7 @@ public class AboveControl : MonoBehaviour, IBossAttack
     public string AttackName => "Above";
     
     [SerializeField] private GameObject _arm;
+    [SerializeField] private int _damageMag = 4;
     private Transform _target;
     private Collider _collider;
     private ICombat _combat;
@@ -65,7 +67,7 @@ public class AboveControl : MonoBehaviour, IBossAttack
         {
             _combat.DamageHandler.ApplyDamage(
                 target: target, //攻撃対象
-                baseDamage: _combat.BaseAttackPower, //攻撃力 
+                baseDamage: _combat.BaseAttackPower * _damageMag, //攻撃力 
                 defense: 0, //相手の防御力
                 attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
         }

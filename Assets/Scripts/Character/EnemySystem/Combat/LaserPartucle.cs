@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// レーザービームを管理するクラス
@@ -12,6 +13,8 @@ public class LaserParticle : MonoBehaviour, IBossAttack
     [SerializeField] private ParticleSystem _laserEffect;
     [SerializeField] private TriggerControl _triggerControl;
     [SerializeField] private EnemyCombat _combat;
+    [SerializeField] private int _damageMag = 1;
+    
     public GameObject LaserEffect => _laserEffect.gameObject;
 
 
@@ -63,7 +66,7 @@ public class LaserParticle : MonoBehaviour, IBossAttack
             {
                 _combat.DamageHandler.ApplyDamage(
                     target:target, //攻撃対象
-                    baseDamage:_combat.BaseAttackPower, //攻撃力 
+                    baseDamage: _combat.BaseAttackPower * _damageMag, //攻撃力 
                     defense:0,  //相手の防御力
                     attacker:gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
             }

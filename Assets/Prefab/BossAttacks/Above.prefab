@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arm: {fileID: 4591901228163925784}
+  _damageMag: 4
 --- !u!1001 &3708956217514211913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -202,7 +203,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1b27a20a436b4c64b882a6f739bf91de, type: 2}
+      objectReference: {fileID: 2100000, guid: 9e0f49036c6bc5945b8e55195c89485e, type: 2}
     - target: {fileID: 919132149155446097, guid: b1a4c132a10e3b647a92fb051c60d230,
         type: 3}
       propertyPath: m_Name

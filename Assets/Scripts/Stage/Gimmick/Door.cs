@@ -45,7 +45,7 @@ public class Door : InteractableItemBase
     /// </summary>
     private void HandleDoorOpen()
     {
-        gameObject.transform.parent.gameObject.SetActive(false);
+        Destroy(gameObject.transform.parent.gameObject);
         _inventory.UseKey(); //目標更新
         _player.TryGetComponent(out PlayerMovement playerMovement);
         playerMovement.PlayerState.IsBossBattle = true; //ステートを更新
