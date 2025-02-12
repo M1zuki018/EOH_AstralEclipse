@@ -30,6 +30,7 @@ public class BossAttackPattern : MonoBehaviour
     
     private Animator _animator;
     public Animator Animator => _animator;
+    public Transform Target => _target;
     private PlayerInput _playerInput;
     private Material _defaultMaterial;
     private GameObject _shadowObj;
@@ -87,15 +88,6 @@ public class BossAttackPattern : MonoBehaviour
         _laserParticle[0].Sty(position.position);
         
         await UniTask.Delay(1500);
-
-        CameraManager.Instance.PreLaserShot(); //レーザー用カメラを使用
-        
-        await UniTask.Delay(1500);
-        
-        //スローモーション演出
-        Time.timeScale = 0.2f;
-        await UniTask.Delay(30);
-        Time.timeScale = 1.0f;
         
         CameraManager.Instance.CameraShakeOnFire();
         

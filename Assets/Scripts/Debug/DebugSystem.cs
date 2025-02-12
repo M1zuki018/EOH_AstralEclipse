@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class DebugSystem : MonoBehaviour
@@ -10,12 +11,12 @@ public class DebugSystem : MonoBehaviour
     [SerializeField] private Door _door;
     [SerializeField] private Transform _player;
     [SerializeField] private List<Vector3> _startPoints = new List<Vector3>();
-    
+    [SerializeField] private BossMover _bossMover;
     
     private Animator _playerAnimator;
     private CharacterController _playerController;
     
-    private void Awake()
+    private void Start()
     {
         _playerAnimator = _player.GetComponent<Animator>();
         _playerController = _player.GetComponent<CharacterController>();
@@ -117,16 +118,7 @@ public class DebugSystem : MonoBehaviour
     [ContextMenu("OnlyBossTest")]
     public void OnlyBossTest()
     {
-        for (int i = 0; i < 9; i++)
-        {
-            _enemies[i]?.Debug_EnemyDeath();
-        }
-        
-        _inventory.AddKey("test");
-        _inventory.AddKey("test2");
-        _inventory.AddKey("test3");
-        
-        _door.Interact();
+        _bossMover.BattleStart().Forget();
     }
 
     private void ActionTest()

@@ -23,6 +23,7 @@ public class BossMover : MonoBehaviour
     private bool _isDamageImmunity; //ダメージ無効
     private bool _isDPSCheak; //DPSチェック中かどうか
     private IDisposable _fallingSubscription; //重力を受けて地面に降りる処理を購読
+    private IDisposable _movingSubscription; //移動処理を購読
     
     public bool IsDamageImmunity => _isDamageImmunity;
     public bool IsDPSCheak => _isDPSCheak;
@@ -71,7 +72,7 @@ public class BossMover : MonoBehaviour
     /// </summary>
     public async UniTask BattleStart()
     {
-        await _attackPatterns[0]();
+        await _attackPatterns[2]();
     }
 
     /// <summary>
@@ -133,6 +134,24 @@ public class BossMover : MonoBehaviour
             .AddTo(this);
     }
     
+    /// <summary>
+    /// 非同期で指定位置に移動する
+    /// </summary>
+    private async UniTask MoveToAsync(Vector3 targetPosition, float speed)
+    {
+        // 目的地まで移動
+        while (Vector3.Distance(_cc.transform.position, targetPosition) > 0.1f)
+        {
+            Vector3 direction = (targetPosition - _cc.transform.position).normalized;
+            Vector3 moveVector = direction * speed * Time.deltaTime;
+
+            _cc.Move(moveVector);
+
+            // 一フレーム待機
+            await UniTask.Yield();
+        }
+    }
+    
     
     /// <summary>
     /// 攻撃パターン1 レーザーメインの回避パート
@@ -140,8 +159,22 @@ public class BossMover : MonoBehaviour
     [ContextMenu("Pattern1")]
     public async UniTask Pattern1()
     {
-       await _attackPattern.StartAttackPattern1();
-       _currentPattern = 1;
+        // 移動処理の呼び出し
+        Vector3 targetPosition =　new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z);  // 移動先は初期位置
+        float moveSpeed = 10f;  // 移動速度
+        
+        //ボスの体の向きをプレイヤーに合わせる
+        _attackPattern.Animator.applyRootMotion = false;
+        Vector3 direction = _attackPattern.Target.transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        await UniTask.WhenAll(
+            transform.DORotateQuaternion(targetRotation, 0.5f).ToUniTask(),
+            MoveToAsync(targetPosition, moveSpeed)
+        );
+        
+        await _attackPattern.StartAttackPattern1();
+        _currentPattern = 1;
     }
     
     /// <summary>
