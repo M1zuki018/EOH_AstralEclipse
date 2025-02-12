@@ -45,12 +45,12 @@ public class Door : InteractableItemBase
     /// </summary>
     private void HandleDoorOpen()
     {
-        //_collider.enabled = false; //判定を消す
-        Destroy(gameObject.transform.parent.gameObject); //TODO:処理を書く
+        gameObject.transform.parent.gameObject.SetActive(false);
         _inventory.UseKey(); //目標更新
         _player.TryGetComponent(out PlayerMovement playerMovement);
         playerMovement.PlayerState.IsBossBattle = true; //ステートを更新
         ReadyForBattleChecker battleChecker = _player.GetComponentInChildren<ReadyForBattleChecker>();
+        AudioManager.Instance.FadeIn(AudioType.BGM); //フェードイン
         AudioManager.Instance.ClipChange(AudioType.BGM, 1);
         battleChecker.StartBossBattle(_bossEnemyBrain); //ボス戦開始のイベント発火
         BossMover bossMover = _bossEnemyBrain.gameObject.GetComponent<BossMover>();
