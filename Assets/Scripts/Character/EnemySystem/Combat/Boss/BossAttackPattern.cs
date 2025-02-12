@@ -275,9 +275,9 @@ public class BossAttackPattern : MonoBehaviour
         aboveObj.TryGetComponent(out AboveControl aboveCtrl);
         aboveCtrl.SetCombat(_combat, _target);
         
+        AudioManager.Instance.PlaySE(16); //SE再生
+        
         await UniTask.Delay((int)delay * 1000); //待って避けられるようにする
-
-        //TODO:吹き飛ばしを実装
     }
 
     #region 時間操作攻撃

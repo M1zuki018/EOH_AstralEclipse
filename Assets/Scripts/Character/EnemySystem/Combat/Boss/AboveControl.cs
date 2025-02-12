@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using PlayerSystem.Fight;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// ボスの頭上からの攻撃を管理するクラス
@@ -17,10 +16,12 @@ public class AboveControl : MonoBehaviour, IBossAttack
     private Collider _collider;
     private ICombat _combat;
     private Vector3 _initialPosition;
+    private Renderer _renderer;
 
     private void OnEnable()
     {
         _collider = GetComponent<Collider>();
+        _renderer = transform.GetChild(0).GetComponent<Renderer>(); //子オブジェクト（腕）のRendererを取得する
         _collider.enabled = false;
     }
 
@@ -28,6 +29,7 @@ public class AboveControl : MonoBehaviour, IBossAttack
     {
         _combat = combat;
         _target = target;
+        _renderer.materials[0].SetFloat("_Cutoff", 0.1f); //初期値にセット
         
         Fire();
     }
@@ -49,13 +51,14 @@ public class AboveControl : MonoBehaviour, IBossAttack
             .SetEase(Ease.InQuad)
             .OnComplete(() =>
             {
-                //Instantiate(smashEffectPrefab, target.position, Quaternion.identity);
                 _collider.enabled = true;
                 CameraManager.Instance.TriggerCameraShake();
             });
         
         
-        await UniTask.Delay(2500);
+        await UniTask.Delay(1000);
+        
+        await UpdateDissolveValue(1, 1f);
         
         Destroy(gameObject);
     }
@@ -71,5 +74,14 @@ public class AboveControl : MonoBehaviour, IBossAttack
                 defense: 0, //相手の防御力
                 attacker: gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
         }
+    }
+    
+    /// <summary>
+    /// マテリアルのディゾルブ効果の値を徐々に変更する
+    /// </summary>
+    private async UniTask UpdateDissolveValue(float cutOff, float duration)
+    {
+        Debug.Log(_renderer.materials[0]);
+        await _renderer.materials[0].DOFloat(cutOff, "_Cutoff", duration).SetEase(Ease.InOutQuad).ToUniTask();
     }
 }
