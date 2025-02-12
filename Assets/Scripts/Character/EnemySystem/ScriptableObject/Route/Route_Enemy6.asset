@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a62591244027c0b40a598e8d2cc90534, type: 3}
   m_Name: Route_Enemy6
   m_EditorClassIdentifier: 
-  Waypoints: []
+  Waypoints:
+  - {x: -23.28948, y: 0, z: 132.42131}
+  - {x: -18.22, y: 0, z: 139}
