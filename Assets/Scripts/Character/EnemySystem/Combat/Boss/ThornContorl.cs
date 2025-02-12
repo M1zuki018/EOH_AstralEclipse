@@ -30,7 +30,7 @@ public class ThornContorl : MonoBehaviour, IBossAttack
     {
         _collider = GetComponent<Collider>();
         _collider.enabled = false; //最初は判定をとらない
-
+        
         //棘のオブジェクトを全てリストに追加する
         for (int i = 0; i < _spikeCount; i++)
         {
@@ -74,7 +74,7 @@ public class ThornContorl : MonoBehaviour, IBossAttack
         await UniTask.Delay((int)(1.7f * 1000), cancellationToken: token);
 
         // 棘を地面の下へ移動させる
-        await _thorn.transform.DOLocalMoveY(-_spikeHeight, 0.5f).SetEase(Ease.OutCubic).ToUniTask();
+        await _thorn.transform.DOMoveY(-10, 0.5f).SetEase(Ease.OutCubic).ToUniTask();
 
         //一定時間経過したらオブジェクトを削除する
         Destroy(this.gameObject);

@@ -112,6 +112,8 @@ public class BossAttackPattern : MonoBehaviour
         _laserParticle[1].Sty(position1);
         _laserParticle[2].Sty(position2);
         
+        AudioManager.Instance.PlaySE(16);
+        
         await UniTask.Delay(1500);
 
         CameraManager.Instance.PreLaserShot(); //レーザー用カメラを使用
@@ -120,10 +122,15 @@ public class BossAttackPattern : MonoBehaviour
 
         //スローモーション演出
         Time.timeScale = 0.2f;
-        await UniTask.Delay(30);
+        CameraManager.Instance.ChromaticAberration(1.3f, 0.1f);
+        
+        await UniTask.Delay(40);
+        
         Time.timeScale = 1.0f;
         
         CameraManager.Instance.CameraShakeOnFire();
+        
+        AudioManager.Instance.PlaySE(17);
         
         FireLaser(position.position, effectTime,0);
         FireLaser(position1, effectTime,1);
@@ -221,6 +228,8 @@ public class BossAttackPattern : MonoBehaviour
         thorn.TryGetComponent(out ThornContorl thornCtrl);
         thornCtrl.SetCombat(_combat);
         
+        AudioManager.Instance.PlaySE(16); //SE再生
+        
         float elapsedTime = 0f;
         Observable
             .EveryUpdate()
@@ -295,6 +304,7 @@ public class BossAttackPattern : MonoBehaviour
         _timeStopVolume.enabled = true; //色彩をモノクロに変更
         Time.timeScale = 0.1f; //減速
         
+        AudioManager.Instance.PlaySE(18);
         //演出
         Debug.Log("演出作成予定");
         SpawnMagicCircle(); //魔法陣を展開
@@ -325,6 +335,8 @@ public class BossAttackPattern : MonoBehaviour
         _playerInput.ActivateInput(); //プレイヤーの入力を解放
         
         //画面がフラッシュする
+        
+        AudioManager.Instance.PlaySE(19);
         
         //攻撃を放つ
         foreach (var magicCircleCtrl in _magicCircles)
