@@ -61,7 +61,8 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
 
         //影に潜る処理
         float duration = 1.5f;
-        _bossObj.DOMoveY(-2.5f, duration).SetEase(Ease.InOutQuad).AsyncWaitForCompletion();
+        _bossObj.DOMoveY(-2.5f, duration).SetEase(Ease.InOutQuad).AsyncWaitForCompletion(); //ボスのメッシュを含むオブジェクトを移動
+        _bossMover.Falling(); //CCのオブジェクト自体を重力を使って地面に接地させる
         UpdateDissolveValue(1, duration);
 
         await UniTask.Delay(1500);
@@ -105,7 +106,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     { 
         //実体化処理
         float duration = 0.7f;
-        _bossObj.DOMoveY(0.25f, duration).SetEase(Ease.OutQuad);
+        _bossObj.DOMoveY(0.25f, duration).SetEase(Ease.OutQuad); //ボスのメッシュを含むオブジェクトを移動
         UpdateDissolveValue(0, duration);
 
         await UniTask.Delay(600);

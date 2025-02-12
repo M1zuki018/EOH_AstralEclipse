@@ -21,12 +21,13 @@ public class BossMover : MonoBehaviour
     private int _pattern2Count; //パターン2で使用する
     private bool _isDamageImmunity; //ダメージ無効
     private bool _isDPSCheak; //DPSチェック中かどうか
+    private IDisposable _fallingSubscription; //重力を受けて地面に降りる処理を購読
     
     public bool IsDamageImmunity => _isDamageImmunity;
     public bool IsDPSCheak => _isDPSCheak;
 
     private readonly List<Func<UniTask>> _attackPatterns = new();
-
+    
     private void Start()
     {
         //コンポーネントの取得と初期化
@@ -86,8 +87,8 @@ public class BossMover : MonoBehaviour
             return;
         }
 
-        transform.DOMoveY(0.25f, 0.5f);
-        Debug.Log("休み");
+        Falling(); //地面に降りる
+        
         await UniTask.Delay(10000);
         
         if (IsDamageImmunity)
@@ -126,6 +127,24 @@ public class BossMover : MonoBehaviour
     private void Warp(Vector3 position)
     {
         _cc.Move(position - transform.position);
+    }
+
+    /// <summary>
+    /// 重力にしたがって地面に降りる
+    /// </summary>
+    public void Falling()
+    {
+        _fallingSubscription = Observable.EveryUpdate()
+            .TakeWhile(_ => !_cc.isGrounded) // 地面に着くまで継続
+            .Subscribe(_ =>
+            {
+                _cc.SimpleMove(Vector3.down * 9.81f);
+            }, () =>
+            {
+                Debug.Log("着地");
+                _fallingSubscription?.Dispose(); //購読解除
+            })
+            .AddTo(this);
     }
     
     
