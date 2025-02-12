@@ -276,16 +276,8 @@ public class BossAttackPattern : MonoBehaviour
         aboveCtrl.SetCombat(_combat, _target);
         
         await UniTask.Delay(3000); //待って避けられるようにする
-        /*
-        await UniTask.Delay(1400); //待って避けられるようにする
-        
-        await aboveCtrl.Fire();
-        _animator.SetTrigger("Attack");
-        
-        await UniTask.Delay(1600);
-        
-        */
-        //TODO:強力なダメージ＋吹き飛ばしを実装
+
+        //TODO:吹き飛ばしを実装
     }
 
     #region 時間操作攻撃
@@ -334,7 +326,7 @@ public class BossAttackPattern : MonoBehaviour
         Time.timeScale = 1f; //時間の進みを戻す
         _playerInput.ActivateInput(); //プレイヤーの入力を解放
         
-        //画面がフラッシュする
+        CameraManager.Instance.ScreenFlash(30);
         
         AudioManager.Instance.PlaySE(19);
         

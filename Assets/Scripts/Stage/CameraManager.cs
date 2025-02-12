@@ -302,4 +302,18 @@ public class CameraManager : MonoBehaviour
             DOTween.To(() => _chromaticAberration.intensity.value, x => _chromaticAberration.intensity.value = x, 
                 defaultValue - endvalue, duration));
     }
+
+    /// <summary>
+    /// 強烈なフラッシュを焚く
+    /// </summary>
+    public async void ScreenFlash(float maxIntensity, float duration = 0.1f)
+    {
+        float defaultIntensity = _bloom.intensity.value;
+        //画面を明るくする
+        await DOTween.To(() => _bloom.intensity.value, x => _bloom.intensity.value = x,
+            maxIntensity, duration).ToUniTask();
+
+        DOTween.To(() => _bloom.intensity.value, x => _bloom.intensity.value = x,
+            defaultIntensity, 0.5f);
+    }
 }
