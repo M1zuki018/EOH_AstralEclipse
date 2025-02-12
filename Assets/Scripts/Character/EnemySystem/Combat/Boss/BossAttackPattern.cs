@@ -326,7 +326,7 @@ public class BossAttackPattern : MonoBehaviour
         Time.timeScale = 1f; //時間の進みを戻す
         _playerInput.ActivateInput(); //プレイヤーの入力を解放
         
-        CameraManager.Instance.ScreenFlash(30);
+        //CameraManager.Instance.ScreenFlash(30);
         
         AudioManager.Instance.PlaySE(19);
         

@@ -122,3 +122,4 @@ MonoBehaviour:
   _moveDuration: 4
   _straightSpeed: 70
   _overshootAmount: 5
+  _damageMag: 0.3
