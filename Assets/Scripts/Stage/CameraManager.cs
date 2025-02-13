@@ -116,8 +116,7 @@ public class CameraManager : MonoBehaviour
         //FOVの調整
         DOTween.To(() => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView,
             x => _virtualCameras[_currentCameraIndex].m_Lens.FieldOfView = x,
-            _defaultFOV + fovChange, duration)
-            .OnComplete(() => ResetFOV()); //FOVが低くなりすぎていないか確認し必要なら35まで戻す
+            _defaultFOV + fovChange, duration);
 
         //モーションブラー
         DOTween.To(() => _motionBlur.intensity.value, x => _motionBlur.intensity.value = x,
@@ -144,43 +143,6 @@ public class CameraManager : MonoBehaviour
     public void TriggerCameraShake()
     {
         _impulseSource.GenerateImpulse();
-    }
-
-    /// <summary>
-    /// ステップ中のエフェクト
-    /// </summary>
-    public void StepEffect() => ApplyEffect(2, 0.8f, 0.3f, 0.5f, 0.2f);
-    
-    /// <summary>
-    /// ステップエフェクトを解除する
-    /// </summary>
-    public void EndStepEffect() => ApplyEffect(-2, 0.1f, 0.25f, 0.05f, 0.3f);
-
-    /// <summary>
-    /// ダッシュエフェクト（プレイヤーの一段目の攻撃などに使用）
-    /// </summary>
-    public void DashEffect()
-    {
-        ApplyEffect(20, 0.8f, 0.4f, 0.5f, 0.3f);
-        ApplyCameraShake(0.3f, 0.5f, 30);
-    }
-    
-    /// <summary>
-    /// 突進終了時のエフェクト
-    /// </summary>
-    public void EndDashEffect()
-    {
-        ApplyEffect(-20, 0.1f, 0.25f, 0.05f, 0.3f);
-        ApplyCameraShake(0.2f, 0.3f, 10);
-    }
-    
-    /// <summary>
-    /// 回転斬りのエフェクト（プレイヤーの四段目の攻撃などに使用）
-    /// </summary>
-    public void TurnEffect()
-    {
-        ApplyEffect(-20f, 1f, 0.4f, 0.5f, 0.15f);
-        ApplyCameraShake(0.15f, 0.5f, 30);
     }
     
     /// <summary>
@@ -226,6 +188,44 @@ public class CameraManager : MonoBehaviour
     }
     
     /// <summary>
+    /// ステップ中のエフェクト
+    /// </summary>
+    public void StepEffect() => ApplyEffect(2, 0.6f, 0.3f, 0.5f, 0.2f);
+    
+    /// <summary>
+    /// ステップエフェクトを解除する
+    /// </summary>
+    public void EndStepEffect() => ApplyEffect(-2, 0.1f, 0.25f, 0.05f, 0.3f);
+
+    /// <summary>
+    /// ダッシュエフェクト（プレイヤーの一段目の攻撃などに使用）
+    /// </summary>
+    public void DashEffect()
+    {
+        ApplyEffect(20, 0.8f, 0.4f, 0.5f, 0.3f);
+        ApplyCameraShake(0.3f, 0.5f, 30);
+    }
+    
+    /// <summary>
+    /// 突進終了時のエフェクト
+    /// </summary>
+    public void EndDashEffect()
+    {
+        ApplyEffect(-20, 0.1f, 0.25f, 0.05f, 0.3f);
+        ApplyCameraShake(0.2f, 0.3f, 10);
+        ResetFOV();
+    }
+    
+    /// <summary>
+    /// 回転斬りのエフェクト（プレイヤーの四段目の攻撃などに使用）
+    /// </summary>
+    public void TurnEffect()
+    {
+        ApplyEffect(-20f, 1f, 0.4f, 0.5f, 0.15f);
+        ApplyCameraShake(0.15f, 0.5f, 30);
+    }
+    
+    /// <summary>
     /// レーザー発射前の演出（ズーム）
     /// </summary>
     public void PreLaserShot()
@@ -264,6 +264,7 @@ public class CameraManager : MonoBehaviour
         UseCamera(0); //メインカメラに戻す
         DOTween.To(() => _virtualCameras[4].m_Lens.FieldOfView, x => _virtualCameras[4].m_Lens.FieldOfView = x, 
             60, 1.5f).SetEase(Ease.OutQuad);
+        ResetFOV();
     }
 
     /// <summary>
