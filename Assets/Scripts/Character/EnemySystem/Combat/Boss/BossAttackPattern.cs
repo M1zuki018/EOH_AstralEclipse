@@ -426,10 +426,10 @@ public class BossAttackPattern : MonoBehaviour
         //SEにもエコーがかかったような遅延音に聞こえるような効果をかける
         
         _playerInput.DeactivateInput(); //プレイヤーの入力を制限
-        _timeStopVolume.enabled = true; //画面のモノクロ化
+        
         SpawnMagicCircle(10, 11); //魔法陣を展開
         
-        await UniTask.Delay(500);
+        //await UniTask.Delay(500);
         
         FinalAttack();
     }

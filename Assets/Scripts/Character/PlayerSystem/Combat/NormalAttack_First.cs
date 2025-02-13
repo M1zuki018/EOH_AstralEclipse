@@ -47,7 +47,7 @@ public class NormalAttack_First : AttackAdjustBase
         //ターゲットがいる場合のみ行う処理
         if (_target != null)
         {
-            _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算
+            _distance = Vector3.Distance(transform.position, _target.position); //敵との距離を計算(高さは無視する)
             _adjustDirection.AdjustDirectionToTarget(30); //キャラクターを敵の方向に向ける
         }
 
@@ -93,11 +93,12 @@ public class NormalAttack_First : AttackAdjustBase
     /// </summary>
     private void HandleApproach()
     {
-        _distance = Vector3.Distance(transform.position, _target.position); //距離を更新
-                    
+        Vector3 pos = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 targetPos = new Vector3(_target.position.x, 0, _target.position.z);
+        _distance = Vector3.Distance(pos, targetPos); //距離を更新
+        
         //プレイヤーを敵に近づける
         Vector3 direction = (_target.position - transform.position).normalized;
-        direction.y = 0;
         _cc.Move(direction * _approachSpeed * Time.deltaTime);
 
         //プレイヤーの向きを敵の方向へ合わせる
