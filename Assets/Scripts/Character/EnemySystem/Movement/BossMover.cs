@@ -286,12 +286,14 @@ public class BossMover : MonoBehaviour
     /// DPSチェック失敗時の処理
     /// </summary>
     [ContextMenu("LastAttack")]
-    private void LastAttack()
+    private async void LastAttack()
     {
         //UIの操作
         UIManager.Instance.HideBossDpsSlider();
         UIManager.Instance.HidePlayerBattleUI();
         UIManager.Instance.HideRightUI();
+        
+        await MoveToAsync(new Vector3(_initializePos.x, _initializePos.y + 4f, _initializePos.z + 10f), 15f);
         
         _attackPattern.FinalTimeControl();
     }

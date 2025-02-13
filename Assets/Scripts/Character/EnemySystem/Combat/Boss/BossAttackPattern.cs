@@ -401,6 +401,7 @@ public class BossAttackPattern : MonoBehaviour
         //演出
         //時計の針を高速回転させる
         
+        /*
         await UniTask.Delay(500); //演出を待つ
         
         Time.timeScale = 0.1f; //遅延
@@ -410,6 +411,7 @@ public class BossAttackPattern : MonoBehaviour
         _playerInput.DeactivateInput(); //プレイヤーの入力を制限
         
         await UniTask.Delay(500);
+        */
         
         TimeStop();
     }
@@ -423,9 +425,11 @@ public class BossAttackPattern : MonoBehaviour
         //BGMのvolumeを完全にゼロにする
         //SEにもエコーがかかったような遅延音に聞こえるような効果をかける
         
+        _playerInput.DeactivateInput(); //プレイヤーの入力を制限
+        _timeStopVolume.enabled = true; //画面のモノクロ化
         SpawnMagicCircle(10, 11); //魔法陣を展開
         
-        await UniTask.Delay(200);
+        await UniTask.Delay(500);
         
         FinalAttack();
     }
