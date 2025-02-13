@@ -121,6 +121,8 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
 
     public void OnPause(InputAction.CallbackContext context) => _inputHandler.HandlePauseInput();
     
+    public void OnNone(InputAction.CallbackContext context) => Debug.Log("登録されていないボタンです");
+
     #endregion
 
     #region 入力の条件文
