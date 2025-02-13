@@ -1268,18 +1268,6 @@ LightingSettings:
   m_PVRTiledBaking: 0
   m_NumRaysToShootPerTexel: -1
   m_RespectSceneVisibilityWhenBakingGI: 0
---- !u!4 &208139784 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6583515625255370265, guid: 61b5c3d1d439235478cb934b8c6599cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 261357593}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &208139785 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 880448058611493857, guid: 61b5c3d1d439235478cb934b8c6599cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 261357593}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &208773899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,7 +1319,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 208139784}
+  m_LookAt: {fileID: 0}
   m_Follow: {fileID: 277621503}
   m_Lens:
     FieldOfView: 30.45
@@ -2383,7 +2371,7 @@ Transform:
   m_GameObject: {fileID: 364916568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.6753526, z: -3.26}
+  m_LocalPosition: {x: 0, y: 4.695624, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2717,7 +2705,7 @@ Transform:
   m_GameObject: {fileID: 394523270}
   serializedVersion: 2
   m_LocalRotation: {x: 0.16157573, y: -0.72312975, z: 0.6467953, w: -0.18064484}
-  m_LocalPosition: {x: 3.6193972, y: 8.289016, z: 59.465}
+  m_LocalPosition: {x: 3.6207666, y: 8.289551, z: 59.464844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3494,7 +3482,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507906979}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.01584826, y: 0.9820881, z: -0.096716486, w: 0.16092809}
+  m_LocalRotation: {x: 0.015850123, y: 0.9820858, z: -0.09672085, w: 0.16093925}
   m_LocalPosition: {x: -15.7, y: 6.57, z: 57.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5951,7 +5939,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.26
+  m_CameraDistance: 3.5
   m_DeadZoneWidth: 0.1
   m_DeadZoneHeight: 0.1
   m_DeadZoneDepth: 0
@@ -6044,7 +6032,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 277621503}
   m_Follow: {fileID: 277621503}
   m_Lens:
-    FieldOfView: 44.99884
+    FieldOfView: 45
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -6078,7 +6066,7 @@ Transform:
   m_GameObject: {fileID: 707531206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.597543, z: -3.26}
+  m_LocalPosition: {x: 0, y: 4.612092, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8186,7 +8174,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 44.99884
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: 3
@@ -8213,7 +8201,7 @@ Transform:
   m_GameObject: {fileID: 1081295069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.597543, z: -3.26}
+  m_LocalPosition: {x: 0, y: 4.60017, z: -3.319509}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10950,7 +10938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abdf593e4f373f34bb47dcc09ce33fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skinnedMeshRenderer: {fileID: 208139785}
+  _skinnedMeshRenderer: {fileID: 0}
   _skinPatterns:
   - SkinPattern:
     - SkinIndex: 6
@@ -14207,7 +14195,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5731479
-  m_CameraDistance: 3.26
+  m_CameraDistance: 3.5
   m_DeadZoneWidth: 0.0010416667
   m_DeadZoneHeight: 0.06851852
   m_DeadZoneDepth: 0

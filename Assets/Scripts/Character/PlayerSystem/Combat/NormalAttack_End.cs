@@ -88,6 +88,9 @@ public class NormalAttack_End : AttackAdjustBase
 
     public override void CorrectMovement(Vector3 forwardDirection)
     {
+        //ターゲットがいなかったら以降の処理は行わない
+        if(_adjustDirection.Target == null) return; 
+        
         // 敵との距離を測る
         float distanceToEnemy = Vector3.Distance(transform.position, _adjustDirection.Target.position);
 
