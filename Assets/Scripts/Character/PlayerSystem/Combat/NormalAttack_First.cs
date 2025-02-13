@@ -162,10 +162,11 @@ public class NormalAttack_First : AttackAdjustBase
     public override void CorrectMovement(Vector3 forwardDirection)
     {
         //ターゲットがいなかったら以降の処理は行わない
-        if(_adjustDirection.Target == null) return; 
-        
+        if(_adjustDirection.Target == null) return;
+
+        Vector3 targetDirection = new Vector3(_adjustDirection.Target.position.x, 0, _adjustDirection.Target.position.z);
         // 敵との距離を測る
-        float distanceToEnemy = Vector3.Distance(transform.position, _adjustDirection.Target.position);
+        float distanceToEnemy = Vector3.Distance(transform.position, targetDirection);
 
         if (distanceToEnemy > _stopDistance)
         {

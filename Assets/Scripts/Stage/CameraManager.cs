@@ -202,7 +202,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void DashEffect()
     {
-        ApplyEffect(20, 0.8f, 0.4f, 0.5f, 0.3f);
+        ApplyEffect(15, 0.8f, 0.4f, 0.5f, 0.3f);
         ApplyCameraShake(0.3f, 0.5f, 30);
     }
     
@@ -211,7 +211,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void EndDashEffect()
     {
-        ApplyEffect(-20, 0.1f, 0.25f, 0.05f, 0.3f);
+        ApplyEffect(-15, 0.1f, 0.25f, 0.05f, 0.3f);
         ApplyCameraShake(0.2f, 0.3f, 10);
         ResetFOV();
     }
