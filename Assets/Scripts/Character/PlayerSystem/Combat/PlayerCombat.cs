@@ -119,6 +119,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public void UseSkill(int index)
     {
         SkillData skill = _skillSet.Cast(index); //スキルデータを取得する
+        UIManager.Instance.SelectedSkillIcon(index);
 
         if (TP < skill.ResourceCost) //TPの判定を行う
         {

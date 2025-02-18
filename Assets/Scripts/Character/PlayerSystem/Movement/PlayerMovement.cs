@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
         
-        _playerInputReceiver = new PlayerInputProcessor(this, _playerState, _mover, _jumper, _walker,
+        _playerInputReceiver = new PlayerInputProcessor(_playerState, _mover, _jumper, _walker,
             GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
             GetComponent<PlayerCombat>());
         

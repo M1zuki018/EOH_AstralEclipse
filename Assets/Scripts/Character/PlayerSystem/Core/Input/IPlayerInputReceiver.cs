@@ -16,7 +16,7 @@ namespace PlayerSystem.Input
 
         #region アクション（PlayerSystem.ActionFunction）
         void HandleStepInput();
-        void HandleGaudeInput(bool input);
+        void HandleGuardInput(bool input);
         void HandleLockOnInput();
         #endregion
 

@@ -1,5 +1,4 @@
 using PlayerSystem.ActionFunction;
-using PlayerSystem.Fight;
 using UnityEngine;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
@@ -10,7 +9,6 @@ namespace PlayerSystem.Input
     {
         #region フィールドと初期化
         
-        private readonly PlayerMovement _playerMovement;
         private readonly PlayerState _state;
         private readonly IMovable _mover; //移動
         private readonly IJumpable _jumper;　//ジャンプ
@@ -20,10 +18,9 @@ namespace PlayerSystem.Input
         private readonly ILockOnable _locker; //ロックオン
         private readonly PlayerCombat _combat; //アクション
 
-        public PlayerInputProcessor(PlayerMovement playerMovement, PlayerState state, IMovable mover, IJumpable jumper, 
+        public PlayerInputProcessor( PlayerState state, IMovable mover, IJumpable jumper, 
             IWalkable walker, ISteppable steppable, IGaudeable gauder, ILockOnable locker, PlayerCombat combat)
         {
-            _playerMovement = playerMovement;
             _state = state;
             _mover = mover;
             _jumper = jumper;
@@ -45,20 +42,10 @@ namespace PlayerSystem.Input
         }
 
         /// <summary>ジャンプ入力処理</summary>
-        public void HandleJumpInput()
-        {
-            if (_state.IsGrounded)
-            {
-                _state.IsJumping = true;
-                _jumper.Jump();
-            }
-        }
+        public void HandleJumpInput() => _jumper.Jump();
         
         /// <summary>歩き状態にする入力処理</summary>
-        public void HandleWalkInput()
-        {
-            _walker.Walk();
-        }
+        public void HandleWalkInput() => _walker.Walk();
 
         /// <summary>ポーズ入力処理</summary>
         public void HandlePauseInput()
@@ -68,35 +55,18 @@ namespace PlayerSystem.Input
         }
 
         /// <summary>ステップ入力処理</summary>
-        public void HandleStepInput()
-        {
-            _stepper.TryUseStep();
-        }
+        public void HandleStepInput() => _stepper.TryUseStep();
 
         /// <summary>ガード入力処理</summary>
-        public void HandleGaudeInput(bool input)
-        {
-            _gauder.Gaude(input);
-        }
+        public void HandleGuardInput(bool input) => _gauder.Gaude(input);
 
         /// <summary>ロックオン入力処理</summary>
-        public void HandleLockOnInput()
-        {
-            _locker.LockOn();
-        }
+        public void HandleLockOnInput() => _locker.LockOn();
 
         /// <summary>通常攻撃の入力処理</summary>
-        public void HandleAttackInput()
-        {
-            _combat.Attack();
-
-        }
+        public void HandleAttackInput() => _combat.Attack();
 
         /// <summary>スキル攻撃の入力処理</summary>
-        public void HandleSkillInput(int index)
-        {
-            UIManager.Instance.SelectedSkillIcon(index);
-            _combat.UseSkill(index);
-        }
+        public void HandleSkillInput(int index) => _combat.UseSkill(index);
     }
 }

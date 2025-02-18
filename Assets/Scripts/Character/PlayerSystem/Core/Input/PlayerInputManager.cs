@@ -7,13 +7,13 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerInputManager : MonoBehaviour
 {
-    private IPlayerInputReceiver _playerInputReceiver; // 入力情報
+    private IPlayerInputReceiver _iPlayerInputReceiver; // 入力情報
     private PlayerInput _playerInput; // PlayerInput コンポーネント    
 
     private void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
-        _playerInputReceiver = GetComponent<PlayerMovement>().PlayerInputReceiver;
+        _iPlayerInputReceiver = GetComponent<PlayerMovement>().PlayerInputReceiver;
         RegisterInputActions(); // 入力の登録
     }
     
@@ -66,7 +66,7 @@ public class PlayerInputManager : MonoBehaviour
     #region 入力されたときのメソッド一覧
     
     /// <summary>攻撃処理</summary>
-    public void OnAttack(InputAction.CallbackContext context) => _playerInputReceiver.HandleAttackInput();
+    public void OnAttack(InputAction.CallbackContext context) => _iPlayerInputReceiver.HandleAttackInput();
 
     /// <summary>スキル処理</summary>
     public void OnSkill1(InputAction.CallbackContext context) => HandleSkillInput(context, 1); 
@@ -75,24 +75,24 @@ public class PlayerInputManager : MonoBehaviour
     public void OnSkill4(InputAction.CallbackContext context) => HandleSkillInput(context, 4);
     
     /// <summary>移動処理</summary>
-    public void OnMove(InputAction.CallbackContext context) => _playerInputReceiver.HandleMoveInput(context.ReadValue<Vector2>());
+    public void OnMove(InputAction.CallbackContext context) => _iPlayerInputReceiver.HandleMoveInput(context.ReadValue<Vector2>());
 
     /// <summary>ジャンプ処理</summary>
-    public void OnJump(InputAction.CallbackContext context) => _playerInputReceiver.HandleJumpInput();
+    public void OnJump(InputAction.CallbackContext context) => _iPlayerInputReceiver.HandleJumpInput();
     
     /// <summary>歩きと走り状態を切り替える</summary>
-    public void OnWalk(InputAction.CallbackContext context) => _playerInputReceiver.HandleWalkInput();
+    public void OnWalk(InputAction.CallbackContext context) => _iPlayerInputReceiver.HandleWalkInput();
     
     /// <summary>ステップ</summary>
-    public void OnStep(InputAction.CallbackContext context) => _playerInputReceiver.HandleStepInput();
+    public void OnStep(InputAction.CallbackContext context) => _iPlayerInputReceiver.HandleStepInput();
     
     /// <summary>ガード状態を切り替える</summary>
     public void OnGuard(InputAction.CallbackContext context) => HandleGuardInput(context);
 
     /// <summary>ロックオン機能</summary>
-    public void OnLockOn(InputAction.CallbackContext context) => _playerInputReceiver.HandleLockOnInput();
+    public void OnLockOn(InputAction.CallbackContext context) => _iPlayerInputReceiver.HandleLockOnInput();
 
-    public void OnPause(InputAction.CallbackContext context) => _playerInputReceiver.HandlePauseInput();
+    public void OnPause(InputAction.CallbackContext context) => _iPlayerInputReceiver.HandlePauseInput();
     
     #endregion
     
@@ -101,13 +101,13 @@ public class PlayerInputManager : MonoBehaviour
     private void HandleSkillInput(InputAction.CallbackContext context, int index)
     {
         //index で スキル1~4のどのボタンを押されたか判断する
-        if (context.performed) _playerInputReceiver.HandleSkillInput(index);
+        if (context.performed) _iPlayerInputReceiver.HandleSkillInput(index);
     }
 
     private void HandleGuardInput(InputAction.CallbackContext context)
     {
-        if (context.performed) _playerInputReceiver.HandleGaudeInput(true);
-        if (context.canceled) _playerInputReceiver.HandleGaudeInput(false);
+        if (context.performed) _iPlayerInputReceiver.HandleGuardInput(true);
+        if (context.canceled) _iPlayerInputReceiver.HandleGuardInput(false);
     }
 
     #endregion
