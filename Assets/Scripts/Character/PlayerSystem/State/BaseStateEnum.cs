@@ -3,7 +3,7 @@ namespace PlayerSystem.State
     /// <summary>
     /// プレイヤーの基本的なステートの列挙型
     /// </summary>
-    public enum BaseStateList
+    public enum BaseStateEnum
     {
         Default,
         Idle, // 待機

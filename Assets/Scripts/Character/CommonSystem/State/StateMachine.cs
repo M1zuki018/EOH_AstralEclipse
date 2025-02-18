@@ -6,7 +6,7 @@ using PlayerSystem.State;
 /// </summary>
 public class StateMachine
 {
-    private IState _currentState;
+    private IState _currentState; // 現在のステート
     private readonly StateMachineManager _smm;
 
     public StateMachine(StateMachineManager smm)
