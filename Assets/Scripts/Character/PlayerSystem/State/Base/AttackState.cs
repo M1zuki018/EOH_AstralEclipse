@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class AttackState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public AttackState(StateMachineManager smm)
+        public AttackState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

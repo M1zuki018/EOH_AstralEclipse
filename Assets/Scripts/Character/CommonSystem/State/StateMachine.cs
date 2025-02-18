@@ -10,9 +10,9 @@ public class StateMachine
 {
     private Dictionary<BaseStateEnum, IState> _states = new Dictionary<BaseStateEnum, IState>();
     private ReactiveProperty<IState> _currentState = new ReactiveProperty<IState>(); // 現在のステート
-    private readonly StateMachineManager _smm;
+    private readonly PlayerStateMachine _smm;
 
-    public StateMachine(StateMachineManager smm)
+    public StateMachine(PlayerStateMachine smm)
     {
         _smm = smm;
     }

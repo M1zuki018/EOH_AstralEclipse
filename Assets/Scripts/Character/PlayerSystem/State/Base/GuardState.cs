@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class GuardState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public GuardState(StateMachineManager smm)
+        public GuardState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

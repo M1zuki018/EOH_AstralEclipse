@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class ParryState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public ParryState(StateMachineManager smm)
+        public ParryState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

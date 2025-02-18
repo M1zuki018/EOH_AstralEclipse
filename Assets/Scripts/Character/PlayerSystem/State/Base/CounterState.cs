@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class CounterState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public CounterState(StateMachineManager smm)
+        public CounterState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

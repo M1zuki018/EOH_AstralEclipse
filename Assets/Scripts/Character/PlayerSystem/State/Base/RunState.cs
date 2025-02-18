@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class RunState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public RunState(StateMachineManager smm)
+        public RunState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

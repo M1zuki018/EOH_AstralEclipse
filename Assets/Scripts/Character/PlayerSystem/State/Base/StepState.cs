@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class StepState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public StepState(StateMachineManager smm)
+        public StepState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

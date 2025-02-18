@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class IdleState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public IdleState(StateMachineManager smm)
+        public IdleState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

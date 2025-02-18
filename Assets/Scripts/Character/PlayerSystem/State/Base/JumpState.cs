@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class JumpState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public JumpState(StateMachineManager smm)
+        public JumpState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

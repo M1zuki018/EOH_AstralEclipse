@@ -9,12 +9,12 @@ namespace PlayerSystem.State.Base
     public class DeadState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public DeadState(StateMachineManager smm)
+        public DeadState(PlayerStateMachine smm)
         {
             _smm = smm;
         }

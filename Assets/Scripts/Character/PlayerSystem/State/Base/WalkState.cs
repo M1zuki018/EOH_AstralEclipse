@@ -8,12 +8,12 @@ namespace PlayerSystem.State.Base
     public class WalkState : IState
     {
         
-        private readonly StateMachineManager _smm;
+        private readonly PlayerStateMachine _smm;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public WalkState(StateMachineManager smm)
+        public WalkState(PlayerStateMachine smm)
         {
             _smm = smm;
         }
