@@ -9,17 +9,7 @@ public class FrontTrigger : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("VaultObject"))
-        {
-            _playerMovement.PlayerState.CanVault = true; //ヴォルトアクションを使用可能にする
-            _playerMovement._valutTargetObjects.Add(other.gameObject.transform);
-        }
-        else if (other.gameObject.CompareTag("Wall"))
-        {
-            _playerMovement.PlayerState.CanClimb = true;
-            _playerMovement.PlayerState.WallNormal = other.transform.forward;
-        }
-        else if (other.gameObject.CompareTag("Interactable")) //インタラクトできるオブジェクトが範囲内にあったら
+        if (other.gameObject.CompareTag("Interactable")) //インタラクトできるオブジェクトが範囲内にあったら
         {
             _playerMovement.InteractableItem = other.transform.GetComponentInChildren<InteractableItemBase>(); //インタラクトできるオブジェクトの情報を渡す
         }

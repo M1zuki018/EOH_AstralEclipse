@@ -11,7 +11,6 @@ namespace PlayerSystem.Input
         void HandleMoveInput(Vector2 input);
         void HandleJumpInput();
         void HandleWalkInput();
-        void HandleCrouchInput(bool input);
         void HandlePauseInput();
         #endregion
 
@@ -19,12 +18,6 @@ namespace PlayerSystem.Input
         void HandleStepInput();
         void HandleGaudeInput(bool input);
         void HandleLockOnInput();
-        void HandleVaultInput();
-        void HandleBigJumpInput();
-        void HandleClimbStartInput();
-        void HandleClimbInput();
-        void HandleClimbEndInput();
-        void HandleWallRunInput();
         #endregion
 
         #region 戦闘（PlayerSystem.Fight）

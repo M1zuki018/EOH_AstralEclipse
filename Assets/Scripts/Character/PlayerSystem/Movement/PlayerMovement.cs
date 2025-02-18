@@ -28,26 +28,13 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     
     #region 各種機能
     private IInputHandler _inputHandler; //入力情報
-    private IMovable _mover; //動き
+    private IMovable _mover; //移動
     private IJumpable _jumper; //ジャンプ
     private IWalkable _walker; //歩きと走り状態の切り替え
-    private ICrouchable _croucher; //しゃがみ
     private ISteppable _stepFunction; //ステップ
     private IGaudeable _gaudeFunction; //ガード
     private ILockOnable _lockOnFunction; //ロックオン
-    private IWallRunable _wallRunFunction; //ウォールラン
-    private IClimbale _climbFunction; //壁のぼり
-    private IBigJumpable _bigJumpFunction; //大ジャンプ
-    private IVaultable _vaultFunction; //乗り越え
     #endregion
-    
-    [SerializeField, HighlightIfNull] private WallChecker _wallChecker;
-
-    //未リファクタリング
-    private bool _isHanding; //よじのぼり中か
-    private bool _isWallRunning; //壁走り中かどうか
-    //障害物乗り越え用の変数
-    [HideInInspector] public List<Transform> _valutTargetObjects = new List<Transform>();
     
     private void Awake()
     {
@@ -73,13 +60,10 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         _mover = new PlayerMover(_characterController, _animator, _playerState, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
-        _croucher = (ICrouchable) _mover;
-        _climbFunction = new ClimbFunction(_animator, _characterController, transform, this);
         
-        _inputHandler = new PlayerInputHandler(this, _playerState, _mover, _jumper, _walker, _croucher,
+        _inputHandler = new PlayerInputHandler(this, _playerState, _mover, _jumper, _walker,
             GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
-            GetComponent<WallRunFunction>(), _climbFunction, GetComponent<BigJumpFunction>(),
-            GetComponent<VaultFunction>(), GetComponent<PlayerCombat>());
+             GetComponent<PlayerCombat>());
         
         _animator.applyRootMotion = true; //ルートモーションを有効化
     }
@@ -104,9 +88,6 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     /// <summary>歩きと走り状態を切り替える</summary>
     public void OnWalk(InputAction.CallbackContext context) => _inputHandler.HandleWalkInput();
     
-    /// <summary>しゃがみ状態を切り替える</summary>
-    public void OnCrouch(InputAction.CallbackContext context) => HandleCrouchInput(context);
-    
     /// <summary>ステップ</summary>
     public void OnStep(InputAction.CallbackContext context) => HandleStepInput(context);
     
@@ -115,9 +96,6 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
 
     /// <summary>ロックオン機能</summary>
     public void OnLockOn(InputAction.CallbackContext context) => HandleLockOnInput(context);
-    
-    /// <summary>パルクールアクションキー</summary>
-    public void OnParkourAction(InputAction.CallbackContext context) => HandleParkourAction(context);
 
     public void OnPause(InputAction.CallbackContext context) => _inputHandler.HandlePauseInput();
     
@@ -142,12 +120,6 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         if (context.performed) _inputHandler.HandleJumpInput();
     }
 
-    private void HandleCrouchInput(InputAction.CallbackContext context)
-    {
-        if (context.performed) _inputHandler.HandleCrouchInput(true);
-        if (context.canceled) _inputHandler.HandleCrouchInput(false);
-    }
-
     private void HandleStepInput(InputAction.CallbackContext context)
     {
         if (context.performed) _inputHandler.HandleStepInput();
@@ -164,41 +136,12 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         if (context.canceled) _inputHandler.HandleGaudeInput(false);
     }
 
-    private void HandleParkourAction(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (_playerState.CanVault) //優先１.ヴォルトアクション
-                _inputHandler.HandleVaultInput();
-            else if (_playerState.CanClimb) //優先２.壁のぼり
-                ToggleClimbState();
-            else if (_playerState.CanBigJump) //優先３.大ジャンプ
-                _inputHandler.HandleBigJumpInput();
-        }
-    }
-
-    private void ToggleClimbState()
-    {
-        _playerState.IsClimbing = !_playerState.IsClimbing; //ステートの切り替え
-        if (_playerState.IsClimbing) 
-            _inputHandler.HandleClimbStartInput();　//壁のぼり開始処理
-        else 
-            _inputHandler.HandleClimbEndInput(); //壁のぼり終了処理
-    }
-
     #endregion
     
     private void FixedUpdate()
     {
-        if (_isHanding) 
-        {
-            //TODO:崖つかまりの処理
-        }
-        else if (_playerState.IsClimbing)//壁のぼり中
-        {
-            _inputHandler.HandleClimbInput(); //壁のぼり処理
-        }
-        else if (_playerState.IsJumping)
+        
+        if (_playerState.IsJumping)
         {
             _jumper.Jumping(); //ジャンプ処理
             HandleGroundedCheck();

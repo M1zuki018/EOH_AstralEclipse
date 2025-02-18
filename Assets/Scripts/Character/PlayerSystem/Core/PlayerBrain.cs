@@ -66,12 +66,12 @@ public class PlayerBrain : CharacterBase
             await UniTask.Delay(1200);
         
             UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
-            _moveActions[1].action.Enable(); //有効化
+            _moveActions[0].action.Enable(); //有効化
         
             // ボタンが押されたら入力を有効化
             Observable.FromEvent<InputAction.CallbackContext>(
-                    h => _moveActions[1].action.performed += h,
-                    h => _moveActions[1].action.performed -= h)
+                    h => _moveActions[0].action.performed += h,
+                    h => _moveActions[0].action.performed -= h)
                 .Take(1) // 最初の1回だけ
                 .Subscribe(GameStart)
                 .AddTo(this);

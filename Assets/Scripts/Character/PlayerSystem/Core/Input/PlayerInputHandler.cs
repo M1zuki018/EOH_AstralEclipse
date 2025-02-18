@@ -15,33 +15,22 @@ namespace PlayerSystem.Input
         private readonly IMovable _mover; //移動
         private readonly IJumpable _jumper;　//ジャンプ
         private readonly IWalkable _walker; //歩きと走りの切り替え
-        private readonly ICrouchable _croucher; //しゃがみ
         private readonly ISteppable _stepper; //ステップ
         private readonly IGaudeable _gauder; //ガード
         private readonly ILockOnable _locker; //ロックオン
-        private readonly IWallRunable _wallruner; //ウォールラン
-        private readonly IClimbale _climber; //壁のぼり
-        private readonly IBigJumpable _bigjumper; //大ジャンプ
-        private readonly IVaultable _vaulter; //乗り越え
         private readonly PlayerCombat _combat; //アクション
 
         public PlayerInputHandler(PlayerMovement playerMovement, PlayerState state, IMovable mover, IJumpable jumper, 
-            IWalkable walker, ICrouchable croucher, ISteppable steppable, IGaudeable gauder, ILockOnable locker, IWallRunable wallruner,
-            IClimbale climbale, IBigJumpable bigjumper, IVaultable vaulter, PlayerCombat combat)
+            IWalkable walker, ISteppable steppable, IGaudeable gauder, ILockOnable locker, PlayerCombat combat)
         {
             _playerMovement = playerMovement;
             _state = state;
             _mover = mover;
             _jumper = jumper;
             _walker = walker;
-            _croucher = croucher;
             _stepper = steppable;
             _gauder = gauder;
             _locker = locker;
-            _wallruner = wallruner;
-            _climber = climbale;
-            _bigjumper = bigjumper;
-            _vaulter = vaulter;
             _combat = combat;
         }
         #endregion
@@ -78,12 +67,6 @@ namespace PlayerSystem.Input
             _walker.Walk();
         }
 
-        /// <summary>しゃがみ入力処理</summary>
-        public void HandleCrouchInput(bool input)
-        {
-            _croucher.Crouch(input);
-        }
-
         /// <summary>ポーズ入力処理</summary>
         public void HandlePauseInput()
         {
@@ -107,45 +90,6 @@ namespace PlayerSystem.Input
         public void HandleLockOnInput()
         {
             _locker.LockOn();
-        }
-
-        /// <summary>乗り越え入力処理</summary>
-        public void HandleVaultInput()
-        {
-            //TODO:実装を書く
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>大ジャンプ入力処理</summary>
-        public void HandleBigJumpInput()
-        {
-            //TODO:実装を書く
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>壁のぼり開始の入力処理</summary>
-        public void HandleClimbStartInput()
-        {
-            _climber.StartClimbing();
-        }
-        
-        /// <summary>壁のぼり中の入力処理</summary>
-        public void HandleClimbInput()
-        {
-            _climber.HandleClimbing();
-        }
-
-        /// <summary>壁のぼり終了の入力処理</summary>
-        public void HandleClimbEndInput()
-        {
-            _climber.EndClimbing();
-        }
-
-        /// <summary>ウォールランの入力処理</summary>
-        public void HandleWallRunInput()
-        {
-            //TODO:実装を書く
-            throw new System.NotImplementedException();
         }
 
         /// <summary>通常攻撃の入力処理</summary>

@@ -13,13 +13,7 @@ public class VaultFunction : MonoBehaviour, IVaultable
     private MatchTargetWeightMask _mask = new MatchTargetWeightMask(Vector3.one, 1f);
     private float _timer;
     
-    public void HandleVault(PlayerMovement playerMovement)//アニメーターがとってきたいがための引数
-    {
-        _playerMovement = playerMovement;
-        _targetTransform = _playerMovement._valutTargetObjects[0];
-        playerMovement._animator.SetTrigger("Vault");//アニメーション再生 
-        playerMovement.PlayerState.IsVaulting = true;
-    }
+    
 
     private void Update()
     {
