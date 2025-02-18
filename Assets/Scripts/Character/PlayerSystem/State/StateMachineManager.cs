@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using PlayerSystem.State.Base;
 using UnityEngine;
 
 namespace PlayerSystem.State
@@ -33,12 +32,12 @@ namespace PlayerSystem.State
         private void Start()
         {
             _stateMachine = new StateMachine(this);
-            _stateMachine.TransitionToState(new IdleState(this)).Forget();
+            //_stateMachine.TransitionToState(BaseStateEnum.Idle).Forget();
         }
     
         private void Update()
         {
-            _stateMachine.Update().Forget();
+            //_stateMachine.Update().Forget();
     
             // 状態遷移をチェック（例として）
             if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
@@ -53,9 +52,9 @@ namespace PlayerSystem.State
             }
         }
     
-        public void TransitionToState(IState newState)
+        public void TransitionToState(BaseStateEnum newState)
         {
-            _stateMachine.TransitionToState(newState).Forget();
+          //  _stateMachine.TransitionToState(newState).Forget();
         }
     
         // アニメーションの設定例
