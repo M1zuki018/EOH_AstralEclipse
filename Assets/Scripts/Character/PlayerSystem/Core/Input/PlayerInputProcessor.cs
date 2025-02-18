@@ -12,7 +12,7 @@ namespace PlayerSystem.Input
     {
         #region フィールドと初期化
         
-        private readonly PlayerState _state;
+        private readonly PlayerBlackBoard _blackBoard;
         private readonly IMovable _mover; //移動
         private readonly IJumpable _jumper;　//ジャンプ
         private readonly IWalkable _walker; //歩きと走りの切り替え
@@ -21,10 +21,10 @@ namespace PlayerSystem.Input
         private readonly ILockOnable _locker; //ロックオン
         private readonly PlayerCombat _combat; //アクション
 
-        public PlayerInputProcessor( PlayerState state, IMovable mover, IJumpable jumper, 
+        public PlayerInputProcessor( PlayerBlackBoard blackBoard, IMovable mover, IJumpable jumper, 
             IWalkable walker, ISteppable steppable, IGaudeable gauder, ILockOnable locker, PlayerCombat combat)
         {
-            _state = state;
+            _blackBoard = blackBoard;
             _mover = mover;
             _jumper = jumper;
             _walker = walker;
@@ -40,7 +40,7 @@ namespace PlayerSystem.Input
         /// <summary>移動入力処理</summary>
         public void HandleMoveInput(Vector2 input)
         {
-            _state.MoveDirection = new Vector3(input.x, 0, input.y);
+            _blackBoard.MoveDirection = new Vector3(input.x, 0, input.y);
             _mover.Move();
         }
 

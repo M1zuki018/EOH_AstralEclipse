@@ -33,7 +33,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         Detector = GetComponentInChildren<AttackHitDetector>();
         _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから取得。臨戦状態の判定
         
-        if(!_playerController.PlayerState.DebugMode) _weaponObj.SetActive(false);
+        if(!_playerController.PlayerBlackBoard.DebugMode) _weaponObj.SetActive(false);
         
         UIManager.Instance?.HideLockOnUI();
         UIManager.Instance?.HidePlayerBattleUI();
@@ -63,7 +63,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         }
         
         //ボス戦の場合に行う処理
-        if (_playerController.PlayerState.IsBossBattle)
+        if (_playerController.PlayerBlackBoard.IsBossBattle)
         {
             return;
         }
@@ -80,7 +80,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleRescission(EnemyBrain brain)
     {
-        if (_playerController.PlayerState.IsBossBattle)
+        if (_playerController.PlayerBlackBoard.IsBossBattle)
         {
             return; //ボス戦中は臨戦状態の解除を行わない。常に臨戦状態にする
         }
@@ -106,9 +106,9 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public void Attack()
     {
         //臨戦状態/ボス戦中/デバッグモードの場合攻撃可能とする
-        if (_battleChecker.ReadyForBattle || _playerController.PlayerState.IsBossBattle || _playerController.PlayerState.DebugMode)
+        if (_battleChecker.ReadyForBattle || _playerController.PlayerBlackBoard.IsBossBattle || _playerController.PlayerBlackBoard.DebugMode)
         {
-            _playerController.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
+            _playerController.PlayerBlackBoard.IsAttacking = true; //解除はLocoMotionのSMBから行う
             _playerController.Animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
     }

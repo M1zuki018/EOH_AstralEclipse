@@ -124,7 +124,7 @@ public class DebugSystem : MonoBehaviour
     private void ActionTest()
     {
         PlayerController playerController = _player.gameObject.GetComponent<PlayerController>();
-        playerController.PlayerState.DebugMode = true;
+        playerController.PlayerBlackBoard.DebugMode = true;
     }
 
     /// <summary>

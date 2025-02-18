@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     public IPlayerInputReceiver PlayerInputReceiver => _playerInputReceiver;
     
     // プレイヤーの状態
-    private PlayerState _playerState;
-    public PlayerState PlayerState => _playerState;
+    private PlayerBlackBoard _playerBlackBoard;
+    public PlayerBlackBoard PlayerBlackBoard => _playerBlackBoard;
 
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
@@ -56,18 +56,18 @@ public class PlayerController : MonoBehaviour, IMatchTarget
 
     private void InitializeState()
     {
-        _playerState = new PlayerState();
+        _playerBlackBoard = new PlayerBlackBoard();
     }
     
     private void InitializeComponents()
     {
         // 移動処理を包括したクラスのインスタンスを生成
-        _mover = new PlayerControlFunction(_characterController, Animator, _playerState, _playerCamera, GetComponent<TrailRenderer>());
+        _mover = new PlayerControlFunction(_characterController, Animator, _playerBlackBoard, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
         
         // 入力情報のインスタンスを生成
-        _playerInputReceiver = new PlayerInputProcessor(_playerState, _mover, _jumper, _walker, 
+        _playerInputReceiver = new PlayerInputProcessor(_playerBlackBoard, _mover, _jumper, _walker, 
             GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
             GetComponent<PlayerCombat>());
         
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     
     private void FixedUpdate()
     {
-        if (_playerState.IsJumping)
+        if (_playerBlackBoard.IsJumping)
         {
             _jumper.Jumping(); //ジャンプ処理
             HandleGroundedCheck();
@@ -95,10 +95,10 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleGroundedCheck()
     {
-        if (_playerState.IsGrounded && _playerState.Velocity.y < 0)
+        if (_playerBlackBoard.IsGrounded && _playerBlackBoard.Velocity.y < 0)
         {
-            _playerState.IsJumping = false;
-            _playerState.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
+            _playerBlackBoard.IsJumping = false;
+            _playerBlackBoard.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
             Animator.SetBool("IsJumping", false);
             Animator.applyRootMotion = true;
         }
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleFalling()
     {
-        Animator.SetBool("IsGround", _playerState.IsGrounded);
+        Animator.SetBool("IsGround", _playerBlackBoard.IsGrounded);
         /*
         //接地判定はfalseだが、落下中と判定しない例外
         //ジャンプ中/壁登り中/乗り越え中

@@ -29,18 +29,18 @@ public class GroundTrigger : MonoBehaviour
         {
             if (_hit.collider.gameObject.CompareTag("Ground") || _hit.collider.gameObject.CompareTag("JumpObject"))
             {
-                playerController.PlayerState.IsGrounded = true;
+                playerController.PlayerBlackBoard.IsGrounded = true;
                 //_playerMovement.PlayerState.IsClimbing = false;
             }
             else if (_hit.collider.gameObject.CompareTag("Wall"))
             {
                 //_playerMovement.IsWall = true;
-                playerController.PlayerState.IsGrounded = false;
+                playerController.PlayerBlackBoard.IsGrounded = false;
             }
         }
         else
         {
-            playerController.PlayerState.IsGrounded = false;
+            playerController.PlayerBlackBoard.IsGrounded = false;
             //_playerMovement.IsWall = false;
         }
     }

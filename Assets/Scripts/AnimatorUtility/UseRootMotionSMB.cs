@@ -11,7 +11,7 @@ public class UseRootMotionSMB : StateMachineBehaviour
     {
         if(_playerController == null) _playerController = animator.GetComponent<PlayerController>();
         
-        _playerController.PlayerState.IsAttacking = false;
+        _playerController.PlayerBlackBoard.IsAttacking = false;
         animator.applyRootMotion = true;
     }
 }

@@ -45,7 +45,7 @@ public class PlayerBrain : CharacterBase
     /// </summary>
     private async void StartPerformance()
     {
-        if (!_playerController.PlayerState.DebugMode)
+        if (!_playerController.PlayerBlackBoard.DebugMode)
         {
             _playerInput.DeactivateInput();
             UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());   

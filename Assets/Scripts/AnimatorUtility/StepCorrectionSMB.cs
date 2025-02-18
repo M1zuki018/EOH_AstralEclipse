@@ -23,9 +23,9 @@ public class StepCorrectionSMB : StateMachineBehaviour
         if(_cc == null)_cc = animator.GetComponent<CharacterController>();
         if(_playerController == null)_playerController = animator.GetComponent<PlayerController>();
 
-        _playerController.PlayerState.IsSteping = true; //ステップ状態にする
+        _playerController.PlayerBlackBoard.IsSteping = true; //ステップ状態にする
 
-        Vector3 direction = _playerController.PlayerState.CorrectedDirection.normalized;
+        Vector3 direction = _playerController.PlayerBlackBoard.CorrectedDirection.normalized;
         
         if (direction.magnitude > 0.05f)
         {
@@ -62,6 +62,6 @@ public class StepCorrectionSMB : StateMachineBehaviour
     private void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CameraManager.Instance?.EndStepEffect();
-        _playerController.PlayerState.IsSteping = false; //ステップ状態を解除する
+        _playerController.PlayerBlackBoard.IsSteping = false; //ステップ状態を解除する
     }
 }
