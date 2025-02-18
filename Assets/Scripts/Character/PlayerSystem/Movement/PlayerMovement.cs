@@ -20,8 +20,6 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     
     private PlayerState _playerState;
     public PlayerState PlayerState => _playerState; //公開
-    
-    public InteractableItemBase InteractableItem { get; set; } //インタラクト可能なアイテム
 
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
@@ -43,6 +41,8 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         
         TryGetComponent(out _collider);
         _animator.keepAnimatorStateOnDisable = true;
+        
+        // ターゲットマッチングを行うStateMachineBehaviorに自身を登録する
         foreach (var smb in _animator.GetBehaviours<MatchPositionSMB>())
         {
             smb._target = this;
@@ -140,7 +140,6 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     
     private void FixedUpdate()
     {
-        
         if (_playerState.IsJumping)
         {
             _jumper.Jumping(); //ジャンプ処理
