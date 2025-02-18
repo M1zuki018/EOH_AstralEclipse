@@ -23,8 +23,7 @@ namespace PlayerSystem.State
         public bool IsGrounded { get; set; } //地面についているか
         public bool IsJumping { get; set; } //ジャンプ中か
         public bool IsCrouching { get; set; } //しゃがみ中か
-        public bool IsClimbing { get; set; } //壁のぼり中か
-        public bool IsVaulting { get; set; } //乗り越えアクション中か
+
         public bool IsGuarding { get; set; } //ガード中か
         public bool IsAttacking { get; set; } //攻撃中か
         public bool IsSteping { get; set; } //ステップ中か

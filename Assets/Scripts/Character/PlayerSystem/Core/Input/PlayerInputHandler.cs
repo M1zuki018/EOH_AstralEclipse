@@ -36,18 +36,11 @@ namespace PlayerSystem.Input
         #endregion
         
         // 以降、動作はインターフェースを介して行う
-        
+
         /// <summary>移動入力処理</summary>
         public void HandleMoveInput(Vector2 input)
         {
-            if (_state.IsClimbing) //壁のぼり中なら
-            {
-                _state.MoveDirection = new Vector3(0, input.y, input.x);
-            }
-            else //通常時
-            {
-                _state.MoveDirection = new Vector3(input.x, 0, input.y);
-            }
+            _state.MoveDirection = new Vector3(input.x, 0, input.y);
             _mover.Move();
         }
 
