@@ -5,7 +5,7 @@ using System;
 /// <summary>
 /// ステップモーションに補正をかけるクラス
 /// </summary>
-public class StepCorrection : StateMachineBehaviour
+public class StepCorrectionSMB : StateMachineBehaviour
 {
     [SerializeField, Comment("補正をはじめる時間")] private float _correctionStartTime = 0.2f;
     [SerializeField, Comment("補正を終える時間")] private float _correctionEndTime = 0.6f;

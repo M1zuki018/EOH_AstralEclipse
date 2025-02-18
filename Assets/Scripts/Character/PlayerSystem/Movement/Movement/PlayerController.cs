@@ -4,10 +4,9 @@ using PlayerSystem.ActionFunction;
 using PlayerSystem.Input;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
-using UnityEngine.Serialization;
 
 /// <summary>
-/// プレイヤーの移動機能
+/// プレイヤーの移動・空中移動などの処理を行う機能
 /// </summary>
 public class PlayerController : MonoBehaviour, IMatchTarget
 { 
@@ -62,8 +61,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     
     private void InitializeComponents()
     {
-        //インスタンスを生成
-        _mover = new PlayerMover(_characterController, Animator, _playerState, _playerCamera, GetComponent<TrailRenderer>());
+        // 移動処理を包括したクラスのインスタンスを生成
+        _mover = new PlayerControlFunction(_characterController, Animator, _playerState, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
         

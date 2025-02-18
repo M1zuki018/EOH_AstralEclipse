@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace PlayerSystem.Movement
 {
-    public class PlayerMover : IMovable, IJumpable, IWalkable
+    /// <summary>
+    /// プレイヤーの移動・ジャンプ・歩き/走りの切り替え処理を包括したクラス
+    /// </summary>
+    public class PlayerControlFunction : IMovable, IJumpable, IWalkable
     {
         private CharacterController _characterController;
         private Animator _animator;
@@ -21,7 +24,7 @@ namespace PlayerSystem.Movement
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
         
-        public PlayerMover(CharacterController characterController, Animator animator, PlayerState state, 
+        public PlayerControlFunction(CharacterController characterController, Animator animator, PlayerState state, 
             CinemachineVirtualCamera playerCamera, TrailRenderer trailRenderer)
         {
             _characterController = characterController;
