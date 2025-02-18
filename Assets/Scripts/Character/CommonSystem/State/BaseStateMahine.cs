@@ -14,7 +14,8 @@ public abstract class BaseStateMachine<TEnum, TState> where TEnum : Enum where T
     /// <summary>
     /// 初期化
     /// </summary>
-    public void Initialize(TEnum initialState) {
+    public void Initialize(TEnum initialState) 
+    {
         CurrentState.Value = initialState;
         States[initialState].Enter().Forget();
     }
@@ -22,7 +23,8 @@ public abstract class BaseStateMachine<TEnum, TState> where TEnum : Enum where T
     /// <summary>
     /// ステートを変更する
     /// </summary>
-    public void ChangeState(TEnum newState) {
+    public void ChangeState(TEnum newState)
+    {
         if (!States.ContainsKey(newState)) return;
 
         States[CurrentState.Value].Exit().Forget();
@@ -33,8 +35,10 @@ public abstract class BaseStateMachine<TEnum, TState> where TEnum : Enum where T
     /// <summary>
     /// Executeメソッドを呼び続ける
     /// </summary>
-    public void Update() {
-        if (States.ContainsKey(CurrentState.Value)) {
+    public void Update()
+    {
+        if (States.ContainsKey(CurrentState.Value)) 
+        {
             States[CurrentState.Value].Execute().Forget();
         }
     }

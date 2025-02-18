@@ -12,25 +12,53 @@ namespace PlayerSystem.State.Base
         /// <summary>
         /// ステートに入るときの処理
         /// </summary>
-        public override UniTask Enter()
+        public override async UniTask Enter()
         {
-            return UniTask.CompletedTask;
+            //TODO: 待機アニメーション再生
+            await UniTask.Yield();
         }
 
         /// <summary>
         /// 毎フレーム呼ばれる処理（状態遷移など）
         /// </summary>
-        public override UniTask Execute()
+        public override async UniTask Execute()
         {
-            return UniTask.CompletedTask;
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Idle)
+            {
+                /*
+                // 移動入力があれば Walk へ
+                if (stateMachine.Input.MoveInput.magnitude > 0)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Walk);
+                    return;
+                }
+
+                // ジャンプ入力があれば Jump へ
+                if (stateMachine.Input.JumpInput)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Jump);
+                    return;
+                }
+
+                // 攻撃入力があれば Attack へ
+                if (stateMachine.Input.AttackInput)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Attack);
+                    return;
+                }
+                */
+
+                // フレームを待つ
+                await UniTask.Yield();
+            }
         }
 
         /// <summary>
         /// ステートから出るときの処理
         /// </summary>
-        public override UniTask Exit()
+        public override async UniTask Exit()
         {
-            return UniTask.CompletedTask;
+            await UniTask.CompletedTask;
         }
     }
 

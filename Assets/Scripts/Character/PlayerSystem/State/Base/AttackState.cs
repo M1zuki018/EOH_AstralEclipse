@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 
 namespace PlayerSystem.State.Base
@@ -14,7 +15,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override UniTask Enter()
         {
-            return UniTask.CompletedTask;
+            return UniTask.Delay(TimeSpan.FromSeconds(0.5f)) // 0.5秒後にIdleへ
+                .ContinueWith(() => StateMachine.ChangeState(BaseStateEnum.Idle));
         }
 
         /// <summary>
