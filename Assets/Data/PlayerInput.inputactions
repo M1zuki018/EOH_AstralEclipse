@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Wark",
+                    "name": "Walk",
                     "type": "Button",
                     "id": "292f9264-86c0-44b1-8a2b-ea6e02248df0",
                     "expectedControlType": "Button",
@@ -358,7 +358,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Wark",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

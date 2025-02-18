@@ -7,13 +7,60 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerInputManager : MonoBehaviour
 {
-    private IPlayerInputReceiver _playerInputReceiver; //入力情報
+    private IPlayerInputReceiver _playerInputReceiver; // 入力情報
+    private PlayerInput _playerInput; // PlayerInput コンポーネント    
 
     private void Start()
     {
+        _playerInput = GetComponent<PlayerInput>();
         _playerInputReceiver = GetComponent<PlayerMovement>().PlayerInputReceiver;
+        RegisterInputActions(); // 入力の登録
     }
     
+    private void OnDestroy()
+    {
+        UnregisterInputActions(); // クリーンアップ
+    }
+
+    /// <summary>
+    /// PlayerInput の各アクションに対応するメソッドを登録
+    /// </summary>
+    private void RegisterInputActions()
+    {
+        _playerInput.actions["Fire"].performed += OnAttack;
+        _playerInput.actions["Skill1"].performed += OnSkill1;
+        _playerInput.actions["Skill2"].performed += OnSkill2;
+        _playerInput.actions["Skill3"].performed += OnSkill3;
+        _playerInput.actions["Skill4"].performed += OnSkill4;
+        _playerInput.actions["Move"].performed += OnMove;
+        _playerInput.actions["Jump"].performed += OnJump;
+        _playerInput.actions["Walk"].performed += OnWalk;
+        _playerInput.actions["Step"].performed += OnStep;
+        _playerInput.actions["Guard"].performed += OnGuard;
+        _playerInput.actions["LockOn"].performed += OnLockOn;
+        _playerInput.actions["Pause"].performed += OnPause;
+    }
+
+    /// <summary>
+    /// PlayerInput の登録を解除（OnDestroy用）
+    /// </summary>
+    private void UnregisterInputActions()
+    {
+        _playerInput.actions["Fire"].performed -= OnAttack;
+        _playerInput.actions["Skill1"].performed -= OnSkill1;
+        _playerInput.actions["Skill2"].performed -= OnSkill2;
+        _playerInput.actions["Skill3"].performed -= OnSkill3;
+        _playerInput.actions["Skill4"].performed -= OnSkill4;
+        _playerInput.actions["Move"].performed -= OnMove;
+        _playerInput.actions["Jump"].performed -= OnJump;
+        _playerInput.actions["Walk"].performed -= OnWalk;
+        _playerInput.actions["Step"].performed -= OnStep;
+        _playerInput.actions["Guard"].performed -= OnGuard;
+        _playerInput.actions["LockOn"].performed -= OnLockOn;
+        _playerInput.actions["Pause"].performed -= OnPause;
+    }
+
+
     #region 入力されたときのメソッド一覧
     
     /// <summary>攻撃処理</summary>
@@ -45,8 +92,6 @@ public class PlayerInputManager : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext context) => _playerInputReceiver.HandlePauseInput();
     
-    public void OnNone(InputAction.CallbackContext context) => Debug.Log("登録されていないボタンです");
-
     #endregion
     
     #region 入力の条件文
