@@ -37,6 +37,7 @@ public class PlayerInputManager : MonoBehaviour
         _playerInput.actions["Walk"].performed += OnWalk;
         _playerInput.actions["Step"].performed += OnStep;
         _playerInput.actions["Guard"].performed += OnGuard;
+        _playerInput.actions["Guard"].canceled += OnGuard;
         _playerInput.actions["LockOn"].performed += OnLockOn;
         _playerInput.actions["Pause"].performed += OnPause;
     }
@@ -56,6 +57,7 @@ public class PlayerInputManager : MonoBehaviour
         _playerInput.actions["Walk"].performed -= OnWalk;
         _playerInput.actions["Step"].performed -= OnStep;
         _playerInput.actions["Guard"].performed -= OnGuard;
+        _playerInput.actions["Guard"].canceled -= OnGuard;
         _playerInput.actions["LockOn"].performed -= OnLockOn;
         _playerInput.actions["Pause"].performed -= OnPause;
     }
@@ -64,7 +66,7 @@ public class PlayerInputManager : MonoBehaviour
     #region 入力されたときのメソッド一覧
     
     /// <summary>攻撃処理</summary>
-    public void OnAttack(InputAction.CallbackContext context) => HandleAttackInput(context);
+    public void OnAttack(InputAction.CallbackContext context) => _playerInputReceiver.HandleAttackInput();
 
     /// <summary>スキル処理</summary>
     public void OnSkill1(InputAction.CallbackContext context) => HandleSkillInput(context, 1); 
@@ -76,49 +78,30 @@ public class PlayerInputManager : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context) => _playerInputReceiver.HandleMoveInput(context.ReadValue<Vector2>());
 
     /// <summary>ジャンプ処理</summary>
-    public void OnJump(InputAction.CallbackContext context) => HandleJumpInput(context);
+    public void OnJump(InputAction.CallbackContext context) => _playerInputReceiver.HandleJumpInput();
     
     /// <summary>歩きと走り状態を切り替える</summary>
     public void OnWalk(InputAction.CallbackContext context) => _playerInputReceiver.HandleWalkInput();
     
     /// <summary>ステップ</summary>
-    public void OnStep(InputAction.CallbackContext context) => HandleStepInput(context);
+    public void OnStep(InputAction.CallbackContext context) => _playerInputReceiver.HandleStepInput();
     
     /// <summary>ガード状態を切り替える</summary>
     public void OnGuard(InputAction.CallbackContext context) => HandleGuardInput(context);
 
     /// <summary>ロックオン機能</summary>
-    public void OnLockOn(InputAction.CallbackContext context) => HandleLockOnInput(context);
+    public void OnLockOn(InputAction.CallbackContext context) => _playerInputReceiver.HandleLockOnInput();
 
     public void OnPause(InputAction.CallbackContext context) => _playerInputReceiver.HandlePauseInput();
     
     #endregion
     
     #region 入力の条件文
-
-    private void HandleAttackInput(InputAction.CallbackContext context)
-    {
-        if (context.performed) _playerInputReceiver.HandleAttackInput();
-    }
     
     private void HandleSkillInput(InputAction.CallbackContext context, int index)
     {
         //index で スキル1~4のどのボタンを押されたか判断する
         if (context.performed) _playerInputReceiver.HandleSkillInput(index);
-    }
-    private void HandleJumpInput(InputAction.CallbackContext context)
-    {
-        if (context.performed) _playerInputReceiver.HandleJumpInput();
-    }
-
-    private void HandleStepInput(InputAction.CallbackContext context)
-    {
-        if (context.performed) _playerInputReceiver.HandleStepInput();
-    }
-
-    private void HandleLockOnInput(InputAction.CallbackContext context)
-    {
-        if (context.performed) _playerInputReceiver.HandleLockOnInput();
     }
 
     private void HandleGuardInput(InputAction.CallbackContext context)
