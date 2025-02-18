@@ -5,43 +5,32 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// 攻撃状態
     /// </summary>
-    public class AttackState : IState
+    public class AttackState : BaseState<BaseStateEnum>
     {
+        public AttackState(PlayerStateMachine stateMachine) : base(stateMachine) { }
         
-        private readonly PlayerStateMachine _smm;
+        /// <summary>
+        /// ステートに入るときの処理
+        /// </summary>
+        public override UniTask Enter()
+        {
+            return UniTask.CompletedTask;
+        }
 
         /// <summary>
-        /// 初期化
+        /// 毎フレーム呼ばれる処理（状態遷移など）
         /// </summary>
-        public AttackState(PlayerStateMachine smm)
+        public override UniTask Execute()
         {
-            _smm = smm;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask Enter()
+        /// <summary>
+        /// ステートから出るときの処理
+        /// </summary>
+        public override UniTask Exit()
         {
-            // Idle状態に入るときの処理（例えばアニメーションの開始など）
-            _smm.SetIdleAnimation();
-            await UniTask.CompletedTask;
-        }
-
-        public async UniTask Execute()
-        {
-            // 毎フレーム呼ばれる処理（状態遷移など）
-            if (_smm.IsRunning)
-            {
-                //_smm.TransitionToState(new RunningState(_smm));  // RunningStateへの遷移
-            }
-            else if (_smm.IsAttacking)
-            {
-                //_smm.TransitionToState(new AttackState(_smm));  // AttackStateへの遷移
-            }
-            await UniTask.CompletedTask;
-        }
-
-        public async UniTask Exit()
-        {
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
     }
 

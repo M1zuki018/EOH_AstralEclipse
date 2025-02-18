@@ -5,12 +5,12 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// 待機状態
     /// </summary>
-    public class IdleState : BaseState<BaseStateEnum>, IState
+    public class IdleState : BaseState<BaseStateEnum>
     {
         public IdleState(PlayerStateMachine stateMachine) : base(stateMachine) { }
         
         /// <summary>
-        /// Idle状態に入るときの処理
+        /// ステートに入るときの処理
         /// </summary>
         public override UniTask Enter()
         {
@@ -26,7 +26,7 @@ namespace PlayerSystem.State.Base
         }
 
         /// <summary>
-        /// Idle状態から出るときの処理
+        /// ステートから出るときの処理
         /// </summary>
         public override UniTask Exit()
         {
