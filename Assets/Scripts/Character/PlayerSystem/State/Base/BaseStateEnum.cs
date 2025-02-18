@@ -1,4 +1,4 @@
-namespace PlayerSystem.State
+namespace PlayerSystem.State.Base
 {
     /// <summary>
     /// プレイヤーの基本的なステートの列挙型
