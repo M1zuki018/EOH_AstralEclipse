@@ -33,15 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Crouch",
-                    "type": "Button",
-                    "id": "22f60484-c501-4b8b-a343-b055d40464e6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Step",
                     "type": "Button",
                     "id": "119197b2-f75a-42b6-ae57-639bc3ec5799",
@@ -60,18 +51,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ParkourAction1",
+                    "name": "Action",
                     "type": "Button",
                     "id": "569f5b3c-8a62-49d9-a958-b853b058de0c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ParkourAction2",
-                    "type": "Button",
-                    "id": "e40a2f96-5e2f-4eb7-a37b-e53f1c14b9dd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -121,42 +103,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "SkillSet1",
-                    "type": "Button",
-                    "id": "003682ca-3d79-428b-ab46-9da844a4b0b2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SkillSet2",
-                    "type": "Button",
-                    "id": "4fa3016d-058a-4686-a645-d2873efa23ae",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SkillSet3",
-                    "type": "Button",
-                    "id": "ccfbc74c-3742-423c-8dbe-396131941f82",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SkillSet4",
-                    "type": "Button",
-                    "id": "ab0ab499-76b5-4859-907f-7a9cc5bb8561",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "Skill1",
@@ -275,17 +221,6 @@
                 },
                 {
                     "name": "",
-                    "id": "ab449255-ab8b-4183-a7a3-5f5c7feff663",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b598642f-f115-496b-a9bb-e3d5a7141b13",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -313,18 +248,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ParkourAction1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3d9360bc-915f-4a86-b2e5-b06c8c0dccff",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ParkourAction2",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -380,50 +304,6 @@
                     "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.3,y=0.2)",
                     "groups": "",
                     "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ef72a893-f533-48e7-b22d-336796203082",
-                    "path": "<Keyboard>/f1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SkillSet1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e8b3dcea-678a-4c18-9e6a-06d7f3fcb8ba",
-                    "path": "<Keyboard>/f2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SkillSet2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "be97a782-73ac-4f74-8ddd-713ac8faeed6",
-                    "path": "<Keyboard>/f3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SkillSet3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "77c7aa99-01fd-4b0e-b0d0-2460c4566097",
-                    "path": "<Keyboard>/f4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SkillSet4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
