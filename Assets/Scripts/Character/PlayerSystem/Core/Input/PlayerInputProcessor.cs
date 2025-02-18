@@ -5,6 +5,9 @@ using PlayerSystem.State;
 
 namespace PlayerSystem.Input
 {
+    /// <summary>
+    /// プレイヤーの各入力ごとに呼び出す処理をまとめているクラス
+    /// </summary>
     public class PlayerInputProcessor : IPlayerInputReceiver
     {
         #region フィールドと初期化

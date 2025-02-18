@@ -12,7 +12,7 @@ public class StepFunction : MonoBehaviour, ISteppable
     [SerializeField, Comment("ステップの最大数")] private int _maxSteps = 10;
     [SerializeField, Comment("回復間隔（秒）")] private float _recoveryTime = 5f;
     private int _currentSteps; // 現在のステップ数
-    private PlayerMovement _playerMovement;
+    private PlayerController _playerController;
 
     public int CurrentSteps => _currentSteps; //現在のステップ数（読み取り専用）
     public int MaxSteps => _maxSteps; //最大ステップ数（読み取り専用）
@@ -21,7 +21,7 @@ public class StepFunction : MonoBehaviour, ISteppable
 
     private void Start()
     {
-        _playerMovement = GetComponent<PlayerMovement>(); //Animator,State取得用
+        _playerController = GetComponent<PlayerController>(); //Animator,State取得用
         
         OnStep += HandleStep;
         
@@ -66,7 +66,7 @@ public class StepFunction : MonoBehaviour, ISteppable
         UIManager.Instance?.UpdateStepCount(_currentSteps);
         
         //ステップアニメーションをトリガーする
-        _playerMovement._animator.SetTrigger("Step");
+        _playerController.Animator.SetTrigger("Step");
     }
     
     /// <summary>

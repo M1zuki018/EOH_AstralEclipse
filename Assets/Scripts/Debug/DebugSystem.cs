@@ -123,8 +123,8 @@ public class DebugSystem : MonoBehaviour
 
     private void ActionTest()
     {
-        PlayerMovement playerMovement = _player.gameObject.GetComponent<PlayerMovement>();
-        playerMovement.PlayerState.DebugMode = true;
+        PlayerController playerController = _player.gameObject.GetComponent<PlayerController>();
+        playerController.PlayerState.DebugMode = true;
     }
 
     /// <summary>

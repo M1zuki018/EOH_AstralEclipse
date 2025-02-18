@@ -1,28 +1,32 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.Input;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// プレイヤーの移動機能
 /// </summary>
-public class PlayerMovement : MonoBehaviour, IMatchTarget
+public class PlayerController : MonoBehaviour, IMatchTarget
 { 
     [Header("コンポーネント")]
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerTransform; // プレイヤーのTransform
-    [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ（任意のカメラ）
-    [ReadOnlyOnRuntime] public Animator _animator;
+    [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ
     [SerializeField][ReadOnlyOnRuntime] private CharacterController _characterController;
     
-    private IPlayerInputReceiver _playerInputReceiver; //入力情報
+    // Animator
+    [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
+    public Animator Animator => _animator;
+    
+    // 入力情報
+    private IPlayerInputReceiver _playerInputReceiver;
     public IPlayerInputReceiver PlayerInputReceiver => _playerInputReceiver;
     
+    // プレイヤーの状態
     private PlayerState _playerState;
-    public PlayerState PlayerState => _playerState; //公開
+    public PlayerState PlayerState => _playerState;
 
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
@@ -42,10 +46,10 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         InitializeComponents();
         
         TryGetComponent(out _collider);
-        _animator.keepAnimatorStateOnDisable = true;
+        Animator.keepAnimatorStateOnDisable = true;
         
         // ターゲットマッチングを行うStateMachineBehaviorに自身を登録する
-        foreach (var smb in _animator.GetBehaviours<MatchPositionSMB>())
+        foreach (var smb in Animator.GetBehaviours<MatchPositionSMB>())
         {
             smb._target = this;
         }
@@ -59,15 +63,16 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     private void InitializeComponents()
     {
         //インスタンスを生成
-        _mover = new PlayerMover(_characterController, _animator, _playerState, _playerCamera, GetComponent<TrailRenderer>());
+        _mover = new PlayerMover(_characterController, Animator, _playerState, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
         
-        _playerInputReceiver = new PlayerInputProcessor(_playerState, _mover, _jumper, _walker,
+        // 入力情報のインスタンスを生成
+        _playerInputReceiver = new PlayerInputProcessor(_playerState, _mover, _jumper, _walker, 
             GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
             GetComponent<PlayerCombat>());
         
-        _animator.applyRootMotion = true; //ルートモーションを有効化
+        Animator.applyRootMotion = true; //ルートモーションを有効化
     }
     
     private void FixedUpdate()
@@ -95,8 +100,8 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
         {
             _playerState.IsJumping = false;
             _playerState.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
-            _animator.SetBool("IsJumping", false);
-            _animator.applyRootMotion = true;
+            Animator.SetBool("IsJumping", false);
+            Animator.applyRootMotion = true;
         }
     }
 
@@ -105,7 +110,7 @@ public class PlayerMovement : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleFalling()
     {
-        _animator.SetBool("IsGround", _playerState.IsGrounded);
+        Animator.SetBool("IsGround", _playerState.IsGrounded);
         /*
         //接地判定はfalseだが、落下中と判定しない例外
         //ジャンプ中/壁登り中/乗り越え中

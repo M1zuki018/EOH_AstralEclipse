@@ -13,7 +13,7 @@ public class PlayerInputManager : MonoBehaviour
     private void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
-        _iPlayerInputReceiver = GetComponent<PlayerMovement>().PlayerInputReceiver;
+        _iPlayerInputReceiver = GetComponent<PlayerController>().PlayerInputReceiver;
         RegisterInputActions(); // 入力の登録
     }
     
