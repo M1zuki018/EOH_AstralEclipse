@@ -1,5 +1,5 @@
 using Cysharp.Threading.Tasks;
-using UnityEngine;
+using PlayerSystem.State;
 
 /// <summary>
 /// ステートマシンを管理するクラス
@@ -7,11 +7,11 @@ using UnityEngine;
 public class StateMachine
 {
     private IState _currentState;
-    private readonly CharacterController _controller;
+    private readonly StateMachineManager _smm;
 
-    public StateMachine(CharacterController controller)
+    public StateMachine(StateMachineManager smm)
     {
-        _controller = controller;
+        _smm = smm;
     }
 
     /// <summary>
