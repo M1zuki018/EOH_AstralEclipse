@@ -6,7 +6,7 @@ using PlayerSystem.State;
 
 namespace PlayerSystem.Input
 {
-    public class PlayerInputHandler : IInputHandler
+    public class PlayerInputProcessor : IPlayerInputReceiver
     {
         #region フィールドと初期化
         
@@ -20,7 +20,7 @@ namespace PlayerSystem.Input
         private readonly ILockOnable _locker; //ロックオン
         private readonly PlayerCombat _combat; //アクション
 
-        public PlayerInputHandler(PlayerMovement playerMovement, PlayerState state, IMovable mover, IJumpable jumper, 
+        public PlayerInputProcessor(PlayerMovement playerMovement, PlayerState state, IMovable mover, IJumpable jumper, 
             IWalkable walker, ISteppable steppable, IGaudeable gauder, ILockOnable locker, PlayerCombat combat)
         {
             _playerMovement = playerMovement;

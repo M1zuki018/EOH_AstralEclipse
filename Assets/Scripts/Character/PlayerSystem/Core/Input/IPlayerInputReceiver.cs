@@ -5,7 +5,7 @@ namespace PlayerSystem.Input
     /// <summary>
     /// 入力処理を管理するインターフェース
     /// </summary>
-    public interface IInputHandler
+    public interface IPlayerInputReceiver
     {
         #region 基本動作（PlayerSystem.Movement）
         void HandleMoveInput(Vector2 input);
