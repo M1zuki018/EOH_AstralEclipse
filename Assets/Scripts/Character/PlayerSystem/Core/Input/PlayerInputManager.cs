@@ -60,7 +60,6 @@ namespace PlayerSystem.Input
             _playerInput.actions["Skill3"].performed -= OnSkill3;
             _playerInput.actions["Skill4"].performed -= OnSkill4;
             _playerInput.actions["Move"].started -= OnMove;
-            _playerInput.actions["Move"].started -= OnMove;
             _playerInput.actions["Move"].performed -= OnMove;
             _playerInput.actions["Move"].canceled -= OnMove;
             _playerInput.actions["Guard"].performed -= OnGuard;
