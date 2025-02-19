@@ -14,7 +14,7 @@ public abstract class BaseStateMachine<TEnum, TState> where TEnum : Enum where T
     /// <summary>
     /// 初期化
     /// </summary>
-    public void Initialize(TEnum initialState) 
+    protected void Initialize(TEnum initialState) 
     {
         CurrentState.Value = initialState;
         States[initialState].Enter().Forget();

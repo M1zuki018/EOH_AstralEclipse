@@ -51,6 +51,11 @@ public class PlayerBrain : CharacterBase
         GameManager.Instance.OnPlay += StartPerformance;
     }
 
+    private void Update()
+    {
+        _playerStateMachine.Update();
+    }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();

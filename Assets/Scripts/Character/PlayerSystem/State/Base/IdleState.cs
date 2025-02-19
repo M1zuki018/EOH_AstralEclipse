@@ -29,6 +29,7 @@ namespace PlayerSystem.State.Base
             //TODO: アニメーション再生
 
             Debug.Log("Idle entered");
+            Debug.Log(BlackBoard != null ? "nullじゃない": "null");
             
             _onJump = () => _isJumping = true;
             _onAttack = () => _isAttacking = true;
@@ -46,6 +47,7 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
+            Debug.Log("Idle execute");
             while (StateMachine.CurrentState.Value == BaseStateEnum.Idle)
             {
                 // 移動入力があれば Move へ
