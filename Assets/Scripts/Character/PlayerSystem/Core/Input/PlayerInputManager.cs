@@ -1,3 +1,4 @@
+using PlayerSystem.State;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,13 +9,16 @@ namespace PlayerSystem.Input
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
-        private IPlayerInputReceiver _iPlayerInputReceiver; // 入力情報
-        private PlayerInput _playerInput; // PlayerInput コンポーネント    
+        private PlayerInput _playerInput; // PlayerInput コンポーネント
+        
+        // 入力情報
+        private IPlayerInputReceiver _iPlayerInputReceiver; 
+        public IPlayerInputReceiver IPlayerInputReceiver => _iPlayerInputReceiver;
 
         private void Start()
         {
             _playerInput = GetComponent<PlayerInput>();
-            _iPlayerInputReceiver = GetComponent<PlayerController>().PlayerInputReceiver;
+            _iPlayerInputReceiver = new PlayerInputProcessor(GetComponent<PlayerBrain>().BB);
             RegisterInputActions(); // 入力の登録
         }
 

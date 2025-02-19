@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using PlayerSystem.State;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,8 @@ public class PlayerBrain : CharacterBase
 {
     private PlayerController _playerController;
     private PlayerInput _playerInput;
+    private PlayerBlackBoard _playerBlackBoard;
+    public PlayerBlackBoard BB => _playerBlackBoard;
     
     //Idleモーション再生のための変数
     [SerializeField] private float _idleThreshold = 5f; //無操作とみなす秒数
@@ -27,6 +30,7 @@ public class PlayerBrain : CharacterBase
     {
         _playerController = GetComponent<PlayerController>(); //Animator、State取得用
         _playerInput = GetComponent<PlayerInput>();
+        _playerBlackBoard = new PlayerBlackBoard();
 
         _playerInput.DeactivateInput(); //入力を受け付けない
         CameraManager.Instance.UseCamera(3); //プレイヤー正面のカメラを使う

@@ -19,10 +19,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
     public Animator Animator => _animator;
     
-    // 入力情報
-    private IPlayerInputReceiver _playerInputReceiver;
-    public IPlayerInputReceiver PlayerInputReceiver => _playerInputReceiver;
-    
     // プレイヤーの状態
     private PlayerBlackBoard _playerBlackBoard;
     public PlayerBlackBoard PlayerBlackBoard => _playerBlackBoard;
@@ -65,12 +61,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _mover = new PlayerControlFunction(_characterController, Animator, _playerBlackBoard, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
-        /*
-        // 入力情報のインスタンスを生成
-        _playerInputReceiver = new PlayerInputProcessor(_playerBlackBoard, _mover, _jumper, _walker, 
-            GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
-            GetComponent<PlayerCombat>());
-        */
+        
         Animator.applyRootMotion = true; //ルートモーションを有効化
     }
     

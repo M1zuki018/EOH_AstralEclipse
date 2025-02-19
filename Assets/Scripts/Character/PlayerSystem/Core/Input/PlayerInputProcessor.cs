@@ -15,18 +15,13 @@ namespace PlayerSystem.Input
     {
         #region フィールドと初期化
 
-        private readonly PlayerStateMachine _stateMachine;
-        private readonly PlayerActionHandler _actionHandler;
         private readonly PlayerBlackBoard _blackBoard;
 
         /// <summary>
         /// 初期化
         /// </summary>
-        public PlayerInputProcessor(PlayerStateMachine stateMachine, PlayerActionHandler actionHandler,
-            PlayerBlackBoard blackBoard)
+        public PlayerInputProcessor(PlayerBlackBoard blackBoard)
         {
-            _stateMachine = stateMachine;
-            _actionHandler = actionHandler;
             _blackBoard = blackBoard;
         }
 
