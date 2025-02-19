@@ -45,7 +45,7 @@ namespace PlayerSystem.State.Base
         public override async UniTask Execute()
         {
 
-            while (StateMachine.CurrentState.Value == BaseStateEnum.Idle)
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Move)
             {
                 // 移動入力がなくなれば Idle へ
                 if (BlackBoard.MoveDirection.magnitude == 0)
@@ -82,7 +82,7 @@ namespace PlayerSystem.State.Base
         /// <summary>
         /// ステートから出るときの処理
         /// </summary>
-        public override  async UniTask Exit()
+        public override async UniTask Exit()
         {
             // 状態をリセット
             _isJumping = false;
