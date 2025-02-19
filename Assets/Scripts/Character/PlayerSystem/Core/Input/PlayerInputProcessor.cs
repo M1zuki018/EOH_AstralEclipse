@@ -15,14 +15,14 @@ namespace PlayerSystem.Input
     {
         #region フィールドと初期化
 
-        private readonly PlayerBlackBoard _blackBoard;
+        public PlayerBlackBoard BlackBoard { get; private set; }
 
         /// <summary>
         /// 初期化
         /// </summary>
         public PlayerInputProcessor(PlayerBlackBoard blackBoard)
         {
-            _blackBoard = blackBoard;
+            BlackBoard = blackBoard;
         }
 
         #endregion
@@ -41,7 +41,7 @@ namespace PlayerSystem.Input
         /// <summary>移動入力処理</summary>
         public void HandleMoveInput(Vector2 input)
         {
-            _blackBoard.MoveDirection = new Vector3(input.x, 0, input.y);
+            BlackBoard.MoveDirection = new Vector3(input.x, 0, input.y);
             //_actionHandler.Move();
         }
 

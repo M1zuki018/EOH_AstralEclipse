@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace PlayerSystem.State.Base
 {
@@ -27,6 +28,8 @@ namespace PlayerSystem.State.Base
         {
             //TODO: アニメーション再生
 
+            Debug.Log("Idle entered");
+            
             _onJump = () => _isJumping = true;
             _onAttack = () => _isAttacking = true;
             _onGuard = () => _isGuard = true;

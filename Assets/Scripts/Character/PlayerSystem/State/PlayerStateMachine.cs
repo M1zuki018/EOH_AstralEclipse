@@ -1,5 +1,6 @@
 using PlayerSystem.Input;
 using PlayerSystem.State.Base;
+using UnityEngine;
 
 namespace PlayerSystem.State
 {
@@ -21,6 +22,8 @@ namespace PlayerSystem.State
         /// </summary>
         public PlayerStateMachine(PlayerInputProcessor inputProcessor, PlayerBlackBoard blackboard, PlayerActionHandler actionHandler) 
         {
+            Debug.Log("初期化");
+            Debug.Log(inputProcessor != null ? "nullじゃない": "null");
             _inputProcessor = inputProcessor;
             _blackboard = blackboard;
             _actionHandler = actionHandler;
@@ -36,6 +39,8 @@ namespace PlayerSystem.State
             States[BaseStateEnum.Hit] = new HitState(this);
             States[BaseStateEnum.Dead] = new DeadState(this);
             States[BaseStateEnum.Performance] = new PerformanceState(this);
+            
+            Initialize(BaseStateEnum.Idle); // 初期化処理
         }
     }
 }

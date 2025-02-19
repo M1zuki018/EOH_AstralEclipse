@@ -15,7 +15,7 @@ namespace PlayerSystem.Input
         private IPlayerInputReceiver _iPlayerInputReceiver; 
         public IPlayerInputReceiver IPlayerInputReceiver => _iPlayerInputReceiver;
 
-        private void Start()
+        private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
             _iPlayerInputReceiver = new PlayerInputProcessor(GetComponent<PlayerBrain>().BB);

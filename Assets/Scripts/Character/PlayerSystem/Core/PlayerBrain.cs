@@ -29,12 +29,17 @@ public class PlayerBrain : CharacterBase
     [SerializeField, HighlightIfNull] private List<InputActionReference> _moveActions; //InputSystemのアクション参照
     [SerializeField, HighlightIfNull] private InputActionReference _lookAction; //カメラ操作のアクション参照
     private Subject<Unit> _inputDetected = new Subject<Unit>();
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _playerBlackBoard = new PlayerBlackBoard();
+    }
     
     private void Start()
     {
         _playerController = GetComponent<PlayerController>(); //Animator、State取得用
         _playerInput = GetComponent<PlayerInput>();
-        _playerBlackBoard = new PlayerBlackBoard();
         _playerStateMachine = new PlayerStateMachine(
             inputProcessor: GetComponent<PlayerSystem.Input.PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
             blackboard: _playerBlackBoard,
