@@ -32,10 +32,10 @@ namespace PlayerSystem.State.Base
         {
             while (StateMachine.CurrentState.Value == BaseStateEnum.Idle)
             {
-                // 移動入力があれば Walk へ
+                // 移動入力があれば Move へ
                 if (BlackBoard.MoveDirection.magnitude > 0)
                 {
-                    StateMachine.ChangeState(BaseStateEnum.Walk);
+                    StateMachine.ChangeState(BaseStateEnum.Move);
                     return;
                 }
 

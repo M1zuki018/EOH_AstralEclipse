@@ -3,11 +3,11 @@ using Cysharp.Threading.Tasks;
 namespace PlayerSystem.State.Base
 {
     /// <summary>
-    /// 走り状態
+    /// 移動状態
     /// </summary>
-    public class RunState : BaseState<BaseStateEnum>
+    public class MoveState : BaseState<BaseStateEnum>
     {
-        public RunState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public MoveState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理

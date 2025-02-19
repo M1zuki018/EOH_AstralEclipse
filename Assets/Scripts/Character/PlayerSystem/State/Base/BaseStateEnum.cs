@@ -7,8 +7,7 @@ namespace PlayerSystem.State.Base
     {
         Default,
         Idle, // 待機
-        Walk, // 歩き状態
-        Run, // 走り状態
+        Move, // 移動状態
         Jump, // ジャンプ
         Step, // 回避
         Guard, // ガード

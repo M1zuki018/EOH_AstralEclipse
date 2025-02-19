@@ -26,8 +26,7 @@ namespace PlayerSystem.State
             _actionHandler = actionHandler;
             
             States[BaseStateEnum.Idle] = new IdleState(this);
-            States[BaseStateEnum.Walk] = new WalkState(this);
-            States[BaseStateEnum.Run] = new RunState(this);
+            States[BaseStateEnum.Move] = new MoveState(this);
             States[BaseStateEnum.Jump] = new JumpState(this);
             States[BaseStateEnum.Step] = new StepState(this);
             States[BaseStateEnum.Guard] = new GuardState(this);
