@@ -13,13 +13,13 @@ namespace PlayerSystem.State.Base
     public class IdleState : BaseState<BaseStateEnum>
     {
         public IdleState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        
         private PlayerInputProcessor _inputProcessor;
-        private PlayerActionHandler _actionHandler;
         private PlayerBlackBoard _blackboard;
+        private PlayerActionHandler _actionHandler;
         
         private bool _isJumping = false;
         private bool _isAttacking = false;
-        
         
         /// <summary>
         /// ステートに入るときの処理

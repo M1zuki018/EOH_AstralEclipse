@@ -8,13 +8,23 @@ namespace PlayerSystem.State
     /// </summary>
     public class PlayerStateMachine : BaseStateMachine<BaseStateEnum, IState>
     {
-        PlayerActionHandler playerActionHandler;
+        private readonly PlayerInputProcessor _inputProcessor;
+        private readonly PlayerBlackBoard _blackboard;
+        private readonly PlayerActionHandler _actionHandler;
+        
+        public PlayerInputProcessor InputProcessor => _inputProcessor;
+        public PlayerBlackBoard BlackBoard => _blackboard;
+        public PlayerActionHandler ActionHandler => _actionHandler;
         
         /// <summary>
         /// 初期化（enumとIStateのペアを辞書に登録する）
         /// </summary>
-        public PlayerStateMachine() 
+        public PlayerStateMachine(PlayerInputProcessor inputProcessor, PlayerBlackBoard blackboard, PlayerActionHandler actionHandler) 
         {
+            _inputProcessor = inputProcessor;
+            _blackboard = blackboard;
+            _actionHandler = actionHandler;
+            
             States[BaseStateEnum.Idle] = new IdleState(this);
             States[BaseStateEnum.Walk] = new WalkState(this);
             States[BaseStateEnum.Run] = new RunState(this);
