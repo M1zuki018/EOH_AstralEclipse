@@ -5,11 +5,9 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// カウンター受付状態
     /// </summary>
-    public class CounterState : BaseState<BaseStateEnum>
+    public class CounterState : PlayerBaseState<BaseStateEnum>
     {
-        public CounterState(PlayerStateMachine stateMachine) : base(stateMachine)
-        {
-        }
+        public CounterState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
@@ -24,7 +22,10 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            await UniTask.Yield();
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Counter)
+            {
+                await UniTask.Yield();
+            }
         }
 
         /// <summary>

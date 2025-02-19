@@ -5,9 +5,9 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// 演出状態
     /// </summary>
-    public class PerformanceState : BaseState<BaseStateEnum>
+    public class PerformanceState : PlayerBaseState<BaseStateEnum>
     {
-        public PerformanceState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public PerformanceState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
@@ -22,7 +22,10 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            await UniTask.Yield();
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Performance)
+            {   
+                await UniTask.Yield();
+            }
         }
 
         /// <summary>

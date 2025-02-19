@@ -5,9 +5,9 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// パリィ状態
     /// </summary>
-    public class ParryState : BaseState<BaseStateEnum>
+    public class ParryState : PlayerBaseState<BaseStateEnum>
     {
-        public ParryState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public ParryState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
@@ -22,7 +22,10 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            await UniTask.Yield();
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Parry)
+            {
+                await UniTask.Yield();
+            }
         }
 
         /// <summary>

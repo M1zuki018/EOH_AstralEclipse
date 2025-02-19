@@ -6,9 +6,9 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// 死亡状態
     /// </summary>
-    public class DeadState : BaseState<BaseStateEnum>
+    public class DeadState : PlayerBaseState<BaseStateEnum>
     {
-        public DeadState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public DeadState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
@@ -23,7 +23,10 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            await UniTask.Yield();
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Dead)
+            {
+                await UniTask.Yield();
+            }
         }
 
         /// <summary>

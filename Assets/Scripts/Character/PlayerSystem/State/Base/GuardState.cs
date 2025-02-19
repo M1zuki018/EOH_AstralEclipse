@@ -5,9 +5,9 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// ガード状態
     /// </summary>
-    public class GuardState : BaseState<BaseStateEnum>
+    public class GuardState : PlayerBaseState<BaseStateEnum>
     {
-        public GuardState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public GuardState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
@@ -22,7 +22,10 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            await UniTask.Yield();
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Guard)
+            {
+                await UniTask.Yield();
+            }
         }
 
         /// <summary>

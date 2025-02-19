@@ -5,9 +5,9 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// 被ダメ状態
     /// </summary>
-    public class HitState : BaseState<BaseStateEnum>
+    public class HitState : PlayerBaseState<BaseStateEnum>
     {
-        public HitState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public HitState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
@@ -22,7 +22,10 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            await UniTask.Yield();
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Hit)
+            {
+                await UniTask.Yield();
+            }
         }
 
         /// <summary>
