@@ -7,7 +7,7 @@ using UniRx;
 using UnityEngine;
 
 /// <summary>
-/// ロックオン機能
+/// ロックオン機能を提供する
 /// </summary>
 public class LockOnFunction : MonoBehaviour, ILockOnable
 {

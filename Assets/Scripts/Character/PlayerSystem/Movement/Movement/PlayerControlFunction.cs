@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace PlayerSystem.Movement
 {
-    public class PlayerMover : IMovable, IJumpable, IWalkable, ICrouchable
+    /// <summary>
+    /// プレイヤーの移動・ジャンプ・歩き/走りの切り替え処理を包括したクラス
+    /// </summary>
+    public class PlayerControlFunction : IMovable, IJumpable, IWalkable
     {
         private CharacterController _characterController;
         private Animator _animator;
@@ -21,7 +24,7 @@ namespace PlayerSystem.Movement
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
         
-        public PlayerMover(CharacterController characterController, Animator animator, PlayerState state, 
+        public PlayerControlFunction(CharacterController characterController, Animator animator, PlayerState state, 
             CinemachineVirtualCamera playerCamera, TrailRenderer trailRenderer)
         {
             _characterController = characterController;
@@ -74,32 +77,10 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Walk()
         {
-            if (!_state.IsClimbing) //壁のぼり中以外
-            {
-                _state.IsWalking = !_state.IsWalking;
-                _state.MoveSpeed = _state.IsWalking ? _walkSpeed : _runSpeed;
-            }
-            else
-            {
-                _state.MoveSpeed = _climbSpeed; //壁を登っている時は、moveSpeedに壁のぼりの速度を代入する
-            }
+            _state.IsWalking = !_state.IsWalking;
+            _state.MoveSpeed = _state.IsWalking ? _walkSpeed : _runSpeed;
         }
 
-        /// <summary>
-        /// しゃがみ機能の実装
-        /// </summary>
-        public void Crouch(bool input)
-        {
-            if (input) //ボタンが押されたとき
-            {
-                _state.IsCrouching = true;
-            }
-            else //ボタンが離されたとき
-            {
-                _state.IsCrouching = false;
-            }
-        }
-        
         /// <summary>
         /// 入力に基づいて移動処理を行う
         /// </summary>

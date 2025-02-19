@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class RespawnEvent : MonoBehaviour
 {
     [Header("設定")]
-    [SerializeField, HighlightIfNull] private PlayerMovement _player;
+    [SerializeField, HighlightIfNull] private PlayerController _player;
     [SerializeField, Comment("フェードの長さ（単位はミリ秒）")] private int _fadeTime = 1500;
     [SerializeField, Comment("暗転の長さ（単位はミリ秒）")] private int _blackOutTime = 500;
     
@@ -57,13 +57,13 @@ public class RespawnEvent : MonoBehaviour
         CameraManager.Instance.UseCamera(0);
         _playerInput.DeactivateInput(); //全ての入力を無効化
         
-        _player._animator.applyRootMotion = false; //一時的にルートモーション・CharacterControllerを無効化する
+        _player.Animator.applyRootMotion = false; //一時的にルートモーション・CharacterControllerを無効化する
         _playerController.enabled = false;
         
         _player.gameObject.transform.position = _respawnPosition; //初期状態に戻す
         _player.gameObject.transform.rotation = _respawnRotation;
         
-        _player._animator.applyRootMotion = true; //有効に戻す
+        _player.Animator.applyRootMotion = true; //有効に戻す
         _playerController.enabled = true;
         
         _system.MonitorFall(); //再度落下の監視を行う

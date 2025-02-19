@@ -47,7 +47,7 @@ public class Door : InteractableItemBase
     {
         Destroy(gameObject.transform.parent.gameObject);
         _inventory.UseKey(); //目標更新
-        _player.TryGetComponent(out PlayerMovement playerMovement);
+        _player.TryGetComponent(out PlayerController playerMovement);
         playerMovement.PlayerState.IsBossBattle = true; //ステートを更新
         ReadyForBattleChecker battleChecker = _player.GetComponentInChildren<ReadyForBattleChecker>();
         AudioManager.Instance.FadeIn(AudioType.BGM); //フェードイン
