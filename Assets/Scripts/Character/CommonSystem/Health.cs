@@ -33,7 +33,7 @@ public class Health : MonoBehaviour, IHealth
 
         if (this.gameObject.CompareTag("Player"))
         {
-            TryGetComponent(out PlayerMovement movement);
+            TryGetComponent(out PlayerController movement);
             if(movement.PlayerState.IsSteping) return; //ステップ中の場合、ダメージを受けない
         }
         

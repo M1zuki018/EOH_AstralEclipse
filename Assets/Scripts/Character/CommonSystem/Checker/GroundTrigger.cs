@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 足元が地面/壁か判定する
@@ -8,7 +9,7 @@ public class GroundTrigger : MonoBehaviour
     [SerializeField] private float _rayLength = 1f; // Rayの長さ
     [SerializeField] private float _rayOffset; // Rayをどれくらい身体にめり込ませるか
     [SerializeField] private LayerMask _layerMask = default; // Rayの判定に用いるLayer
-    [SerializeField] PlayerMovement _playerMovement;
+    [FormerlySerializedAs("_playerMovement")] [SerializeField] PlayerController playerController;
     private RaycastHit _hit;
     
     private void FixedUpdate()
@@ -28,18 +29,18 @@ public class GroundTrigger : MonoBehaviour
         {
             if (_hit.collider.gameObject.CompareTag("Ground") || _hit.collider.gameObject.CompareTag("JumpObject"))
             {
-                _playerMovement.PlayerState.IsGrounded = true;
+                playerController.PlayerState.IsGrounded = true;
                 //_playerMovement.PlayerState.IsClimbing = false;
             }
             else if (_hit.collider.gameObject.CompareTag("Wall"))
             {
                 //_playerMovement.IsWall = true;
-                _playerMovement.PlayerState.IsGrounded = false;
+                playerController.PlayerState.IsGrounded = false;
             }
         }
         else
         {
-            _playerMovement.PlayerState.IsGrounded = false;
+            playerController.PlayerState.IsGrounded = false;
             //_playerMovement.IsWall = false;
         }
     }

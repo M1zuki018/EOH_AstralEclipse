@@ -10,11 +10,11 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// プレイヤーの中心となるクラス（体力・死亡管理）
 /// </summary>
-[RequireComponent(typeof(PlayerMovement), typeof(Health), typeof(PlayerCombat))]
+[RequireComponent(typeof(PlayerController), typeof(Health), typeof(PlayerCombat))]
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerBrain : CharacterBase
 {
-    private PlayerMovement _playerMovement;
+    private PlayerController _playerController;
     private PlayerInput _playerInput;
     
     //Idleモーション再生のための変数
@@ -25,7 +25,7 @@ public class PlayerBrain : CharacterBase
     
     private void Start()
     {
-        _playerMovement = GetComponent<PlayerMovement>(); //Animator、State取得用
+        _playerController = GetComponent<PlayerController>(); //Animator、State取得用
         _playerInput = GetComponent<PlayerInput>();
 
         _playerInput.DeactivateInput(); //入力を受け付けない
@@ -45,7 +45,7 @@ public class PlayerBrain : CharacterBase
     /// </summary>
     private async void StartPerformance()
     {
-        if (!_playerMovement.PlayerState.DebugMode)
+        if (!_playerController.PlayerState.DebugMode)
         {
             _playerInput.DeactivateInput();
             UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());   
@@ -66,12 +66,12 @@ public class PlayerBrain : CharacterBase
             await UniTask.Delay(1200);
         
             UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
-            _moveActions[1].action.Enable(); //有効化
+            _moveActions[0].action.Enable(); //有効化
         
             // ボタンが押されたら入力を有効化
             Observable.FromEvent<InputAction.CallbackContext>(
-                    h => _moveActions[1].action.performed += h,
-                    h => _moveActions[1].action.performed -= h)
+                    h => _moveActions[0].action.performed += h,
+                    h => _moveActions[0].action.performed -= h)
                 .Take(1) // 最初の1回だけ
                 .Subscribe(GameStart)
                 .AddTo(this);
@@ -110,7 +110,7 @@ public class PlayerBrain : CharacterBase
             .Subscribe(_ =>
             {
                 _inputDetected.OnNext(Unit.Default); // 入力があった時、通知を行う
-                _playerMovement._animator.SetBool("BackToIdle", true); //Idleモーションを中断
+                _playerController.Animator.SetBool("BackToIdle", true); //Idleモーションを中断
             })
             .AddTo(this);
     }
@@ -121,9 +121,9 @@ public class PlayerBrain : CharacterBase
     private void PlayRandomIdleMotion()
     {
         int rand = Random.Range(0, 2); //モーションの抽選
-        _playerMovement._animator.SetBool("BackToIdle", false); //falseに戻しておく
-        _playerMovement._animator.SetInteger("IdleType", rand);
-        _playerMovement._animator.SetTrigger("PlayIdle");
+        _playerController.Animator.SetBool("BackToIdle", false); //falseに戻しておく
+        _playerController.Animator.SetInteger("IdleType", rand);
+        _playerController.Animator.SetTrigger("PlayIdle");
     }
 
     protected override void HandleDamage(int damage, GameObject attacker)
@@ -137,13 +137,13 @@ public class PlayerBrain : CharacterBase
         if (!_health.IsDead)
         {
             //死亡していないときだけダメージアニメーションをトリガー
-            _playerMovement._animator.SetTrigger("Damage");
+            _playerController.Animator.SetTrigger("Damage");
         }
     }
 
     protected override async void HandleDeath(GameObject attacker)
     {
-        _playerMovement._animator.SetTrigger("IsDeath");
+        _playerController.Animator.SetTrigger("IsDeath");
         _playerInput.DeactivateInput(); //入力制限
         //TODO:死亡エフェクト等の処理
 

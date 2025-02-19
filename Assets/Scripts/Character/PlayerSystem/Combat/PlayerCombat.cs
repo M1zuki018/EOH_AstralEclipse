@@ -10,7 +10,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public int BaseAttackPower { get; private set; } = 10; //攻撃力
     public int TP { get; private set; } = 100; //TP
     public AttackHitDetector Detector { get; private set; }
-    private PlayerMovement _playerMovement;
+    private PlayerController _playerController;
     private DamageHandler _damageHandler;
     private ReadyForBattleChecker _battleChecker;
     [SerializeField] private SkillSO _skillSet;
@@ -28,12 +28,12 @@ public class PlayerCombat : MonoBehaviour, ICombat
     private void Start()
     {
         //コンポーネントを取得する
-        _playerMovement = GetComponent<PlayerMovement>();
+        _playerController = GetComponent<PlayerController>();
         _damageHandler = new DamageHandler();
         Detector = GetComponentInChildren<AttackHitDetector>();
         _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから取得。臨戦状態の判定
         
-        if(!_playerMovement.PlayerState.DebugMode) _weaponObj.SetActive(false);
+        if(!_playerController.PlayerState.DebugMode) _weaponObj.SetActive(false);
         
         UIManager.Instance?.HideLockOnUI();
         UIManager.Instance?.HidePlayerBattleUI();
@@ -56,14 +56,14 @@ public class PlayerCombat : MonoBehaviour, ICombat
         //まだ武器を構えていなかったら、以降の処理を行う
         if (!_weaponObj.activeSelf) 
         {
-            _playerMovement._animator.SetTrigger("ReadyForBattle");
+            _playerController.Animator.SetTrigger("ReadyForBattle");
             _weaponObj.SetActive(true); //武器のオブジェクトを表示する
             AudioManager.Instance.PlaySE(2);
             UIManager.Instance?.ShowPlayerBattleUI();
         }
         
         //ボス戦の場合に行う処理
-        if (_playerMovement.PlayerState.IsBossBattle)
+        if (_playerController.PlayerState.IsBossBattle)
         {
             return;
         }
@@ -80,7 +80,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleRescission(EnemyBrain brain)
     {
-        if (_playerMovement.PlayerState.IsBossBattle)
+        if (_playerController.PlayerState.IsBossBattle)
         {
             return; //ボス戦中は臨戦状態の解除を行わない。常に臨戦状態にする
         }
@@ -106,10 +106,10 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public void Attack()
     {
         //臨戦状態/ボス戦中/デバッグモードの場合攻撃可能とする
-        if (_battleChecker.ReadyForBattle || _playerMovement.PlayerState.IsBossBattle || _playerMovement.PlayerState.DebugMode)
+        if (_battleChecker.ReadyForBattle || _playerController.PlayerState.IsBossBattle || _playerController.PlayerState.DebugMode)
         {
-            _playerMovement.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
-            _playerMovement._animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+            _playerController.PlayerState.IsAttacking = true; //解除はLocoMotionのSMBから行う
+            _playerController.Animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
     }
 
@@ -119,6 +119,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public void UseSkill(int index)
     {
         SkillData skill = _skillSet.Cast(index); //スキルデータを取得する
+        UIManager.Instance.SelectedSkillIcon(index);
 
         if (TP < skill.ResourceCost) //TPの判定を行う
         {
