@@ -1,3 +1,4 @@
+using PlayerSystem.Input;
 using PlayerSystem.State.Base;
 
 namespace PlayerSystem.State
@@ -7,6 +8,8 @@ namespace PlayerSystem.State
     /// </summary>
     public class PlayerStateMachine : BaseStateMachine<BaseStateEnum, IState>
     {
+        PlayerActionHandler playerActionHandler;
+        
         /// <summary>
         /// 初期化（enumとIStateのペアを辞書に登録する）
         /// </summary>
