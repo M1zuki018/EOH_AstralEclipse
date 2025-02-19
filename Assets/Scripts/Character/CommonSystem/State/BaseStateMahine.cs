@@ -42,4 +42,15 @@ public abstract class BaseStateMachine<TEnum, TState> where TEnum : Enum where T
             States[CurrentState.Value].Execute().Forget();
         }
     }
+
+    /// <summary>
+    /// FixedExecuteメソッドを呼び続ける（特定のステートのみ）
+    /// </summary>
+    public void FixedUpdate()
+    {
+        if (States.ContainsKey(CurrentState.Value) && States[CurrentState.Value] is IFixedUpdateState fixedState) 
+        {
+            fixedState.FixedExecute().Forget();
+        }
+    }
 }

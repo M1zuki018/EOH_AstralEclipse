@@ -56,6 +56,11 @@ public class PlayerBrain : CharacterBase
         _playerStateMachine.Update();
     }
 
+    private void FixedUpdate()
+    {
+        _playerStateMachine.FixedUpdate();
+    }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
