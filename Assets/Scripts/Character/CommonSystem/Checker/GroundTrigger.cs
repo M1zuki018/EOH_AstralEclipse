@@ -9,7 +9,7 @@ public class GroundTrigger : MonoBehaviour
     [SerializeField] private float _rayLength = 1f; // Rayの長さ
     [SerializeField] private float _rayOffset; // Rayをどれくらい身体にめり込ませるか
     [SerializeField] private LayerMask _layerMask = default; // Rayの判定に用いるLayer
-    [FormerlySerializedAs("_playerMovement")] [SerializeField] PlayerController playerController;
+    [SerializeField] private PlayerBrain _playerBrain;
     private RaycastHit _hit;
     
     private void FixedUpdate()
@@ -29,18 +29,18 @@ public class GroundTrigger : MonoBehaviour
         {
             if (_hit.collider.gameObject.CompareTag("Ground") || _hit.collider.gameObject.CompareTag("JumpObject"))
             {
-                playerController.PlayerBlackBoard.IsGrounded = true;
+                _playerBrain.BB.IsGrounded = true;
                 //_playerMovement.PlayerState.IsClimbing = false;
             }
             else if (_hit.collider.gameObject.CompareTag("Wall"))
             {
                 //_playerMovement.IsWall = true;
-                playerController.PlayerBlackBoard.IsGrounded = false;
+                _playerBrain.BB.IsGrounded = false;
             }
         }
         else
         {
-            playerController.PlayerBlackBoard.IsGrounded = false;
+            _playerBrain.BB.IsGrounded = false;
             //_playerMovement.IsWall = false;
         }
     }

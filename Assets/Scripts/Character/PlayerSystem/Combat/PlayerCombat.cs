@@ -11,6 +11,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public int TP { get; private set; } = 100; //TP
     public AttackHitDetector Detector { get; private set; }
     private PlayerController _playerController;
+    private PlayerBrain _playerBrain;
     private DamageHandler _damageHandler;
     private ReadyForBattleChecker _battleChecker;
     [SerializeField] private SkillSO _skillSet;
@@ -29,11 +30,12 @@ public class PlayerCombat : MonoBehaviour, ICombat
     {
         //コンポーネントを取得する
         _playerController = GetComponent<PlayerController>();
+        _playerBrain = GetComponent<PlayerBrain>();
         _damageHandler = new DamageHandler();
         Detector = GetComponentInChildren<AttackHitDetector>();
         _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから取得。臨戦状態の判定
         
-        if(!_playerController.PlayerBlackBoard.DebugMode) _weaponObj.SetActive(false);
+        if(!_playerBrain.BB.DebugMode) _weaponObj.SetActive(false);
         
         UIManager.Instance?.HideLockOnUI();
         UIManager.Instance?.HidePlayerBattleUI();
@@ -63,7 +65,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         }
         
         //ボス戦の場合に行う処理
-        if (_playerController.PlayerBlackBoard.IsBossBattle)
+        if (_playerBrain.BB.IsBossBattle)
         {
             return;
         }
@@ -80,7 +82,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     /// </summary>
     private void HandleRescission(EnemyBrain brain)
     {
-        if (_playerController.PlayerBlackBoard.IsBossBattle)
+        if (_playerBrain.BB.IsBossBattle)
         {
             return; //ボス戦中は臨戦状態の解除を行わない。常に臨戦状態にする
         }
@@ -106,9 +108,9 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public void Attack()
     {
         //臨戦状態/ボス戦中/デバッグモードの場合攻撃可能とする
-        if (_battleChecker.ReadyForBattle || _playerController.PlayerBlackBoard.IsBossBattle || _playerController.PlayerBlackBoard.DebugMode)
+        if (_battleChecker.ReadyForBattle || _playerBrain.BB.IsBossBattle || _playerBrain.BB.DebugMode)
         {
-            _playerController.PlayerBlackBoard.IsAttacking = true; //解除はLocoMotionのSMBから行う
+            _playerBrain.BB.IsAttacking = true; //解除はLocoMotionのSMBから行う
             _playerController.Animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
     }

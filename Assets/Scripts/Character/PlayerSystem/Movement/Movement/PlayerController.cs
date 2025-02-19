@@ -15,14 +15,11 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerTransform; // プレイヤーのTransform
     [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ
     [SerializeField][ReadOnlyOnRuntime] private CharacterController _characterController;
+    [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _playerBrain;
     
     // Animator
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
     public Animator Animator => _animator;
-    
-    // プレイヤーの状態
-    private PlayerBlackBoard _playerBlackBoard;
-    public PlayerBlackBoard PlayerBlackBoard => _playerBlackBoard;
     
     // ステートマシンと処理をつなぐ
     private PlayerActionHandler _playerActionHandler;
@@ -42,7 +39,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     
     private void Awake()
     {
-        InitializeState();
         InitializeComponents();
         
         TryGetComponent(out _collider);
@@ -54,16 +50,11 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             smb._target = this;
         }
     }
-
-    private void InitializeState()
-    {
-        _playerBlackBoard = new PlayerBlackBoard();
-    }
     
     private void InitializeComponents()
     {
         // 移動処理を包括したクラスのインスタンスを生成
-        _mover = new PlayerControlFunction(_characterController, Animator, _playerBlackBoard, _playerCamera, GetComponent<TrailRenderer>());
+        _mover = new PlayerControlFunction(_characterController, Animator, _playerBrain.BB, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
 
@@ -81,7 +72,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     
     private void FixedUpdate()
     {
-        if (_playerBlackBoard.IsJumping)
+        if (_playerBrain.BB.IsJumping)
         {
             _jumper.Jumping(); //ジャンプ処理
             HandleGroundedCheck();
@@ -100,10 +91,10 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleGroundedCheck()
     {
-        if (_playerBlackBoard.IsGrounded && _playerBlackBoard.Velocity.y < 0)
+        if (_playerBrain.BB.IsGrounded && _playerBrain.BB.Velocity.y < 0)
         {
-            _playerBlackBoard.IsJumping = false;
-            _playerBlackBoard.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
+            _playerBrain.BB.IsJumping = false;
+            _playerBrain.BB.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
             Animator.SetBool("IsJumping", false);
             Animator.applyRootMotion = true;
         }
@@ -114,7 +105,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleFalling()
     {
-        Animator.SetBool("IsGround", _playerBlackBoard.IsGrounded);
+        Animator.SetBool("IsGround", _playerBrain.BB.IsGrounded);
         /*
         //接地判定はfalseだが、落下中と判定しない例外
         //ジャンプ中/壁登り中/乗り越え中

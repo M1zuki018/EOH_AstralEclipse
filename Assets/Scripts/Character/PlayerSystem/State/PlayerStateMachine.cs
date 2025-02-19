@@ -22,8 +22,6 @@ namespace PlayerSystem.State
         /// </summary>
         public PlayerStateMachine(PlayerInputProcessor inputProcessor, PlayerBlackBoard blackboard, PlayerActionHandler actionHandler) 
         {
-            Debug.Log("初期化");
-            Debug.Log(inputProcessor != null ? "nullじゃない": "null");
             _inputProcessor = inputProcessor;
             _blackboard = blackboard;
             _actionHandler = actionHandler;

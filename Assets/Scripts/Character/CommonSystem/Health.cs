@@ -33,8 +33,8 @@ public class Health : MonoBehaviour, IHealth
 
         if (this.gameObject.CompareTag("Player"))
         {
-            TryGetComponent(out PlayerController movement);
-            if(movement.PlayerBlackBoard.IsSteping) return; //ステップ中の場合、ダメージを受けない
+            TryGetComponent(out PlayerBrain brain);
+            if(brain.BB.IsSteping) return; //ステップ中の場合、ダメージを受けない
         }
         
         CurrentHP -= amount;

@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace PlayerSystem.State.Base
@@ -25,6 +26,7 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             //TODO: アニメーション再生
+            Debug.Log("MoveState Enter");
             
             // アクションを設定
             _onJump = () => _isJumping = true;
@@ -44,9 +46,12 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
+            Debug.Log("MoveState Execute");
 
             while (StateMachine.CurrentState.Value == BaseStateEnum.Move)
             {
+                ActionHandler.Move();
+                
                 // 移動入力がなくなれば Idle へ
                 if (BlackBoard.MoveDirection.magnitude == 0)
                 {
