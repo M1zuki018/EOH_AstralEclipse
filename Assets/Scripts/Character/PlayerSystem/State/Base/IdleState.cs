@@ -10,10 +10,12 @@ namespace PlayerSystem.State.Base
     {
         public IdleState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
         
+        // アクションを設定
         private bool _isJumping = false;
         private bool _isAttacking = false;
         private bool _isGuard = false;
         
+        // イベント登録
         private Action _onJump;
         private Action _onAttack;
         private Action _onGuard;
@@ -64,13 +66,13 @@ namespace PlayerSystem.State.Base
                     return;
                 }
 
+                // 防御入力があれば Guard へ
                 if (_isGuard)
                 {
                     StateMachine.ChangeState(BaseStateEnum.Guard);
                     return;
                 }
 
-                // フレームを待つ
                 await UniTask.Yield();
             }
         }
