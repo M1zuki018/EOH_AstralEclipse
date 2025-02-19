@@ -14,6 +14,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
+            //TODO: アニメーション再生
+            
             await UniTask.Yield();
         }
 
@@ -22,7 +24,12 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            await UniTask.Yield();
+            while (StateMachine.CurrentState.Value == BaseStateEnum.Step)
+            {
+                //TODO: アニメーション終了時の移動入力量に応じてIdle/Moveに遷移する
+                
+                await UniTask.Yield();
+            }
         }
 
         /// <summary>
