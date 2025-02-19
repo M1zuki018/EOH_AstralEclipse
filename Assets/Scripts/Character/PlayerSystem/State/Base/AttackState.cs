@@ -6,9 +6,9 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// 攻撃状態
     /// </summary>
-    public class AttackState : BaseState<BaseStateEnum>
+    public class AttackState : PlayerBaseState<BaseStateEnum>
     {
-        public AttackState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public AttackState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
         
         /// <summary>
         /// ステートに入るときの処理
@@ -22,17 +22,17 @@ namespace PlayerSystem.State.Base
         /// <summary>
         /// 毎フレーム呼ばれる処理（状態遷移など）
         /// </summary>
-        public override UniTask Execute()
+        public override async UniTask Execute()
         {
-            return UniTask.CompletedTask;
+            await UniTask.Yield();
         }
 
         /// <summary>
         /// ステートから出るときの処理
         /// </summary>
-        public override UniTask Exit()
+        public override async UniTask Exit()
         {
-            return UniTask.CompletedTask;
+            await UniTask.Yield();
         }
     }
 
