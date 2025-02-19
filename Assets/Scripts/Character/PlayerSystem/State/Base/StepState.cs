@@ -5,32 +5,32 @@ namespace PlayerSystem.State.Base
     /// <summary>
     /// ダッシュ回避状態
     /// </summary>
-    public class StepState : BaseState<BaseStateEnum>
+    public class StepState : PlayerBaseState<BaseStateEnum>
     {
-        public StepState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public StepState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
         /// </summary>
-        public override UniTask Enter()
+        public override async UniTask Enter()
         {
-            return UniTask.CompletedTask;
+            await UniTask.Yield();
         }
 
         /// <summary>
         /// 毎フレーム呼ばれる処理（状態遷移など）
         /// </summary>
-        public override UniTask Execute()
+        public override async UniTask Execute()
         {
-            return UniTask.CompletedTask;
+            await UniTask.Yield();
         }
 
         /// <summary>
         /// ステートから出るときの処理
         /// </summary>
-        public override UniTask Exit()
+        public override async UniTask Exit()
         {
-            return UniTask.CompletedTask;
+            await UniTask.Yield();
         }
     }
 }

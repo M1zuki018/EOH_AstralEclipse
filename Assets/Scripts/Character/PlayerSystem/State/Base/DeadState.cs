@@ -13,25 +13,25 @@ namespace PlayerSystem.State.Base
         /// <summary>
         /// ステートに入るときの処理
         /// </summary>
-        public override UniTask Enter()
+        public override async UniTask Enter()
         {
-            return UniTask.CompletedTask;
+            await UniTask.Yield();
         }
 
         /// <summary>
         /// 毎フレーム呼ばれる処理（状態遷移など）
         /// </summary>
-        public override UniTask Execute()
+        public override async UniTask Execute()
         {
-            return UniTask.CompletedTask;
+            await UniTask.Yield();
         }
 
         /// <summary>
         /// ステートから出るときの処理
         /// </summary>
-        public override UniTask Exit()
+        public override async UniTask Exit()
         {
-            return UniTask.CompletedTask;
+            await UniTask.Yield();
         }
     }
 }
