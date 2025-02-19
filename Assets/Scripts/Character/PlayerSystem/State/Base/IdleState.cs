@@ -38,6 +38,8 @@ namespace PlayerSystem.State.Base
             InputProcessor.OnAttack += _onAttack;
             InputProcessor.OnGuard += _onGuard;
             
+            BlackBoard.MoveDirection = Vector3.zero;
+            
             await UniTask.Yield();
         }
 
@@ -50,7 +52,7 @@ namespace PlayerSystem.State.Base
             while (StateMachine.CurrentState.Value == BaseStateEnum.Idle)
             {
                 // 移動入力があれば Move へ
-                if (BlackBoard.MoveDirection.magnitude > 0)
+                if (BlackBoard.MoveDirection.sqrMagnitude > 0.01f)
                 {
                     StateMachine.ChangeState(BaseStateEnum.Move);
                     return;

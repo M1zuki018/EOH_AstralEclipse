@@ -53,7 +53,7 @@ namespace PlayerSystem.State.Base
                 ActionHandler.Move();
                 
                 // 移動入力がなくなれば Idle へ
-                if (BlackBoard.MoveDirection.magnitude == 0)
+                if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
                 {
                     StateMachine.ChangeState(BaseStateEnum.Idle);
                     return;
