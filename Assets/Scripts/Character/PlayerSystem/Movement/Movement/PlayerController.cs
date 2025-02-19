@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Fight;
 using PlayerSystem.Input;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
@@ -22,6 +23,10 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     // プレイヤーの状態
     private PlayerBlackBoard _playerBlackBoard;
     public PlayerBlackBoard PlayerBlackBoard => _playerBlackBoard;
+    
+    // ステートマシンと処理をつなぐ
+    private PlayerActionHandler _playerActionHandler;
+    public PlayerActionHandler PlayerActionHandler => _playerActionHandler;
 
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
@@ -61,6 +66,15 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _mover = new PlayerControlFunction(_characterController, Animator, _playerBlackBoard, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
+
+        _playerActionHandler = new PlayerActionHandler(
+            mover: _mover,
+            jumper: _jumper,
+            walker: _walker,
+            steppable: _stepFunction,
+            gauder: _gaudeFunction,
+            locker: _lockOnFunction,
+            combat: GetComponent<PlayerCombat>());
         
         Animator.applyRootMotion = true; //ルートモーションを有効化
     }

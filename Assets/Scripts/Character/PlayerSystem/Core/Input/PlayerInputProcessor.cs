@@ -27,7 +27,6 @@ namespace PlayerSystem.Input
 
         #endregion
 
-        public event Action OnMove;
         public event Action OnJump;
         public event Action OnStep;
         public event Action OnGuard;

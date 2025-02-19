@@ -8,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// ステートマシンと各アクションをつなぐクラス
 /// </summary>
-public class PlayerActionHandler : MonoBehaviour
+public class PlayerActionHandler
 {
     private readonly IMovable _mover; //移動
     private readonly IJumpable _jumper;　//ジャンプ
