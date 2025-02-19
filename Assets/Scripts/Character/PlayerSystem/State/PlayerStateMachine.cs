@@ -6,7 +6,7 @@ namespace PlayerSystem.State
     /// <summary>
     /// プレイヤーの状態を管理し、ステートマシンの更新を行う
     /// </summary>
-    public class PlayerStateMachine : BaseStateMachine<BaseStateEnum, IState>
+    public class PlayerStateMachine : BaseStateMachine<BaseStateEnum, IState>, IPlayerStateMachine
     {
         private readonly PlayerInputProcessor _inputProcessor;
         private readonly PlayerBlackBoard _blackboard;

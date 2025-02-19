@@ -1,22 +1,13 @@
-using System;
 using Cysharp.Threading.Tasks;
-using PlayerSystem.Input;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using Unit = UniRx.Unit;
 
 namespace PlayerSystem.State.Base
 {
     /// <summary>
     /// 待機状態
     /// </summary>
-    public class IdleState : BaseState<BaseStateEnum>
+    public class IdleState : PlayerBaseState<BaseStateEnum>
     {
-        public IdleState(PlayerStateMachine stateMachine) : base(stateMachine) { }
-        
-        private PlayerInputProcessor _inputProcessor;
-        private PlayerBlackBoard _blackboard;
-        private PlayerActionHandler _actionHandler;
+        public IdleState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
         
         private bool _isJumping = false;
         private bool _isAttacking = false;
@@ -28,8 +19,8 @@ namespace PlayerSystem.State.Base
         {
             //TODO: 待機アニメーション再生
 
-            _inputProcessor.OnJump += () => _isJumping = true;
-            _inputProcessor.OnAttack += () => _isAttacking = true;
+            InputProcessor.OnJump += () => _isJumping = true;
+            InputProcessor.OnAttack += () => _isAttacking = true;
             
             await UniTask.Yield();
         }
@@ -42,7 +33,7 @@ namespace PlayerSystem.State.Base
             while (StateMachine.CurrentState.Value == BaseStateEnum.Idle)
             {
                 // 移動入力があれば Walk へ
-                if (_blackboard.MoveDirection.magnitude > 0)
+                if (BlackBoard.MoveDirection.magnitude > 0)
                 {
                     StateMachine.ChangeState(BaseStateEnum.Walk);
                     return;
@@ -72,8 +63,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
-            _inputProcessor.OnJump -= () => _isJumping = false;
-            _inputProcessor.OnAttack -= () => _isAttacking = false;
+            InputProcessor.OnJump -= () => _isJumping = false;
+            InputProcessor.OnAttack -= () => _isAttacking = false;
             
             await UniTask.CompletedTask;
         }
