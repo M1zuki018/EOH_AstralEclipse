@@ -71,12 +71,22 @@ namespace PlayerSystem.State.Base
                     return;
                 }
 
-                // ダッシュ回避入力があれば Step へ
+                //　ステップ入力があり、ステップ回数がゼロ以上あったら Step へ
                 if (_isStep)
                 {
-                    StateMachine.ChangeState(BaseStateEnum.Step);
+                    if (BlackBoard.CurrentSteps > 0)
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Step);
+                    }
+                    else
+                    {
+                        Debug.Log("ステップカウントが足りません！");
+                    }
                     return;
                 }
+                
+                // フラグをリセット
+                _isStep = false;
                 
                 await UniTask.Yield();
             }

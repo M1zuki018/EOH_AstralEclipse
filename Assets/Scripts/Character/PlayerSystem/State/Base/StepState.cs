@@ -29,7 +29,7 @@ namespace PlayerSystem.State.Base
             
             InputProcessor.OnJump += _onJumped;
             
-            BlackBoard.ApplyGravity = true; // 多少浮く場合があるので重力を加えておく
+            // BlackBoard.ApplyGravity = true; // 多少浮く場合があるので重力を加えておく
             ActionHandler.Step(); // ステップ
             
             var delayTask = UniTask.Delay(TimeSpan.FromSeconds(0.5f)); // 0.5秒待機するタスク
@@ -74,7 +74,7 @@ namespace PlayerSystem.State.Base
         public override async UniTask Exit()
         {
             // ステップ終了処理
-            BlackBoard.ApplyGravity = false;
+            // BlackBoard.ApplyGravity = false;
             BlackBoard.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
             
             // 状態をリセット

@@ -41,6 +41,8 @@ namespace PlayerSystem.State.Base
             InputProcessor.OnAttack += _onAttack;
             InputProcessor.OnGuard += _onGuard;
             
+            BlackBoard.ApplyGravity = true;
+            
             await UniTask.Yield();
         }
 
@@ -150,6 +152,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
+            BlackBoard.ApplyGravity = false;
+            
             // 状態をリセット
             _isJumping = false;
             _isStep = false;
