@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField] private Transform _targetTransform;
     
     private PlayerGravity _playerGravity;
+    private MovementHelper _movementHelper;
     
     #region 各種機能
     private IMovable _mover; //移動
@@ -54,9 +55,11 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     
     private void InitializeComponents()
     {
+        _movementHelper = new MovementHelper(_playerCamera.transform, _playerBrain.BB, _characterController);
+        
         // 移動処理を包括したクラスのインスタンスを生成
         _mover = new PlayerControlFunction(
-            new PlayerMovement(_playerBrain.BB, _characterController, Animator,  _playerCamera, GetComponent<TrailRenderer>()),
+            new PlayerMovement(_playerBrain.BB, _characterController, Animator,  _playerCamera, GetComponent<TrailRenderer>(), _movementHelper),
             new PlayerJump(_playerBrain.BB, _characterController, Animator,  _playerCamera, GetComponent<TrailRenderer>()),
             _playerBrain.BB);
         _jumper = (IJumpable) _mover;
