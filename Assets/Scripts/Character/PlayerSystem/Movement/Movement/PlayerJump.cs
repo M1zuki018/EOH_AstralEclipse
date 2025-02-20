@@ -39,15 +39,12 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jump()
         {
-            if (_bb.IsGrounded) //地面にいる場合はジャンプの初速度を設定する
-            {
-                _bb.IsJumping = true;
-                _bb.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
-                _bb.Velocity = new Vector3(0f, Mathf.Sqrt(_jumpPower * -2f * _gravity), 0f); //初速度を計算
-                _animator.SetTrigger("Jump");
-                _animator.SetBool("IsJumping", true);
-                _animator.applyRootMotion = false;
-            }
+            _bb.IsJumping = true;
+            _bb.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
+            _bb.Velocity = new Vector3(0f, Mathf.Sqrt(_jumpPower * -2f * _gravity), 0f); //初速度を計算
+            _animator.SetTrigger("Jump");
+            _animator.SetBool("IsJumping", true);
+            _animator.applyRootMotion = false;
         }
 
         /// <summary>
@@ -114,6 +111,18 @@ namespace PlayerSystem.Movement
                     _trailRenderer.emitting = true;
                     _animator.SetFloat("Speed", speed);   
                 }
+            }
+            ApplyGravity();
+        }
+
+        private void ApplyGravity()
+        {
+            if (_bb.ApplyGravity)
+            {
+                Vector3 velocity = _bb.Velocity;
+                velocity.y += _gravity * Time.deltaTime;
+                _bb.Velocity = velocity;
+                _characterController.Move(_bb.Velocity * Time.deltaTime); // 垂直方向の速度を反映
             }
         }
     }

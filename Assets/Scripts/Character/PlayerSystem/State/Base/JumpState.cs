@@ -34,6 +34,9 @@ namespace PlayerSystem.State.Base
             InputProcessor.OnAttack += _onAttack;
             InputProcessor.OnStep += _onStep;
 
+            ActionHandler.Jump();
+            BlackBoard.ApplyGravity = true;
+            
             await UniTask.Yield();
         }
 
@@ -45,6 +48,21 @@ namespace PlayerSystem.State.Base
             while (StateMachine.CurrentState.Value == BaseStateEnum.Jump)
             {
                 //TODO: ジャンプが終わった時の入力量に応じてIdle/Moveに遷移する
+                if (BlackBoard.IsGrounded && BlackBoard.Velocity.y < 0)
+                {
+                    // 移動入力がなければ Idle へ
+                    if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Idle);
+                        return;
+                    }
+                    // 移動入力があれば Move へ
+                    else
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Move);
+                        return;
+                    }
+                }
                 
                 // 攻撃入力があれば Attack へ
                 if (_isAttacking)
@@ -69,6 +87,11 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
+            // ジャンプ終了処理
+            BlackBoard.IsJumping = false;
+            BlackBoard.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
+            BlackBoard.ApplyGravity = false;
+            
             // 状態をリセット
             _isAttacking = false;
             _isStep = false;
