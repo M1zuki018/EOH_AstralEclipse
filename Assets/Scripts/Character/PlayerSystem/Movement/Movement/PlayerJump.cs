@@ -17,8 +17,6 @@ namespace PlayerSystem.Movement
         private CinemachineVirtualCamera _playerCamera;
         private Vector3 _moveNormal;
         private TrailRenderer _trailRenderer;
-        
-        private PlayerGravity _playerGravity;
      
         private readonly float _jumpPower = 0.7f;
         private readonly float _jumpMoveSpeed = 2f; //ジャンプ中の移動速度
@@ -34,8 +32,6 @@ namespace PlayerSystem.Movement
             _animator = animator;
             _playerCamera = playerCamera;
             _trailRenderer = trailRenderer;
-            
-            _playerGravity = new PlayerGravity(_bb, _characterController);
         }
         
         /// <summary>
@@ -56,8 +52,6 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jumping()
         {
-            _playerGravity.ApplyGravity();
-
             if (_bb.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合
             {
                 _trailRenderer.emitting = true; //軌跡をつける

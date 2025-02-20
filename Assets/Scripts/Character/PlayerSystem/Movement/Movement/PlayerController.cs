@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
     
+    private PlayerGravity _playerGravity;
+    
     #region 各種機能
     private IMovable _mover; //移動
     private IJumpable _jumper; //ジャンプ
@@ -68,6 +70,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             gauder: _gaudeFunction,
             locker: _lockOnFunction,
             combat: GetComponent<PlayerCombat>());
+
+        _playerGravity = new PlayerGravity(_playerBrain.BB, _characterController);
         
         Animator.applyRootMotion = true; //ルートモーションを有効化
     }
@@ -79,6 +83,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
 
     private void FixedUpdate()
     {
+        _playerGravity.ApplyGravity();
+        
         if (_playerBrain.BB.IsJumping)
         {
             _jumper.Jumping(); //ジャンプ処理
