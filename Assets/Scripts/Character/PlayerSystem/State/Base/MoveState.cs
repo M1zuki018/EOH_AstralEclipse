@@ -1,7 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UniVRM10;
 
 namespace PlayerSystem.State.Base
 {
@@ -13,10 +12,12 @@ namespace PlayerSystem.State.Base
         public MoveState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         private bool _isJumping = false;
+        private bool _isStep = false;
         private bool _isAttacking = false;
         private bool _isGuard = false;
         
         private Action _onJump;
+        private Action _onStep;
         private Action _onAttack;
         private Action _onGuard;
         
@@ -30,11 +31,13 @@ namespace PlayerSystem.State.Base
             
             // アクションを設定
             _onJump = () => _isJumping = true;
+            _onStep = () => _isStep = true;
             _onAttack = () => _isAttacking = true;
             _onGuard = () => _isGuard = true;
             
             // イベント登録
             InputProcessor.OnJump += _onJump;
+            InputProcessor.OnStep += _onStep;
             InputProcessor.OnAttack += _onAttack;
             InputProcessor.OnGuard += _onGuard;
             
@@ -63,6 +66,20 @@ namespace PlayerSystem.State.Base
                     StateMachine.ChangeState(BaseStateEnum.Jump);
                     return;
                 }
+                
+                //　ステップ入力があり、ステップ回数がゼロ以上あったら Step へ
+                if (_isStep)
+                {
+                    if (BlackBoard.CurrentSteps > 0)
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Step);
+                    }
+                    else
+                    {
+                        Debug.Log("ステップカウントが足りません！");
+                    }
+                    return;
+                }
 
                 // 攻撃入力があれば Attack へ
                 if (_isAttacking)
@@ -78,7 +95,9 @@ namespace PlayerSystem.State.Base
                     return;
                 }
                 
-                _isJumping = false; // ジャンプフラグをリセット
+                // フラグをリセット
+                _isJumping = false;
+                _isStep = false;
 
                 await UniTask.Yield();
             }
@@ -133,11 +152,13 @@ namespace PlayerSystem.State.Base
         {
             // 状態をリセット
             _isJumping = false;
+            _isStep = false;
             _isAttacking = false;
             _isGuard = false;
 
             // イベントを解除
             InputProcessor.OnJump -= _onJump;
+            InputProcessor.OnStep -= _onStep;
             InputProcessor.OnAttack -= _onAttack;
             InputProcessor.OnGuard -= _onGuard;
             
