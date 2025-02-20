@@ -1,10 +1,6 @@
 using System;
-using PlayerSystem.ActionFunction;
 using UnityEngine;
-using PlayerSystem.Movement;
 using PlayerSystem.State;
-using UniRx;
-using UnityEngine.InputSystem;
 
 namespace PlayerSystem.Input
 {
@@ -27,7 +23,6 @@ namespace PlayerSystem.Input
 
         #endregion
 
-        public event Action OnWalkChange;
         public event Action OnJump;
         public event Action OnStep;
         public event Action OnGuard;

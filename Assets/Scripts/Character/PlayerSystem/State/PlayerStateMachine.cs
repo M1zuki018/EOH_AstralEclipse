@@ -34,6 +34,7 @@ namespace PlayerSystem.State
             States[BaseStateEnum.Attack] = new AttackState(this);
             States[BaseStateEnum.Counter] = new CounterState(this);
             States[BaseStateEnum.Hit] = new HitState(this);
+            States[BaseStateEnum.GuardBreak] = new GuardBreakState(this);
             States[BaseStateEnum.Dead] = new DeadState(this);
             States[BaseStateEnum.Performance] = new PerformanceState(this);
             

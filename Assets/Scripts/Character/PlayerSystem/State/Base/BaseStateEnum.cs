@@ -15,6 +15,7 @@ namespace PlayerSystem.State.Base
         Attack, // 攻撃
         Counter, // カウンター
         Hit, // 被ダメ
+        GuardBreak, // ガードブレイク
         Dead, // 死亡
         Performance, // 演出中
     }
