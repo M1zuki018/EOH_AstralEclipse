@@ -6,7 +6,7 @@ namespace PlayerSystem.Movement
     /// <summary>
     /// 移動処理を補助する
     /// </summary>
-    public class MovementHelper : MonoBehaviour
+    public class MovementHelper
     {
         private Transform _cameraTransform;
         private PlayerBlackBoard _bb;

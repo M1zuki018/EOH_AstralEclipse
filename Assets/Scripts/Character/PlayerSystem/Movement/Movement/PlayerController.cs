@@ -2,6 +2,7 @@ using UnityEngine;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.Movement;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// プレイヤーの移動・空中移動などの処理を行う機能
@@ -11,8 +12,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [Header("コンポーネント")]
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerTransform; // プレイヤーのTransform
     [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ
-    [SerializeField][ReadOnlyOnRuntime] private CharacterController _characterController;
-    [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _playerBrain;
+    [SerializeField][ReadOnlyOnRuntime] private CharacterController _cc;
+    [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _brain;
     
     // Animator
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
@@ -25,9 +26,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
     
-    private PlayerGravity _playerGravity;
-    private MovementHelper _movementHelper;
-    
     #region 各種機能
     private IMovable _mover; //移動
     private IJumpable _jumper; //ジャンプ
@@ -35,6 +33,10 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private ISteppable _stepFunction; //ステップ
     private IGaudeable _gaudeFunction; //ガード
     private ILockOnable _lockOnFunction; //ロックオン
+    
+    private PlayerGravity _playerGravity; // 重力をかける処理
+    private MovementHelper _movementHelper; // 移動処理を補助するクラス
+    private IHandleGroundedCheck _handleGrounded; // 地面にいるときの処理を行うクラス
     #endregion
     
     private void Awake()
@@ -55,13 +57,13 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     
     private void InitializeComponents()
     {
-        _movementHelper = new MovementHelper(_playerCamera.transform, _playerBrain.BB, _characterController);
+        _movementHelper = new MovementHelper(_playerCamera.transform, _brain.BB, _cc);
         
         // 移動処理を包括したクラスのインスタンスを生成
         _mover = new PlayerControlFunction(
-            new PlayerMovement(_playerBrain.BB, Animator, GetComponent<TrailRenderer>(), _movementHelper),
-            new PlayerJump(_playerBrain.BB, _characterController, Animator,GetComponent<TrailRenderer>(), _movementHelper),
-            _playerBrain.BB);
+            new PlayerMovement(_brain.BB, Animator, GetComponent<TrailRenderer>(), _movementHelper),
+            new PlayerJump(_brain.BB, _cc, Animator,GetComponent<TrailRenderer>(), _movementHelper),
+            _brain.BB);
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
 
@@ -74,7 +76,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             locker: _lockOnFunction,
             combat: GetComponent<PlayerCombat>());
 
-        _playerGravity = new PlayerGravity(_playerBrain.BB, _characterController);
+        _playerGravity = new PlayerGravity(_brain.BB, _cc);
+        _handleGrounded = (IHandleGroundedCheck) new HandleGrounded(_brain.BB, _animator);
         
         Animator.applyRootMotion = true; //ルートモーションを有効化
     }
@@ -88,31 +91,17 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     {
         _playerGravity.ApplyGravity();
         
-        if (_playerBrain.BB.IsJumping)
+        if (_brain.BB.IsJumping)
         {
             _jumper.Jumping(); //ジャンプ処理
-            HandleGroundedCheck();
+            _handleGrounded.HandleGroundedCheck();
             HandleFalling(); //落下中の判定
         }
         else
         {
             _mover.Move(); //移動処理
-            HandleGroundedCheck();
+            _handleGrounded.HandleGroundedCheck();
             HandleFalling(); //落下中の判定
-        }
-    }
-    
-    /// <summary>
-    /// 地面にいるときの処理
-    /// </summary>
-    private void HandleGroundedCheck()
-    {
-        if (_playerBrain.BB.IsGrounded && _playerBrain.BB.Velocity.y < 0)
-        {
-            _playerBrain.BB.IsJumping = false;
-            _playerBrain.BB.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
-            Animator.SetBool("IsJumping", false);
-            Animator.applyRootMotion = true;
         }
     }
 
@@ -121,7 +110,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleFalling()
     {
-        Animator.SetBool("IsGround", _playerBrain.BB.IsGrounded);
+        Animator.SetBool("IsGround", _brain.BB.IsGrounded);
         /*
         //接地判定はfalseだが、落下中と判定しない例外
         //ジャンプ中/壁登り中/乗り越え中

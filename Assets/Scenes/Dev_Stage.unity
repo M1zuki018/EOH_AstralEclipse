@@ -867,6 +867,16 @@ PrefabInstance:
       objectReference: {fileID: 1220054415}
     - target: {fileID: 8494996535144275585, guid: 61b5c3d1d439235478cb934b8c6599cc,
         type: 3}
+      propertyPath: _cc
+      value: 
+      objectReference: {fileID: 1220054417}
+    - target: {fileID: 8494996535144275585, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
+      propertyPath: _brain
+      value: 
+      objectReference: {fileID: 1220054415}
+    - target: {fileID: 8494996535144275585, guid: 61b5c3d1d439235478cb934b8c6599cc,
+        type: 3}
       propertyPath: _playerBrain
       value: 
       objectReference: {fileID: 1220054415}
@@ -2709,6 +2719,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86cd7cccb02c0ba4185eb4b8a07463cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!143 &1220054417 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 8756747814978474630, guid: 61b5c3d1d439235478cb934b8c6599cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 261357593}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1229895996 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2909857575443641068, guid: ef4682ef37f27104e92493b99e7e6301,
