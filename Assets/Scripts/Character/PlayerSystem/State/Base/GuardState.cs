@@ -38,6 +38,8 @@ namespace PlayerSystem.State.Base
         {
             while (StateMachine.CurrentState.Value == BaseStateEnum.Guard)
             {
+                ActionHandler.Guard();
+                
                 if (_guardCancel) // ガードキャンセル
                 {
                     // 移動入力がなければ Idle へ

@@ -13,11 +13,11 @@ public class PlayerActionHandler
     private readonly IMovable _mover; //移動
     private readonly IJumpable _jumper;　//ジャンプ
     private readonly ISteppable _stepper; //ステップ
-    private readonly IGaudeable _gauder; //ガード
+    private readonly IGuardable _gauder; //ガード
     private readonly PlayerCombat _combat; //アクション
 
     public PlayerActionHandler(IMovable mover, IJumpable jumper,ISteppable steppable, 
-        IGaudeable gauder, PlayerCombat combat)
+        IGuardable gauder, PlayerCombat combat)
     {
         _mover = mover;
         _jumper = jumper;
@@ -44,7 +44,7 @@ public class PlayerActionHandler
     public void Step() => _stepper.Step();
 
     /// <summary>ガード入力処理</summary>
-    public void Guard(bool input) => _gauder.Gaude(input);
+    public void Guard() => _gauder.Gaude();
 
     /// <summary>通常攻撃の入力処理</summary>
     public void Attack() => _combat.Attack();

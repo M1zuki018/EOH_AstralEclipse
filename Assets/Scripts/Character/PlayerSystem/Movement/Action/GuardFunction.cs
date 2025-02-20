@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// ガード機能を提供する
 /// </summary>
-public class GaudeFunction : MonoBehaviour, IGaudeable
+public class GuardFunction : MonoBehaviour, IGuardable
 {
     //ガードの耐久値＝will
     //押している間だけガード出来る→押した瞬間にtrue、放した時にfalse
@@ -12,7 +12,7 @@ public class GaudeFunction : MonoBehaviour, IGaudeable
     //ガードブレイク＝willの値が削り切られてしまったらブレイク状態
     
     
-    public void Gaude(bool input)
+    public void Gaude()
     {
         //TODO:実装を書く
     }

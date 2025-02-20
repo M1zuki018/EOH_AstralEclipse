@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private IJumpable _jumper; //ジャンプ
     private ISpeedSwitchable _speedSwitcher; //歩きと走り状態の切り替え
     private ISteppable _stepFunction; //ステップ
-    private IGaudeable _gaudeFunction; //ガード
+    private IGuardable _gaudeFunction; //ガード
     
     private PlayerGravity _playerGravity; // 重力をかける処理
     private MovementHelper _movementHelper; // 移動処理を補助するクラス
