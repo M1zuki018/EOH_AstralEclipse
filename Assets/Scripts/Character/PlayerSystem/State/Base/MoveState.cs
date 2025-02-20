@@ -46,7 +46,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            Debug.Log("MoveState Execute");
             await UniTask.Yield();
             
             while (StateMachine.CurrentState.Value == BaseStateEnum.Move)

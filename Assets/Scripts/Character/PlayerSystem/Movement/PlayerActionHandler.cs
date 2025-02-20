@@ -12,18 +12,16 @@ public class PlayerActionHandler
 {
     private readonly IMovable _mover; //移動
     private readonly IJumpable _jumper;　//ジャンプ
-    private readonly IWalkable _walker; //歩きと走りの切り替え
     private readonly ISteppable _stepper; //ステップ
     private readonly IGaudeable _gauder; //ガード
     private readonly ILockOnable _locker; //ロックオン
     private readonly PlayerCombat _combat; //アクション
 
-    public PlayerActionHandler(IMovable mover, IJumpable jumper, 
-        IWalkable walker, ISteppable steppable, IGaudeable gauder, ILockOnable locker, PlayerCombat combat)
+    public PlayerActionHandler(IMovable mover, IJumpable jumper,ISteppable steppable, 
+        IGaudeable gauder, ILockOnable locker, PlayerCombat combat)
     {
         _mover = mover;
         _jumper = jumper;
-        _walker = walker;
         _stepper = steppable;
         _gauder = gauder;
         _locker = locker;

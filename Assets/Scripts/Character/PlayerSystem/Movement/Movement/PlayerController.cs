@@ -70,7 +70,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _playerActionHandler = new PlayerActionHandler(
             mover: _mover,
             jumper: _jumper,
-            walker: _walker,
             steppable: _stepFunction,
             gauder: _gaudeFunction,
             locker: _lockOnFunction,
@@ -94,15 +93,15 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         if (_brain.BB.IsJumping)
         {
             _jumper.Jumping(); //ジャンプ処理
-            _handleGrounded.HandleGroundedCheck();
             HandleFalling(); //落下中の判定
         }
         else
         {
             _mover.Move(); //移動処理
-            _handleGrounded.HandleGroundedCheck();
             HandleFalling(); //落下中の判定
         }
+        
+        _handleGrounded.HandleGroundedCheck();
     }
 
     /// <summary>
