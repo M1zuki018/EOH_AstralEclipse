@@ -18,6 +18,8 @@ namespace PlayerSystem.Movement
         private Vector3 _moveNormal;
         private TrailRenderer _trailRenderer;
         
+        private PlayerMovement _movement;
+        
         private IDisposable _walkChangedSubscription;
 
         private readonly float _runSpeed = 2f;
@@ -28,9 +30,12 @@ namespace PlayerSystem.Movement
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
         
-        public PlayerControlFunction(CharacterController characterController, Animator animator, PlayerBlackBoard blackBoard, 
+        public PlayerControlFunction(
+            PlayerMovement movement,
+            CharacterController characterController, Animator animator, PlayerBlackBoard blackBoard, 
             CinemachineVirtualCamera playerCamera, TrailRenderer trailRenderer)
         {
+            _movement = movement;
             _characterController = characterController;
             _animator = animator;
             _blackBoard = blackBoard;
@@ -40,16 +45,9 @@ namespace PlayerSystem.Movement
         }
 
         /// <summary>
-        /// 移動機能の実装
+        /// 移動機能の呼び出し
         /// </summary>
-        public void Move()
-        {
-            if (!_blackBoard.IsAttacking)
-            {
-                HandleMovement();
-                ApplyGravity();
-            }
-        }
+        public void Move() => _movement.Move();
         
         /// <summary>
         /// ジャンプ機能の実装

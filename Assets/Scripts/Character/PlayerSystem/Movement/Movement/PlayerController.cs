@@ -57,7 +57,9 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private void InitializeComponents()
     {
         // 移動処理を包括したクラスのインスタンスを生成
-        _mover = new PlayerControlFunction(_characterController, Animator, _playerBrain.BB, _playerCamera, GetComponent<TrailRenderer>());
+        _mover = new PlayerControlFunction(
+            new PlayerMovement(_playerBrain.BB, _characterController, Animator,  _playerCamera, GetComponent<TrailRenderer>()),
+            _characterController, Animator, _playerBrain.BB, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
 
