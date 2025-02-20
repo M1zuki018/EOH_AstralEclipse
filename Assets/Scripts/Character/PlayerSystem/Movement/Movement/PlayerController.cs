@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Fight;
 using PlayerSystem.Input;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
@@ -14,18 +16,15 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerTransform; // プレイヤーのTransform
     [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ
     [SerializeField][ReadOnlyOnRuntime] private CharacterController _characterController;
+    [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _playerBrain;
     
     // Animator
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
     public Animator Animator => _animator;
     
-    // 入力情報
-    private IPlayerInputReceiver _playerInputReceiver;
-    public IPlayerInputReceiver PlayerInputReceiver => _playerInputReceiver;
-    
-    // プレイヤーの状態
-    private PlayerState _playerState;
-    public PlayerState PlayerState => _playerState;
+    // ステートマシンと処理をつなぐ
+    private PlayerActionHandler _playerActionHandler;
+    public PlayerActionHandler PlayerActionHandler => _playerActionHandler;
 
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
@@ -41,7 +40,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     
     private void Awake()
     {
-        InitializeState();
         InitializeComponents();
         
         TryGetComponent(out _collider);
@@ -52,31 +50,37 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         {
             smb._target = this;
         }
-    }
-
-    private void InitializeState()
-    {
-        _playerState = new PlayerState();
+        
+        _walker.Walk(); // 移動速度切り替えのObservableを購読する
     }
     
     private void InitializeComponents()
     {
         // 移動処理を包括したクラスのインスタンスを生成
-        _mover = new PlayerControlFunction(_characterController, Animator, _playerState, _playerCamera, GetComponent<TrailRenderer>());
+        _mover = new PlayerControlFunction(_characterController, Animator, _playerBrain.BB, _playerCamera, GetComponent<TrailRenderer>());
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
-        
-        // 入力情報のインスタンスを生成
-        _playerInputReceiver = new PlayerInputProcessor(_playerState, _mover, _jumper, _walker, 
-            GetComponent<StepFunction>(), GetComponent<GaudeFunction>(), GetComponent<LockOnFunction>(),
-            GetComponent<PlayerCombat>());
+
+        _playerActionHandler = new PlayerActionHandler(
+            mover: _mover,
+            jumper: _jumper,
+            walker: _walker,
+            steppable: _stepFunction,
+            gauder: _gaudeFunction,
+            locker: _lockOnFunction,
+            combat: GetComponent<PlayerCombat>());
         
         Animator.applyRootMotion = true; //ルートモーションを有効化
     }
-    
+
+    private void OnDestroy()
+    {
+        _walker.DisposeWalkSubscription(); // 移動速度切り替えのObservableを購読解除
+    }
+
     private void FixedUpdate()
     {
-        if (_playerState.IsJumping)
+        if (_playerBrain.BB.IsJumping)
         {
             _jumper.Jumping(); //ジャンプ処理
             HandleGroundedCheck();
@@ -95,10 +99,10 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleGroundedCheck()
     {
-        if (_playerState.IsGrounded && _playerState.Velocity.y < 0)
+        if (_playerBrain.BB.IsGrounded && _playerBrain.BB.Velocity.y < 0)
         {
-            _playerState.IsJumping = false;
-            _playerState.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
+            _playerBrain.BB.IsJumping = false;
+            _playerBrain.BB.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
             Animator.SetBool("IsJumping", false);
             Animator.applyRootMotion = true;
         }
@@ -109,7 +113,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleFalling()
     {
-        Animator.SetBool("IsGround", _playerState.IsGrounded);
+        Animator.SetBool("IsGround", _playerBrain.BB.IsGrounded);
         /*
         //接地判定はfalseだが、落下中と判定しない例外
         //ジャンプ中/壁登り中/乗り越え中

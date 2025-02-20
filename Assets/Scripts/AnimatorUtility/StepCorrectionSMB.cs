@@ -13,7 +13,7 @@ public class StepCorrectionSMB : StateMachineBehaviour
     
     private Vector3 _moveDirection;
     private CharacterController _cc;
-    private PlayerController _playerController;
+    private PlayerBrain _playerBrain;
     
     private CompositeDisposable _disposables = new CompositeDisposable();
     
@@ -21,11 +21,11 @@ public class StepCorrectionSMB : StateMachineBehaviour
     private void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if(_cc == null)_cc = animator.GetComponent<CharacterController>();
-        if(_playerController == null)_playerController = animator.GetComponent<PlayerController>();
+        if(_playerBrain == null)_playerBrain = animator.GetComponent<PlayerBrain>();
 
-        _playerController.PlayerState.IsSteping = true; //ステップ状態にする
+        _playerBrain.BB.IsSteping = true; //ステップ状態にする
 
-        Vector3 direction = _playerController.PlayerState.CorrectedDirection.normalized;
+        Vector3 direction = _playerBrain.BB.CorrectedDirection.normalized;
         
         if (direction.magnitude > 0.05f)
         {
@@ -62,6 +62,6 @@ public class StepCorrectionSMB : StateMachineBehaviour
     private void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CameraManager.Instance?.EndStepEffect();
-        _playerController.PlayerState.IsSteping = false; //ステップ状態を解除する
+        _playerBrain.BB.IsSteping = false; //ステップ状態を解除する
     }
 }

@@ -1,3 +1,4 @@
+using PlayerSystem.State;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,13 +9,16 @@ namespace PlayerSystem.Input
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
-        private IPlayerInputReceiver _iPlayerInputReceiver; // 入力情報
-        private PlayerInput _playerInput; // PlayerInput コンポーネント    
+        private PlayerInput _playerInput; // PlayerInput コンポーネント
+        
+        // 入力情報
+        private IPlayerInputReceiver _iPlayerInputReceiver; 
+        public IPlayerInputReceiver IPlayerInputReceiver => _iPlayerInputReceiver;
 
-        private void Start()
+        private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
-            _iPlayerInputReceiver = GetComponent<PlayerController>().PlayerInputReceiver;
+            _iPlayerInputReceiver = new PlayerInputProcessor(GetComponent<PlayerBrain>().BB);
             RegisterInputActions(); // 入力の登録
         }
 
@@ -33,7 +37,9 @@ namespace PlayerSystem.Input
             _playerInput.actions["Skill2"].performed += OnSkill2;
             _playerInput.actions["Skill3"].performed += OnSkill3;
             _playerInput.actions["Skill4"].performed += OnSkill4;
+            _playerInput.actions["Move"].started += OnMove;
             _playerInput.actions["Move"].performed += OnMove;
+            _playerInput.actions["Move"].canceled += OnMove;
             _playerInput.actions["Jump"].performed += OnJump;
             _playerInput.actions["Walk"].performed += OnWalk;
             _playerInput.actions["Step"].performed += OnStep;
@@ -53,10 +59,9 @@ namespace PlayerSystem.Input
             _playerInput.actions["Skill2"].performed -= OnSkill2;
             _playerInput.actions["Skill3"].performed -= OnSkill3;
             _playerInput.actions["Skill4"].performed -= OnSkill4;
+            _playerInput.actions["Move"].started -= OnMove;
             _playerInput.actions["Move"].performed -= OnMove;
-            _playerInput.actions["Jump"].performed -= OnJump;
-            _playerInput.actions["Walk"].performed -= OnWalk;
-            _playerInput.actions["Step"].performed -= OnStep;
+            _playerInput.actions["Move"].canceled -= OnMove;
             _playerInput.actions["Guard"].performed -= OnGuard;
             _playerInput.actions["Guard"].canceled -= OnGuard;
             _playerInput.actions["LockOn"].performed -= OnLockOn;

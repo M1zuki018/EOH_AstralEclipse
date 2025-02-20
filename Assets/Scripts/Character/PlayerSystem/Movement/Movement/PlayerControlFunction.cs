@@ -1,5 +1,7 @@
+using System;
 using Cinemachine;
 using PlayerSystem.State;
+using UniRx;
 using UnityEngine;
 
 namespace PlayerSystem.Movement
@@ -11,10 +13,12 @@ namespace PlayerSystem.Movement
     {
         private CharacterController _characterController;
         private Animator _animator;
-        private PlayerState _state;
+        private PlayerBlackBoard _blackBoard;
         private CinemachineVirtualCamera _playerCamera;
         private Vector3 _moveNormal;
         private TrailRenderer _trailRenderer;
+        
+        private IDisposable _walkChangedSubscription;
 
         private readonly float _runSpeed = 2f;
         private readonly float _walkSpeed = 1f;
@@ -24,15 +28,15 @@ namespace PlayerSystem.Movement
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
         
-        public PlayerControlFunction(CharacterController characterController, Animator animator, PlayerState state, 
+        public PlayerControlFunction(CharacterController characterController, Animator animator, PlayerBlackBoard blackBoard, 
             CinemachineVirtualCamera playerCamera, TrailRenderer trailRenderer)
         {
             _characterController = characterController;
             _animator = animator;
-            _state = state;
+            _blackBoard = blackBoard;
             _playerCamera = playerCamera;
             _trailRenderer = trailRenderer;
-            _state.MoveSpeed = _walkSpeed;
+            _blackBoard.MoveSpeed = _walkSpeed;
         }
 
         /// <summary>
@@ -40,7 +44,7 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Move()
         {
-            if (!_state.IsAttacking)
+            if (!_blackBoard.IsAttacking)
             {
                 HandleMovement();
                 ApplyGravity();
@@ -52,11 +56,11 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jump()
         {
-            if (_state.IsGrounded) //地面にいる場合はジャンプの初速度を設定する
+            if (_blackBoard.IsGrounded) //地面にいる場合はジャンプの初速度を設定する
             {
-                _state.IsJumping = true;
-                _state.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
-                _state.Velocity = new Vector3(0f, Mathf.Sqrt(_jumpPower * -2f * _gravity), 0f); //初速度を計算
+                _blackBoard.IsJumping = true;
+                _blackBoard.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
+                _blackBoard.Velocity = new Vector3(0f, Mathf.Sqrt(_jumpPower * -2f * _gravity), 0f); //初速度を計算
                 _animator.SetTrigger("Jump");
                 _animator.SetBool("IsJumping", true);
                 _animator.applyRootMotion = false;
@@ -77,8 +81,18 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Walk()
         {
-            _state.IsWalking = !_state.IsWalking;
-            _state.MoveSpeed = _state.IsWalking ? _walkSpeed : _runSpeed;
+            // 黒板のWalkingのbool値が変更されたとき、移動速度を変更する
+            _walkChangedSubscription = _blackBoard.IsWalking
+                .DistinctUntilChanged()
+                .Subscribe(_ => _blackBoard.MoveSpeed = _blackBoard.IsWalking.Value ? _walkSpeed : _runSpeed);
+        }
+
+        /// <summary>
+        /// 購読解除
+        /// </summary>
+        public void DisposeWalkSubscription()
+        {
+            _walkChangedSubscription?.Dispose();
         }
 
         /// <summary>
@@ -86,16 +100,16 @@ namespace PlayerSystem.Movement
         /// </summary>
         private void HandleMovement()
         {
-            if (_state.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
+            if (_blackBoard.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
             {
                 _trailRenderer.emitting = true; //軌跡をつける
                 
                 // カメラ基準で移動方向を計算
                 Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
                 Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
-                Vector3 moveDirection = cameraForward *_state.MoveDirection.z + cameraRight * _state.MoveDirection.x;
+                Vector3 moveDirection = cameraForward *_blackBoard.MoveDirection.z + cameraRight * _blackBoard.MoveDirection.x;
                 
-                _state.CorrectedDirection = moveDirection;
+                _blackBoard.CorrectedDirection = moveDirection;
                 _moveNormal = moveDirection.normalized;
                 
                 // 回転をカメラの向きに合わせる
@@ -106,33 +120,33 @@ namespace PlayerSystem.Movement
                 if (_animator.applyRootMotion)
                 {
                     // Animatorの速度を設定
-                    _animator.SetFloat("Speed", _moveNormal.sqrMagnitude * _state.MoveSpeed, 0.1f, Time.deltaTime);
+                    _animator.SetFloat("Speed", _moveNormal.sqrMagnitude * _blackBoard.MoveSpeed, 0.1f, Time.deltaTime);
                 }
                 else
                 {
                     //ルートモーションがオンじゃないとき＝ジャンプ中は、CharacterControllerのMoveメソッドを使用する
                     
-                    float velocityY = _state.Velocity.y; //Y軸の速度を保存する
+                    float velocityY = _blackBoard.Velocity.y; //Y軸の速度を保存する
                     //移動中の速度は入力方向×ジャンプ中のスピード×現在のスピード（歩き/走り）
-                    _state.Velocity = new Vector3(_moveNormal.x * _jumpMoveSpeed * _state.MoveSpeed,
-                        velocityY, _moveNormal.z * _jumpMoveSpeed * _state.MoveSpeed);
+                    _blackBoard.Velocity = new Vector3(_moveNormal.x * _jumpMoveSpeed * _blackBoard.MoveSpeed,
+                        velocityY, _moveNormal.z * _jumpMoveSpeed * _blackBoard.MoveSpeed);
                     
-                    _characterController.Move(_state.Velocity * Time.deltaTime);
+                    _characterController.Move(_blackBoard.Velocity * Time.deltaTime);
                 }
             }
             else
             {
                 //ジャンプ中の処理
-                if (_state.IsJumping)
+                if (_blackBoard.IsJumping)
                 {
-                    float velocityY = _state.Velocity.y; //Y軸の速度を保存する
-                    _state.Velocity = new Vector3(0, velocityY, 0);
+                    float velocityY = _blackBoard.Velocity.y; //Y軸の速度を保存する
+                    _blackBoard.Velocity = new Vector3(0, velocityY, 0);
                     
-                    _characterController.Move(_state.Velocity * Time.deltaTime);
+                    _characterController.Move(_blackBoard.Velocity * Time.deltaTime);
                 }
                 //緩やかに減速する。2fの部分を変化させると、減速の強さを変更できる
                 _moveNormal = Vector3.Lerp(_moveNormal, Vector3.zero, 2f * Time.deltaTime);
-                float speed = _moveNormal.magnitude * _state.MoveSpeed;
+                float speed = _moveNormal.magnitude * _blackBoard.MoveSpeed;
                 
                 if (speed < 0.03f)
                 {
@@ -153,12 +167,12 @@ namespace PlayerSystem.Movement
         /// </summary>
         private void ApplyGravity()
         {
-            if (!_state.IsGrounded) //空中にいるとき
+            if (!_blackBoard.IsGrounded) //空中にいるとき
             {
-                Vector3 velocity = _state.Velocity;
+                Vector3 velocity = _blackBoard.Velocity;
                 velocity.y += _gravity * Time.deltaTime;
-                _state.Velocity = velocity;
-                _characterController.Move(_state.Velocity * Time.deltaTime); // 垂直方向の速度を反映
+                _blackBoard.Velocity = velocity;
+                _characterController.Move(_blackBoard.Velocity * Time.deltaTime); // 垂直方向の速度を反映
             }
         }
         

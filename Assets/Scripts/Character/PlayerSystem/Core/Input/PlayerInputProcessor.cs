@@ -1,7 +1,10 @@
+using System;
 using PlayerSystem.ActionFunction;
 using UnityEngine;
 using PlayerSystem.Movement;
 using PlayerSystem.State;
+using UniRx;
+using UnityEngine.InputSystem;
 
 namespace PlayerSystem.Input
 {
@@ -11,44 +14,39 @@ namespace PlayerSystem.Input
     public class PlayerInputProcessor : IPlayerInputReceiver
     {
         #region フィールドと初期化
-        
-        private readonly PlayerState _state;
-        private readonly IMovable _mover; //移動
-        private readonly IJumpable _jumper;　//ジャンプ
-        private readonly IWalkable _walker; //歩きと走りの切り替え
-        private readonly ISteppable _stepper; //ステップ
-        private readonly IGaudeable _gauder; //ガード
-        private readonly ILockOnable _locker; //ロックオン
-        private readonly PlayerCombat _combat; //アクション
 
-        public PlayerInputProcessor( PlayerState state, IMovable mover, IJumpable jumper, 
-            IWalkable walker, ISteppable steppable, IGaudeable gauder, ILockOnable locker, PlayerCombat combat)
+        public PlayerBlackBoard BlackBoard { get; private set; }
+
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        public PlayerInputProcessor(PlayerBlackBoard blackBoard)
         {
-            _state = state;
-            _mover = mover;
-            _jumper = jumper;
-            _walker = walker;
-            _stepper = steppable;
-            _gauder = gauder;
-            _locker = locker;
-            _combat = combat;
+            BlackBoard = blackBoard;
         }
+
         #endregion
-        
+
+        public event Action OnWalkChange;
+        public event Action OnJump;
+        public event Action OnStep;
+        public event Action OnGuard;
+        public event Action OnLockOn;
+        public event Action OnAttack;
+        public event Action<int> OnSkill;
+
+
         // 以降、動作はインターフェースを介して行う
 
-        /// <summary>移動入力処理</summary>
-        public void HandleMoveInput(Vector2 input)
-        {
-            _state.MoveDirection = new Vector3(input.x, 0, input.y);
-            _mover.Move();
-        }
+
+        /// <summary>移動入力処理。Vector3への変換だけ行う</summary>
+        public void HandleMoveInput(Vector2 input) => BlackBoard.MoveDirection = new Vector3(input.x, 0, input.y);
 
         /// <summary>ジャンプ入力処理</summary>
-        public void HandleJumpInput() => _jumper.Jump();
-        
+        public void HandleJumpInput() => OnJump?.Invoke();
+
         /// <summary>歩き状態にする入力処理</summary>
-        public void HandleWalkInput() => _walker.Walk();
+        public void HandleWalkInput() => BlackBoard.IsWalking.Value = !BlackBoard.IsWalking.Value;
 
         /// <summary>ポーズ入力処理</summary>
         public void HandlePauseInput()
@@ -58,18 +56,18 @@ namespace PlayerSystem.Input
         }
 
         /// <summary>ステップ入力処理</summary>
-        public void HandleStepInput() => _stepper.TryUseStep();
+        public void HandleStepInput() => OnStep?.Invoke();
 
         /// <summary>ガード入力処理</summary>
-        public void HandleGuardInput(bool input) => _gauder.Gaude(input);
+        public void HandleGuardInput(bool input) => OnGuard?.Invoke();
 
         /// <summary>ロックオン入力処理</summary>
-        public void HandleLockOnInput() => _locker.LockOn();
+        public void HandleLockOnInput() => OnLockOn?.Invoke();
 
         /// <summary>通常攻撃の入力処理</summary>
-        public void HandleAttackInput() => _combat.Attack();
+        public void HandleAttackInput() => OnAttack?.Invoke();
 
         /// <summary>スキル攻撃の入力処理</summary>
-        public void HandleSkillInput(int index) => _combat.UseSkill(index);
+        public void HandleSkillInput(int index) => OnSkill?.Invoke(index);
     }
 }
