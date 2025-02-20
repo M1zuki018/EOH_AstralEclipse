@@ -1,16 +1,23 @@
 using PlayerSystem.ActionFunction;
+using PlayerSystem.State;
 using UnityEngine;
 
 /// <summary>
 /// ガード機能を提供する
 /// </summary>
-public class GuardFunction : MonoBehaviour, IGuardable
+public class GuardFunction : IGuardable
 {
     //ガードの耐久値＝will
     //押している間だけガード出来る→押した瞬間にtrue、放した時にfalse
     //ガードをしている間は、HPではなくwillが削れる
     //ガードブレイク＝willの値が削り切られてしまったらブレイク状態
-    
+
+    private PlayerBlackBoard _bb;
+
+    public GuardFunction(PlayerBlackBoard bb)
+    {
+        _bb = bb;
+    }
     
     public void Gaude()
     {

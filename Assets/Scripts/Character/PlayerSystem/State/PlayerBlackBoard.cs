@@ -10,14 +10,19 @@ namespace PlayerSystem.State
     public class PlayerBlackBoard
     {
         private PlayerDataSO _data;
+        private PlayerStatusSO _status;
 
-        public PlayerBlackBoard(PlayerDataSO data)
+        public PlayerBlackBoard(PlayerDataSO data, PlayerStatusSO status)
         {
             _data = data;
+            _status = status;
         }
         
         /// <summary>定数</summary>
         public PlayerDataSO Data => _data;
+        
+        /// <summary>ステータス</summary>
+        public PlayerStatusSO Status => _status;
         
         /// <summary>入力された方向</summary>
         public Vector3 MoveDirection { get; set; }

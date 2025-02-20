@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6587961571221d649a44af2907444434, type: 3}
+  m_Script: {fileID: 11500000, guid: 08715bd24a0a4d543bebb787335640eb, type: 3}
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
-  MaxHP: 100
-  MaxTP: 100
-  AttackPower: 10
-  Defense: 0
+  _maxHP: 0
+  _will: 0
+  _maxTP: 0
+  _baseAttackPower: 10
+  _defense: 0

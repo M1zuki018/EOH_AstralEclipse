@@ -21,8 +21,9 @@ public class PlayerBrain : CharacterBase
     private PlayerController _playerController;
     private PlayerInput _playerInput;
 
-    // 実行中に変更されないデータを格納したScriptableObject
+    // 黒板登録用
     [SerializeField] private PlayerDataSO _data;
+    [SerializeField] private PlayerStatusSO _status;
     
     // 実行中に変更されるデータを格納した黒板
     private PlayerBlackBoard _playerBlackBoard;
@@ -40,7 +41,7 @@ public class PlayerBrain : CharacterBase
     {
         base.Awake();
 
-        _playerBlackBoard = new PlayerBlackBoard(_data);
+        _playerBlackBoard = new PlayerBlackBoard(_data, _status);
     }
     
     private void Start()
