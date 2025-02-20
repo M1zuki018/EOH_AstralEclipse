@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
 { 
     [Header("コンポーネント")]
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerTransform; // プレイヤーのTransform
-    [SerializeField][ReadOnlyOnRuntime] private CinemachineVirtualCamera _playerCamera; // カメラ
+    [SerializeField][ReadOnlyOnRuntime] private Transform _playerCamera; // カメラ
     [SerializeField][ReadOnlyOnRuntime] private CharacterController _cc;
     [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _brain;
     
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     #region 各種機能
     private IMovable _mover; //移動
     private IJumpable _jumper; //ジャンプ
-    private ISpeedSwitchable _walker; //歩きと走り状態の切り替え
+    private ISpeedSwitchable _speedSwitcher; //歩きと走り状態の切り替え
     private ISteppable _stepFunction; //ステップ
     private IGaudeable _gaudeFunction; //ガード
     private ILockOnable _lockOnFunction; //ロックオン
@@ -52,17 +52,17 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             smb._target = this;
         }
         
-        _walker.Walk(); // 移動速度切り替えのObservableを購読する
+        _speedSwitcher.Walk(); // 移動速度切り替えのObservableを購読する
     }
     
     private void InitializeComponents()
     {
-        _movementHelper = new MovementHelper(_playerCamera.transform, _brain.BB, _cc);
+        _movementHelper = new MovementHelper(_playerCamera, _brain.BB, _cc);
         
-        // 移動処理を包括したクラスのインスタンスを生成
+        // インスタンスを生成
         _mover = new PlayerMovementFunction(_brain.BB, Animator, GetComponent<TrailRenderer>(), _movementHelper);
         _jumper = new PlayerJumpFunction(_brain.BB, _cc, Animator,GetComponent<TrailRenderer>(), _movementHelper);
-        _walker = new PlayerSpeedSwitchFunction(_brain.BB);
+        _speedSwitcher = new PlayerSpeedSwitchFunction(_brain.BB);
 
         _playerActionHandler = new PlayerActionHandler(
             mover: _mover,
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
 
     private void OnDestroy()
     {
-        _walker.DisposeWalkSubscription(); // 移動速度切り替えのObservableを購読解除
+        _speedSwitcher.DisposeWalkSubscription(); // 移動速度切り替えのObservableを購読解除
     }
 
     private void FixedUpdate()
