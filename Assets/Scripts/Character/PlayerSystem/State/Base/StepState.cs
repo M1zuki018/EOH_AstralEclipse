@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace PlayerSystem.State.Base
 {
@@ -14,6 +15,7 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
+            Debug.Log("Step State: Enter");
             //TODO: アニメーション再生
             
             await UniTask.Yield();

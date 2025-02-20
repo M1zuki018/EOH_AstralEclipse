@@ -13,11 +13,13 @@ namespace PlayerSystem.State.Base
         
         // アクションを設定
         private bool _isJumping = false;
+        private bool _isStep = false;
         private bool _isAttacking = false;
         private bool _isGuard = false;
         
         // イベント登録
         private Action _onJump;
+        private Action _onStep;
         private Action _onAttack;
         private Action _onGuard;
         
@@ -31,10 +33,12 @@ namespace PlayerSystem.State.Base
             Debug.Log("Idle entered");
             
             _onJump = () => _isJumping = true;
+            _onStep = () => _isStep = true;
             _onAttack = () => _isAttacking = true;
             _onGuard = () => _isGuard = true;
             
             InputProcessor.OnJump += _onJump;
+            InputProcessor.OnStep += _onStep;
             InputProcessor.OnAttack += _onAttack;
             InputProcessor.OnGuard += _onGuard;
             
@@ -46,7 +50,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            Debug.Log("Idle execute");
             while (StateMachine.CurrentState.Value == BaseStateEnum.Idle)
             {
                 //ActionHandler.Move();
@@ -62,6 +65,12 @@ namespace PlayerSystem.State.Base
                 if (_isJumping && BlackBoard.IsGrounded)
                 {
                     StateMachine.ChangeState(BaseStateEnum.Jump);
+                    return;
+                }
+
+                if (_isStep)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Step);
                     return;
                 }
 
@@ -92,11 +101,13 @@ namespace PlayerSystem.State.Base
         {
             // 状態をリセット
             _isJumping = false;
+            _isStep = false;
             _isAttacking = false;
             _isGuard = false;
 
             // イベントを解除
             InputProcessor.OnJump -= _onJump;
+            InputProcessor.OnStep -= _onJump;
             InputProcessor.OnAttack -= _onAttack;
             InputProcessor.OnGuard -= _onGuard;
             
