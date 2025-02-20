@@ -21,10 +21,11 @@ public class AttackHitDetector : MonoBehaviour
     private ICombat _combat;
     private float _hitDetectionDuration; //攻撃判定の持続時間
     private Coroutine _hitDetectionCoroutine;
-    
+    private PlayerBrain _brain;
     
     private void OnEnable()
     {
+        _brain = GetComponent<PlayerBrain>();
         _combat = GetComponentInParent<ICombat>(); 
     }
 
@@ -61,7 +62,7 @@ public class AttackHitDetector : MonoBehaviour
                     {
                         _combat.DamageHandler.ApplyDamage(
                             target:target, //攻撃対象
-                            baseDamage:_combat.BaseAttackPower, //攻撃力 
+                            baseDamage:_brain.BB.Status.BaseAttackPower, //攻撃力 
                             defense:0,  //相手の防御力
                             attacker:gameObject); //攻撃を加えるキャラクターのゲームオブジェクト
                     }

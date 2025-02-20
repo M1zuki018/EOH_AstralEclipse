@@ -7,8 +7,6 @@ using UnityEngine;
 /// </summary>
 public class PlayerCombat : MonoBehaviour, ICombat
 {
-    public int BaseAttackPower { get; private set; } = 10; //攻撃力
-    public int TP { get; private set; } = 100; //TP
     public AttackHitDetector Detector { get; private set; }
     private PlayerController _playerController;
     private PlayerBrain _playerBrain;
@@ -20,6 +18,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
     [Header("攻撃補正用")]
     [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection;
 
+    public int BaseAttackPower { get; set; }
     public AdjustDirection AdjustDirection => _adjustDirection;
 
     public DamageHandler DamageHandler => _damageHandler;
@@ -39,7 +38,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         
         UIManager.Instance?.HideLockOnUI();
         UIManager.Instance?.HidePlayerBattleUI();
-        UIManager.Instance?.InitializePlayerTP(TP, TP); //TPゲージを初期化
+        UIManager.Instance?.InitializePlayerTP(_playerBrain.BB.Status.MaxTP, _playerBrain.BB.Status.MaxTP); //TPゲージを初期化
         _battleChecker.OnReadyForBattle += HandleReadyForBattle; //イベント登録
         _battleChecker.OnRescission += HandleRescission;
     }
@@ -123,7 +122,7 @@ public class PlayerCombat : MonoBehaviour, ICombat
         SkillData skill = _skillSet.Cast(index); //スキルデータを取得する
         UIManager.Instance.SelectedSkillIcon(index);
 
-        if (TP < skill.ResourceCost) //TPの判定を行う
+        if (_playerBrain.BB.CurrentTP < skill.ResourceCost) //TPの判定を行う
         {
             Debug.Log($"{skill.Name} の発動にTPが足りません");
             return;
@@ -136,9 +135,9 @@ public class PlayerCombat : MonoBehaviour, ICombat
             return;
         }
         
-        TP -= skill.ResourceCost; //TPを減らす
+        _playerBrain.BB.CurrentTP -= skill.ResourceCost; //TPを減らす
         
-        UIManager.Instance?.UpdatePlayerTP(TP);
+        UIManager.Instance?.UpdatePlayerTP(_playerBrain.BB.CurrentTP);
         Debug.Log($"スキルを使った　発動：{skill.Name}");
     }
 }

@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class Health : MonoBehaviour, IHealth
 {
-    [SerializeField] private int _maxHPData = 100;
     public int MaxHP { get; private set; } = 100; //最大HP
     public int CurrentHP { get; private set; } //現在のHP
     public bool IsDead => CurrentHP <= 0; //HPが0以下になったら死亡する
@@ -15,11 +14,16 @@ public class Health : MonoBehaviour, IHealth
     public event Action<int, GameObject> OnHealed; //回復イベント
     public event Action<GameObject> OnDeath; //死亡イベント
 
+    private PlayerBrain _brain;
     
     private void Awake()
-    {
-        MaxHP = _maxHPData;
-        CurrentHP = _maxHPData; //HPを初期化する
+    { 
+        _brain = GetComponent<PlayerBrain>();
+
+        //初期化する
+        _brain.BB.CurrentWill = _brain.BB.Status.Will;
+        MaxHP = _brain.BB.Status.MaxHP;
+        CurrentHP = MaxHP;
     }
     
     /// <summary>
@@ -31,10 +35,13 @@ public class Health : MonoBehaviour, IHealth
         
         if(attacker.tag == this.tag) return;
 
-        if (this.gameObject.CompareTag("Player"))
+        if(_brain.BB.IsSteping) return; //ステップ中の場合、ダメージを受けない
+
+        // ガード中はWillを削る
+        if (_brain.BB.IsGuarding)
         {
-            TryGetComponent(out PlayerBrain brain);
-            if(brain.BB.IsSteping) return; //ステップ中の場合、ダメージを受けない
+            _brain.BB.CurrentWill -= amount;
+            return;
         }
         
         CurrentHP -= amount;

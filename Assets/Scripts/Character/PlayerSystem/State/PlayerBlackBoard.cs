@@ -24,6 +24,12 @@ namespace PlayerSystem.State
         /// <summary>ステータス</summary>
         public PlayerStatusSO Status => _status;
         
+        /// <summary>現在のTP</summary>
+        public int CurrentTP { get; set; }
+        
+        /// <summary>現在のWill</summary>
+        public int CurrentWill { get; set; }
+        
         /// <summary>入力された方向</summary>
         public Vector3 MoveDirection { get; set; }
         

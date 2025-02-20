@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08715bd24a0a4d543bebb787335640eb, type: 3}
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
-  _maxHP: 0
-  _will: 0
-  _maxTP: 0
+  _maxHP: 300
+  _will: 150
+  _maxTP: 100
   _baseAttackPower: 10
   _defense: 0

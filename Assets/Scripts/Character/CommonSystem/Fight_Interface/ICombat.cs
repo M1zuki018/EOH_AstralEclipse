@@ -7,9 +7,8 @@ namespace PlayerSystem.Fight
     /// </summary>
     public interface ICombat
     {
-        /// <summary>攻撃力</summary>
-        int BaseAttackPower { get; }
-
+        public int BaseAttackPower { get; }
+        
         /// <summary>攻撃補正を行うクラス</summary>
         AdjustDirection AdjustDirection { get; }
         
