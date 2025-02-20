@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _playerActionHandler = new PlayerActionHandler(
             mover: _mover,
             jumper: _jumper,
-            steppable: _stepFunction,
+            steppable: new StepFunction(Animator, _brain.BB),
             gauder: _gaudeFunction,
             locker: _lockOnFunction,
             combat: GetComponent<PlayerCombat>());

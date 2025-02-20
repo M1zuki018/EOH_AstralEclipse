@@ -43,7 +43,7 @@ public class PlayerActionHandler
     }
 
     /// <summary>ステップ入力処理</summary>
-    public void Step() => _stepper.TryUseStep();
+    public void Step() => _stepper.Step();
 
     /// <summary>ガード入力処理</summary>
     public void Guard(bool input) => _gauder.Gaude(input);

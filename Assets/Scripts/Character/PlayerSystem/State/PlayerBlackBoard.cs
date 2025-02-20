@@ -32,6 +32,8 @@ namespace PlayerSystem.State
         public bool DebugMode { get; set; } //デバッグ中か
         
         public bool ApplyGravity{ get; set; } = false; // 重力を適用するか
+        
+        public int CurrentSteps { get; set; } //現在のステップ数
     }
 }
 
