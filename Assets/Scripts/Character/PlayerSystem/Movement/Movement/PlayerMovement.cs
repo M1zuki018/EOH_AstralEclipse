@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
 using PlayerSystem.State;
 using UnityEngine;
 
@@ -12,25 +9,17 @@ namespace PlayerSystem.Movement
     public class PlayerMovement : IMovable
     {
         private PlayerBlackBoard _bb;
-        private CharacterController _characterController;
         private Animator _animator;
-        private CinemachineVirtualCamera _playerCamera;
         private Vector3 _moveNormal;
         private TrailRenderer _trailRenderer;
         
         private MovementHelper _helper;
-        
-        private readonly float _rotationSpeed = 10f;
 
         public PlayerMovement(
-            PlayerBlackBoard bb, CharacterController characterController, Animator animator,
-            CinemachineVirtualCamera playerCamera, TrailRenderer trailRenderer,
-            MovementHelper helper)
+            PlayerBlackBoard bb, Animator animator,TrailRenderer trailRenderer, MovementHelper helper)
         {
             _bb = bb;
-            _characterController = characterController;
             _animator = animator;
-            _playerCamera = playerCamera;
             _trailRenderer = trailRenderer;
             _helper = helper;
         }

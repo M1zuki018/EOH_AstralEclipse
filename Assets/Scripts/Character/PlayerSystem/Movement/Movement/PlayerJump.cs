@@ -14,24 +14,23 @@ namespace PlayerSystem.Movement
         private PlayerBlackBoard _bb;
         private CharacterController _characterController;
         private Animator _animator;
-        private CinemachineVirtualCamera _playerCamera;
-        private Vector3 _moveNormal;
         private TrailRenderer _trailRenderer;
+        
+        private MovementHelper _helper;
      
         private readonly float _jumpPower = 0.7f;
         private readonly float _jumpMoveSpeed = 2f; //ジャンプ中の移動速度
-        private readonly float _rotationSpeed = 10f;
         private readonly float _gravity = -17.5f;
 
         public PlayerJump(
             PlayerBlackBoard bb, CharacterController characterController, Animator animator,
-            CinemachineVirtualCamera playerCamera, TrailRenderer trailRenderer)
+            TrailRenderer trailRenderer, MovementHelper helper)
         {
             _bb = bb;
             _characterController = characterController;
             _animator = animator;
-            _playerCamera = playerCamera;
             _trailRenderer = trailRenderer;
+            _helper = helper;
         }
         
         /// <summary>
@@ -56,25 +55,14 @@ namespace PlayerSystem.Movement
             {
                 _trailRenderer.emitting = true; //軌跡をつける
 
-                // カメラ基準で移動方向を計算
-                Vector3 cameraForward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
-                Vector3 cameraRight = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
-                Vector3 moveDirection = cameraForward * _bb.MoveDirection.z + cameraRight * _bb.MoveDirection.x;
-
-                _bb.CorrectedDirection = moveDirection.normalized;
-                _moveNormal = moveDirection.normalized;
-
-                // 回転をカメラの向きに合わせる
-                Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-                _characterController.transform.rotation = Quaternion.Slerp(
-                    _characterController.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+                _helper.RotateCharacter(_helper.CalculateMoveDirection());
 
                 //ルートモーションがオフなので、CharacterControllerのMoveメソッドを使用する
 
                 float velocityY = _bb.Velocity.y; //Y軸の速度を保存する
                 //移動中の速度は入力方向×ジャンプ中のスピード×現在のスピード（歩き/走り）
-                _bb.Velocity = new Vector3(_moveNormal.x * _jumpMoveSpeed * _bb.MoveSpeed,
-                    velocityY, _moveNormal.z * _jumpMoveSpeed * _bb.MoveSpeed);
+                _bb.Velocity = new Vector3(_bb.CorrectedDirection.x * _jumpMoveSpeed * _bb.MoveSpeed,
+                    velocityY, _bb.CorrectedDirection.z * _jumpMoveSpeed * _bb.MoveSpeed);
 
                 _characterController.Move(_bb.Velocity * Time.deltaTime);
             }
