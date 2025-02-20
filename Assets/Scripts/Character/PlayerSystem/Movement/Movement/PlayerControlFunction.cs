@@ -19,6 +19,7 @@ namespace PlayerSystem.Movement
         private TrailRenderer _trailRenderer;
         
         private PlayerMovement _movement;
+        private PlayerJump _jump;
         
         private IDisposable _walkChangedSubscription;
 
@@ -31,11 +32,12 @@ namespace PlayerSystem.Movement
         private readonly float _climbSpeed = 3f;
         
         public PlayerControlFunction(
-            PlayerMovement movement,
+            PlayerMovement movement, PlayerJump jump,
             CharacterController characterController, Animator animator, PlayerBlackBoard blackBoard, 
             CinemachineVirtualCamera playerCamera, TrailRenderer trailRenderer)
         {
             _movement = movement;
+            _jump = jump;
             _characterController = characterController;
             _animator = animator;
             _blackBoard = blackBoard;
@@ -52,27 +54,27 @@ namespace PlayerSystem.Movement
         /// <summary>
         /// ジャンプ機能の実装
         /// </summary>
-        public void Jump()
-        {
-            if (_blackBoard.IsGrounded) //地面にいる場合はジャンプの初速度を設定する
-            {
-                _blackBoard.IsJumping = true;
-                _blackBoard.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
-                _blackBoard.Velocity = new Vector3(0f, Mathf.Sqrt(_jumpPower * -2f * _gravity), 0f); //初速度を計算
-                _animator.SetTrigger("Jump");
-                _animator.SetBool("IsJumping", true);
-                _animator.applyRootMotion = false;
-            }
-        }
+        public void Jump() => _jump.Jump();
+        // {
+        //     if (_blackBoard.IsGrounded) //地面にいる場合はジャンプの初速度を設定する
+        //     {
+        //         _blackBoard.IsJumping = true;
+        //         _blackBoard.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
+        //         _blackBoard.Velocity = new Vector3(0f, Mathf.Sqrt(_jumpPower * -2f * _gravity), 0f); //初速度を計算
+        //         _animator.SetTrigger("Jump");
+        //         _animator.SetBool("IsJumping", true);
+        //         _animator.applyRootMotion = false;
+        //     }
+        // }
 
         /// <summary>
         /// ジャンプ中の処理の実装
         /// </summary>
-        public void Jumping()
-        {
-            HandleMovement();
-            ApplyGravity();
-        }
+        public void Jumping() => _jump.Jumping();
+        // {
+        //     HandleMovement();
+        //     ApplyGravity();
+        // }
 
         /// <summary>
         /// 動きの速度を切り替える実装
