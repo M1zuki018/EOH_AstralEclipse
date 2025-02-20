@@ -1,18 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+using PlayerSystem.State;
 using UnityEngine;
 
-public class PlayerGravity : MonoBehaviour
+/// <summary>
+/// プレイヤーに重力を加える処理
+/// </summary>
+public class PlayerGravity
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private PlayerBlackBoard _bb;
+    private CharacterController _cc;
+    
+    private readonly float _gravity = -17.5f;
 
-    // Update is called once per frame
-    void Update()
+    public PlayerGravity(PlayerBlackBoard bb, CharacterController cc)
     {
-        
+        _bb = bb;
+        _cc = cc;
+    }
+    
+    /// <summary>
+    /// 重力を適用する
+    /// </summary>
+    public void ApplyGravity()
+    {
+        if (_bb.ApplyGravity)
+        {
+            Vector3 velocity = _bb.Velocity;
+            velocity.y += _gravity * Time.deltaTime;
+            _bb.Velocity = velocity;
+            _cc.Move(_bb.Velocity * Time.deltaTime); // 垂直方向の速度を反映
+        }
     }
 }

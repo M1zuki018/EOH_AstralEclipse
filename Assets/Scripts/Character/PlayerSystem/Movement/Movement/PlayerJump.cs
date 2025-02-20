@@ -17,6 +17,8 @@ namespace PlayerSystem.Movement
         private CinemachineVirtualCamera _playerCamera;
         private Vector3 _moveNormal;
         private TrailRenderer _trailRenderer;
+        
+        private PlayerGravity _playerGravity;
      
         private readonly float _jumpPower = 0.7f;
         private readonly float _jumpMoveSpeed = 2f; //ジャンプ中の移動速度
@@ -32,6 +34,8 @@ namespace PlayerSystem.Movement
             _animator = animator;
             _playerCamera = playerCamera;
             _trailRenderer = trailRenderer;
+            
+            _playerGravity = new PlayerGravity(_bb, _characterController);
         }
         
         /// <summary>
@@ -52,6 +56,8 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Jumping()
         {
+            _playerGravity.ApplyGravity();
+            
             if (_bb.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
             {
                 _trailRenderer.emitting = true; //軌跡をつける
@@ -111,21 +117,6 @@ namespace PlayerSystem.Movement
                     _trailRenderer.emitting = true;
                     _animator.SetFloat("Speed", speed);   
                 }
-            }
-            ApplyGravity();
-        }
-
-        /// <summary>
-        /// 重力を適用する
-        /// </summary>
-        private void ApplyGravity()
-        {
-            if (_bb.ApplyGravity)
-            {
-                Vector3 velocity = _bb.Velocity;
-                velocity.y += _gravity * Time.deltaTime;
-                _bb.Velocity = velocity;
-                _characterController.Move(_bb.Velocity * Time.deltaTime); // 垂直方向の速度を反映
             }
         }
     }
