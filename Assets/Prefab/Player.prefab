@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86cd7cccb02c0ba4185eb4b8a07463cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: 2a3ad73a48201c545a6124f228dd2464, type: 2}
   _idleThreshold: 10
   _moveActions:
   - {fileID: 5978920907047497922, guid: 23a392d5fc9920d49b50d83a46fd05a8, type: 3}

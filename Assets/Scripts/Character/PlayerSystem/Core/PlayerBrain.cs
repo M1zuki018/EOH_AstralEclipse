@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using PlayerSystem.Core;
 using PlayerSystem.Input;
 using PlayerSystem.State;
 using PlayerSystem.State.Base;
@@ -19,6 +20,12 @@ public class PlayerBrain : CharacterBase
 {
     private PlayerController _playerController;
     private PlayerInput _playerInput;
+
+    // 実行中に変更されないデータを格納したScriptableObject
+    [SerializeField] private PlayerDataSO _data;
+    public PlayerDataSO Data => _data;
+    
+    // 実行中に変更されるデータを格納した黒板
     private PlayerBlackBoard _playerBlackBoard;
     public PlayerBlackBoard BB => _playerBlackBoard;
     
