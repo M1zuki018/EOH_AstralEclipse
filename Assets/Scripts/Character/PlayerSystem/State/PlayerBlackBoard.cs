@@ -1,3 +1,4 @@
+using PlayerSystem.Core;
 using UniRx;
 using UnityEngine;
 
@@ -8,6 +9,16 @@ namespace PlayerSystem.State
     /// </summary>
     public class PlayerBlackBoard
     {
+        private PlayerDataSO _data;
+
+        public PlayerBlackBoard(PlayerDataSO data)
+        {
+            _data = data;
+        }
+        
+        /// <summary>定数</summary>
+        public PlayerDataSO Data => _data;
+        
         /// <summary>入力された方向</summary>
         public Vector3 MoveDirection { get; set; }
         

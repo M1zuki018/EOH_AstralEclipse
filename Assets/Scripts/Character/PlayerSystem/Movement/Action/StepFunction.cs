@@ -9,9 +9,6 @@ using PlayerSystem.State;
 /// </summary>
 public class StepFunction : ISteppable
 {
-    private readonly int _maxSteps = 10; // ステップの最大回数
-    private readonly float _recoveryTime = 5f; // ステップ数の回復間隔（秒）
-    
     private Animator _animator;
     private PlayerBlackBoard _bb;
     
@@ -23,7 +20,7 @@ public class StepFunction : ISteppable
         _bb = bb;
         
         UIManager.Instance?.HideStepUI(); //UIを隠す
-        _bb.CurrentSteps = _maxSteps; // ステップ数の初期化
+        _bb.CurrentSteps = _bb.Data.MaxSteps; // ステップ数の初期化
     }
 
     /// <summary>
@@ -31,11 +28,11 @@ public class StepFunction : ISteppable
     /// </summary>
     public void Step()
     {
-        if (_bb.CurrentSteps == _maxSteps)
+        if (_bb.CurrentSteps == _bb.Data.MaxSteps)
         {
             // ステップ数が最大値の状態から変更される場合、時間経過で回復する処理の購読を開始する
             StartStepRecovery();
-            UIManager.Instance?.UpdateStepGauge(1,_recoveryTime);
+            UIManager.Instance?.UpdateStepGauge(1,_bb.Data.RecoveryTime);
         }
         
         //ステップ回数を減らすのと、UIを更新する
@@ -54,20 +51,20 @@ public class StepFunction : ISteppable
         UIManager.Instance.ShowStepUI(); //UIを見せる
         
         // 一定間隔でステップを回復する
-        Observable.Interval(TimeSpan.FromSeconds(_recoveryTime))
-            .Where(_ => _bb.CurrentSteps < _maxSteps)  // ステップが最大値以下の場合のみ回復
+        Observable.Interval(TimeSpan.FromSeconds(_bb.Data.RecoveryTime))
+            .Where(_ => _bb.CurrentSteps < _bb.Data.MaxSteps)  // ステップが最大値以下の場合のみ回復
             .Subscribe(_ =>
             {
                 _bb.CurrentSteps++;
                 UIManager.Instance?.UpdateStepCount(_bb.CurrentSteps);
                 
-                if (_bb.CurrentSteps >= _maxSteps)
+                if (_bb.CurrentSteps >= _bb.Data.MaxSteps)
                 {
                     StopStepRecovery(); //もし最大回数になっていたら購読を解除する
                     return;
                 }
                 
-                UIManager.Instance?.UpdateStepGauge(1,_recoveryTime);
+                UIManager.Instance?.UpdateStepGauge(1,_bb.Data.RecoveryTime);
             })
             .AddTo(_disposable); // GameObjectが破棄されるときに購読を解除
     }

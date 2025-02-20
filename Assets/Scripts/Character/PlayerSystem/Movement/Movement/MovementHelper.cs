@@ -11,7 +11,6 @@ namespace PlayerSystem.Movement
         private Transform _cameraTransform;
         private PlayerBlackBoard _bb;
         private CharacterController _cc;
-        private float _rotationSpeed = 10f;
 
         public MovementHelper(Transform cameraTransform, PlayerBlackBoard bb,
             CharacterController cc)
@@ -42,7 +41,7 @@ namespace PlayerSystem.Movement
             {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
                 _cc.transform.rotation = Quaternion.Slerp(
-                    _cc.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+                    _cc.transform.rotation, targetRotation, _bb.Data.RotationSpeed * Time.deltaTime);
             }
         }
     }

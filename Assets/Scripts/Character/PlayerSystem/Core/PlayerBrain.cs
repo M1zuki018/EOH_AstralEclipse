@@ -23,7 +23,6 @@ public class PlayerBrain : CharacterBase
 
     // 実行中に変更されないデータを格納したScriptableObject
     [SerializeField] private PlayerDataSO _data;
-    public PlayerDataSO Data => _data;
     
     // 実行中に変更されるデータを格納した黒板
     private PlayerBlackBoard _playerBlackBoard;
@@ -40,7 +39,8 @@ public class PlayerBrain : CharacterBase
     protected override void Awake()
     {
         base.Awake();
-        _playerBlackBoard = new PlayerBlackBoard();
+
+        _playerBlackBoard = new PlayerBlackBoard(_data);
     }
     
     private void Start()

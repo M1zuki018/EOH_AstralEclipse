@@ -11,18 +11,12 @@ namespace PlayerSystem.Movement
     {
         private PlayerBlackBoard _bb;
         
-        private PlayerMovementFunction _movementFunction;
-        private PlayerJumpFunction _jumpFunction;
-        
         private IDisposable _walkChangedSubscription;
-
-        private readonly float _runSpeed = 2f;
-        private readonly float _walkSpeed = 1f;
         
         public PlayerSpeedSwitchFunction(PlayerBlackBoard bb)
         {
             _bb = bb;
-            _bb.MoveSpeed = _walkSpeed;
+            _bb.MoveSpeed = _bb.Data.WalkSpeed;
         }
         
         /// <summary>
@@ -33,7 +27,7 @@ namespace PlayerSystem.Movement
             // 黒板のWalkingのbool値が変更されたとき、移動速度を変更する
             _walkChangedSubscription = _bb.IsWalking
                 .DistinctUntilChanged()
-                .Subscribe(_ => _bb.MoveSpeed = _bb.IsWalking.Value ? _walkSpeed : _runSpeed);
+                .Subscribe(_ => _bb.MoveSpeed = _bb.IsWalking.Value ? _bb.Data.WalkSpeed : _bb.Data.RunSpeed);
         }
 
         /// <summary>

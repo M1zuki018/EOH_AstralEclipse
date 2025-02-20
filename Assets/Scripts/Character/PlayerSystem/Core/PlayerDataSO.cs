@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace PlayerSystem.Core
 {
+    /// <summary>
+    /// プレイヤーに必要な変数のうちゲーム中に変更されないものを設定する
+    /// </summary>
     [CreateAssetMenu(fileName = "PlayerData", menuName = "GameData/PlayerData")]
     public class PlayerDataSO : ScriptableObject
     {

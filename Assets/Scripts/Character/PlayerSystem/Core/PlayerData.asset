@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4d56c22a739d54b95ac159b74598c0, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  RunSpeed: 2
-  WalkSpeed: 1
-  JumpPower: 0.7
-  JumpMoveSpeed: 2
-  Gravity: -17.5
-  MaxSteps: 10
-  RecoveryTime: 5
-  RotationSpeed: 10
+  _runSpeed: 2
+  _walkSpeed: 1
+  _jumpPower: 0.7
+  _jumpMoveSpeed: 2
+  _gravity: -17.5
+  _maxSteps: 10
+  _recoveryTime: 5
+  _rotationSpeed: 10

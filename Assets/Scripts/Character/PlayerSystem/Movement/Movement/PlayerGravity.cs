@@ -8,8 +8,6 @@ public class PlayerGravity
 {
     private PlayerBlackBoard _bb;
     private CharacterController _cc;
-    
-    private readonly float _gravity = -17.5f;
 
     public PlayerGravity(PlayerBlackBoard bb, CharacterController cc)
     {
@@ -25,7 +23,7 @@ public class PlayerGravity
         if (_bb.ApplyGravity)
         {
             Vector3 velocity = _bb.Velocity;
-            velocity.y += _gravity * Time.deltaTime;
+            velocity.y += _bb.Data.Gravity * Time.deltaTime;
             _bb.Velocity = velocity;
             _cc.Move(_bb.Velocity * Time.deltaTime); // 垂直方向の速度を反映
         }
