@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
@@ -49,6 +50,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         {
             smb._target = this;
         }
+        
+        _walker.Walk(); // 移動速度切り替えのObservableを購読する
     }
     
     private void InitializeComponents()
@@ -69,7 +72,12 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         
         Animator.applyRootMotion = true; //ルートモーションを有効化
     }
-    
+
+    private void OnDestroy()
+    {
+        _walker.DisposeWalkSubscription(); // 移動速度切り替えのObservableを購読解除
+    }
+
     private void FixedUpdate()
     {
         if (_playerBrain.BB.IsJumping)

@@ -27,6 +27,7 @@ namespace PlayerSystem.Input
 
         #endregion
 
+        public event Action OnWalkChange;
         public event Action OnJump;
         public event Action OnStep;
         public event Action OnGuard;
@@ -38,19 +39,14 @@ namespace PlayerSystem.Input
         // 以降、動作はインターフェースを介して行う
 
 
-        /// <summary>移動入力処理</summary>
-        public void HandleMoveInput(Vector2 input)
-        {
-            BlackBoard.MoveDirection = new Vector3(input.x, 0, input.y);
-            //_actionHandler.Move();
-        }
+        /// <summary>移動入力処理。Vector3への変換だけ行う</summary>
+        public void HandleMoveInput(Vector2 input) => BlackBoard.MoveDirection = new Vector3(input.x, 0, input.y);
 
         /// <summary>ジャンプ入力処理</summary>
         public void HandleJumpInput() => OnJump?.Invoke();
 
         /// <summary>歩き状態にする入力処理</summary>
-        public void HandleWalkInput() => throw new System.NotImplementedException();
-        //_walker.Walk();
+        public void HandleWalkInput() => BlackBoard.IsWalking.Value = !BlackBoard.IsWalking.Value;
 
         /// <summary>ポーズ入力処理</summary>
         public void HandlePauseInput()

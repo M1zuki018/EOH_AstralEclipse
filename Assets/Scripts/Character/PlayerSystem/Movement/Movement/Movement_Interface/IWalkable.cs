@@ -6,6 +6,8 @@ namespace PlayerSystem.Movement
     public interface IWalkable
     {
         public void Walk();
+
+        public void DisposeWalkSubscription();
     }
 }
 

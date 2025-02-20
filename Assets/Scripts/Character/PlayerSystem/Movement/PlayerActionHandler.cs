@@ -30,15 +30,13 @@ public class PlayerActionHandler
         _combat = combat;
     }
     
-    /// <summary>移動入力処理</summary>
-    public void Move() => _mover.Move();
+    // //TODO: 不具合の原因が解明出来たらここから呼び出すことになるかも
+    // /// <summary>移動入力処理</summary>
+    // public void Move() => _mover.Move();
     
     /// <summary>ジャンプ入力処理</summary>
     public void Jump() => _jumper.Jump();
-        
-    /// <summary>歩き状態にする入力処理</summary>
-    public void ChangeWalk() => _walker.Walk();
-
+    
     /// <summary>ポーズ入力処理</summary>
     public void Pause()
     {

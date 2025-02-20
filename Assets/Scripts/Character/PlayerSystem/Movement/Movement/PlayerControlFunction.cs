@@ -1,5 +1,7 @@
+using System;
 using Cinemachine;
 using PlayerSystem.State;
+using UniRx;
 using UnityEngine;
 
 namespace PlayerSystem.Movement
@@ -15,6 +17,8 @@ namespace PlayerSystem.Movement
         private CinemachineVirtualCamera _playerCamera;
         private Vector3 _moveNormal;
         private TrailRenderer _trailRenderer;
+        
+        private IDisposable _walkChangedSubscription;
 
         private readonly float _runSpeed = 2f;
         private readonly float _walkSpeed = 1f;
@@ -77,8 +81,18 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Walk()
         {
-            _blackBoard.IsWalking = !_blackBoard.IsWalking;
-            _blackBoard.MoveSpeed = _blackBoard.IsWalking ? _walkSpeed : _runSpeed;
+            // 黒板のWalkingのbool値が変更されたとき、移動速度を変更する
+            _walkChangedSubscription = _blackBoard.IsWalking
+                .DistinctUntilChanged()
+                .Subscribe(_ => _blackBoard.MoveSpeed = _blackBoard.IsWalking.Value ? _walkSpeed : _runSpeed);
+        }
+
+        /// <summary>
+        /// 購読解除
+        /// </summary>
+        public void DisposeWalkSubscription()
+        {
+            _walkChangedSubscription?.Dispose();
         }
 
         /// <summary>

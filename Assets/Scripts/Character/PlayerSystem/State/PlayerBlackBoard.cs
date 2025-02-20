@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 namespace PlayerSystem.State
@@ -19,7 +20,7 @@ namespace PlayerSystem.State
         /// <summary>移動する速度</summary>
         public float MoveSpeed { get; set; }
 
-        public bool IsWalking { get; set; } = true;　//歩いているか
+        public ReactiveProperty<bool> IsWalking { get; set; } = new ReactiveProperty<bool>(true);　//歩いているか
         public bool IsGrounded { get; set; } //地面についているか
         public bool IsJumping { get; set; } //ジャンプ中か
 
