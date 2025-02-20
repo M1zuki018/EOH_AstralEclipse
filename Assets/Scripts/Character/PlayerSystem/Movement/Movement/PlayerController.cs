@@ -1,8 +1,6 @@
 using UnityEngine;
-using Cinemachine;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.Movement;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// プレイヤーの移動・空中移動などの処理を行う機能
@@ -32,7 +30,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private ISpeedSwitchable _speedSwitcher; //歩きと走り状態の切り替え
     private ISteppable _stepFunction; //ステップ
     private IGaudeable _gaudeFunction; //ガード
-    private ILockOnable _lockOnFunction; //ロックオン
     
     private PlayerGravity _playerGravity; // 重力をかける処理
     private MovementHelper _movementHelper; // 移動処理を補助するクラス
@@ -69,7 +66,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             jumper: _jumper,
             steppable: new StepFunction(Animator, _brain.BB),
             gauder: _gaudeFunction,
-            locker: _lockOnFunction,
             combat: GetComponent<PlayerCombat>());
 
         _playerGravity = new PlayerGravity(_brain.BB, _cc);

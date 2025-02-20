@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.Fight;
+using PlayerSystem.Input;
 using UniRx;
 using UnityEngine;
 
@@ -20,9 +21,14 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
     private readonly ReactiveProperty<Transform> _lockedOnEnemy = new ReactiveProperty<Transform>(); //現在ロックオンしている敵を保持する
     private Transform _defaultFocusTarget; //VirtualCameraで初期状態でLook Atに設定されているトランスフォームを保持する
     private IDisposable _updateSubscription;
+
+    private PlayerInputProcessor _inputProcessor;
     
     private void Start()
     {
+        _inputProcessor = GetComponent<PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor;
+        _inputProcessor.OnLockOn += LockOn; // InputProcessorのロックオンイベントに登録
+        
         if (_battleChecker == null)
         {
             Debug.Assert(_battleChecker != null);
@@ -54,6 +60,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         //解除
         _updateSubscription?.Dispose();
         _lockedOnEnemy.Dispose();
+        _inputProcessor.OnLockOn -= LockOn;
     }
     
     /// <summary>
