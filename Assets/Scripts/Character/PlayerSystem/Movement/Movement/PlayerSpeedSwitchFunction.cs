@@ -9,13 +9,13 @@ namespace PlayerSystem.Movement
     /// <summary>
     /// プレイヤーの移動・ジャンプ・歩き/走りの切り替え処理を包括したクラス
     /// </summary>
-    public class PlayerControlFunction : IMovable, IJumpable, IWalkable
+    public class PlayerWalkFunction : IWalkable
     {
         private PlayerBlackBoard _blackBoard;
         private Vector3 _moveNormal;
         
-        private PlayerMovement _movement;
-        private PlayerJump _jump;
+        private PlayerMovementFunction _movementFunction;
+        private PlayerJumpFunction _jumpFunction;
         
         private IDisposable _walkChangedSubscription;
 
@@ -27,21 +27,12 @@ namespace PlayerSystem.Movement
         private readonly float _rotationSpeed = 10f;
         private readonly float _climbSpeed = 3f;
         
-        public PlayerControlFunction(
-            PlayerMovement movement, PlayerJump jump, PlayerBlackBoard blackBoard)
+        public PlayerWalkFunction( PlayerBlackBoard blackBoard)
         {
-            _movement = movement;
-            _jump = jump;
             _blackBoard = blackBoard;
             _blackBoard.MoveSpeed = _walkSpeed;
         }
         
-        public void Move() => _movement.Move(); // 移動
-        
-        public void Jump() => _jump.Jump(); // ジャンプ
-
-        public void Jumping() => _jump.Jumping(); // ジャンプ中
-
         /// <summary>
         /// 動きの速度を切り替える実装
         /// </summary>

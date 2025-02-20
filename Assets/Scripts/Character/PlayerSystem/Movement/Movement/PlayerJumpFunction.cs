@@ -9,7 +9,7 @@ namespace PlayerSystem.Movement
     /// <summary>
     /// プレイヤーのジャンプ機能
     /// </summary>
-    public class PlayerJump : IJumpable
+    public class PlayerJumpFunction : IJumpable
     {
         private PlayerBlackBoard _bb;
         private CharacterController _characterController;
@@ -22,7 +22,7 @@ namespace PlayerSystem.Movement
         private readonly float _jumpMoveSpeed = 2f; //ジャンプ中の移動速度
         private readonly float _gravity = -17.5f;
 
-        public PlayerJump(
+        public PlayerJumpFunction(
             PlayerBlackBoard bb, CharacterController characterController, Animator animator,
             TrailRenderer trailRenderer, MovementHelper helper)
         {
