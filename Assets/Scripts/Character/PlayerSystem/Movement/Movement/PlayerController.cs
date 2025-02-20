@@ -1,11 +1,7 @@
-using System;
 using UnityEngine;
 using Cinemachine;
 using PlayerSystem.ActionFunction;
-using PlayerSystem.Fight;
-using PlayerSystem.Input;
 using PlayerSystem.Movement;
-using PlayerSystem.State;
 
 /// <summary>
 /// プレイヤーの移動・空中移動などの処理を行う機能
@@ -60,7 +56,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _mover = new PlayerControlFunction(
             new PlayerMovement(_playerBrain.BB, _characterController, Animator,  _playerCamera, GetComponent<TrailRenderer>()),
             new PlayerJump(_playerBrain.BB, _characterController, Animator,  _playerCamera, GetComponent<TrailRenderer>()),
-            _characterController, Animator, _playerBrain.BB, _playerCamera, GetComponent<TrailRenderer>());
+            _playerBrain.BB);
         _jumper = (IJumpable) _mover;
         _walker = (IWalkable) _mover;
 

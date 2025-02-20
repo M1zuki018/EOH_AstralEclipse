@@ -115,6 +115,9 @@ namespace PlayerSystem.Movement
             ApplyGravity();
         }
 
+        /// <summary>
+        /// 重力を適用する
+        /// </summary>
         private void ApplyGravity()
         {
             if (_bb.ApplyGravity)
