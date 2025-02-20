@@ -6,7 +6,7 @@ namespace PlayerSystem.Movement
     /// <summary>
     /// プレイヤーの移動機能
     /// </summary>
-    public class PlayerMovement : IMovable
+    public class PlayerMovementFunction : IMovable
     {
         private PlayerBlackBoard _bb;
         private Animator _animator;
@@ -15,7 +15,7 @@ namespace PlayerSystem.Movement
         
         private MovementHelper _helper;
 
-        public PlayerMovement(
+        public PlayerMovementFunction(
             PlayerBlackBoard bb, Animator animator,TrailRenderer trailRenderer, MovementHelper helper)
         {
             _bb = bb;

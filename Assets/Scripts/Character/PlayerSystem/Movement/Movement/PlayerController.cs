@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     #region 各種機能
     private IMovable _mover; //移動
     private IJumpable _jumper; //ジャンプ
-    private IWalkable _walker; //歩きと走り状態の切り替え
+    private ISpeedSwitchable _walker; //歩きと走り状態の切り替え
     private ISteppable _stepFunction; //ステップ
     private IGaudeable _gaudeFunction; //ガード
     private ILockOnable _lockOnFunction; //ロックオン
@@ -60,12 +60,9 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _movementHelper = new MovementHelper(_playerCamera.transform, _brain.BB, _cc);
         
         // 移動処理を包括したクラスのインスタンスを生成
-        _mover = new PlayerControlFunction(
-            new PlayerMovement(_brain.BB, Animator, GetComponent<TrailRenderer>(), _movementHelper),
-            new PlayerJump(_brain.BB, _cc, Animator,GetComponent<TrailRenderer>(), _movementHelper),
-            _brain.BB);
-        _jumper = (IJumpable) _mover;
-        _walker = (IWalkable) _mover;
+        _mover = new PlayerMovementFunction(_brain.BB, Animator, GetComponent<TrailRenderer>(), _movementHelper);
+        _jumper = new PlayerJumpFunction(_brain.BB, _cc, Animator,GetComponent<TrailRenderer>(), _movementHelper);
+        _walker = new PlayerSpeedSwitchFunction(_brain.BB);
 
         _playerActionHandler = new PlayerActionHandler(
             mover: _mover,
