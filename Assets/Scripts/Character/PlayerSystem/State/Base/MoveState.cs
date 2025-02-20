@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UniVRM10;
 
 namespace PlayerSystem.State.Base
 {
@@ -57,8 +58,8 @@ namespace PlayerSystem.State.Base
                     return;
                 }
 
-                // ジャンプ入力があれば Jump へ
-                if (_isJumping)
+                // ジャンプ入力があり、地面についていた場合 Jump へ
+                if (_isJumping && BlackBoard.IsGrounded)
                 {
                     StateMachine.ChangeState(BaseStateEnum.Jump);
                     return;
@@ -77,6 +78,8 @@ namespace PlayerSystem.State.Base
                     StateMachine.ChangeState(BaseStateEnum.Guard);
                     return;
                 }
+                
+                _isJumping = false; // ジャンプフラグをリセット
 
                 await UniTask.Yield();
             }

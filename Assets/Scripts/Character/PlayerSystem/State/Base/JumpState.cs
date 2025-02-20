@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace PlayerSystem.State.Base
 {
@@ -21,6 +22,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
+            Debug.Log("JumpState: Enter");
+            
             //TODO: アニメーション再生
             
             // アクションを設定
