@@ -30,6 +30,8 @@ namespace PlayerSystem.State
         
         public bool IsBossBattle { get; set; } //ボス戦中か
         public bool DebugMode { get; set; } //デバッグ中か
+        
+        public bool ApplyGravity{ get; set; } = false; // 重力を適用するか
     }
 }
 

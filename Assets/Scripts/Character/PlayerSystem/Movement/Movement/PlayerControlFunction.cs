@@ -167,7 +167,7 @@ namespace PlayerSystem.Movement
         /// </summary>
         private void ApplyGravity()
         {
-            if (!_blackBoard.IsGrounded) //空中にいるとき
+            if (_blackBoard.ApplyGravity)
             {
                 Vector3 velocity = _blackBoard.Velocity;
                 velocity.y += _gravity * Time.deltaTime;
