@@ -36,7 +36,6 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         
         UIManager.Instance?.HideLockOnUI();
         UIManager.Instance?.HidePlayerBattleUI();
-        UIManager.Instance?.InitializePlayerTP(_playerBrain.BB.Status.MaxTP, _playerBrain.BB.Status.MaxTP); //TPゲージを初期化
         _battleChecker.OnReadyForBattle += HandleReadyForBattle; //イベント登録
         _battleChecker.OnRescission += HandleRescission;
     }
