@@ -16,13 +16,12 @@ public class SkillState : PlayerBaseState<BaseStateEnum>
     {
         Debug.Log("SkillState: Enter");
         // スキルが使えるか判定する
-        if (!ActionHandler.CanUseSkill)
+        if (ActionHandler.CanUseSkill)
         {
-            StateMachine.ChangeState(BaseStateEnum.Idle);
-            return;
+            await ActionHandler.Skill(); // 発動
         }
         
-        ActionHandler.Skill(); // 発動
+        StateMachine.ChangeState(BaseStateEnum.Idle);
         
         await UniTask.Yield();
     }

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.Movement;
 
@@ -51,5 +52,5 @@ public class PlayerActionHandler
     public bool CanUseSkill => _skill.CanUseSkill();
     
     /// <summary>スキル攻撃処理</summary>
-    public void Skill() => _skill.UseSkill();
+    public UniTask Skill() => _skill.UseSkill();
 }

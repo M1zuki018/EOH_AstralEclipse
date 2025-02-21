@@ -17,3 +17,4 @@ MonoBehaviour:
   _maxTP: 100
   _baseAttackPower: 10
   _defense: 0
+  _skill: {fileID: 11400000, guid: 8511c6d56ed44b441beefae0f23af607, type: 2}

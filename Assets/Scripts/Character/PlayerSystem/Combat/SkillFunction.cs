@@ -1,3 +1,5 @@
+using System;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.State;
 using UnityEngine;
 
@@ -35,7 +37,7 @@ namespace PlayerSystem.Fight
         /// <summary>
         /// スキルを使う
         /// </summary>
-        public void UseSkill()
+        public async UniTask UseSkill()
         {
             SkillData skill = _bb.Status.SkillData(_bb.UsingSkillIndex); //スキルデータを取得する
             UIManager.Instance.SelectedSkillIcon(_bb.UsingSkillIndex);
@@ -53,6 +55,8 @@ namespace PlayerSystem.Fight
         
             UIManager.Instance?.UpdatePlayerTP(_bb.CurrentTP);
             Debug.Log($"スキルを使った　発動：{skill.Name}");
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
         }
     }
 }
