@@ -36,6 +36,7 @@ namespace PlayerSystem.Input
             _playerInput.actions["Skill2"].performed += OnSkill2;
             _playerInput.actions["Skill3"].performed += OnSkill3;
             _playerInput.actions["Skill4"].performed += OnSkill4;
+            _playerInput.actions["Action"].performed += OnAction;
             _playerInput.actions["Move"].started += OnMove;
             _playerInput.actions["Move"].performed += OnMove;
             _playerInput.actions["Move"].canceled += OnMove;
@@ -58,6 +59,7 @@ namespace PlayerSystem.Input
             _playerInput.actions["Skill2"].performed -= OnSkill2;
             _playerInput.actions["Skill3"].performed -= OnSkill3;
             _playerInput.actions["Skill4"].performed -= OnSkill4;
+            _playerInput.actions["Action"].performed -= OnAction;
             _playerInput.actions["Move"].started -= OnMove;
             _playerInput.actions["Move"].performed -= OnMove;
             _playerInput.actions["Move"].canceled -= OnMove;
@@ -79,6 +81,8 @@ namespace PlayerSystem.Input
         public void OnSkill2(InputAction.CallbackContext context) => HandleSkillInput(context, 2);
         public void OnSkill3(InputAction.CallbackContext context) => HandleSkillInput(context, 3);
         public void OnSkill4(InputAction.CallbackContext context) => HandleSkillInput(context, 4);
+        
+        public void OnAction(InputAction.CallbackContext context) => _iPlayerInputReceiver.HandleActionInput();
 
         /// <summary>移動処理</summary>
         public void OnMove(InputAction.CallbackContext context) =>

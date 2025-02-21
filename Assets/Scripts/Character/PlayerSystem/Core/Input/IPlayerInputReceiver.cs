@@ -23,7 +23,8 @@ namespace PlayerSystem.Input
         #region 戦闘（PlayerSystem.Fight）
         void HandleAttackInput();
         void HandleSkillInput(int index);
+        void HandleActionInput();
         #endregion
-        
+
     }
 }

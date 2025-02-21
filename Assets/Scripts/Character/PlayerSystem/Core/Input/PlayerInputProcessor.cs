@@ -76,6 +76,9 @@ namespace PlayerSystem.Input
         /// <summary>スキル攻撃の入力処理</summary>
         public void HandleSkillInput(int index) => _inputBuffer.AddInput("Skill" + index);
         
+        /// <summary>特殊アクション・刀投げ/改修の入力処理</summary>
+        public void HandleActionInput() => _inputBuffer.AddInput("Action");
+        
         #endregion
     }
 }
