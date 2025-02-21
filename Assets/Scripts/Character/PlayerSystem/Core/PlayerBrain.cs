@@ -9,6 +9,7 @@ using PlayerSystem.State.Base;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using PlayerInputManager = PlayerSystem.Input.PlayerInputManager;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -28,68 +29,25 @@ public class PlayerBrain : CharacterBase
     // 実行中に変更されるデータを格納した黒板
     private PlayerBlackBoard _playerBlackBoard;
     public PlayerBlackBoard BB => _playerBlackBoard;
-    
-    //Idleモーション再生のための変数
-    [SerializeField] private float _idleThreshold = 5f; //無操作とみなす秒数
-    [SerializeField, HighlightIfNull] private InputActionReference _lookAction; //カメラ操作のアクション参照
-    private Subject<Unit> _inputDetected = new Subject<Unit>();
 
     protected override void Awake()
     {
         base.Awake();
 
-        _playerBlackBoard = new PlayerBlackBoard(_data, _status);
+        _playerBlackBoard = new PlayerBlackBoard(_data, _status, GetComponent<PlayerInputManager>());
     }
     
     private void Start()
     {
         _playerController = GetComponent<PlayerController>(); //Animator、State取得用
         _playerStateMachine = new PlayerStateMachine(
-            inputProcessor: GetComponent<PlayerSystem.Input.PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
+            inputProcessor: GetComponent<PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
             blackboard: _playerBlackBoard,
             actionHandler: _playerController.PlayerActionHandler);
     }
 
     private void Update() => _playerStateMachine.Update();
     private void FixedUpdate() => _playerStateMachine.FixedUpdate();
-
-
-    private void Tmp()
-    {
-        SubscribeToInputEvents(); //入力イベントを購読
-        
-        _inputDetected
-            .Throttle(TimeSpan.FromSeconds(_idleThreshold)) //最後の入力から指定した間入力がなかったら以下の処理を行う
-            .Subscribe(_ => _playerController.AnimationController.Common.PlayRandomIdleMotion())
-            .AddTo(this);
-    }
-    
-    /// <summary>
-    /// プレイヤーの入力を監視する
-    /// </summary>
-    private void SubscribeToInputEvents()
-    {
-        /*
-        // 全てのアクションからObservableを作成
-        var moveActionStreams = new List<IObservable<InputAction.CallbackContext>>();
-        foreach (var action in _moveActions)
-        {
-            moveActionStreams.Add(action.action.PerformedAsObservable()); //InputActionをObservableに変換する
-        }
-
-        // 全てのアクションをマージして監視
-        moveActionStreams
-            .Merge() // Observableを1つに統合
-            .Subscribe(_ =>
-            {
-                _inputDetected.OnNext(Unit.Default); // 入力があった時、通知を行う
-                _playerController.Animator.SetBool("BackToIdle", true); //Idleモーションを中断
-            })
-            .AddTo(this);
-            */
-    }
-
-    
 
     protected override void HandleDamage(int damage, GameObject attacker)
     {

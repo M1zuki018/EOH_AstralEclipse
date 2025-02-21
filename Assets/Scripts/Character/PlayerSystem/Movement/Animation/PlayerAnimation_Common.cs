@@ -24,6 +24,14 @@ namespace PlayerSystem.Animation
             _animator.SetInteger("IdleType", rand);
             _animator.SetTrigger("PlayIdle");
         }
+
+        /// <summary>
+        /// Idleモーションを中断する
+        /// </summary>
+        public void StopIdleMotion()
+        {
+            _animator.SetBool("BackToIdle", true); 
+        }
         
         /// <summary>
         /// ダメージアニメーション

@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private void InitializeComponents()
     {
         _movementHelper = new MovementHelper(_playerCamera, _brain.BB, _cc);
-        _animController = new PlayerAnimationController(_animator);
+        _animController = new PlayerAnimationController(_brain.BB, _animator);
         _trailController = new PlayerTrailController(GetComponent<TrailRenderer>());
         
         // インスタンスを生成

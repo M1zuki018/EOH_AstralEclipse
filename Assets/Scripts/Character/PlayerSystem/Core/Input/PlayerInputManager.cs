@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,9 @@ namespace PlayerSystem.Input
     /// </summary>
     public class PlayerInputManager : MonoBehaviour
     {
+        [SerializeField, HighlightIfNull] private List<InputActionReference> _moveActions; //InputSystemのアクション参照
+        public List<InputActionReference> MoveActions => _moveActions;
+        
         private PlayerInput _playerInput; // PlayerInput コンポーネント
         
         // 入力情報

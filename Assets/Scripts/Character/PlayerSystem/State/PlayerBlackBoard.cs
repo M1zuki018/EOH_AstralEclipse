@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using PlayerSystem.Core;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerSystem.State
 {
@@ -12,10 +14,11 @@ namespace PlayerSystem.State
         private PlayerDataSO _data;
         private PlayerStatusSO _status;
 
-        public PlayerBlackBoard(PlayerDataSO data, PlayerStatusSO status)
+        public PlayerBlackBoard(PlayerDataSO data, PlayerStatusSO status, Input.PlayerInputManager inputManager)
         {
             _data = data;
             _status = status;
+            MoveActions = inputManager.MoveActions;
         }
         
         /// <summary>定数</summary>
@@ -62,6 +65,9 @@ namespace PlayerSystem.State
         public bool ApplyGravity{ get; set; } = false; // 重力を適用するか
         
         public int CurrentSteps { get; set; } //現在のステップ数
+
+        /// <summary>プレイヤーの移動に関するアクションリファレンス</summary>
+        public List<InputActionReference> MoveActions { get; }
     }
 }
 

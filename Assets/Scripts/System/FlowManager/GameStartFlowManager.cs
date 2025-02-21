@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using PlayerSystem.State;
 using UniRx;
@@ -11,7 +10,6 @@ using UnityEngine.InputSystem;
 public class GameStartFlowManager : MonoBehaviour
 {
     [SerializeField, HighlightIfNull] private PlayerInput _playerInput;
-    [SerializeField, HighlightIfNull] private List<InputActionReference> _moveActions; //InputSystemのアクション参照
     private PlayerBlackBoard _bb;
 
     private void Start()
@@ -42,12 +40,12 @@ public class GameStartFlowManager : MonoBehaviour
             await UniTask.Delay(1200);
         
             UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
-            _moveActions[0].action.Enable(); //有効化
+            _bb.MoveActions[0].action.Enable(); //有効化
         
             // ボタンが押されたら入力を有効化
             Observable.FromEvent<InputAction.CallbackContext>(
-                    h => _moveActions[0].action.performed += h,
-                    h => _moveActions[0].action.performed -= h)
+                    h => _bb.MoveActions[0].action.performed += h,
+                    h => _bb.MoveActions[0].action.performed -= h)
                 .Take(1) // 最初の1回だけ
                 .Subscribe(GameStart)
                 .AddTo(this);
