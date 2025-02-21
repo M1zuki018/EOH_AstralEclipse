@@ -60,7 +60,7 @@ public class PlayerBrain : CharacterBase
         
         _inputDetected
             .Throttle(TimeSpan.FromSeconds(_idleThreshold)) //最後の入力から指定した間入力がなかったら以下の処理を行う
-            .Subscribe(_ => PlayRandomIdleMotion())
+            .Subscribe(_ => _playerController.AnimationController.Common.PlayRandomIdleMotion())
             .AddTo(this);
     }
     
@@ -89,16 +89,7 @@ public class PlayerBrain : CharacterBase
             */
     }
 
-    /// <summary>
-    /// アイドルモーションの抽選・再生を行う
-    /// </summary>
-    private void PlayRandomIdleMotion()
-    {
-        int rand = Random.Range(0, 2); //モーションの抽選
-        _playerController.Animator.SetBool("BackToIdle", false); //falseに戻しておく
-        _playerController.Animator.SetInteger("IdleType", rand);
-        _playerController.Animator.SetTrigger("PlayIdle");
-    }
+    
 
     protected override void HandleDamage(int damage, GameObject attacker)
     {
@@ -111,13 +102,13 @@ public class PlayerBrain : CharacterBase
         if (!_health.IsDead)
         {
             //死亡していないときだけダメージアニメーションをトリガー
-            _playerController.Animator.SetTrigger("Damage");
+            _playerController.AnimationController.Common.PlayDamageAnimation();
         }
     }
 
     protected override async void HandleDeath(GameObject attacker)
     {
-        _playerController.Animator.SetTrigger("IsDeath");
+        _playerController.AnimationController.Common.PlayDeathAnimation();
         //_playerInput.DeactivateInput(); //入力制限
         //TODO:死亡エフェクト等の処理
 

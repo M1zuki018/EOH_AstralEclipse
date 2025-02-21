@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _brain;
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
     public Animator Animator => _animator;
+    public PlayerAnimationController AnimationController => _animController;
     
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
