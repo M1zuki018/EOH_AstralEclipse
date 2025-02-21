@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PlayerSystem.Movement
+namespace PlayerSystem.Animation
 {
     /// <summary>
     /// プレイヤーのアニメーション制御を担当するクラス

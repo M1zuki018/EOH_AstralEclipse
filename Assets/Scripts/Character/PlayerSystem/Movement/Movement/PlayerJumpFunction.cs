@@ -1,3 +1,4 @@
+using PlayerSystem.Animation;
 using PlayerSystem.State;
 using UnityEngine;
 
@@ -9,19 +10,19 @@ namespace PlayerSystem.Movement
     public class PlayerJumpFunction : IJumpable
     {
         private PlayerBlackBoard _bb;
-        private CharacterController _characterController;
-        private PlayerAnimationController _animationController;
+        private CharacterController _cc;
+        private PlayerAnimationController _animController;
         private PlayerTrailController _trailController;
         
         private MovementHelper _helper;
 
         public PlayerJumpFunction(
-            PlayerBlackBoard bb, CharacterController characterController, PlayerAnimationController animationController,
+            PlayerBlackBoard bb, CharacterController cc, PlayerAnimationController animController,
             PlayerTrailController trailController, MovementHelper helper)
         {
             _bb = bb;
-            _characterController = characterController;
-            _animationController = animationController;
+            _cc = cc;
+            _animController = animController;
             _trailController = trailController;
             _helper = helper;
         }
@@ -34,7 +35,7 @@ namespace PlayerSystem.Movement
             _bb.IsJumping = true;
             _bb.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
             _bb.Velocity = new Vector3(0f, Mathf.Sqrt(_bb.Data.JumpPower * -2f * _bb.Data.Gravity), 0f); //初速度を計算
-            _animationController.PlayJumpAnimation();
+            _animController.PlayJumpAnimation();
         }
 
         /// <summary>
@@ -55,14 +56,14 @@ namespace PlayerSystem.Movement
                 _bb.Velocity = new Vector3(_bb.CorrectedDirection.x * _bb.Data.JumpMoveSpeed * _bb.MoveSpeed,
                     velocityY, _bb.CorrectedDirection.z * _bb.Data.JumpMoveSpeed * _bb.MoveSpeed);
 
-                _characterController.Move(_bb.Velocity * Time.deltaTime);
+                _cc.Move(_bb.Velocity * Time.deltaTime);
             }
             else // 入力がない場合
             {
                 float velocityY = _bb.Velocity.y; //Y軸の速度を保存する
                 _bb.Velocity = new Vector3(0, velocityY, 0);
 
-                _characterController.Move(_bb.Velocity * Time.deltaTime);
+                _cc.Move(_bb.Velocity * Time.deltaTime);
             }
         }
     }

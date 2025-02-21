@@ -1,4 +1,4 @@
-using PlayerSystem.Movement;
+using PlayerSystem.Animation;
 using PlayerSystem.State;
 using UnityEngine;
 
@@ -10,12 +10,12 @@ namespace PlayerSystem.Movement
     public class HandleGrounded : IHandleGroundedCheck
     {
         private PlayerBlackBoard _bb;
-        private Animator _animator;
+        private PlayerAnimationController _animController;
 
-        public HandleGrounded(PlayerBlackBoard bb, Animator animator)
+        public HandleGrounded(PlayerBlackBoard bb, PlayerAnimationController animController)
         {
             _bb = bb;
-            _animator = animator;
+            _animController = animController;
         }
     
         /// <summary>
@@ -27,8 +27,7 @@ namespace PlayerSystem.Movement
             {
                 _bb.IsJumping = false;
                 _bb.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
-                _animator.SetBool("IsJumping", false);
-                _animator.applyRootMotion = true;
+                _animController.StopJumpAnimation();
             }
         }
     }

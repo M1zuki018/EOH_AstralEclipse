@@ -1,3 +1,4 @@
+using PlayerSystem.Animation;
 using PlayerSystem.State;
 using UnityEngine;
 
@@ -9,15 +10,15 @@ namespace PlayerSystem.Movement
     public class PlayerMovementFunction : IMovable
     {
         private PlayerBlackBoard _bb;
-        private PlayerAnimationController _animationController;
+        private PlayerAnimationController _animController;
         private PlayerTrailController _trailController;
         private MovementHelper _helper;
 
-        public PlayerMovementFunction(PlayerBlackBoard bb, PlayerAnimationController animationController, 
+        public PlayerMovementFunction(PlayerBlackBoard bb, PlayerAnimationController animController, 
             PlayerTrailController trailController, MovementHelper helper)
         {
             _bb = bb;
-            _animationController = animationController;
+            _animController = animController;
             _trailController = trailController;
             _helper = helper;
         }
@@ -42,7 +43,7 @@ namespace PlayerSystem.Movement
                 _helper.RotateCharacter(_helper.CalculateMoveDirection());
                     
                 // Animatorの速度を設定
-                _animationController.SetMoveSpeed(_bb.CorrectedDirection.sqrMagnitude * _bb.MoveSpeed);
+                _animController.SetMoveSpeed(_bb.CorrectedDirection.sqrMagnitude * _bb.MoveSpeed);
             }
             else
             {
@@ -53,13 +54,13 @@ namespace PlayerSystem.Movement
                 if (speed < 0.03f)
                 {
                     //減速がほぼ終了していたら、スピードにはゼロを入れる
-                    _animationController.SetMoveSpeed(0);
+                    _animController.SetMoveSpeed(0);
                     _trailController.DisableTrail(); //TrailRendererの描写は行わない
                 }
                 else
                 {
                     _trailController.EnableTrail();
-                    _animationController.SetMoveSpeed(speed);   
+                    _animController.SetMoveSpeed(speed);   
                 }
             }
         }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Animation;
 using PlayerSystem.Fight;
 using PlayerSystem.Movement;
 
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private PlayerGravity _playerGravity; // 重力をかける処理
     private MovementHelper _movementHelper; // 移動処理を補助するクラス
     private IHandleGroundedCheck _handleGrounded; // 地面にいるときの処理を行うクラス
-    private PlayerAnimationController _animationController; // アニメーションを制御するクラス
+    private PlayerAnimationController _animController; // アニメーションを制御するクラス
     private PlayerTrailController _trailController; // トレイルを管理するクラス
     
     private PlayerActionHandler _playerActionHandler; // ステートマシンと処理をつなぐ
@@ -58,12 +59,12 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private void InitializeComponents()
     {
         _movementHelper = new MovementHelper(_playerCamera, _brain.BB, _cc);
-        _animationController = new PlayerAnimationController(_animator);
+        _animController = new PlayerAnimationController(_animator);
         _trailController = new PlayerTrailController(GetComponent<TrailRenderer>());
         
         // インスタンスを生成
-        _mover = new PlayerMovementFunction(_brain.BB, _animationController, _trailController, _movementHelper);
-        _jumper = new PlayerJumpFunction(_brain.BB, _cc, _animationController,_trailController, _movementHelper);
+        _mover = new PlayerMovementFunction(_brain.BB, _animController, _trailController, _movementHelper);
+        _jumper = new PlayerJumpFunction(_brain.BB, _cc, _animController,_trailController, _movementHelper);
         _speedSwitcher = new PlayerSpeedSwitchFunction(_brain.BB);
 
         _playerActionHandler = new PlayerActionHandler(
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             skill: new SkillFunction(_brain.BB));
 
         _playerGravity = new PlayerGravity(_brain.BB, _cc);
-        _handleGrounded = (IHandleGroundedCheck) new HandleGrounded(_brain.BB, _animator);
+        _handleGrounded = (IHandleGroundedCheck) new HandleGrounded(_brain.BB, _animController);
         
         Animator.applyRootMotion = true; //ルートモーションを有効化
     }
