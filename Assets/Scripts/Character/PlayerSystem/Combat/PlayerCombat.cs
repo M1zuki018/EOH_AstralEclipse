@@ -103,11 +103,16 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     /// </summary>
     public void Attack()
     {
+        _playerBrain.BB.IsAttacking = true; //解除はLocoMotionのSMBから行う
+        _playerController.Animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+        
+        /*
         //臨戦状態/ボス戦中/デバッグモードの場合攻撃可能とする
         if (_battleChecker.ReadyForBattle || _playerBrain.BB.IsBossBattle || _playerBrain.BB.DebugMode)
         {
             _playerBrain.BB.IsAttacking = true; //解除はLocoMotionのSMBから行う
             _playerController.Animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
+        */
     }
 }

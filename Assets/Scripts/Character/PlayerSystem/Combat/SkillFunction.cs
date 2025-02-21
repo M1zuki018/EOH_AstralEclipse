@@ -8,7 +8,7 @@ namespace PlayerSystem.Fight
     /// <summary>
     /// スキル発動に関する機能をまとめたクラス
     /// </summary>
-    public class SkillFunction :ISkill
+    public class SkillFunction : ISkill
     {
         private PlayerBlackBoard _bb;
 

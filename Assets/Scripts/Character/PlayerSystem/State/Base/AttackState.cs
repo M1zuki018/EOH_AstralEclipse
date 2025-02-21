@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace PlayerSystem.State.Base
 {
@@ -15,6 +16,9 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
+            Debug.Log("AttackState : Enter");
+            ActionHandler.Attack();
+            
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
                 
             StateMachine.ChangeState(BaseStateEnum.Idle);
