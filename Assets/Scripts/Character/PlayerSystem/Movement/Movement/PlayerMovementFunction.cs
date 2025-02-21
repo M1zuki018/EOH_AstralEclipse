@@ -9,18 +9,16 @@ namespace PlayerSystem.Movement
     public class PlayerMovementFunction : IMovable
     {
         private PlayerBlackBoard _bb;
-        private Animator _animator;
-        private Vector3 _moveNormal;
-        private TrailRenderer _trailRenderer;
-        
+        private PlayerAnimationController _animationController;
+        private PlayerTrailController _trailController;
         private MovementHelper _helper;
 
-        public PlayerMovementFunction(
-            PlayerBlackBoard bb, Animator animator,TrailRenderer trailRenderer, MovementHelper helper)
+        public PlayerMovementFunction(PlayerBlackBoard bb, PlayerAnimationController animationController, 
+            PlayerTrailController trailController, MovementHelper helper)
         {
             _bb = bb;
-            _animator = animator;
-            _trailRenderer = trailRenderer;
+            _animationController = animationController;
+            _trailController = trailController;
             _helper = helper;
         }
         
@@ -39,12 +37,12 @@ namespace PlayerSystem.Movement
         {
             if (_bb.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
             {
-                _trailRenderer.emitting = true; //軌跡をつける
+                _trailController.EnableTrail(); //軌跡をつける
                 
                 _helper.RotateCharacter(_helper.CalculateMoveDirection());
                     
                 // Animatorの速度を設定
-                _animator.SetFloat("Speed", _bb.CorrectedDirection.sqrMagnitude * _bb.MoveSpeed, 0.1f, Time.deltaTime);
+                _animationController.SetMoveSpeed(_bb.CorrectedDirection.sqrMagnitude * _bb.MoveSpeed);
             }
             else
             {
@@ -55,13 +53,13 @@ namespace PlayerSystem.Movement
                 if (speed < 0.03f)
                 {
                     //減速がほぼ終了していたら、スピードにはゼロを入れる
-                    _animator.SetFloat("Speed", 0);
-                    _trailRenderer.emitting = false; //TrailRendererの描写は行わない
+                    _animationController.SetMoveSpeed(0);
+                    _trailController.DisableTrail(); //TrailRendererの描写は行わない
                 }
                 else
                 {
-                    _trailRenderer.emitting = true;
-                    _animator.SetFloat("Speed", speed);   
+                    _trailController.EnableTrail();
+                    _animationController.SetMoveSpeed(speed);   
                 }
             }
         }
