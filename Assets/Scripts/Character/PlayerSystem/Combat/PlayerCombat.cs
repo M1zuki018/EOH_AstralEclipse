@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// プレイヤーの攻撃に関する処理
 /// </summary>
-public class PlayerCombat : MonoBehaviour, ICombat
+public class PlayerCombat : MonoBehaviour, ICombat, IAttack
 {
     public AttackHitDetector Detector { get; private set; }
     private PlayerController _playerController;
@@ -22,8 +22,6 @@ public class PlayerCombat : MonoBehaviour, ICombat
     public AdjustDirection AdjustDirection => _adjustDirection;
 
     public DamageHandler DamageHandler => _damageHandler;
-    
-    public SkillSO SkillSet => _skillSet;
     
     private void Start()
     {
@@ -112,32 +110,5 @@ public class PlayerCombat : MonoBehaviour, ICombat
             _playerBrain.BB.IsAttacking = true; //解除はLocoMotionのSMBから行う
             _playerController.Animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
         }
-    }
-
-    /// <summary>
-    /// スキル処理
-    /// </summary>
-    public void UseSkill(int index)
-    {
-        SkillData skill = _skillSet.Cast(index); //スキルデータを取得する
-        UIManager.Instance.SelectedSkillIcon(index);
-
-        if (_playerBrain.BB.CurrentTP < skill.ResourceCost) //TPの判定を行う
-        {
-            Debug.Log($"{skill.Name} の発動にTPが足りません");
-            return;
-        }
-
-        //発動条件がセットされているとき、条件が満たされていない場合は発動しない
-        if(skill.CastCondition != null && !skill.CastCondition.IsSatisfied())
-        {
-            Debug.Log($"{skill.Name} の発動条件が満たされていません");
-            return;
-        }
-        
-        _playerBrain.BB.CurrentTP -= skill.ResourceCost; //TPを減らす
-        
-        UIManager.Instance?.UpdatePlayerTP(_playerBrain.BB.CurrentTP);
-        Debug.Log($"スキルを使った　発動：{skill.Name}");
     }
 }

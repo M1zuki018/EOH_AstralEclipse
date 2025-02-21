@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 /// <summary>
 /// 敵の攻撃に関する処理
 /// </summary>
-public class EnemyCombat : MonoBehaviour, ICombat
+public class EnemyCombat : MonoBehaviour, ICombat, IAttack
 {
     [SerializeField] private int _attackDamage = 5; //攻撃力
     [SerializeField] private AdjustDirection _adjustDirection;

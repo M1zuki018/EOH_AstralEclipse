@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace PlayerSystem.Fight
 {
     /// <summary>
@@ -14,11 +12,5 @@ namespace PlayerSystem.Fight
         
         /// <summary>ダメージを与える処理</summary>
         public DamageHandler DamageHandler { get; }
-        
-        /// <summary>通常攻撃</summary>
-        void Attack();
-        
-        /// <summary>特殊スキル</summary>
-        void UseSkill(int index);
     }
 }
