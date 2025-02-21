@@ -10,10 +10,6 @@ namespace PlayerSystem.State.Base
     public class GuardState : PlayerBaseState<BaseStateEnum>
     {
         public GuardState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
-
-        private bool _guardCancel;
-        
-        private Action _onGuardCancel;
         
         /// <summary>
         /// ステートに入るときの処理
@@ -21,11 +17,7 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("Guard State: Enter");
-         
-            _onGuardCancel = () => _guardCancel = true;
             
-            InputProcessor.OnGuard += _onGuardCancel;
-
             BlackBoard.IsGuarding = true;
             
             await UniTask.Yield();
@@ -40,7 +32,7 @@ namespace PlayerSystem.State.Base
             {
                 ActionHandler.Guard();
                 
-                if (_guardCancel) // ガードキャンセル
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Guard)) // ガードキャンセル
                 {
                     // 移動入力がなければ Idle へ
                     if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
@@ -65,12 +57,6 @@ namespace PlayerSystem.State.Base
         public override async UniTask Exit()
         {
             BlackBoard.IsGuarding = false;
-            
-            // 状態をリセット
-            _guardCancel = false;
-            
-            // イベントを解除
-            InputProcessor.OnGuard -= _onGuardCancel;
             
             await UniTask.Yield();
         }
