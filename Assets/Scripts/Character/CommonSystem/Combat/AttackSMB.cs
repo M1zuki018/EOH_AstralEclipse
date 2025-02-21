@@ -10,6 +10,7 @@ public class AttackSMB : StateMachineBehaviour
     [Header("初期設定")] 
     [SerializeField, Comment("コンボの段階")] private int _attackIndex;
     [SerializeField, Comment("ルートモーションの使用")] private bool _useRootMotion = false; 
+    [SerializeField, Comment("当たり判定のエリア")] private HitDetectionInfo _hitDetectionInfo;
     
     private ICombat _combat;
     private Transform _actor;
