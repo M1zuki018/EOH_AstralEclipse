@@ -35,6 +35,16 @@ namespace PlayerSystem.State.Attack
         /// </summary>
         public override async UniTask Exit()
         {
+            /*
+            if (player.inputBuffer.GetBufferedInput("Attack"))
+            {
+                player.stateMachine.ChangeState(new AttackState()); // コンボ継続
+            }
+            else
+            {
+                player.stateMachine.ChangeState(new IdleState());
+            }
+            */
             await UniTask.Yield();
         }
     }
