@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ゲーム開始演出
+/// タイトル画面の遷移を管理する
 /// </summary>
-public class GameStartPerformance : MonoBehaviour
+public class TitleFlowManager : MonoBehaviour
 {
     [SerializeField] private Button _button;
     
