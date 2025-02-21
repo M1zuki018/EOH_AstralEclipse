@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         
         // インスタンスを生成
         _mover = new PlayerMovementFunction(_brain.BB, _animationController, _trailController, _movementHelper);
-        _jumper = new PlayerJumpFunction(_brain.BB, _cc, Animator,GetComponent<TrailRenderer>(), _movementHelper);
+        _jumper = new PlayerJumpFunction(_brain.BB, _cc, _animationController,_trailController, _movementHelper);
         _speedSwitcher = new PlayerSpeedSwitchFunction(_brain.BB);
 
         _playerActionHandler = new PlayerActionHandler(

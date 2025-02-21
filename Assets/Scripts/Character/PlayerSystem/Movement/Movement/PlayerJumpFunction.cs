@@ -10,19 +10,19 @@ namespace PlayerSystem.Movement
     {
         private PlayerBlackBoard _bb;
         private CharacterController _characterController;
-        private Animator _animator;
-        private TrailRenderer _trailRenderer;
+        private PlayerAnimationController _animationController;
+        private PlayerTrailController _trailController;
         
         private MovementHelper _helper;
 
         public PlayerJumpFunction(
-            PlayerBlackBoard bb, CharacterController characterController, Animator animator,
-            TrailRenderer trailRenderer, MovementHelper helper)
+            PlayerBlackBoard bb, CharacterController characterController, PlayerAnimationController animationController,
+            PlayerTrailController trailController, MovementHelper helper)
         {
             _bb = bb;
             _characterController = characterController;
-            _animator = animator;
-            _trailRenderer = trailRenderer;
+            _animationController = animationController;
+            _trailController = trailController;
             _helper = helper;
         }
         
@@ -34,9 +34,7 @@ namespace PlayerSystem.Movement
             _bb.IsJumping = true;
             _bb.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
             _bb.Velocity = new Vector3(0f, Mathf.Sqrt(_bb.Data.JumpPower * -2f * _bb.Data.Gravity), 0f); //初速度を計算
-            _animator.SetTrigger("Jump");
-            _animator.SetBool("IsJumping", true);
-            _animator.applyRootMotion = false;
+            _animationController.PlayJumpAnimation();
         }
 
         /// <summary>
@@ -46,7 +44,7 @@ namespace PlayerSystem.Movement
         {
             if (_bb.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合
             {
-                _trailRenderer.emitting = true; //軌跡をつける
+                _trailController.EnableTrail(); //軌跡をつける
 
                 _helper.RotateCharacter(_helper.CalculateMoveDirection());
 
