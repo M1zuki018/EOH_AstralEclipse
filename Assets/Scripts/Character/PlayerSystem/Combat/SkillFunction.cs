@@ -27,7 +27,6 @@ namespace PlayerSystem.Fight
             SkillData skill = _bb.Status.SkillData(_bb.UsingSkillIndex); //スキルデータを取得する
             if (_bb.CurrentTP < skill.ResourceCost) //TPの判定を行う
             {
-                Debug.Log($"現在のTP {_bb.CurrentTP} / スキルコスト {skill.ResourceCost} / スキル番号 {_bb.UsingSkillIndex}");
                 Debug.Log($"{skill.Name} の発動にTPが足りません");
             }
             

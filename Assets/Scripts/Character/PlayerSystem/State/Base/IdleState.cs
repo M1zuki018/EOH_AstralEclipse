@@ -92,7 +92,6 @@ namespace PlayerSystem.State.Base
                 if (_isSkill != -1)
                 {
                     BlackBoard.UsingSkillIndex = _isSkill;
-                    Debug.Log(BlackBoard.UsingSkillIndex.ToString());
                     StateMachine.ChangeState(BaseStateEnum.Skill);
                     return;
                 }
