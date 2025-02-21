@@ -24,6 +24,7 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("AttackState : Enter");
+            
             _attackSubSM.ChangeState(AttackStateEnum.NormalAttack1);
             
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
@@ -44,6 +45,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
+            _attackSubSM.ChangeState(AttackStateEnum.Default); // Defaultにして処理が何もない状態にしておく
+            
             await UniTask.Yield();
         }
     }

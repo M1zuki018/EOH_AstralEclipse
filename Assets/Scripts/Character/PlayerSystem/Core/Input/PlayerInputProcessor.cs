@@ -11,14 +11,14 @@ namespace PlayerSystem.Input
     {
         #region フィールドと初期化
 
-        public PlayerBlackBoard BlackBoard { get; private set; }
+        private PlayerBlackBoard _bb;
 
         /// <summary>
         /// 初期化
         /// </summary>
         public PlayerInputProcessor(PlayerBlackBoard blackBoard)
         {
-            BlackBoard = blackBoard;
+            _bb = blackBoard;
         }
 
         #endregion
@@ -31,17 +31,16 @@ namespace PlayerSystem.Input
         public event Action<int> OnSkill;
 
 
-        // 以降、動作はインターフェースを介して行う
-
+        // ここからステートマシンを介したあと、ActionHandlerから処理を行う
 
         /// <summary>移動入力処理。Vector3への変換だけ行う</summary>
-        public void HandleMoveInput(Vector2 input) => BlackBoard.MoveDirection = new Vector3(input.x, 0, input.y);
+        public void HandleMoveInput(Vector2 input) => _bb.MoveDirection = new Vector3(input.x, 0, input.y);
 
         /// <summary>ジャンプ入力処理</summary>
         public void HandleJumpInput() => OnJump?.Invoke();
 
         /// <summary>歩き状態にする入力処理</summary>
-        public void HandleWalkInput() => BlackBoard.IsWalking.Value = !BlackBoard.IsWalking.Value;
+        public void HandleWalkInput() => _bb.IsWalking.Value = !_bb.IsWalking.Value;
 
         /// <summary>ポーズ入力処理</summary>
         public void HandlePauseInput()

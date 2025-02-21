@@ -1,4 +1,3 @@
-using PlayerSystem.State;
 using UnityEngine;
 
 namespace PlayerSystem.Input
@@ -8,8 +7,6 @@ namespace PlayerSystem.Input
     /// </summary>
     public interface IPlayerInputReceiver
     {
-        public PlayerBlackBoard BlackBoard { get; }
-        
         #region 基本動作（PlayerSystem.Movement）
         void HandleMoveInput(Vector2 input);
         void HandleJumpInput();
