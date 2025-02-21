@@ -40,6 +40,14 @@ namespace PlayerSystem.Animation
             _animator.SetBool("IsJumping", false);
             _animator.applyRootMotion = true;
         }
+
+        /// <summary>
+        /// ステップアニメーションを再生
+        /// </summary>
+        public void PlayStepAnimation()
+        {
+            _animator.SetTrigger("Step");
+        }
         
         /// <summary>
         /// 接地判定がないときに落下モーションを再生する

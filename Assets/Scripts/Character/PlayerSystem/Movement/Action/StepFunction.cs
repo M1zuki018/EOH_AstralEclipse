@@ -2,6 +2,7 @@ using UnityEngine;
 using UniRx;
 using System;
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Animation;
 using PlayerSystem.State;
 
 /// <summary>
@@ -9,14 +10,14 @@ using PlayerSystem.State;
 /// </summary>
 public class StepFunction : ISteppable
 {
-    private Animator _animator;
+    private PlayerAnimationController _animController;
     private PlayerBlackBoard _bb;
     
     private CompositeDisposable _disposable = new CompositeDisposable(); //Subscribeを登録しておく
 
-    public StepFunction(Animator animator, PlayerBlackBoard bb)
+    public StepFunction(PlayerAnimationController animController, PlayerBlackBoard bb)
     {
-        _animator = animator;
+        _animController = animController;
         _bb = bb;
         
         UIManager.Instance?.HideStepUI(); //UIを隠す
@@ -40,7 +41,7 @@ public class StepFunction : ISteppable
         UIManager.Instance?.UpdateStepCount(_bb.CurrentSteps);
         
         //ステップアニメーションをトリガーする
-        _animator.SetTrigger("Step");
+        _animController.Movement.PlayStepAnimation();
     }
     
     /// <summary>
