@@ -1,5 +1,7 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PlayerSystem.State.Attack 
 {
@@ -16,6 +18,8 @@ namespace PlayerSystem.State.Attack
         public override async UniTask Enter()
         {
             Debug.Log("NormalAttack1State: Enter");
+            
+            //TODO: Animatorで管理できるように作る
             await UniTask.Yield();
         }
 
@@ -35,16 +39,45 @@ namespace PlayerSystem.State.Attack
         /// </summary>
         public override async UniTask Exit()
         {
-            /*
-            if (player.inputBuffer.GetBufferedInput("Attack"))
+            if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Step))
             {
-                player.stateMachine.ChangeState(new AttackState()); // コンボ継続
+                // コンボ終了 ステップ
             }
-            else
+            
+            if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Skill))
             {
-                player.stateMachine.ChangeState(new IdleState());
+                // コンボ終了 スキル
             }
-            */
+            
+            if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Jump) 
+                && InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
+            {
+                StateMachine.ChangeState(AttackStateEnum.AirAttack1); // 空中①
+                return;
+            }
+
+            if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Action))
+            {
+                StateMachine.ChangeState(AttackStateEnum.ThrowSword); // 刀投げ
+                return;
+            }
+            
+            if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
+            {
+                StateMachine.ChangeState(AttackStateEnum.NormalAttack2); // 通常②
+                return;
+            }
+
+            if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Jump))
+            {
+                // コンボ終了 通常ジャンプ
+            }
+            
+            if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Guard))
+            {
+                // コンボ終了 ガード
+            }
+            
             await UniTask.Yield();
         }
     }

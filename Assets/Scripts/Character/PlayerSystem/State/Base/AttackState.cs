@@ -24,11 +24,19 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("AttackState : Enter");
+
+            if (BlackBoard.IsGrounded)
+            {
+                // 地面にいる場合は通常攻撃①
+                _attackSubSM.ChangeState(AttackStateEnum.NormalAttack1);
+                return;
+            }
             
-            _attackSubSM.ChangeState(AttackStateEnum.NormalAttack1);
+            // 空中にいる場合は空中①
+            _attackSubSM.ChangeState(AttackStateEnum.AirAttack1);
+
+            await UniTask.Delay(TimeSpan.FromSeconds(1));
             
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
-                
             StateMachine.ChangeState(BaseStateEnum.Idle);
         }
 
