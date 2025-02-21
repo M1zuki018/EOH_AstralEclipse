@@ -57,13 +57,13 @@ public class RespawnEvent : MonoBehaviour
         CameraManager.Instance.UseCamera(0);
         _playerInput.DeactivateInput(); //全ての入力を無効化
         
-        _player.Animator.applyRootMotion = false; //一時的にルートモーション・CharacterControllerを無効化する
+        //_player.Animator.applyRootMotion = false; //一時的にルートモーション・CharacterControllerを無効化する
         _playerController.enabled = false;
         
         _player.gameObject.transform.position = _respawnPosition; //初期状態に戻す
         _player.gameObject.transform.rotation = _respawnRotation;
         
-        _player.Animator.applyRootMotion = true; //有効に戻す
+        //_player.Animator.applyRootMotion = true; //有効に戻す
         _playerController.enabled = true;
         
         _system.MonitorFall(); //再度落下の監視を行う

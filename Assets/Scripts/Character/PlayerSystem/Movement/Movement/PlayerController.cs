@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private CharacterController _cc;
     [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _brain;
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
-    public Animator Animator => _animator;
+    
     public PlayerAnimationController AnimationController => _animController;
     
     private Collider _collider;
@@ -42,10 +42,10 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         InitializeComponents();
         
         TryGetComponent(out _collider);
-        Animator.keepAnimatorStateOnDisable = true;
+        _animator.keepAnimatorStateOnDisable = true;
         
         // ターゲットマッチングを行うStateMachineBehaviorに自身を登録する
-        foreach (var smb in Animator.GetBehaviours<MatchPositionSMB>())
+        foreach (var smb in _animator.GetBehaviours<MatchPositionSMB>())
         {
             smb._target = this;
         }
@@ -67,15 +67,16 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _playerActionHandler = new PlayerActionHandler(
             mover: _mover,
             jumper: _jumper,
-            steppable: new StepFunction(Animator, _brain.BB),
+            steppable: new StepFunction(_animController, _brain.BB),
             gauder: new GuardFunction(_brain.BB),
             attack: (IAttack) GetComponent<PlayerCombat>(),
             skill: new SkillFunction(_brain.BB));
 
         _playerGravity = new PlayerGravity(_brain.BB, _cc);
         _handleGrounded = (IHandleGroundedCheck) new HandleGrounded(_brain.BB, _animController);
-        
-        Animator.applyRootMotion = true; //ルートモーションを有効化
+
+        _brain.BB.AnimController = _animController;
+        _animator.applyRootMotion = true; //ルートモーションを有効化
     }
 
     private void OnDestroy()

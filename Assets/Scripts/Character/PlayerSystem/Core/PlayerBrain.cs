@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using PlayerSystem.Core;
 using PlayerSystem.Input;
 using PlayerSystem.State;
-using PlayerSystem.State.Base;
-using UniRx;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using PlayerInputManager = PlayerSystem.Input.PlayerInputManager;
-using Random = UnityEngine.Random;
 
 /// <summary>
 /// プレイヤーの中心となるクラス（体力・死亡管理）
@@ -19,35 +13,35 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerBrain : CharacterBase
 {
-    private PlayerController _playerController;
-    private PlayerStateMachine _playerStateMachine;
+    private PlayerController _controller;
+    private PlayerStateMachine _stateMachine;
 
     // 黒板登録用
     [SerializeField] private PlayerDataSO _data;
     [SerializeField] private PlayerStatusSO _status;
     
     // 実行中に変更されるデータを格納した黒板
-    private PlayerBlackBoard _playerBlackBoard;
-    public PlayerBlackBoard BB => _playerBlackBoard;
+    private PlayerBlackBoard _bb;
+    public PlayerBlackBoard BB => _bb;
 
     protected override void Awake()
     {
         base.Awake();
 
-        _playerBlackBoard = new PlayerBlackBoard(_data, _status, GetComponent<PlayerInputManager>());
+        _bb = new PlayerBlackBoard(_data, _status, GetComponent<PlayerInputManager>());
     }
     
     private void Start()
     {
-        _playerController = GetComponent<PlayerController>(); //Animator、State取得用
-        _playerStateMachine = new PlayerStateMachine(
+        _controller = GetComponent<PlayerController>(); //Animator、State取得用
+        _stateMachine = new PlayerStateMachine(
             inputProcessor: GetComponent<PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
-            blackboard: _playerBlackBoard,
-            actionHandler: _playerController.PlayerActionHandler);
+            blackboard: _bb,
+            actionHandler: _controller.PlayerActionHandler);
     }
 
-    private void Update() => _playerStateMachine.Update();
-    private void FixedUpdate() => _playerStateMachine.FixedUpdate();
+    private void Update() => _stateMachine.Update();
+    private void FixedUpdate() => _stateMachine.FixedUpdate();
 
     protected override void HandleDamage(int damage, GameObject attacker)
     {
@@ -60,13 +54,13 @@ public class PlayerBrain : CharacterBase
         if (!_health.IsDead)
         {
             //死亡していないときだけダメージアニメーションをトリガー
-            _playerController.AnimationController.Common.PlayDamageAnimation();
+            _bb.AnimController.Common.PlayDamageAnimation();
         }
     }
 
     protected override async void HandleDeath(GameObject attacker)
     {
-        _playerController.AnimationController.Common.PlayDeathAnimation();
+        _bb.AnimController.Common.PlayDeathAnimation();
         //_playerInput.DeactivateInput(); //入力制限
         //TODO:死亡エフェクト等の処理
 

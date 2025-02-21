@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PlayerSystem.Animation;
 using PlayerSystem.Core;
 using UniRx;
 using UnityEngine;
@@ -68,6 +69,9 @@ namespace PlayerSystem.State
 
         /// <summary>プレイヤーの移動に関するアクションリファレンス</summary>
         public List<InputActionReference> MoveActions { get; }
+        
+        /// <summary>アニメーションを制御するクラス</summary>
+        public PlayerAnimationController AnimController { get; set; }
     }
 }
 
