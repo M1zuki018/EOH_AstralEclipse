@@ -24,6 +24,9 @@ namespace PlayerSystem.State
         /// <summary>ステータス</summary>
         public PlayerStatusSO Status => _status;
         
+        /// <summary>現在のHP</summary>
+        public int CurrentHP { get; set; }
+        
         /// <summary>現在のTP</summary>
         public int CurrentTP { get; set; }
         

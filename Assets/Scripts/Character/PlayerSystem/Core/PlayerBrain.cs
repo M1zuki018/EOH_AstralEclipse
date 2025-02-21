@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 public class PlayerBrain : CharacterBase
 {
     private PlayerController _playerController;
-    private PlayerInput _playerInput;
+    private PlayerStateMachine _playerStateMachine;
 
     // 黒板登録用
     [SerializeField] private PlayerDataSO _data;
@@ -29,11 +29,8 @@ public class PlayerBrain : CharacterBase
     private PlayerBlackBoard _playerBlackBoard;
     public PlayerBlackBoard BB => _playerBlackBoard;
     
-    private PlayerStateMachine _playerStateMachine;
-    
     //Idleモーション再生のための変数
     [SerializeField] private float _idleThreshold = 5f; //無操作とみなす秒数
-    [SerializeField, HighlightIfNull] private List<InputActionReference> _moveActions; //InputSystemのアクション参照
     [SerializeField, HighlightIfNull] private InputActionReference _lookAction; //カメラ操作のアクション参照
     private Subject<Unit> _inputDetected = new Subject<Unit>();
 
@@ -47,84 +44,24 @@ public class PlayerBrain : CharacterBase
     private void Start()
     {
         _playerController = GetComponent<PlayerController>(); //Animator、State取得用
-        _playerInput = GetComponent<PlayerInput>();
         _playerStateMachine = new PlayerStateMachine(
             inputProcessor: GetComponent<PlayerSystem.Input.PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
             blackboard: _playerBlackBoard,
             actionHandler: _playerController.PlayerActionHandler);
-
-        _playerInput.DeactivateInput(); //入力を受け付けない
-        CameraManager.Instance.UseCamera(3); //プレイヤー正面のカメラを使う
-        
-        GameManager.Instance.OnPlay += StartPerformance;
     }
 
-    private void Update()
-    {
-        _playerStateMachine.Update();
-    }
+    private void Update() => _playerStateMachine.Update();
+    private void FixedUpdate() => _playerStateMachine.FixedUpdate();
 
-    private void FixedUpdate()
-    {
-        _playerStateMachine.FixedUpdate();
-    }
 
-    protected override void OnDestroy()
+    private void Tmp()
     {
-        base.OnDestroy();
-        GameManager.Instance.OnPlay -= StartPerformance;
-    }
-
-    /// <summary>
-    /// 開始演出中の処理
-    /// </summary>
-    private async void StartPerformance()
-    {
-        if (!_playerBlackBoard.DebugMode)
-        {
-            _playerInput.DeactivateInput();
-            UIManager.Instance?.InitializePlayerHP(GetMaxHP(), GetCurrentHP());   
-            
-            //TODO: 最初からモーションを流せるように変更する
-            SubscribeToInputEvents(); //入力イベントを購読
+        SubscribeToInputEvents(); //入力イベントを購読
         
-            _inputDetected
-                .Throttle(TimeSpan.FromSeconds(_idleThreshold)) //最後の入力から指定した間入力がなかったら以下の処理を行う
-                .Subscribe(_ => PlayRandomIdleMotion())
-                .AddTo(this);
-
-            await UniTask.Delay(2700);
-        
-            //操作開始
-            CameraManager.Instance?.UseCamera(0);
-        
-            await UniTask.Delay(1200);
-        
-            UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
-            _moveActions[0].action.Enable(); //有効化
-        
-            // ボタンが押されたら入力を有効化
-            Observable.FromEvent<InputAction.CallbackContext>(
-                    h => _moveActions[0].action.performed += h,
-                    h => _moveActions[0].action.performed -= h)
-                .Take(1) // 最初の1回だけ
-                .Subscribe(GameStart)
-                .AddTo(this);
-        }
-    }
-
-    private async void GameStart(InputAction.CallbackContext context)
-    {
-        Debug.Log("Game started");
-        AudioManager.Instance?.PlaySE(9);
-        UIManager.Instance?.ShowStartText();
-        UIManager.Instance?.HideFirstText();
-        UIManager.Instance?.ShowRightUI();
-        _playerInput.ActivateInput();
-        
-        await UniTask.Delay(500);
-        
-        UIManager.Instance.HideStartText(); //「GameStart」の文字を非表示にする
+        _inputDetected
+            .Throttle(TimeSpan.FromSeconds(_idleThreshold)) //最後の入力から指定した間入力がなかったら以下の処理を行う
+            .Subscribe(_ => PlayRandomIdleMotion())
+            .AddTo(this);
     }
     
     /// <summary>
@@ -132,6 +69,7 @@ public class PlayerBrain : CharacterBase
     /// </summary>
     private void SubscribeToInputEvents()
     {
+        /*
         // 全てのアクションからObservableを作成
         var moveActionStreams = new List<IObservable<InputAction.CallbackContext>>();
         foreach (var action in _moveActions)
@@ -148,6 +86,7 @@ public class PlayerBrain : CharacterBase
                 _playerController.Animator.SetBool("BackToIdle", true); //Idleモーションを中断
             })
             .AddTo(this);
+            */
     }
 
     /// <summary>
@@ -179,7 +118,7 @@ public class PlayerBrain : CharacterBase
     protected override async void HandleDeath(GameObject attacker)
     {
         _playerController.Animator.SetTrigger("IsDeath");
-        _playerInput.DeactivateInput(); //入力制限
+        //_playerInput.DeactivateInput(); //入力制限
         //TODO:死亡エフェクト等の処理
 
         AudioManager.Instance.FadeOut(AudioType.BGM);
