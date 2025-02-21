@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 /// </summary>
 public class EnergyBall : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5f;  // 移動速度
+    //[SerializeField] private float _speed = 5f;  // 移動速度
     [SerializeField] private float _moveDuration = 2.5f; //追尾にかける時間
     [SerializeField] private float _straightSpeed = 70f; //直線移動速度
     [SerializeField] private float _overshootAmount = 1.2f; //目的地をどれくらいオーバーシュートするか

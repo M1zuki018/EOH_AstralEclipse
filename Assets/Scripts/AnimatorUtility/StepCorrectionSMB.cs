@@ -16,9 +16,9 @@ public class StepCorrectionSMB : StateMachineBehaviour
     private PlayerBrain _playerBrain;
     
     private CompositeDisposable _disposables = new CompositeDisposable();
-    
-    
-    private void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+
+
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if(_cc == null)_cc = animator.GetComponent<CharacterController>();
         if(_playerBrain == null)_playerBrain = animator.GetComponent<PlayerBrain>();
@@ -59,7 +59,7 @@ public class StepCorrectionSMB : StateMachineBehaviour
             .AddTo(_disposables);
     }
 
-    private void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CameraManager.Instance?.EndStepEffect();
         _playerBrain.BB.IsSteping = false; //ステップ状態を解除する

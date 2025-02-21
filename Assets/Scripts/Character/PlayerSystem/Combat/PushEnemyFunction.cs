@@ -6,8 +6,8 @@ using UnityEngine;
 public class PushEnemyFunction : MonoBehaviour
 {
     [SerializeField] private float _pushForce = 5f;
-    [SerializeField] private float _pushRadius = 1f;
-    [SerializeField] private LayerMask _enemyLayer; //敵のレイヤー
+    //[SerializeField] private float _pushRadius = 1f;
+    //[SerializeField] private LayerMask _enemyLayer; //敵のレイヤー
 
     private CharacterController _playerController;
     

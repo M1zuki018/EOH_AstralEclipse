@@ -93,6 +93,8 @@ public class DamageAmountUI : MonoBehaviour, ITextUI
         seq.OnComplete(() => _pool.ReturnToPool(this));
 
         seq.Play();
+
+        await UniTask.Yield();
     }
     
     public void Hide()

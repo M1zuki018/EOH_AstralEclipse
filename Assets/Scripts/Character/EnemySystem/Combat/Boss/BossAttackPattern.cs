@@ -40,7 +40,7 @@ public class BossAttackPattern : MonoBehaviour
     private List<GameObject> _verticalLasers = new List<GameObject>();
     private List<MagicCircleControl> _magicCircles = new List<MagicCircleControl>();
     private float _speed = 120f; //垂直レーザーのスピード
-    private float _premotionTime = 1f; //茨攻撃の予兆時間
+    //private float _premotionTime = 1f; //茨攻撃の予兆時間
 
     private void Awake()
     {
@@ -256,7 +256,7 @@ public class BossAttackPattern : MonoBehaviour
         _animator.SetTrigger("Attack");
         
         await UniTask.Delay(980); //少し時間を置く
-        thornCtrl.ChangedMesh(CancellationToken.None); //メッシュ変更とオブジェクト破棄
+        thornCtrl.ChangedMesh(CancellationToken.None).Forget(); //メッシュ変更とオブジェクト破棄
     }
 
     #endregion
@@ -414,6 +414,8 @@ public class BossAttackPattern : MonoBehaviour
         */
         
         TimeStop();
+
+        await UniTask.Yield();
     }
 
     /// <summary>
@@ -432,6 +434,7 @@ public class BossAttackPattern : MonoBehaviour
         //await UniTask.Delay(500);
         
         FinalAttack();
+        await UniTask.Yield();
     }
 
     /// <summary>

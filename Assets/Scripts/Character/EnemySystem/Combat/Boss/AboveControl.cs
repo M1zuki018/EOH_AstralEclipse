@@ -31,7 +31,7 @@ public class AboveControl : MonoBehaviour, IBossAttack
         _target = target;
         _renderer.materials[0].SetFloat("_Cutoff", 0.1f); //初期値にセット
         
-        Fire();
+        Fire().Forget();
     }
 
     /// <summary>

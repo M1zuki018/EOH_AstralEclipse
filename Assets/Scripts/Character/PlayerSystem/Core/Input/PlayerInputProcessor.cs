@@ -15,6 +15,8 @@ namespace PlayerSystem.Input
         private InputBuffer _inputBuffer;
         public InputBuffer InputBuffer => _inputBuffer;
         
+        public event Action OnLockOn;
+        
         /// <summary>
         /// 初期化
         /// </summary>
@@ -25,15 +27,7 @@ namespace PlayerSystem.Input
         }
 
         #endregion
-
-        public event Action OnJump;
-        public event Action OnStep;
-        public event Action OnGuard;
-        public event Action OnLockOn;
-        public event Action OnAttack;
-        public event Action<int> OnSkill;
-        public event Action OnAction;
-
+        
 
         // ここからステートマシンを介したあと、ActionHandlerから処理を行う
 

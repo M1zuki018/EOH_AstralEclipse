@@ -11,6 +11,7 @@ using Vector3 = UnityEngine.Vector3;
 /// </summary>
 public class ShadowAttack : MonoBehaviour, IBossAttack
 {
+    private static readonly int Cutoff = Shader.PropertyToID("_Cutoff");
     public string AttackName => "ShadowAttack";
     
     [Header("初期設定")]
@@ -61,7 +62,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
 
         //影に潜る処理
         float duration = 1.5f;
-        _bossObj.DOMoveY(-2.5f, duration).SetEase(Ease.InOutQuad).AsyncWaitForCompletion(); //ボスのメッシュを含むオブジェクトを移動
+        await _bossObj.DOMoveY(-2.5f, duration).SetEase(Ease.InOutQuad).AsyncWaitForCompletion(); //ボスのメッシュを含むオブジェクトを移動
         _bossMover.Falling(); //CCのオブジェクト自体を重力を使って地面に接地させる
         UpdateDissolveValue(1, duration);
 
@@ -199,8 +200,10 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
                 return;
             }
             
-            ShadowLatent();
+            ShadowLatent().Forget();
         });
+
+        await UniTask.Yield();
     }
 
     /// <summary>
@@ -208,8 +211,8 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     /// </summary>
     private void SetDissolveValue(float cutOff)
     {
-        _bossRenderer.materials[0].SetFloat("_Cutoff", cutOff);
-        _bossRenderer.materials[1].SetFloat("_Cutoff", cutOff);
+        _bossRenderer.materials[0].SetFloat(Cutoff, cutOff); //stringからnameIDに変更
+        _bossRenderer.materials[1].SetFloat(Cutoff, cutOff);
     }
     
     /// <summary>

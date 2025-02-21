@@ -17,8 +17,8 @@ public class KeyItem : InteractableItemBase
     private Transform _keyObject; //親オブジェクトのトランスフォーム
     
     [SerializeField] private List<Health> _targets = new List<Health>(); //倒さなければいけないエネミーのHealthクラスを管理する
-    
-    private void Start()
+
+    protected override void Start()
     {
         _keyObject = transform.parent;
         _keyObject.DOMoveY(_keyObject.position.y + _moveY, 1.5f).SetEase(Ease.InOutQuad).SetLoops(-1, LoopType.Yoyo);

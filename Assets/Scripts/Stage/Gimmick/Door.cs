@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +11,7 @@ public class Door : InteractableItemBase
     private Inventory _inventory;
     [SerializeField] private EnemyBrain _bossEnemyBrain;
 
-    private void Start()
+    protected override void Start()
     {
         OnDoorOpened += HandleDoorOpen; //イベント登録
     }
@@ -53,6 +54,6 @@ public class Door : InteractableItemBase
         AudioManager.Instance.ClipChange(AudioType.BGM, 1);
         battleChecker.StartBossBattle(_bossEnemyBrain); //ボス戦開始のイベント発火
         BossMover bossMover = _bossEnemyBrain.gameObject.GetComponent<BossMover>();
-        bossMover.BattleStart();
+        bossMover.BattleStart().Forget();
     }
 }
