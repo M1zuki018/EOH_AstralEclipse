@@ -10,14 +10,6 @@ namespace PlayerSystem.State.Base
     public class JumpState : PlayerBaseState<BaseStateEnum>
     {
         public JumpState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
-
-        private bool _isAttacking = false;
-        private int _isSkill = -1;
-        private bool _isStep = false;
-
-        private Action _onAttack;
-        private Action<int> _onSkill;
-        private Action _onStep;
         
         /// <summary>
         /// ステートに入るときの処理
@@ -27,16 +19,6 @@ namespace PlayerSystem.State.Base
             Debug.Log("JumpState: Enter");
             
             //TODO: アニメーション再生
-            
-            // アクションを設定
-            _onAttack = () => _isAttacking = true;
-            _onSkill = index => _isSkill = index;
-            _onStep = () => _isStep = true;
-            
-            // イベント登録
-            InputProcessor.OnAttack += _onAttack;
-            InputProcessor.OnSkill += _onSkill;
-            InputProcessor.OnStep += _onStep;
 
             ActionHandler.Jump();
             BlackBoard.ApplyGravity = true;
@@ -68,23 +50,22 @@ namespace PlayerSystem.State.Base
                     }
                 }
                 
-                // スキル番号がデフォルトから変わっていたら Skill へ
-                if (_isSkill != -1)
+                // スキル入力があれば Skill へ
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Skill))
                 {
-                    BlackBoard.UsingSkillIndex = _isSkill;
                     StateMachine.ChangeState(BaseStateEnum.Skill);
                     return;
                 }
                 
                 // 攻撃入力があれば Attack へ
-                if (_isAttacking)
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
                 {
                     StateMachine.ChangeState(BaseStateEnum.Attack);
                     return;
                 }
 
                 //　ステップ入力があり、ステップ回数がゼロ以上あったら Step へ
-                if (_isStep)
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Step))
                 {
                     if (BlackBoard.CurrentSteps > 0)
                     {
@@ -96,9 +77,6 @@ namespace PlayerSystem.State.Base
                     }
                     return;
                 }
-                
-                // フラグをリセット
-                _isStep = false;
                 
                 await UniTask.Yield();
             }
@@ -113,16 +91,6 @@ namespace PlayerSystem.State.Base
             BlackBoard.IsJumping = false;
             BlackBoard.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
             BlackBoard.ApplyGravity = false;
-            
-            // 状態をリセット
-            _isAttacking = false;
-            _isSkill = -1;
-            _isStep = false;
-
-            // イベントを解除
-            InputProcessor.OnAttack -= _onAttack;
-            InputProcessor.OnSkill -= _onSkill;
-            InputProcessor.OnStep -= _onStep;
             
             await UniTask.Yield();
         }
