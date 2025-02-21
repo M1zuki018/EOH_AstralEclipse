@@ -13,6 +13,7 @@ namespace PlayerSystem.Input
         
         private PlayerBlackBoard _bb;
         private InputBuffer _inputBuffer;
+        public InputBuffer InputBuffer => _inputBuffer;
         
         /// <summary>
         /// 初期化
@@ -31,6 +32,7 @@ namespace PlayerSystem.Input
         public event Action OnLockOn;
         public event Action OnAttack;
         public event Action<int> OnSkill;
+        public event Action OnAction;
 
 
         // ここからステートマシンを介したあと、ActionHandlerから処理を行う

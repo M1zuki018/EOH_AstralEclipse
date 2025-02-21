@@ -11,20 +11,6 @@ namespace PlayerSystem.State.Base
     {
         public IdleState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
         
-        // アクションを設定
-        private bool _isJumping = false;
-        private bool _isStep = false;
-        private bool _isAttacking = false;
-        private int _isSkill = -1;
-        private bool _isGuard = false;
-        
-        // イベント登録
-        private Action _onJump;
-        private Action _onStep;
-        private Action _onAttack;
-        private Action<int> _onSkill;
-        private Action _onGuard;
-        
         /// <summary>
         /// ステートに入るときの処理
         /// </summary>
@@ -33,18 +19,6 @@ namespace PlayerSystem.State.Base
             //TODO: アニメーション再生
 
             Debug.Log("Idle entered");
-            
-            _onJump = () => _isJumping = true;
-            _onStep = () => _isStep = true;
-            _onAttack = () => _isAttacking = true;
-            _onSkill = index => _isSkill = index;
-            _onGuard = () => _isGuard = true;
-            
-            InputProcessor.OnJump += _onJump;
-            InputProcessor.OnStep += _onStep;
-            InputProcessor.OnAttack += _onAttack;
-            InputProcessor.OnSkill += _onSkill;
-            InputProcessor.OnGuard += _onGuard;
             
             BlackBoard.ApplyGravity = true;
             
@@ -68,14 +42,14 @@ namespace PlayerSystem.State.Base
                 }
 
                 // ジャンプ入力があり、地面についていた場合 Jump へ
-                if (_isJumping && BlackBoard.IsGrounded)
+                if (InputProcessor.InputBuffer.GetBufferedInput("Jump") && BlackBoard.IsGrounded)
                 {
                     StateMachine.ChangeState(BaseStateEnum.Jump);
                     return;
                 }
 
                 //　ステップ入力があり、ステップ回数がゼロ以上あったら Step へ
-                if (_isStep)
+                if (InputProcessor.InputBuffer.GetBufferedInput("Step"))
                 {
                     if (BlackBoard.CurrentSteps > 0)
                     {
@@ -88,6 +62,7 @@ namespace PlayerSystem.State.Base
                     return;
                 }
 
+                /*
                 // スキル番号がデフォルトから変わっていたら Skill へ
                 if (_isSkill != -1)
                 {
@@ -95,24 +70,21 @@ namespace PlayerSystem.State.Base
                     StateMachine.ChangeState(BaseStateEnum.Skill);
                     return;
                 }
+                */
                 
                 // 攻撃入力があれば Attack へ
-                if (_isAttacking)
+                if (InputProcessor.InputBuffer.GetBufferedInput("Attack"))
                 {
                     StateMachine.ChangeState(BaseStateEnum.Attack);
                     return;
                 }
 
                 // 防御入力があれば Guard へ
-                if (_isGuard)
+                if (InputProcessor.InputBuffer.GetBufferedInput("Guade"))
                 {
                     StateMachine.ChangeState(BaseStateEnum.Guard);
                     return;
                 }
-                
-                // フラグをリセット
-                _isStep = false;
-                _isJumping = false;
 
                 await UniTask.Yield();
             }
@@ -124,20 +96,6 @@ namespace PlayerSystem.State.Base
         public override async UniTask Exit()
         {
             BlackBoard.ApplyGravity = false;
-            
-            // 状態をリセット
-            _isJumping = false;
-            _isStep = false;
-            _isAttacking = false;
-            _isSkill = -1;
-            _isGuard = false;
-
-            // イベントを解除
-            InputProcessor.OnJump -= _onJump;
-            InputProcessor.OnStep -= _onStep;
-            InputProcessor.OnAttack -= _onAttack;
-            InputProcessor.OnSkill -= _onSkill;
-            InputProcessor.OnGuard -= _onGuard;
             
             await UniTask.CompletedTask;
         }
