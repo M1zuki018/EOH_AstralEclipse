@@ -35,7 +35,7 @@ namespace PlayerSystem.Movement
             _bb.IsJumping = true;
             _bb.IsGrounded = false; //TODO:接地判定の切り替えをここに書くべきか？
             _bb.Velocity = new Vector3(0f, Mathf.Sqrt(_bb.Data.JumpPower * -2f * _bb.Data.Gravity), 0f); //初速度を計算
-            _animController.PlayJumpAnimation();
+            _animController.Movement.PlayJumpAnimation();
         }
 
         /// <summary>

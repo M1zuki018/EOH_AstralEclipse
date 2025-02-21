@@ -43,7 +43,7 @@ namespace PlayerSystem.Movement
                 _helper.RotateCharacter(_helper.CalculateMoveDirection());
                     
                 // Animatorの速度を設定
-                _animController.SetMoveSpeed(_bb.CorrectedDirection.sqrMagnitude * _bb.MoveSpeed);
+                _animController.Movement.SetMoveSpeed(_bb.CorrectedDirection.sqrMagnitude * _bb.MoveSpeed);
             }
             else
             {
@@ -54,13 +54,13 @@ namespace PlayerSystem.Movement
                 if (speed < 0.03f)
                 {
                     //減速がほぼ終了していたら、スピードにはゼロを入れる
-                    _animController.SetMoveSpeed(0);
+                    _animController.Movement.SetMoveSpeed(0);
                     _trailController.DisableTrail(); //TrailRendererの描写は行わない
                 }
                 else
                 {
                     _trailController.EnableTrail();
-                    _animController.SetMoveSpeed(speed);   
+                    _animController.Movement.SetMoveSpeed(speed);   
                 }
             }
         }

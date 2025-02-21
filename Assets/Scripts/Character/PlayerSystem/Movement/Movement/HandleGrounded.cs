@@ -27,7 +27,7 @@ namespace PlayerSystem.Movement
             {
                 _bb.IsJumping = false;
                 _bb.Velocity = new Vector3(0, -0.1f, 0); //確実に地面につくように少し下向きの力を加える
-                _animController.StopJumpAnimation();
+                _animController.Movement.StopJumpAnimation();
             }
         }
     }

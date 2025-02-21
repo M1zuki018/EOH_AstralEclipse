@@ -7,39 +7,16 @@ namespace PlayerSystem.Animation
     /// </summary>
     public class PlayerAnimationController
     {
-        private Animator _animator;
+        private PlayerAnimation_Movement _movement;
+        
+        public PlayerAnimation_Movement Movement => _movement;
 
         public PlayerAnimationController(Animator animator)
         {
-            _animator = animator;
+            _movement = new PlayerAnimation_Movement(animator);
         }
         
-        /// <summary>
-        /// 移動速度をアニメーションに反映
-        /// </summary>
-        public void SetMoveSpeed(float speed)
-        {
-            _animator.SetFloat("Speed", speed, 0.1f, Time.deltaTime);
-        }
-
-        /// <summary>
-        /// ジャンプアニメーションを開始
-        /// </summary>
-        public void PlayJumpAnimation()
-        {
-            _animator.SetTrigger("Jump");
-            _animator.SetBool("IsJumping", true);
-            _animator.applyRootMotion = false;
-        }
-
-        /// <summary>
-        /// ジャンプ終了時のアニメーション処理
-        /// </summary>
-        public void StopJumpAnimation()
-        {
-            _animator.SetBool("IsJumping", false);
-            _animator.applyRootMotion = true;
-        }
+        
     }
 
 }
