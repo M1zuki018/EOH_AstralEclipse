@@ -1,29 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.Movement;
-using UnityEngine;
 
 /// <summary>
 /// ステートマシンと各アクションをつなぐクラス
 /// </summary>
 public class PlayerActionHandler
 {
-    private readonly IMovable _mover; //移動
-    private readonly IJumpable _jumper;　//ジャンプ
-    private readonly ISteppable _stepper; //ステップ
-    private readonly IGuardable _gauder; //ガード
-    private readonly PlayerCombat _combat; //アクション
+    private readonly IMovable _mover; // 移動
+    private readonly IJumpable _jumper;　// ジャンプ
+    private readonly ISteppable _stepper; // ステップ
+    private readonly IGuardable _gauder; // ガード
+    private readonly IAttack _attack; // 通常攻撃
+    private readonly ISkill _skill; // スキル
 
     public PlayerActionHandler(IMovable mover, IJumpable jumper,ISteppable steppable, 
-        IGuardable gauder, PlayerCombat combat)
+        IGuardable gauder, IAttack attack, ISkill skill)
     {
         _mover = mover;
         _jumper = jumper;
         _stepper = steppable;
         _gauder = gauder;
-        _combat = combat;
+        _attack = attack;
+        _skill = skill;
     }
     
     // //TODO: 不具合の原因が解明出来たらここから呼び出すことになるかも
@@ -47,8 +45,8 @@ public class PlayerActionHandler
     public void Guard() => _gauder.Gaude();
 
     /// <summary>通常攻撃の入力処理</summary>
-    public void Attack() => _combat.Attack();
+    public void Attack() => _attack.Attack();
 
     /// <summary>スキル攻撃の入力処理</summary>
-    public void Skill(int index) => _combat.UseSkill(index);
+    public void Skill() => _skill.UseSkill();
 }

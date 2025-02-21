@@ -1,5 +1,6 @@
 using UnityEngine;
 using PlayerSystem.ActionFunction;
+using PlayerSystem.Fight;
 using PlayerSystem.Movement;
 
 /// <summary>
@@ -65,7 +66,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             jumper: _jumper,
             steppable: new StepFunction(Animator, _brain.BB),
             gauder: new GuardFunction(_brain.BB),
-            combat: GetComponent<PlayerCombat>());
+            attack: (IAttack) GetComponent<PlayerCombat>(),
+            skill: new SkillFunction(_brain.BB));
 
         _playerGravity = new PlayerGravity(_brain.BB, _cc);
         _handleGrounded = (IHandleGroundedCheck) new HandleGrounded(_brain.BB, _animator);
