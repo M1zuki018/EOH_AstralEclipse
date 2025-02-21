@@ -13,10 +13,11 @@ namespace PlayerSystem.State.Base
         /// <summary>
         /// ステートに入るときの処理
         /// </summary>
-        public override UniTask Enter()
+        public override async UniTask Enter()
         {
-            return UniTask.Delay(TimeSpan.FromSeconds(0.5f)) // 0.5秒後にIdleへ
-                .ContinueWith(() => StateMachine.ChangeState(BaseStateEnum.Idle));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+                
+            StateMachine.ChangeState(BaseStateEnum.Idle);
         }
 
         /// <summary>
