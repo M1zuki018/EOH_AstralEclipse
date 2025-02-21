@@ -1,21 +1,20 @@
+
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace PlayerSystem.State.Attack 
 {
     /// <summary>
-    /// NormalAttack1状態 
+    /// Default状態 
     /// </summary>
-    public class NormalAttack1State : PlayerBaseState<AttackStateEnum> 
+    public class DefaultState : PlayerBaseState<AttackStateEnum> 
     {
-        public NormalAttack1State(IPlayerStateMachine stateMachine) : base(stateMachine) { }
+        public DefaultState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
         /// </summary>
         public override async UniTask Enter()
         {
-            Debug.Log("NormalAttack1State: Enter");
             await UniTask.Yield();
         }
 
@@ -24,7 +23,7 @@ namespace PlayerSystem.State.Attack
         /// </summary>
         public override async UniTask Execute()
         {
-            while (StateMachine.CurrentState.Value == AttackStateEnum.NormalAttack1)
+            while (StateMachine.CurrentState.Value == AttackStateEnum.Default)
             {
                 await UniTask.Yield();
             }

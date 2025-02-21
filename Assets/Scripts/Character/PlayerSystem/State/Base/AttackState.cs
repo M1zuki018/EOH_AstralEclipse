@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using PlayerSystem.State.Attack;
 using UnityEngine;
 
 namespace PlayerSystem.State.Base
@@ -9,7 +10,13 @@ namespace PlayerSystem.State.Base
     /// </summary>
     public class AttackState : PlayerBaseState<BaseStateEnum>
     {
-        public AttackState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
+        private PlayerAttackSubStateMachine _attackSubSM;
+
+        public AttackState(IPlayerStateMachine stateMachine, PlayerAttackSubStateMachine attackSubSM) 
+            : base(stateMachine)
+        {
+            _attackSubSM = attackSubSM;
+        }
         
         /// <summary>
         /// ステートに入るときの処理
@@ -17,7 +24,7 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("AttackState : Enter");
-            ActionHandler.Attack();
+            _attackSubSM.ChangeState(AttackStateEnum.NormalAttack1);
             
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
                 
