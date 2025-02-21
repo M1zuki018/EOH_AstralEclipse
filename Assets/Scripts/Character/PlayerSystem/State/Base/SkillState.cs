@@ -15,6 +15,15 @@ public class SkillState : PlayerBaseState<BaseStateEnum>
     public override async UniTask Enter()
     {
         Debug.Log("SkillState: Enter");
+        // スキルが使えるか判定する
+        if (!ActionHandler.CanUseSkill)
+        {
+            StateMachine.ChangeState(BaseStateEnum.Idle);
+            return;
+        }
+        
+        ActionHandler.Skill(); // 発動
+        
         await UniTask.Yield();
     }
 

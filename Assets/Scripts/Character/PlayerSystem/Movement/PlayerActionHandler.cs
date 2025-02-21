@@ -47,6 +47,9 @@ public class PlayerActionHandler
     /// <summary>通常攻撃の入力処理</summary>
     public void Attack() => _attack.Attack();
 
-    /// <summary>スキル攻撃の入力処理</summary>
+    /// <summary>スキルが発動できるかチェックする</summary>
+    public bool CanUseSkill => _skill.CanUseSkill();
+    
+    /// <summary>スキル攻撃処理</summary>
     public void Skill() => _skill.UseSkill();
 }
