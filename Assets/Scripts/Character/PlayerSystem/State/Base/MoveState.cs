@@ -14,11 +14,13 @@ namespace PlayerSystem.State.Base
         private bool _isJumping = false;
         private bool _isStep = false;
         private bool _isAttacking = false;
+        private int _isSkill = -1;
         private bool _isGuard = false;
         
         private Action _onJump;
         private Action _onStep;
         private Action _onAttack;
+        private Action<int> _onSkill;
         private Action _onGuard;
         
         /// <summary>
@@ -33,12 +35,14 @@ namespace PlayerSystem.State.Base
             _onJump = () => _isJumping = true;
             _onStep = () => _isStep = true;
             _onAttack = () => _isAttacking = true;
+            _onSkill = index => _isSkill = index;
             _onGuard = () => _isGuard = true;
             
             // イベント登録
             InputProcessor.OnJump += _onJump;
             InputProcessor.OnStep += _onStep;
             InputProcessor.OnAttack += _onAttack;
+            InputProcessor.OnSkill += _onSkill;
             InputProcessor.OnGuard += _onGuard;
             
             BlackBoard.ApplyGravity = true;
@@ -80,6 +84,14 @@ namespace PlayerSystem.State.Base
                     {
                         Debug.Log("ステップカウントが足りません！");
                     }
+                    return;
+                }
+                
+                // スキル番号がデフォルトから変わっていたら Skill へ
+                if (_isSkill != -1)
+                {
+                    BlackBoard.UsingSkillIndex = _isSkill;
+                    StateMachine.ChangeState(BaseStateEnum.Skill);
                     return;
                 }
 
@@ -158,12 +170,14 @@ namespace PlayerSystem.State.Base
             _isJumping = false;
             _isStep = false;
             _isAttacking = false;
+            _isSkill = -1;
             _isGuard = false;
 
             // イベントを解除
             InputProcessor.OnJump -= _onJump;
             InputProcessor.OnStep -= _onStep;
             InputProcessor.OnAttack -= _onAttack;
+            InputProcessor.OnSkill -= _onSkill;
             InputProcessor.OnGuard -= _onGuard;
             
             await UniTask.Yield();

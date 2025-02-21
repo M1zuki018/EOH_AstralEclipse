@@ -12,9 +12,11 @@ namespace PlayerSystem.State.Base
         public JumpState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         private bool _isAttacking = false;
+        private int _isSkill = -1;
         private bool _isStep = false;
 
         private Action _onAttack;
+        private Action<int> _onSkill;
         private Action _onStep;
         
         /// <summary>
@@ -28,10 +30,12 @@ namespace PlayerSystem.State.Base
             
             // アクションを設定
             _onAttack = () => _isAttacking = true;
+            _onSkill = index => _isSkill = index;
             _onStep = () => _isStep = true;
             
             // イベント登録
             InputProcessor.OnAttack += _onAttack;
+            InputProcessor.OnSkill += _onSkill;
             InputProcessor.OnStep += _onStep;
 
             ActionHandler.Jump();
@@ -62,6 +66,14 @@ namespace PlayerSystem.State.Base
                         StateMachine.ChangeState(BaseStateEnum.Move);
                         return;
                     }
+                }
+                
+                // スキル番号がデフォルトから変わっていたら Skill へ
+                if (_isSkill != -1)
+                {
+                    BlackBoard.UsingSkillIndex = _isSkill;
+                    StateMachine.ChangeState(BaseStateEnum.Skill);
+                    return;
                 }
                 
                 // 攻撃入力があれば Attack へ
@@ -104,10 +116,12 @@ namespace PlayerSystem.State.Base
             
             // 状態をリセット
             _isAttacking = false;
+            _isSkill = -1;
             _isStep = false;
 
             // イベントを解除
             InputProcessor.OnAttack -= _onAttack;
+            InputProcessor.OnSkill -= _onSkill;
             InputProcessor.OnStep -= _onStep;
             
             await UniTask.Yield();
