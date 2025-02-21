@@ -13,6 +13,7 @@ namespace PlayerSystem.State.Base
         Guard, // ガード
         Parry, // パリィ
         Attack, // 攻撃
+        Skill, // スキル発動状態
         Counter, // カウンター
         Hit, // 被ダメ
         GuardBreak, // ガードブレイク
