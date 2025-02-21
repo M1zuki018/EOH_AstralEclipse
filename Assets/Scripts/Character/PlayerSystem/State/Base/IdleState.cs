@@ -91,8 +91,9 @@ namespace PlayerSystem.State.Base
                 // スキル番号がデフォルトから変わっていたら Skill へ
                 if (_isSkill != -1)
                 {
-                    Debug.Log(_isSkill.ToString());
-                    StateMachine.ChangeState(BaseStateEnum.Attack);
+                    BlackBoard.UsingSkillIndex = _isSkill;
+                    Debug.Log(BlackBoard.UsingSkillIndex.ToString());
+                    StateMachine.ChangeState(BaseStateEnum.Skill);
                     return;
                 }
                 

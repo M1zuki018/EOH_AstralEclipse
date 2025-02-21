@@ -30,6 +30,9 @@ namespace PlayerSystem.State
         /// <summary>現在のWill</summary>
         public int CurrentWill { get; set; }
         
+        /// <summary>発動しているスキルのIndex</summary>
+        public int UsingSkillIndex { get; set; }
+        
         /// <summary>入力された方向</summary>
         public Vector3 MoveDirection { get; set; }
         
