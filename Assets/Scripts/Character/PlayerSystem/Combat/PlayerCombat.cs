@@ -8,7 +8,6 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour, ICombat, IAttack
 {
     public AttackHitDetector Detector { get; private set; }
-    private PlayerController _playerController;
     private PlayerBrain _playerBrain;
     private DamageHandler _damageHandler;
     private ReadyForBattleChecker _battleChecker;
@@ -26,7 +25,6 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     private void Start()
     {
         //コンポーネントを取得する
-        _playerController = GetComponent<PlayerController>();
         _playerBrain = GetComponent<PlayerBrain>();
         _damageHandler = new DamageHandler();
         Detector = GetComponentInChildren<AttackHitDetector>();
@@ -54,7 +52,7 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         //まだ武器を構えていなかったら、以降の処理を行う
         if (!_weaponObj.activeSelf) 
         {
-            _playerController.Animator.SetTrigger("ReadyForBattle");
+            _playerBrain.BB.AnimController.Combat.TriggerReadyForBattle();
             _weaponObj.SetActive(true); //武器のオブジェクトを表示する
             AudioManager.Instance.PlaySE(2);
             UIManager.Instance?.ShowPlayerBattleUI();
@@ -104,14 +102,14 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     public void Attack()
     {
         _playerBrain.BB.IsAttacking = true; //解除はLocoMotionのSMBから行う
-        _playerController.Animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+        _playerBrain.BB.AnimController.Combat.TriggerAttack();//アニメーションのAttackをトリガーする
         
         /*
         //臨戦状態/ボス戦中/デバッグモードの場合攻撃可能とする
         if (_battleChecker.ReadyForBattle || _playerBrain.BB.IsBossBattle || _playerBrain.BB.DebugMode)
         {
             _playerBrain.BB.IsAttacking = true; //解除はLocoMotionのSMBから行う
-            _playerController.Animator.SetTrigger("Attack"); //アニメーションのAttackをトリガーする
+            _playerBrain.BB.AnimController.Combat.TriggerAttack(); //アニメーションのAttackをトリガーする
         }
         */
     }

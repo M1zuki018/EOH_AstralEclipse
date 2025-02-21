@@ -8,22 +8,20 @@ namespace PlayerSystem.Animation
     /// </summary>
     public class PlayerAnimationController
     {
-        private PlayerBlackBoard _bb;
-        
         private PlayerAnimation_Common _common;
         private PlayerAnimation_Movement _movement;
+        private PlayerAnimation_Combat _combat;
         private PlayerStandbyMotionFunction _standbyMotionFunc; // 待機モーションを再生するクラス
 
-        public PlayerBlackBoard BB => _bb;
         public PlayerAnimation_Common Common => _common;
         public PlayerAnimation_Movement Movement => _movement;
+        public PlayerAnimation_Combat Combat => _combat;
 
         public PlayerAnimationController(PlayerBlackBoard bb, Animator animator)
         {
-            _bb = bb;
             _common = new PlayerAnimation_Common(animator);
             _movement = new PlayerAnimation_Movement(animator);
-            _standbyMotionFunc = new PlayerStandbyMotionFunction(_bb, this);
+            _standbyMotionFunc = new PlayerStandbyMotionFunction(bb, this);
         }
     }
 }
