@@ -25,6 +25,7 @@ namespace PlayerSystem.State.Base
         {
             Debug.Log("AttackState : Enter");
 
+            /*
             if (BlackBoard.IsGrounded)
             {
                 // 地面にいる場合は通常攻撃①
@@ -34,6 +35,7 @@ namespace PlayerSystem.State.Base
             
             // 空中にいる場合は空中①
             _attackSubSM.ChangeState(AttackStateEnum.AirAttack1);
+            */
 
             await UniTask.Delay(TimeSpan.FromSeconds(1));
             
