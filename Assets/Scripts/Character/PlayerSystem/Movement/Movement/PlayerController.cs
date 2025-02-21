@@ -14,12 +14,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerCamera; // カメラ
     [SerializeField][ReadOnlyOnRuntime] private CharacterController _cc;
     [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _brain;
-    
-    // Animator
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
     public Animator Animator => _animator;
-    
-    
     
     private Collider _collider;
     [SerializeField] private Transform _targetTransform;
@@ -109,15 +105,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     /// </summary>
     private void HandleFalling()
     {
-        Animator.SetBool("IsGround", _brain.BB.IsGrounded);
-        /*
-        //接地判定はfalseだが、落下中と判定しない例外
-        //ジャンプ中/壁登り中/乗り越え中
-        if (!_playerState.IsJumping && !_playerState.IsClimbing && !_playerState.IsVaulting)
-        {
-            _animator.SetBool("IsGround", !_playerState.IsGrounded);
-        }
-        */
+        _animController.Movement.PlayFallingAnimation(_brain.BB.IsGrounded);
     }
 
     public Vector3 TargetPosition => _collider.ClosestPoint(_targetTransform.position);

@@ -40,5 +40,13 @@ namespace PlayerSystem.Animation
             _animator.SetBool("IsJumping", false);
             _animator.applyRootMotion = true;
         }
+        
+        /// <summary>
+        /// 接地判定がないときに落下モーションを再生する
+        /// </summary>
+        public void PlayFallingAnimation(bool isGrounded)
+        {
+            _animator.SetBool("IsGround", isGrounded);
+        }
     }
 }
