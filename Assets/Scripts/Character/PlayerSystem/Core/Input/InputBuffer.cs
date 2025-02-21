@@ -15,13 +15,7 @@ namespace PlayerSystem.Input
         /// <summary>
         /// ボタンが押されたときに呼ばれる
         /// </summary>
-        public void OnPerform(InputAction.CallbackContext context, string inputName)
-        {
-            if (context.performed)
-            {
-                _inputBuffer[inputName] = Time.time; // 現在の時間を記録
-            }
-        }
+        public void AddInput(string inputName) => _inputBuffer[inputName] = Time.time; // 現在の時間を記録
 
         /// <summary>
         /// バッファが有効か確認する
