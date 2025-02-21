@@ -42,14 +42,14 @@ namespace PlayerSystem.State.Base
                 }
 
                 // ジャンプ入力があり、地面についていた場合 Jump へ
-                if (InputProcessor.InputBuffer.GetBufferedInput("Jump") && BlackBoard.IsGrounded)
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Jump) && BlackBoard.IsGrounded)
                 {
                     StateMachine.ChangeState(BaseStateEnum.Jump);
                     return;
                 }
 
                 //　ステップ入力があり、ステップ回数がゼロ以上あったら Step へ
-                if (InputProcessor.InputBuffer.GetBufferedInput("Step"))
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Step))
                 {
                     if (BlackBoard.CurrentSteps > 0)
                     {
@@ -62,25 +62,22 @@ namespace PlayerSystem.State.Base
                     return;
                 }
 
-                /*
-                // スキル番号がデフォルトから変わっていたら Skill へ
-                if (_isSkill != -1)
+                // スキル入力があれば Skill へ
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Skill))
                 {
-                    BlackBoard.UsingSkillIndex = _isSkill;
                     StateMachine.ChangeState(BaseStateEnum.Skill);
                     return;
                 }
-                */
                 
                 // 攻撃入力があれば Attack へ
-                if (InputProcessor.InputBuffer.GetBufferedInput("Attack"))
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
                 {
                     StateMachine.ChangeState(BaseStateEnum.Attack);
                     return;
                 }
 
                 // 防御入力があれば Guard へ
-                if (InputProcessor.InputBuffer.GetBufferedInput("Guade"))
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Guard))
                 {
                     StateMachine.ChangeState(BaseStateEnum.Guard);
                     return;

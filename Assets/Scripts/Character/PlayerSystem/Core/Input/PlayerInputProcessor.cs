@@ -64,22 +64,26 @@ namespace PlayerSystem.Input
         #region InputBufferを使って記録しておくもの
 
         /// <summary>ジャンプ入力処理</summary>
-        public void HandleJumpInput() => _inputBuffer.AddInput("Jump");
+        public void HandleJumpInput() => _inputBuffer.AddInput(InputNameEnum.Jump);
         
         /// <summary>ステップ入力処理</summary>
-        public void HandleStepInput() => _inputBuffer.AddInput("Step");
+        public void HandleStepInput() => _inputBuffer.AddInput(InputNameEnum.Step);
 
         /// <summary>ガード入力処理</summary>
-        public void HandleGuardInput(bool input) => _inputBuffer.AddInput("Guard");
+        public void HandleGuardInput(bool input) => _inputBuffer.AddInput(InputNameEnum.Guard);
         
         /// <summary>通常攻撃の入力処理</summary>
-        public void HandleAttackInput() => _inputBuffer.AddInput("Attack");
-        
+        public void HandleAttackInput() => _inputBuffer.AddInput(InputNameEnum.Attack);
+
         /// <summary>スキル攻撃の入力処理</summary>
-        public void HandleSkillInput(int index) => _inputBuffer.AddInput("Skill" + index);
+        public void HandleSkillInput(int index)
+        {
+            _bb.UsingSkillIndex = index;
+            _inputBuffer.AddInput(InputNameEnum.Skill);
+        }
         
-        /// <summary>特殊アクション・刀投げ/改修の入力処理</summary>
-        public void HandleActionInput() => _inputBuffer.AddInput("Action");
+        /// <summary>特殊アクション・刀投げ/回収の入力処理</summary>
+        public void HandleActionInput() => _inputBuffer.AddInput(InputNameEnum.Action);
         
         #endregion
     }
