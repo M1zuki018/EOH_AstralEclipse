@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,38 @@ public class CombatAnimationHandler : MonoBehaviour
     [SerializeField, Comment("当たり判定制御クラス")] private AttackHitDetector _hitDetector;
     [SerializeField, Comment("体の方向を敵に向けるクラス")] private AdjustDirection _adjustDirection;
     [SerializeField, Comment("エフェクト")] private EffectPool _effectPool;
+    
+    private Vector3 _initialPosition;
+    private bool _isAttacking; // 攻撃中か
+    private Transform _target; // 敵
+    private CancellationTokenSource _cts; // キャンセルトークン
+    
+    /// <summary>
+    /// 攻撃開始時の処理
+    /// </summary>
+    public void StartAttacking()
+    {
+        _target = _adjustDirection.Target;
+        _isAttacking = true;
+        _cts = new CancellationTokenSource();
+
+        if (_target != null)
+        {
+            _adjustDirection.AdjustDirectionToTarget(); // 体をターゲットの向きに合わせる
+        }
+    }
+    
+    /// <summary>
+    /// 攻撃処理を中断したい時に呼ぶ
+    /// </summary>
+    public void CancelAttack()
+    {
+        if (_isAttacking && _cts != null)
+        {
+            _cts.Cancel();
+            Debug.Log("攻撃がキャンセルされました");
+        }
+    }
     
     #region アニメーション
 
@@ -26,6 +59,12 @@ public class CombatAnimationHandler : MonoBehaviour
     
     /// <summary>すぐに体を敵の方向に向ける</summary>
     public void OnAdjustDirectionToTargetEarly() => _adjustDirection.AdjustDirectionToTargetEarly();
+    
+    /// <summary>初期位置の座標をセットする</summary>
+    public void SetInitialPosition() => _initialPosition = transform.position;
+    
+    /// <summary>位置を初期化する</summary>
+    public void ResetPosition() => transform.position = _initialPosition;
     
     #endregion
 
@@ -63,6 +102,13 @@ public class CombatAnimationHandler : MonoBehaviour
 
     /// <summary>エフェクトを表示する</summary>
     public void EffectEnable(Vector3 pos, Quaternion rot) => _effectPool.GetEffect(pos, rot);
+
+    #endregion
+
+    #region フラグ管理
+
+    /// <summary>Attackingフラグをfalseに戻す</summary>
+    public void AttackEnd() => _isAttacking = false;
 
     #endregion
 }
