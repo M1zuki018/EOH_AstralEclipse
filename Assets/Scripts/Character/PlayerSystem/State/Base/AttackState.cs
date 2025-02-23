@@ -24,7 +24,8 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("AttackState : Enter");
-
+            //StateMachine.Animator.SetTrigger("Attack");
+            
             /*
             if (BlackBoard.IsGrounded)
             {

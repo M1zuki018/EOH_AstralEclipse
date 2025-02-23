@@ -1,4 +1,5 @@
 using System.Threading;
+using PlayerSystem.Input;
 using UnityEngine;
 
 /// <summary>
@@ -10,11 +11,19 @@ public class CombatAnimationHandler : MonoBehaviour
     [SerializeField, Comment("当たり判定制御クラス")] private AttackHitDetector _hitDetector;
     [SerializeField, Comment("体の方向を敵に向けるクラス")] private AdjustDirection _adjustDirection;
     [SerializeField, Comment("エフェクト")] private EffectPool _effectPool;
+    [SerializeField] private PlayerInputManager _inputManager;
     
+    private InputBuffer _inputBuffer;
     private Vector3 _initialPosition;
     private bool _isAttacking; // 攻撃中か
     private Transform _target; // 敵
     private CancellationTokenSource _cts; // キャンセルトークン
+
+    private void Start()
+    {
+        PlayerInputProcessor processor = _inputManager.IPlayerInputReceiver as PlayerInputProcessor;
+        _inputBuffer = processor.InputBuffer;
+    }
     
     /// <summary>
     /// 攻撃開始時の処理
@@ -40,6 +49,14 @@ public class CombatAnimationHandler : MonoBehaviour
         {
             _cts.Cancel();
             Debug.Log("攻撃がキャンセルされました");
+        }
+    }
+
+    public void Check()
+    {
+        if(_inputBuffer.GetBufferedInput(InputNameEnum.Attack))
+        {
+            _animator.SetTrigger("Attack");
         }
     }
     

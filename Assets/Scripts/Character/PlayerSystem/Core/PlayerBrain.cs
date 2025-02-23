@@ -37,7 +37,8 @@ public class PlayerBrain : CharacterBase
         _stateMachine = new PlayerStateMachine(
             inputProcessor: GetComponent<PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
             blackboard: _bb,
-            actionHandler: _controller.PlayerActionHandler);
+            actionHandler: _controller.PlayerActionHandler,
+            animator: GetComponent<Animator>());
     }
 
     private void Update() => _stateMachine.Update();
