@@ -10,14 +10,8 @@ namespace PlayerSystem.State.Base
     /// </summary>
     public class AttackState : PlayerBaseState<BaseStateEnum>
     {
-        private PlayerAttackSubStateMachine _attackSubSM;
+        public AttackState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
-        public AttackState(IPlayerStateMachine stateMachine, PlayerAttackSubStateMachine attackSubSM) 
-            : base(stateMachine)
-        {
-            _attackSubSM = attackSubSM;
-        }
-        
         /// <summary>
         /// ステートに入るときの処理
         /// </summary>
@@ -40,7 +34,7 @@ namespace PlayerSystem.State.Base
 
             await UniTask.Delay(TimeSpan.FromSeconds(1));
             
-            StateMachine.ChangeState(BaseStateEnum.Idle);
+            //StateMachine.ChangeState(BaseStateEnum.Idle); 
         }
 
         /// <summary>
@@ -56,8 +50,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
-            _attackSubSM.ChangeState(AttackStateEnum.Default); // Defaultにして処理が何もない状態にしておく
-            
             await UniTask.Yield();
         }
     }

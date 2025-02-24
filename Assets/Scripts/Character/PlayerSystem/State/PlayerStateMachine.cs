@@ -36,7 +36,7 @@ namespace PlayerSystem.State
             States[BaseStateEnum.Step] = new StepState(this);
             States[BaseStateEnum.Guard] = new GuardState(this);
             States[BaseStateEnum.Parry] = new ParryState(this);
-            States[BaseStateEnum.Attack] = new AttackState(this, new PlayerAttackSubStateMachine(_inputProcessor, _blackboard, _actionHandler, _animator));
+            States[BaseStateEnum.Attack] = new AttackState(this);
             States[BaseStateEnum.Skill] = new SkillState(this);
             States[BaseStateEnum.Counter] = new CounterState(this);
             States[BaseStateEnum.Hit] = new HitState(this);
