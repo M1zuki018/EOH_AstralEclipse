@@ -33,8 +33,6 @@ namespace PlayerSystem.State.Base
             */
 
             await UniTask.Delay(TimeSpan.FromSeconds(1));
-            
-            //StateMachine.ChangeState(BaseStateEnum.Idle); 
         }
 
         /// <summary>
