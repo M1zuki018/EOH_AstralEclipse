@@ -60,11 +60,8 @@ public class CombatAnimationHandler : MonoBehaviour
     /// </summary>
     public void Check()
     {
-        Debug.Log("呼ばれた");
-        Debug.Log(_inputBuffer.InputBufferDic.Count);
         if(_inputBuffer.GetBufferedInput(InputNameEnum.Attack))
         {
-            Debug.Log("ログは取れてる");
             _animator.SetTrigger("Attack");
         }
     }

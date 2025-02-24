@@ -1,6 +1,5 @@
 using System;
 using Cysharp.Threading.Tasks;
-using PlayerSystem.State.Attack;
 using UnityEngine;
 
 namespace PlayerSystem.State.Base
@@ -18,19 +17,16 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("AttackState : Enter");
-            PlayerStateMachine.Animator.SetTrigger("Attack");
             
-            /*
             if (BlackBoard.IsGrounded)
             {
                 // 地面にいる場合は通常攻撃①
-                _attackSubSM.ChangeState(AttackStateEnum.NormalAttack1);
+                PlayerStateMachine.Animator.SetTrigger("Attack");
                 return;
             }
             
             // 空中にいる場合は空中①
-            _attackSubSM.ChangeState(AttackStateEnum.AirAttack1);
-            */
+            PlayerStateMachine.Animator.SetTrigger("AttackAir");
 
             await UniTask.Delay(TimeSpan.FromSeconds(1));
         }
@@ -43,6 +39,7 @@ namespace PlayerSystem.State.Base
             if (BlackBoard.AttackFinishedTrigger)
             {
                 StateMachine.ChangeState(BaseStateEnum.Idle);
+                BlackBoard.AttackFinishedTrigger = false;
             }
             
             await UniTask.Yield();

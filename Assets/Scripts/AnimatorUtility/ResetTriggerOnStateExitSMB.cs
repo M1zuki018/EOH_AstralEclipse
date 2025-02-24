@@ -13,13 +13,14 @@ public class ResetTriggerOnStateExitSMB : StateMachineBehaviour
     {
         if (_animationHandler == null)
         {
+            // nullの時だけ取得する
             _animationHandler = animator.GetComponent<CombatAnimationHandler>();
         }
 
         if (stateInfo.normalizedTime >= 1.0f)
         {
-            Debug.Log("リセット");
-            _animationHandler.AttackFinish(); // アニメーションが最後まで再生されたらIdle状態に戻す
+            // アニメーションが最後まで再生されたら＝コンボが切れたらステートマシンをIdleに戻す
+            _animationHandler.AttackFinish();
         }
         
         animator.ResetTrigger(_triggerName);
