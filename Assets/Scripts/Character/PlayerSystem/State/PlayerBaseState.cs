@@ -1,6 +1,7 @@
 using System;
 using PlayerSystem.Input;
 using PlayerSystem.State;
+using UnityEngine;
 
 /// <summary>
 /// プレイヤーのベースステートにインターフェースを追加したもの
@@ -17,4 +18,5 @@ public abstract class PlayerBaseState<TEnum> : BaseState<TEnum> where TEnum : En
     protected PlayerInputProcessor InputProcessor => PlayerStateMachine.InputProcessor;
     protected PlayerBlackBoard BlackBoard => PlayerStateMachine.BlackBoard;
     protected PlayerActionHandler ActionHandler => PlayerStateMachine.ActionHandler;
+    protected Animator Animator => PlayerStateMachine.Animator;
 }

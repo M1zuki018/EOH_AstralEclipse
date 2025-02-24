@@ -1,6 +1,7 @@
 using PlayerSystem.Input;
 using PlayerSystem.State;
 using PlayerSystem.State.Attack;
+using UnityEngine;
 
 /// <summary>
 /// プレイヤーのAttackステート用のサブステートマシン
@@ -10,20 +11,23 @@ public class PlayerAttackSubStateMachine : BaseStateMachine<AttackStateEnum, ISt
     private readonly PlayerInputProcessor _inputProcessor;
     private readonly PlayerBlackBoard _blackboard;
     private readonly PlayerActionHandler _actionHandler;
+    private readonly Animator _animator;
     
     public PlayerInputProcessor InputProcessor => _inputProcessor;
     public PlayerBlackBoard BlackBoard => _blackboard;
     public PlayerActionHandler ActionHandler => _actionHandler;
+    public Animator Animator => _animator;
 
     /// <summary>
     /// 初期化（enumとIStateのペアを辞書に登録する）
     /// </summary>
     public PlayerAttackSubStateMachine(PlayerInputProcessor inputProcessor, PlayerBlackBoard blackboard,
-        PlayerActionHandler actionHandler)
+        PlayerActionHandler actionHandler, Animator animator)
     {
         _inputProcessor = inputProcessor;
         _blackboard = blackboard;
         _actionHandler = actionHandler;
+        _animator = animator;
 
         States[AttackStateEnum.Default] = new DefaultState(this);
         States[AttackStateEnum.NormalAttack1] = new NormalAttack1State(this);

@@ -1,5 +1,6 @@
 using PlayerSystem.Input;
 using PlayerSystem.State;
+using UnityEngine;
 
 /// <summary>
 /// ベースステートにプレイヤーの要素を追加するためのインターフェース
@@ -9,4 +10,5 @@ public interface IPlayerStateMachine
     PlayerInputProcessor InputProcessor { get; }
     PlayerBlackBoard BlackBoard { get; }
     PlayerActionHandler ActionHandler { get; }
+    Animator Animator { get; }
 }
