@@ -42,6 +42,11 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
+            if (BlackBoard.AttackFinishedTrigger)
+            {
+                StateMachine.ChangeState(BaseStateEnum.Idle);
+            }
+            
             await UniTask.Yield();
         }
 

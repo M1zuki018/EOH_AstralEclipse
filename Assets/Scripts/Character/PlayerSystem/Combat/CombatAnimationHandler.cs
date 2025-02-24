@@ -1,5 +1,6 @@
 using System.Threading;
 using PlayerSystem.Input;
+using PlayerSystem.State;
 using UnityEngine;
 
 /// <summary>
@@ -18,11 +19,13 @@ public class CombatAnimationHandler : MonoBehaviour
     private bool _isAttacking; // 攻撃中か
     private Transform _target; // 敵
     private CancellationTokenSource _cts; // キャンセルトークン
+    private PlayerBlackBoard _bb;
 
     private void Start()
     {
         PlayerInputProcessor processor = _inputManager.IPlayerInputReceiver as PlayerInputProcessor;
         _inputBuffer = processor.InputBuffer;
+        _bb = _animator.GetComponent<PlayerBrain>().BB;
     }
     
     /// <summary>
@@ -52,10 +55,16 @@ public class CombatAnimationHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// InputBufferにCommandがあるか確認する
+    /// </summary>
     public void Check()
     {
+        Debug.Log("呼ばれた");
+        Debug.Log(_inputBuffer.InputBufferDic.Count);
         if(_inputBuffer.GetBufferedInput(InputNameEnum.Attack))
         {
+            Debug.Log("ログは取れてる");
             _animator.SetTrigger("Attack");
         }
     }
@@ -126,6 +135,9 @@ public class CombatAnimationHandler : MonoBehaviour
 
     /// <summary>Attackingフラグをfalseに戻す</summary>
     public void AttackEnd() => _isAttacking = false;
+    
+    /// <summary>ステートマシンを変更する</summary>
+    public void AttackFinish() => _bb.AttackFinishedTrigger = true;
 
     #endregion
 }

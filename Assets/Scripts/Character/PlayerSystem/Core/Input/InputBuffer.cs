@@ -10,6 +10,7 @@ namespace PlayerSystem.Input
     public class InputBuffer
     {
         private Dictionary<InputNameEnum, float> _inputBuffer = new Dictionary<InputNameEnum, float>();
+        public Dictionary<InputNameEnum, float> InputBufferDic => _inputBuffer;
         private readonly float _bufferTime = 0.2f; // 入力を保存する時間（秒）
 
         /// <summary>

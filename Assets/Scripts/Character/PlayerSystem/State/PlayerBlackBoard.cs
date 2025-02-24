@@ -72,6 +72,12 @@ namespace PlayerSystem.State
         
         /// <summary>アニメーションを制御するクラス</summary>
         public PlayerAnimationController AnimController { get; set; }
+        
+        /// <summary>
+        /// 攻撃が終了したことを表すトリガー
+        /// AnimationEventでtrueにし、AttackStateでfalseにする
+        /// </summary>
+        public bool AttackFinishedTrigger{get;set;}
     }
 }
 
