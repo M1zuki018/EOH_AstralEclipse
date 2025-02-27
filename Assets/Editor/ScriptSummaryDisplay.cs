@@ -20,6 +20,13 @@ public class ScriptSummaryDisplay
         if (!assetPath.EndsWith(".cs"))
             return;
         
+        // プロジェクトウィンドウがリストビューで表示されているかチェック
+        if (selectionRect.width < 100) // 横幅が狭ければアイコン表示とみなす
+        {
+            // アイコン形式の場合、ラベルは表示しない
+            return;
+        }
+        
         // Summary コメントを取得
         string summary = ScriptSummaryExtractor.GetFormattedSummary(assetPath);
         if (string.IsNullOrEmpty(summary))
