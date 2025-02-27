@@ -58,7 +58,6 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void UseCamera(int index)
     {
-        Debug.Log("呼ばれた");
         for(int i = 0; i < _virtualCameras.Count; i++)
         {
             if (i != index)
