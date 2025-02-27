@@ -1,26 +1,24 @@
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// タイトル画面の遷移を管理する
 /// </summary>
-public class TitleFlow : MonoBehaviour
+public class TitleFlow
 {
-    [SerializeField] private Button _button;
-    
-    private void OnEnable()
-    {
-        GameManager.Instance.SetGameState(GameState.Title);
-        _button.onClick.AddListener(() => GameStartButton());
-    }
+    private Button _button;
 
+    public TitleFlow(Button button)
+    {
+        _button = button;
+        _button.onClick.AddListener(GameStartButton);
+    }
+    
     /// <summary>
     /// ゲーム開始ボタンを押したときの処理
     /// </summary>
     private async void GameStartButton()
     {
-        //フェードアウトしつつスタートパネルを非表示
         UIManager.Instance?.FadeOut();
 
         await UniTask.Delay(800);
@@ -34,7 +32,7 @@ public class TitleFlow : MonoBehaviour
         
         await UniTask.Delay(700);
         
-        GameManager.Instance.SetGameState(GameState.Playing); //ステート変更
         UIManager.Instance?.FadeIn();
+        GameManager.Instance.SetGameState(GameState.Movie); // 開始演出へ
     }
 }
