@@ -91,7 +91,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
 
     private void FixedUpdate()
     {
-        _footprintEffect.CreateFootprint();
         _playerGravity.ApplyGravity();
         
         if (_brain.BB.IsJumping)
@@ -117,7 +116,11 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     }
 
     public Vector3 TargetPosition => _collider.ClosestPoint(_targetTransform.position);
-    
+
     /// <summary>アニメーションイベントでSEを再生するためのメソッド</summary>
-    public void PlaySE(int index) => AudioManager.Instance?.PlaySE(index);
+    public void PlaySE(int index)
+    {
+        AudioManager.Instance?.PlaySE(index);
+        _footprintEffect.CreateFootprint();
+    }
 }

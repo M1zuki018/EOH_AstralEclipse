@@ -16,7 +16,8 @@ public class FootprintEffect : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
         {
             // エフェクトを生成
-            Instantiate(_effectPrefab, hit.point, Quaternion.identity);
+            GameObject effect = Instantiate(_effectPrefab, hit.point, Quaternion.identity);
+            Destroy(effect, 1f);
         }
     }
 }

@@ -170,14 +170,14 @@ public class UIManager : MonoBehaviour
     /// <summary>クエストテキストとミニマップを表示する</summary>
     public void ShowRightUI()
     {
-        _questText.Show();
+        //_questText.Show();
         _miniMapUI.Show();
     }
     
     /// <summary>クエストテキストとミニマップを非表示にする</summary>
     public void HideRightUI()
     {
-        _questText.Hide();
+        //_questText.Hide();
         _miniMapUI.Hide();
     }
 
