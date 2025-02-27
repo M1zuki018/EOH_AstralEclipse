@@ -14,6 +14,8 @@ public class GameFlowManager : MonoBehaviour
 
     #region フィールド
 
+    [SerializeField] private EOH_DebugSystem _debugSystem;
+
     [Header("タイトル")]
     [SerializeField] private Button _startButton;
     private TitleFlow _title;
@@ -29,8 +31,10 @@ public class GameFlowManager : MonoBehaviour
     {
         _title = new TitleFlow(_startButton);
         _gameStart = new GameStartFlow(_playerBrain.BB);
-        
-        GameManager.Instance.SetGameState(GameState.Title);
+
+        // デバッグシステムでタイトルスキップが選択されていなければTitleフローから再生
+        if (!_debugSystem.IsIsTitleSkip) GameManager.Instance.SetGameState(GameState.Title);
+        else _debugSystem.TitleSkip();
     }
 
     private void OnDestroy()
