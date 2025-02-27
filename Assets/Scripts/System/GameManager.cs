@@ -1,6 +1,7 @@
 using System;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// ゲーム全体を管理する
@@ -8,11 +9,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    
     /// <summary>現在のゲームの進行状態</summary>
-    public ReactiveProperty<GameState> CurrentGameState { get; private set; } = new ReactiveProperty<GameState>(GameState.Title);
+    private readonly ReactiveProperty<GameState> CurrentGameStateProp  = new ReactiveProperty<GameState>(GameState.Title);
+    public GameState CurrentGameState => CurrentGameStateProp.Value;
 
-    public event Action OnPlay; //プレイ開始
+    public event Action OnMovie; // ムービー中
+    public event Action OnPlay; // プレイ中（操作可能状態）
     public event Action OnPaused; //ポーズ
     public event Action OnGameOver; //ゲームオーバー
     public event Action OnClear; //ゲームクリア
@@ -30,7 +33,7 @@ public class GameManager : MonoBehaviour
         }
         
         // ステート変更時に対応した処理を呼び出す
-        CurrentGameState.Subscribe(state =>
+        CurrentGameStateProp.Subscribe(state =>
         {
             Debug.Log($"ゲーム状態が変更されました: {state}");
             HandleStateChange(state);
@@ -42,22 +45,24 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SetGameState(GameState newState)
     {
-        if (CurrentGameState.Value != newState)
+        if (CurrentGameStateProp.Value != newState)
         {
-            CurrentGameState.Value = newState;
+            CurrentGameStateProp.Value = newState;
         }
     }
 
     /// <summary>
     /// 各種ステートごとに呼び出される処理
     /// </summary>
-    /// <param name="state"></param>
     private void HandleStateChange(GameState state)
     {
         switch (state)
         {
             case GameState.Title:
                 OnEnterTitle();
+                break;
+            case GameState.Movie:
+                OnMovie?.Invoke();
                 break;
             case GameState.Playing:
                 OnPlay?.Invoke();

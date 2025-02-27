@@ -126,5 +126,20 @@ namespace PlayerSystem.Input
         }
 
         #endregion
+
+        /// <summary>
+        /// ステートを監視して入力制限をかける/解除する処理
+        /// </summary>
+        private void InputRestrictions()
+        {
+            if (GameManager.Instance.CurrentGameState == GameState.Playing)
+            {
+                _playerInput.ActivateInput();
+            }
+            else
+            {
+                _playerInput.DeactivateInput();
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ public class TitleFlowManager : MonoBehaviour
 {
     [SerializeField] private Button _button;
     
-    private void Start()
+    private void OnEnable()
     {
         GameManager.Instance.SetGameState(GameState.Title);
         _button.onClick.AddListener(() => GameStartButton());
