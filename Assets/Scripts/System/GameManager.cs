@@ -11,8 +11,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     
     /// <summary>現在のゲームの進行状態</summary>
-    private readonly ReactiveProperty<GameState> CurrentGameStateProp  = new ReactiveProperty<GameState>(GameState.Title);
-    public GameState CurrentGameState => CurrentGameStateProp.Value;
+    private readonly ReactiveProperty<GameState> _currentGameStateProp  = new ReactiveProperty<GameState>(GameState.Title);
+    public ReactiveProperty<GameState> CurrentGameStateProp => _currentGameStateProp;
+    public GameState CurrentGameState => _currentGameStateProp.Value;
 
     public event Action OnMovie; // ムービー中
     public event Action OnPlay; // プレイ中（操作可能状態）
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
         }
         
         // ステート変更時に対応した処理を呼び出す
-        CurrentGameStateProp.Subscribe(state =>
+        _currentGameStateProp.Subscribe(state =>
         {
             Debug.Log($"ゲーム状態が変更されました: {state}");
             HandleStateChange(state);
@@ -45,9 +46,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SetGameState(GameState newState)
     {
-        if (CurrentGameStateProp.Value != newState)
+        if (_currentGameStateProp.Value != newState)
         {
-            CurrentGameStateProp.Value = newState;
+            _currentGameStateProp.Value = newState;
         }
     }
 

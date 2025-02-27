@@ -11,7 +11,7 @@ public class BGMHandler : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnPlay += GameStart;
+        GameManager.Instance.OnMovie += GameStart;
     }
 
     private void OnDestroy()

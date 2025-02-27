@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +24,11 @@ namespace PlayerSystem.Input
             _playerInput = GetComponent<PlayerInput>();
             _iPlayerInputReceiver = new PlayerInputProcessor(GetComponent<PlayerBrain>().BB);
             RegisterInputActions(); // 入力の登録
+            
+            // ステートに合わせて入力制限をかけたり解除したりする処理
+            GameManager.Instance.CurrentGameStateProp
+                .Subscribe(newState => InputRestrictions(newState))
+                .AddTo(this);
         }
 
         private void OnDestroy()
@@ -130,15 +136,15 @@ namespace PlayerSystem.Input
         /// <summary>
         /// ステートを監視して入力制限をかける/解除する処理
         /// </summary>
-        private void InputRestrictions()
+        private void InputRestrictions(GameState newState)
         {
-            if (GameManager.Instance.CurrentGameState == GameState.Playing)
+            if (newState == GameState.Movie || newState == GameState.Title)
             {
-                _playerInput.ActivateInput();
+                _playerInput.DeactivateInput();
             }
             else
             {
-                _playerInput.DeactivateInput();
+                _playerInput.ActivateInput();
             }
         }
     }

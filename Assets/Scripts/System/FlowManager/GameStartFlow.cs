@@ -5,21 +5,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// ゲーム開始演出の流れを管理する
+/// ゲーム開始演出の演出・遷移
 /// </summary>
-public class GameStartFlow : MonoBehaviour
+public class GameStartFlow
 {
-    [SerializeField, HighlightIfNull] private PlayerInput _playerInput;
     private PlayerBlackBoard _bb;
-
-    private void Start()
+    private CompositeDisposable _disposables = new CompositeDisposable();
+    
+    public GameStartFlow(PlayerBlackBoard bb)
     {
-        _bb = _playerInput.GetComponent<PlayerBrain>().BB;
-        
-        _playerInput.DeactivateInput(); //入力を受け付けない
-        
-        GameManager.Instance.OnPlay += StartPerformance;
-        CameraManager.Instance.UseCamera(3); //プレイヤー正面のカメラを使う
+        _bb = bb;
+        GameManager.Instance.OnMovie += StartPerformance;
     }
     
     /// <summary>
@@ -27,29 +23,26 @@ public class GameStartFlow : MonoBehaviour
     /// </summary>
     private async void StartPerformance()
     {
-        if (!_bb.DebugMode)
-        {
-            _playerInput.DeactivateInput();
-            UIManager.Instance?.InitializePlayerHP(_bb.Status.MaxHP, _bb.CurrentHP);   
+        // HPスライダーの初期化
+        UIManager.Instance?.InitializePlayerHP(_bb.Status.MaxHP, _bb.CurrentHP);
 
-            await UniTask.Delay(2700);
+        await UniTask.Delay(2700);
         
-            //操作開始
-            CameraManager.Instance?.UseCamera(0);
+        //操作開始
+        CameraManager.Instance?.UseCamera(0);
         
-            await UniTask.Delay(1200);
+        await UniTask.Delay(1200);
         
-            UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
-            _bb.MoveActions[0].action.Enable(); //有効化
+        UIManager.Instance?.ShowFirstText(); //最初のクエスト説明を表示
+        _bb.MoveActions[0].action.Enable(); //有効化
         
-            // ボタンが押されたら入力を有効化
-            Observable.FromEvent<InputAction.CallbackContext>(
-                    h => _bb.MoveActions[0].action.performed += h,
-                    h => _bb.MoveActions[0].action.performed -= h)
-                .Take(1) // 最初の1回だけ
-                .Subscribe(GameStart)
-                .AddTo(this);
-        }
+        // ボタンが押されたら入力を有効化
+        Observable.FromEvent<InputAction.CallbackContext>(
+                h => _bb.MoveActions[0].action.performed += h,
+                h => _bb.MoveActions[0].action.performed -= h)
+            .Take(1) // 最初の1回だけ
+            .Subscribe(GameStart)
+            .AddTo(_disposables);
     }
 
     private async void GameStart(InputAction.CallbackContext context)
@@ -59,15 +52,16 @@ public class GameStartFlow : MonoBehaviour
         UIManager.Instance?.ShowStartText();
         UIManager.Instance?.HideFirstText();
         UIManager.Instance?.ShowRightUI();
-        _playerInput.ActivateInput();
         
         await UniTask.Delay(500);
         
         UIManager.Instance.HideStartText(); //「GameStart」の文字を非表示にする
+        GameManager.Instance.SetGameState(GameState.Playing); // 捜査開始
     }
 
-    private void OnDestroy()
+    public void Dispose()
     {
         GameManager.Instance.OnPlay -= StartPerformance;
+        _disposables?.Dispose();
     }
 }

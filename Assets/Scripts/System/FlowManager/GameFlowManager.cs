@@ -1,4 +1,5 @@
 using System;
+using PlayerSystem.State;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,24 +10,31 @@ public class GameFlowManager : MonoBehaviour
 {
     // GameFlowManagerで一元管理
     // ほかの Flow クラスでは MonoBehavior は継承しないこと
+    // 入力制限はステートに合わせて PlayerInputManager 側で管理
 
-    #region 登録
+    #region フィールド
 
     [Header("タイトル")]
     [SerializeField] private Button _startButton;
-
-    #endregion
-    
     private TitleFlow _title;
 
-    private void OnEnable()
+    [Header("開始演出")] 
+    [SerializeField] private PlayerBrain _playerBrain;
+    private GameStartFlow _gameStart;
+    
+    #endregion
+
+    
+    private void Start()
     {
         _title = new TitleFlow(_startButton);
+        _gameStart = new GameStartFlow(_playerBrain.BB);
         
         GameManager.Instance.SetGameState(GameState.Title);
     }
 
-    private void Bind()
+    private void OnDestroy()
     {
+        _gameStart.Dispose();
     }
 }

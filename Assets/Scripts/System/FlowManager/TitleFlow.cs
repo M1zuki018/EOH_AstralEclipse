@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 
 /// <summary>
-/// タイトル画面の遷移を管理する
+/// タイトル画面の演出・遷移
 /// </summary>
 public class TitleFlow
 {
@@ -12,6 +12,7 @@ public class TitleFlow
     {
         _button = button;
         _button.onClick.AddListener(GameStartButton);
+        CameraManager.Instance.UseCamera(3); //プレイヤー正面のカメラを使う
     }
     
     /// <summary>
