@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// タイトル画面の遷移を管理する
 /// </summary>
-public class TitleFlowManager : MonoBehaviour
+public class TitleFlow : MonoBehaviour
 {
     [SerializeField] private Button _button;
     

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// ゲーム開始演出の流れを管理する
 /// </summary>
-public class GameStartFlowManager : MonoBehaviour
+public class GameStartFlow : MonoBehaviour
 {
     [SerializeField, HighlightIfNull] private PlayerInput _playerInput;
     private PlayerBlackBoard _bb;
