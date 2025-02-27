@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _brain;
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
     
+    private FootprintEffect _footprintEffect;
+    
     public PlayerAnimationController AnimationController => _animController;
     
     private Collider _collider;
@@ -39,6 +41,9 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     
     private void Awake()
     {
+        _footprintEffect = GetComponent<FootprintEffect>();
+        
+        
         InitializeComponents();
         
         TryGetComponent(out _collider);
@@ -86,6 +91,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
 
     private void FixedUpdate()
     {
+        _footprintEffect.CreateFootprint();
         _playerGravity.ApplyGravity();
         
         if (_brain.BB.IsJumping)
