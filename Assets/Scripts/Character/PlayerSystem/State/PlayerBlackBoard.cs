@@ -60,7 +60,8 @@ namespace PlayerSystem.State
         public bool IsGuardBreak{ get; set; } //ガードブレイク中か
         public bool ParryReception{ get; set; } // パリィ受付時間中か
         public bool SuccessParry { get; set; } // パリィ成功か
-        public bool IsAttacking { get; set; } //攻撃中か
+        public bool IsAttacking { get; set; } // 攻撃中か
+        public bool IsReadyArms { get; set; } // 武器を構えているか
         public bool IsSteping { get; set; } //ステップ中か
         
         public bool IsBossBattle { get; set; } //ボス戦中か

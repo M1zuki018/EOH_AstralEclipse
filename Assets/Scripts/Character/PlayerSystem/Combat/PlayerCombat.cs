@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PlayerSystem.Fight;
+using PlayerSystem.State;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +9,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour, ICombat, IAttack
 {
     public AttackHitDetector Detector { get; private set; }
-    private PlayerBrain _playerBrain;
+    private PlayerBlackBoard _bb;
     private DamageHandler _damageHandler;
     private ReadyForBattleChecker _battleChecker;
     [SerializeField] private SkillSO _skillSet;
@@ -25,12 +26,14 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     private void Start()
     {
         //コンポーネントを取得する
-        _playerBrain = GetComponent<PlayerBrain>();
+        _bb = GetComponent<PlayerBrain>().BB;
         _damageHandler = new DamageHandler();
         Detector = GetComponentInChildren<AttackHitDetector>();
         _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから取得。臨戦状態の判定
         
-        if(!_playerBrain.BB.DebugMode) _weaponObj.SetActive(false);
+        // 武器の操作
+        if(!_bb.DebugMode) _weaponObj.SetActive(false);
+        _bb.IsReadyArms = false;
         
         UIManager.Instance?.HideLockOnUI();
         UIManager.Instance?.HidePlayerBattleUI();
@@ -47,19 +50,15 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     /// <summary>
     /// 臨戦状態になったときの処理。武器を取り出す
     /// </summary>
-    public void HandleReadyForBattle(EnemyBrain brain)
+    private void HandleReadyForBattle(EnemyBrain brain)
     {
-        //まだ武器を構えていなかったら、以降の処理を行う
         if (!_weaponObj.activeSelf)
         {
-            _playerBrain.BB.AnimController.Combat.TriggerReadyForBattle();
-            _weaponObj.SetActive(true); //武器のオブジェクトを表示する
-            AudioManager.Instance.PlaySE(2);
-            UIManager.Instance?.ShowPlayerBattleUI();
+            ReadyArms();// まだ武器を構えていなかったら武器を構える処理を行う
         }
-        
+
         //ボス戦の場合に行う処理
-        if (_playerBrain.BB.IsBossBattle)
+        if (_bb.IsBossBattle)
         {
             return;
         }
@@ -70,13 +69,13 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
             UIManager.Instance?.ShowEnemyHP(brain); //敵のHPバーを表示する（ボスはイベント側でHPバーを表示する）
         }
     }
-    
+
     /// <summary>
     /// 臨戦状態が解除されたときの処理。武器をしまう
     /// </summary>
     private void HandleRescission(EnemyBrain brain)
     {
-        if (_playerBrain.BB.IsBossBattle)
+        if (_bb.IsBossBattle)
         {
             return; //ボス戦中は臨戦状態の解除を行わない。常に臨戦状態にする
         }
@@ -91,6 +90,7 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         if (_battleChecker.EnemiesInRange.Count == 0 && _weaponObj.activeSelf)
         {
             _weaponObj.SetActive(false);
+            _bb.IsReadyArms = false;
             AudioManager.Instance.PlaySE(2);
             UIManager.Instance?.HidePlayerBattleUI();
         }
@@ -101,16 +101,25 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     /// </summary>
     public void Attack()
     {
-        _playerBrain.BB.IsAttacking = true; //解除はLocoMotionのSMBから行う
-        _playerBrain.BB.AnimController.Combat.TriggerAttack();//アニメーションのAttackをトリガーする
-        
-        /*
-        //臨戦状態/ボス戦中/デバッグモードの場合攻撃可能とする
-        if (_battleChecker.ReadyForBattle || _playerBrain.BB.IsBossBattle || _playerBrain.BB.DebugMode)
+        if (!_weaponObj.activeSelf)
         {
-            _playerBrain.BB.IsAttacking = true; //解除はLocoMotionのSMBから行う
-            _playerBrain.BB.AnimController.Combat.TriggerAttack(); //アニメーションのAttackをトリガーする
+            //武器を構えてなかったら武器を構える
+            ReadyArms();
         }
-        */
+        
+        _bb.IsAttacking = true; //解除はLocoMotionのSMBから行う
+        _bb.AnimController.Combat.TriggerAttack();//アニメーションのAttackをトリガーする
+    }
+    
+    /// <summary>
+    /// 武器を構える
+    /// </summary>
+    public void ReadyArms()
+    {
+        _bb.AnimController.Combat.TriggerReadyForBattle(); // 武器を構えるアニメーション
+        _bb.IsReadyArms = true;
+        _weaponObj.SetActive(true); //武器のオブジェクトを表示する
+        AudioManager.Instance.PlaySE(2);
+        UIManager.Instance?.ShowPlayerBattleUI();
     }
 }

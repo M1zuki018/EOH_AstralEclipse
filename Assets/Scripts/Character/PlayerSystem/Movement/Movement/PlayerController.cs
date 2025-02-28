@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private IJumpable _jumper; //ジャンプ
     private ISpeedSwitchable _speedSwitcher; //歩きと走り状態の切り替え
     private ISteppable _stepFunction; //ステップ
+    private PlayerCombat _combat;
     
     private PlayerGravity _playerGravity; // 重力をかける処理
     private MovementHelper _movementHelper; // 移動処理を補助するクラス
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _movementHelper = new MovementHelper(_playerCamera, _brain.BB, _cc);
         _animController = new PlayerAnimationController(_brain.BB, _animator);
         _trailController = new PlayerTrailController(GetComponent<TrailRenderer>());
+        _combat = GetComponent<PlayerCombat>();
         
         // インスタンスを生成
         _mover = new PlayerMovementFunction(_brain.BB, _animController, _trailController, _movementHelper);
@@ -74,8 +76,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             jumper: _jumper,
             steppable: new StepFunction(_animController, _brain.BB),
             gauder: new GuardFunction(_brain.BB),
-            attack: (IAttack) GetComponent<PlayerCombat>(),
-            skill: new SkillFunction(_brain.BB),
+            attack: (IAttack) _combat,
+            skill: new SkillFunction(_brain.BB, _combat),
             counter: new CounterFunction(_brain.BB));
 
         _playerGravity = new PlayerGravity(_brain.BB, _cc);
