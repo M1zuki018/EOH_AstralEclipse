@@ -29,34 +29,16 @@ namespace PlayerSystem.State.Base
         {
             while (StateMachine.CurrentState.Value == BaseStateEnum.Jump)
             {
-                //TODO: ジャンプが終わった時の入力量に応じてIdle/Moveに遷移する
-                if (BlackBoard.IsGrounded && BlackBoard.Velocity.y < 0)
-                {
-                    // 移動入力がなければ Idle へ
-                    if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
-                    {
-                        StateMachine.ChangeState(BaseStateEnum.Idle);
-                        return;
-                    }
-                    // 移動入力があれば Move へ
-                    else
-                    {
-                        StateMachine.ChangeState(BaseStateEnum.Move);
-                        return;
-                    }
-                }
-                
-                // スキル入力があれば Skill へ
-                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Skill))
-                {
-                    StateMachine.ChangeState(BaseStateEnum.Skill);
-                    return;
-                }
-                
                 // 攻撃入力があれば NormalAttack へ
                 if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
                 {
-                    StateMachine.ChangeState(BaseStateEnum.NormalAttack);
+                    if (BlackBoard.IsGrounded)
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.NormalAttack);
+                        return;
+                    }
+                    
+                    StateMachine.ChangeState(BaseStateEnum.AirAttack);
                     return;
                 }
 
@@ -72,6 +54,30 @@ namespace PlayerSystem.State.Base
                         Debug.Log("ステップカウントが足りません！");
                     }
                     return;
+                }
+                
+                // スキル入力があれば Skill へ
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Skill))
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Skill);
+                    return;
+                }
+                
+                //TODO: ジャンプが終わった時の入力量に応じてIdle/Moveに遷移する
+                if (BlackBoard.IsGrounded && BlackBoard.Velocity.y < 0)
+                {
+                    // 移動入力がなければ Idle へ
+                    if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Idle);
+                        return;
+                    }
+                    // 移動入力があれば Move へ
+                    else
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Move);
+                        return;
+                    }
                 }
                 
                 await UniTask.Yield();

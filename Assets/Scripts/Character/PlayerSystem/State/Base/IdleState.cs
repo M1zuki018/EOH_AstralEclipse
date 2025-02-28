@@ -59,7 +59,13 @@ namespace PlayerSystem.State.Base
                 // 攻撃入力があれば NormalAttack へ
                 if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
                 {
-                    StateMachine.ChangeState(BaseStateEnum.NormalAttack);
+                    if (BlackBoard.IsGrounded)
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.NormalAttack);
+                        return;
+                    }
+                    
+                    StateMachine.ChangeState(BaseStateEnum.AirAttack);
                     return;
                 }
 
