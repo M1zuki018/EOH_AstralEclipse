@@ -26,11 +26,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            if (BlackBoard.IsMarchall)
-            {
-                StateMachine.ChangeState(BaseStateEnum.MarshallAttack);
-                return;
-            }
             if (BlackBoard.AttackFinishedTrigger)
             {
                 BlackBoard.AttackFinishedTrigger = false;

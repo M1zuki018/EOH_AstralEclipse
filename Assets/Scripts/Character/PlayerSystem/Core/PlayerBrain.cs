@@ -14,8 +14,7 @@ using PlayerInputManager = PlayerSystem.Input.PlayerInputManager;
 public class PlayerBrain : CharacterBase
 {
     private PlayerController _controller;
-    private PlayerStateMachine _stateMachine;
-
+    
     // 黒板登録用
     [SerializeField] private PlayerDataSO _data;
     [SerializeField] private PlayerStatusSO _status;
@@ -23,7 +22,11 @@ public class PlayerBrain : CharacterBase
     // 実行中に変更されるデータを格納した黒板
     private PlayerBlackBoard _bb;
     public PlayerBlackBoard BB => _bb;
-
+    
+    // ステートマシン
+    private PlayerStateMachine _stateMachine;
+    public PlayerStateMachine StateMachine => _stateMachine;
+    
     protected override void Awake()
     {
         base.Awake();

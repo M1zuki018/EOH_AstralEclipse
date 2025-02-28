@@ -63,7 +63,6 @@ namespace PlayerSystem.State
         public bool IsAttacking { get; set; } // 攻撃中か
         public bool IsReadyArms { get; set; } // 武器を構えているか
         public bool IsSteping { get; set; } // ステップ中か
-        public bool IsMarchall{ get; set; } // 体術攻撃中か
         public bool IsBossBattle { get; set; } //ボス戦中か
         public bool DebugMode { get; set; } //デバッグ中か
         

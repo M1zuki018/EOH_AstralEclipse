@@ -1,6 +1,7 @@
 using System.Threading;
 using PlayerSystem.Input;
 using PlayerSystem.State;
+using PlayerSystem.State.Base;
 using UnityEngine;
 
 /// <summary>
@@ -20,12 +21,15 @@ public class CombatAnimationHandler : MonoBehaviour
     private Transform _target; // 敵
     private CancellationTokenSource _cts; // キャンセルトークン
     private PlayerBlackBoard _bb;
+    private PlayerStateMachine _stateMachine;
 
     private void Start()
     {
         PlayerInputProcessor processor = _inputManager.IPlayerInputReceiver as PlayerInputProcessor;
         _inputBuffer = processor.InputBuffer;
-        _bb = _animator.GetComponent<PlayerBrain>().BB;
+        PlayerBrain brain = _animator.GetComponent<PlayerBrain>();
+        _bb = brain.BB;
+        _stateMachine = brain.StateMachine;
     }
     
     /// <summary>
@@ -62,8 +66,15 @@ public class CombatAnimationHandler : MonoBehaviour
     {
         if (_inputBuffer.GetBufferedInput(InputNameEnum.Action))
         {
+            // 刀投げ
             _animator.SetTrigger("AttackMacial");
-            _bb.IsMarchall = true;
+            _stateMachine.ChangeState(BaseStateEnum.MarshallAttack);
+            return;
+        }
+        if (_inputBuffer.GetBufferedInput(InputNameEnum.Jump))
+        {
+            //空中攻撃
+            _stateMachine.ChangeState(BaseStateEnum.AirAttack);
             return;
         }
         if(_inputBuffer.GetBufferedInput(InputNameEnum.Attack))
@@ -144,7 +155,6 @@ public class CombatAnimationHandler : MonoBehaviour
     {
         _bb.AttackFinishedTrigger = true;
         _bb.IsAttacking = false;
-        _bb.IsMarchall = false;
     }
 
     #endregion

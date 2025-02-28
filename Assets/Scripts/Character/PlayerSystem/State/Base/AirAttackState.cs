@@ -1,4 +1,5 @@
 
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -16,9 +17,14 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
+            ActionHandler.Jump(); // ジャンプ処理
+            BlackBoard.ApplyGravity = true;
+            
             ActionHandler.Attack();
             
-            await UniTask.Yield();
+            await UniTask.Delay(TimeSpan.FromSeconds(0.6f));
+            
+            BlackBoard.ApplyGravity = false;
         }
 
         /// <summary>
