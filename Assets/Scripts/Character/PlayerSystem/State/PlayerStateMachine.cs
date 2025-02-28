@@ -12,23 +12,19 @@ namespace PlayerSystem.State
         private readonly PlayerInputProcessor _inputProcessor;
         private readonly PlayerBlackBoard _blackboard;
         private readonly PlayerActionHandler _actionHandler;
-        private readonly Animator _animator;
         
         public PlayerInputProcessor InputProcessor => _inputProcessor;
         public PlayerBlackBoard BlackBoard => _blackboard;
         public PlayerActionHandler ActionHandler => _actionHandler;
-        public Animator Animator => _animator;
         
         /// <summary>
         /// 初期化（enumとIStateのペアを辞書に登録する）
         /// </summary>
-        public PlayerStateMachine(PlayerInputProcessor inputProcessor, PlayerBlackBoard blackboard, PlayerActionHandler actionHandler,
-        Animator animator) 
+        public PlayerStateMachine(PlayerInputProcessor inputProcessor, PlayerBlackBoard blackboard, PlayerActionHandler actionHandler) 
         {
             _inputProcessor = inputProcessor;
             _blackboard = blackboard;
             _actionHandler = actionHandler;
-            _animator = animator;
             
             States[BaseStateEnum.Idle] = new IdleState(this);
             States[BaseStateEnum.Move] = new MoveState(this);

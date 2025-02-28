@@ -18,15 +18,7 @@ namespace PlayerSystem.State.Base
         {
             Debug.Log("AttackState : Enter");
             
-            if (BlackBoard.IsGrounded)
-            {
-                // 地面にいる場合は通常攻撃①
-                PlayerStateMachine.Animator.SetTrigger("Attack");
-                return;
-            }
-            
-            // 空中にいる場合は空中①
-            PlayerStateMachine.Animator.SetTrigger("AttackAir");
+            ActionHandler.Attack();
 
             await UniTask.Delay(TimeSpan.FromSeconds(1));
         }

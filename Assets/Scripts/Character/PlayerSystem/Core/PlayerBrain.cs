@@ -37,8 +37,7 @@ public class PlayerBrain : CharacterBase
         _stateMachine = new PlayerStateMachine(
             inputProcessor: GetComponent<PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
             blackboard: _bb,
-            actionHandler: _controller.PlayerActionHandler,
-            animator: GetComponent<Animator>());
+            actionHandler: _controller.PlayerActionHandler);
         
         // HPスライダーの初期化
         UIManager.Instance?.InitializePlayerHP(_bb.Status.MaxHP, _bb.CurrentHP);

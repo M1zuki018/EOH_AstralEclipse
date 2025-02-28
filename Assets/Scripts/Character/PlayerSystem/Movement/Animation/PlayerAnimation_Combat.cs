@@ -1,3 +1,4 @@
+using PlayerSystem.State;
 using UnityEngine;
 
 /// <summary>
@@ -6,10 +7,12 @@ using UnityEngine;
 public class PlayerAnimation_Combat
 {
     private Animator _animator;
+    private PlayerBlackBoard _bb;
 
-    public PlayerAnimation_Combat(Animator animator)
+    public PlayerAnimation_Combat(Animator animator, PlayerBlackBoard bb)
     {
         _animator = animator;
+        _bb = bb;
     }
 
     /// <summary>
@@ -17,7 +20,10 @@ public class PlayerAnimation_Combat
     /// </summary>
     public void TriggerAttack()
     {
-        _animator.SetTrigger("Attack"); 
+        if(_bb.IsGrounded) // 地面にいたら通常攻撃
+            _animator.SetTrigger("Attack"); 
+        else 
+            _animator.SetTrigger("AttackAir");
     }
 
     /// <summary>

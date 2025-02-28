@@ -10,5 +10,4 @@ public interface IPlayerStateMachine
     PlayerInputProcessor InputProcessor { get; }
     PlayerBlackBoard BlackBoard { get; }
     PlayerActionHandler ActionHandler { get; }
-    Animator Animator { get; }
 }
