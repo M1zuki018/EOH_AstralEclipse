@@ -33,13 +33,6 @@ namespace PlayerSystem.State.Base
             
             while (StateMachine.CurrentState.Value == BaseStateEnum.Move)
             {
-                // 移動入力がなくなれば Idle へ
-                if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
-                {
-                    StateMachine.ChangeState(BaseStateEnum.Idle);
-                    return;
-                }
-
                 // ジャンプ入力があり、地面についていた場合 Jump へ
                 if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Jump) && BlackBoard.IsGrounded)
                 {
@@ -79,6 +72,13 @@ namespace PlayerSystem.State.Base
                 if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Guard))
                 {
                     StateMachine.ChangeState(BaseStateEnum.Guard);
+                    return;
+                }
+                
+                // 移動入力がなくなれば Idle へ
+                if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Idle);
                     return;
                 }
 
