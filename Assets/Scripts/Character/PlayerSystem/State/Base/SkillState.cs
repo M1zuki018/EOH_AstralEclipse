@@ -15,13 +15,14 @@ public class SkillState : PlayerBaseState<BaseStateEnum>
     public override async UniTask Enter()
     {
         Debug.Log("SkillState: Enter");
+
+        BlackBoard.AttackFinishedTrigger = false; //TODO: Skillステートに入った時になぜかAttackFinishedTriggerがtrueになっているバグ
+        
         // スキルが使えるか判定する
         if (ActionHandler.CanUseSkill)
         {
             await ActionHandler.Skill(); // 発動
         }
-        
-        StateMachine.ChangeState(BaseStateEnum.Idle);
         
         await UniTask.Yield();
     }
@@ -32,6 +33,12 @@ public class SkillState : PlayerBaseState<BaseStateEnum>
     /// </summary>
     public override async UniTask Execute()
     {
+        if (BlackBoard.AttackFinishedTrigger)
+        {
+            BlackBoard.AttackFinishedTrigger = false;
+            StateMachine.ChangeState(BaseStateEnum.Idle);
+        }
+        
         await UniTask.Yield();
     }
 

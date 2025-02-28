@@ -38,8 +38,8 @@ namespace PlayerSystem.State.Base
         {
             if (BlackBoard.AttackFinishedTrigger)
             {
-                StateMachine.ChangeState(BaseStateEnum.Idle);
                 BlackBoard.AttackFinishedTrigger = false;
+                StateMachine.ChangeState(BaseStateEnum.Idle);
             }
             
             await UniTask.Yield();
