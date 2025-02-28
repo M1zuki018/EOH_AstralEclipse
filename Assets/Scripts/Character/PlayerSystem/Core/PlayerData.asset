@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _runSpeed: 2
   _walkSpeed: 1
-  _jumpPower: 0.7
+  _jumpPower: 3
   _jumpMoveSpeed: 2
   _gravity: -17.5
   _maxSteps: 10

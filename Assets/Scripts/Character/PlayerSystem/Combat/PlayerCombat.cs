@@ -112,7 +112,8 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
             //武器を構えてなかったら武器を構える
             _weaponHandler.HandleWeaponActivation();
         }
-        
+
+        _bb.AttackFinishedTrigger = false;
         _bb.IsAttacking = true; //解除はLocoMotionのSMBから行う
         _bb.AnimController.Combat.TriggerAttack();//アニメーションのAttackをトリガーする
     }

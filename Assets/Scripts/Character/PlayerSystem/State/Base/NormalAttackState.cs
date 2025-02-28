@@ -1,6 +1,5 @@
 using System;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace PlayerSystem.State.Base
 {
@@ -16,9 +15,10 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
+            BlackBoard.ApplyGravity = true;
             ActionHandler.Attack();
 
-            await UniTask.Delay(TimeSpan.FromSeconds(1));
+            await UniTask.Yield();
         }
 
         /// <summary>
@@ -26,10 +26,16 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
+            if (BlackBoard.IsMarchall)
+            {
+                StateMachine.ChangeState(BaseStateEnum.MarshallAttack);
+                return;
+            }
             if (BlackBoard.AttackFinishedTrigger)
             {
                 BlackBoard.AttackFinishedTrigger = false;
                 StateMachine.ChangeState(BaseStateEnum.Idle);
+                return;
             }
             
             await UniTask.Yield();
@@ -40,6 +46,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
+            BlackBoard.ApplyGravity = false;
+            
             await UniTask.Yield();
         }
     }

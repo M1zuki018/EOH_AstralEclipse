@@ -316,6 +316,7 @@ MonoBehaviour:
   _cc: {fileID: 8756747814978474630}
   _brain: {fileID: 5777550406998585245}
   _animator: {fileID: 2516049074992321550}
+  _weaponObj: {fileID: 3666522355487043462}
   _targetTransform: {fileID: 0}
 --- !u!114 &2466618307262140181
 MonoBehaviour:
@@ -342,7 +343,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _skillSet: {fileID: 11400000, guid: 8511c6d56ed44b441beefae0f23af607, type: 2}
-  _weaponObj: {fileID: 7622384647157325877}
   _adjustDirection: {fileID: 1503685255541221325}
 --- !u!114 &6503842622023526717
 MonoBehaviour:
@@ -1109,15 +1109,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 709912ca41e0af4428317dc4cd5db691, type: 3}
---- !u!4 &4155074281520575804 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 709912ca41e0af4428317dc4cd5db691,
+--- !u!1 &3666522355487043462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 709912ca41e0af4428317dc4cd5db691,
     type: 3}
   m_PrefabInstance: {fileID: 4477549405646901975}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7622384647157325877 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6335250783087129314, guid: 709912ca41e0af4428317dc4cd5db691,
+--- !u!4 &4155074281520575804 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 709912ca41e0af4428317dc4cd5db691,
     type: 3}
   m_PrefabInstance: {fileID: 4477549405646901975}
   m_PrefabAsset: {fileID: 0}

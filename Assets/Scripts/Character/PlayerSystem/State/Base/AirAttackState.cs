@@ -1,10 +1,11 @@
 
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace PlayerSystem.State.Base 
 {
     /// <summary>
-    /// AirAttack状態 
+    /// 空中攻撃状態 
     /// </summary>
     public class AirAttackState : PlayerBaseState<BaseStateEnum> 
     {

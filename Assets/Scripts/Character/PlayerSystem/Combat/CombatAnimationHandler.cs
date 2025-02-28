@@ -60,6 +60,12 @@ public class CombatAnimationHandler : MonoBehaviour
     /// </summary>
     public void Check()
     {
+        if (_inputBuffer.GetBufferedInput(InputNameEnum.Action))
+        {
+            _animator.SetTrigger("AttackMacial");
+            _bb.IsMarchall = true;
+            return;
+        }
         if(_inputBuffer.GetBufferedInput(InputNameEnum.Attack))
         {
             _animator.SetTrigger("Attack");
@@ -138,6 +144,7 @@ public class CombatAnimationHandler : MonoBehaviour
     {
         _bb.AttackFinishedTrigger = true;
         _bb.IsAttacking = false;
+        _bb.IsMarchall = false;
     }
 
     #endregion

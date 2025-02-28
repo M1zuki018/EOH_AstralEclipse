@@ -15,6 +15,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
+            BlackBoard.ApplyGravity = true;
+            
             await UniTask.Yield();
         }
 
@@ -25,6 +27,13 @@ namespace PlayerSystem.State.Base
         {
             while (StateMachine.CurrentState.Value == BaseStateEnum.MarshallAttack)
             {
+                if (BlackBoard.AttackFinishedTrigger)
+                {
+                    BlackBoard.AttackFinishedTrigger = false;
+                    StateMachine.ChangeState(BaseStateEnum.Idle);
+                    return;
+                }
+                
                 await UniTask.Yield();
             }
         }
@@ -34,6 +43,8 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
+            BlackBoard.ApplyGravity = false;
+            
             await UniTask.Yield();
         }
     }
