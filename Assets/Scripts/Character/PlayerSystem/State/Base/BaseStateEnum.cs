@@ -12,7 +12,10 @@ namespace PlayerSystem.State.Base
         Step, // 回避
         Guard, // ガード
         Parry, // パリィ
-        Attack, // 攻撃
+        NormalAttack, // 通常攻撃
+        AirAttack, // 空中攻撃
+        MarshallAttack, // 通常体術
+        AirMarshallAttack, // 空中体術
         Skill, // スキル発動状態
         Hit, // 被ダメ
         GuardBreak, // ガードブレイク

@@ -36,7 +36,7 @@ public class StateTemplateGenerator : EditorWindow
                 _selectedBaseStateEnum = (BaseStateEnum)EditorGUILayout.EnumPopup("Select Base Enum", _selectedBaseStateEnum);
                 break;
             case StateCategory.Attack:
-                _selectedAttackStateEnum = (AttackStateEnum)EditorGUILayout.EnumPopup("Select Attack Enum", _selectedAttackStateEnum);
+                _selectedAttackStateEnum = (AttackStateEnum)EditorGUILayout.EnumPopup("Select NormalAttack Enum", _selectedAttackStateEnum);
                 break;
         }
         
@@ -48,7 +48,7 @@ public class StateTemplateGenerator : EditorWindow
                     GenerateStateTemplate(_selectedBaseStateEnum.ToString(),"PlayerSystem.State.Base", "BaseStateEnum");
                     break;
                 case StateCategory.Attack:
-                    GenerateStateTemplate(_selectedAttackStateEnum.ToString(), "PlayerSystem.State.Attack", "AttackStateEnum");
+                    GenerateStateTemplate(_selectedAttackStateEnum.ToString(), "PlayerSystem.State.NormalAttack", "AttackStateEnum");
                     break;
             }
             
@@ -103,7 +103,7 @@ namespace {stateNamespace}
 
         // 保存先のディレクトリを選択
         string path = _selectedCategory == StateCategory.Attack 
-            ? $"Assets/Scripts/Character/PlayerSystem/State/Attack/{stateClassName}.cs"
+            ? $"Assets/Scripts/Character/PlayerSystem/State/NormalAttack/{stateClassName}.cs"
             : $"Assets/Scripts/Character/PlayerSystem/State/Base/{stateClassName}.cs";
 
         // スクリプトをファイルに書き出し

@@ -21,7 +21,7 @@ public class PlayerAnimation_Combat
     public void TriggerAttack()
     {
         if(_bb.IsGrounded) // 地面にいたら通常攻撃
-            _animator.SetTrigger("Attack"); 
+            _animator.SetTrigger("NormalAttack"); 
         else 
             _animator.SetTrigger("AttackAir");
     }

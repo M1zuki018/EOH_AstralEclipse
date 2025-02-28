@@ -68,7 +68,7 @@ public class EnemyCombat : MonoBehaviour, ICombat, IAttack
             _attackCount++;
         }
         
-        _brain.Animator.SetTrigger("Attack");　//アニメーションのAttackをトリガーする
+        _brain.Animator.SetTrigger("NormalAttack");　//アニメーションのAttackをトリガーする
     }
 
     /// <summary>

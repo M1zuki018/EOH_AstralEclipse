@@ -126,7 +126,7 @@ public class ShadowAttack : MonoBehaviour, IBossAttack
     private async void ShadowFire()
     {
         _animator.SetInteger("AttackType", 5);
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger("NormalAttack");
 
         await UniTask.Delay((int)(_attackDuration * 1000));
         

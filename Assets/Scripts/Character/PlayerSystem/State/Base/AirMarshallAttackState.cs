@@ -1,24 +1,21 @@
-using System;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
 
-namespace PlayerSystem.State.Base
+using Cysharp.Threading.Tasks;
+
+namespace PlayerSystem.State.Base 
 {
     /// <summary>
-    /// 攻撃状態
+    /// AirMarshallAttack状態 
     /// </summary>
-    public class AttackState : PlayerBaseState<BaseStateEnum>
+    public class AirMarshallAttackState : PlayerBaseState<BaseStateEnum> 
     {
-        public AttackState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
+        public AirMarshallAttackState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
 
         /// <summary>
         /// ステートに入るときの処理
         /// </summary>
         public override async UniTask Enter()
         {
-            ActionHandler.Attack();
-
-            await UniTask.Delay(TimeSpan.FromSeconds(1));
+            await UniTask.Yield();
         }
 
         /// <summary>
@@ -26,13 +23,10 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            if (BlackBoard.AttackFinishedTrigger)
+            while (StateMachine.CurrentState.Value == BaseStateEnum.AirMarshallAttack)
             {
-                BlackBoard.AttackFinishedTrigger = false;
-                StateMachine.ChangeState(BaseStateEnum.Idle);
+                await UniTask.Yield();
             }
-            
-            await UniTask.Yield();
         }
 
         /// <summary>
@@ -43,5 +37,4 @@ namespace PlayerSystem.State.Base
             await UniTask.Yield();
         }
     }
-
 }

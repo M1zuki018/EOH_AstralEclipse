@@ -47,7 +47,7 @@ namespace PlayerSystem.Fight
             if (!_bb.IsReadyArms)
             {
                 // まだ武器を構えていなかったら構える
-                _combat.ReadyArms();
+                _combat.HandleWeaponActivation();
             }
             
             UIManager.Instance.SelectedSkillIcon(_bb.UsingSkillIndex);

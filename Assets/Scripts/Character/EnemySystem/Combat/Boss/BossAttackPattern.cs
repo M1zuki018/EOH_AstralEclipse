@@ -222,7 +222,7 @@ public class BossAttackPattern : MonoBehaviour
     public void GenerateThorns(float premotionTime, int delay = 500)
     {
         _animator.SetInteger("AttackType", 2);
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger("NormalAttack");
         
         GameObject thorn = Instantiate(_thornPrefab); //予兆エリアを生成
         thorn.TryGetComponent(out ThornContorl thornCtrl);
@@ -253,7 +253,7 @@ public class BossAttackPattern : MonoBehaviour
     {
         await UniTask.Delay(deray);
         
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger("NormalAttack");
         
         await UniTask.Delay(980); //少し時間を置く
         thornCtrl.ChangedMesh(CancellationToken.None).Forget(); //メッシュ変更とオブジェクト破棄
@@ -268,7 +268,7 @@ public class BossAttackPattern : MonoBehaviour
     public async void AttackFromAbove(float delay)
     {
         _animator.SetInteger("AttackType", 3);
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger("NormalAttack");
         
         //プレイヤーの頭上にエリアを生成
         GameObject aboveObj = Instantiate(_abovePrefab);
@@ -290,7 +290,7 @@ public class BossAttackPattern : MonoBehaviour
         Debug.Log("時間操作攻撃開始");
      
         _animator.SetInteger("AttackType", 6);
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger("NormalAttack");
         
         //TODO:背景が歪むエフェクト
         _timeStopVolume.enabled = true; //色彩をモノクロに変更
@@ -308,7 +308,7 @@ public class BossAttackPattern : MonoBehaviour
         
         Debug.Log("時間停止発動の合図の演出");
         
-        _animator.SetTrigger("Attack"); //発動の演出
+        _animator.SetTrigger("NormalAttack"); //発動の演出
         _playerInput.DeactivateInput(); //一瞬操作できなくする
         //TODO: 画面に時計の針や歯車エフェクトを一瞬表示して「発動の合図」
         

@@ -58,10 +58,10 @@ namespace PlayerSystem.State.Base
                     return;
                 }
 
-                // 攻撃入力があれば Attack へ
+                // 攻撃入力があれば NormalAttack へ
                 if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
                 {
-                    StateMachine.ChangeState(BaseStateEnum.Attack);
+                    StateMachine.ChangeState(BaseStateEnum.NormalAttack);
                     return;
                 }
 
@@ -106,10 +106,10 @@ namespace PlayerSystem.State.Base
                     return;
                 }
 
-                // 攻撃入力があれば Attack へ
+                // 攻撃入力があれば NormalAttack へ
                 if (_isAttacking)
                 {
-                    StateMachine.ChangeState(BaseStateEnum.Attack);
+                    StateMachine.ChangeState(BaseStateEnum.NormalAttack);
                     return;
                 }
 
