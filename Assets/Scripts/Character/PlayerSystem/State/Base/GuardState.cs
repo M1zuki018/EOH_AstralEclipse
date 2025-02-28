@@ -16,7 +16,8 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("Guard State: Enter");
-            
+
+            BlackBoard.ApplyGravity = true;
             ActionHandler.GuardStart();
             
             await UniTask.Yield();
@@ -30,8 +31,8 @@ namespace PlayerSystem.State.Base
             while (StateMachine.CurrentState.Value == BaseStateEnum.Guard)
             {
                 ActionHandler.Guard();
-                
-                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Guard)) // ガードキャンセル
+
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Guard)) // ガードをやめる
                 {
                     // 移動入力がなければ Idle へ
                     if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
@@ -39,12 +40,11 @@ namespace PlayerSystem.State.Base
                         StateMachine.ChangeState(BaseStateEnum.Idle);
                         return;
                     }
+                    
                     // 移動入力があれば Move へ
-                    else
-                    {
-                        StateMachine.ChangeState(BaseStateEnum.Move);
-                        return;
-                    }
+                    StateMachine.ChangeState(BaseStateEnum.Move);
+                    return;
+
                 }
                 await UniTask.Yield();
             }
@@ -55,6 +55,7 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
+            BlackBoard.ApplyGravity = false;
             ActionHandler.GuardEnd();
             
             await UniTask.Yield();
