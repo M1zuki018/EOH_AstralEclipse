@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// ゲーム全体を管理する
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : ViewBase
 {
     public static GameManager Instance;
     
@@ -78,4 +78,9 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    
+    // シーン基盤で実行されるメソッド
+    public override void OnAwake() { }
+
+    public override void OnStart() { }
 }

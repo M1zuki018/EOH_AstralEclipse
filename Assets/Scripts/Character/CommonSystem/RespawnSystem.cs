@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ステージ外に落下した時の処理
 /// </summary>
-public class RespawnSystem : MonoBehaviour
+public class RespawnSystem : ViewBase
 {
     [Header("設定")] 
     [SerializeField, Comment("落下したとみなすY座標")] private float _fallHeight = -3f;
@@ -32,5 +32,15 @@ public class RespawnSystem : MonoBehaviour
                 OnRespawn?.Invoke();
             })
             .AddTo(this);
+    }
+
+    public override void OnAwake()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void OnStart()
+    {
+        throw new NotImplementedException();
     }
 }

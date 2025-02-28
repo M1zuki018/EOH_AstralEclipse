@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public static class GameObjectUtility
 {
-    
     /// <summary>
     /// プレハブをインスタンス化し、ViewBase の派生クラスを返す
     /// </summary>
