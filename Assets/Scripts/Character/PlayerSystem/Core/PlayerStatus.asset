@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
   _maxHP: 300
-  _will: 150
+  _will: 10
   _maxTP: 100
   _baseAttackPower: 10
   _defense: 0

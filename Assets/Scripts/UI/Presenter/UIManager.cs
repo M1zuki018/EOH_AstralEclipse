@@ -160,7 +160,7 @@ public class UIManager : MonoBehaviour
     public void HidePlayerBattleUI()
     {
         _playerHP.HideAndSlide();
-        _playerWill.HideAndSlide();
+        //_playerWill.HideAndSlide();
         
         //_playerTP.HideAndSlide();
         foreach (var icon in _skillIcons)

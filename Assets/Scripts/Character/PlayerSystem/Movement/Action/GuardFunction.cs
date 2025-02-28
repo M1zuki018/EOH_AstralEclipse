@@ -1,5 +1,7 @@
+using System;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.State;
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +13,9 @@ public class GuardFunction : IGuardable
 
     private PlayerBlackBoard _bb;
     private Animator _animator;
+    private CompositeDisposable _disposables = new CompositeDisposable();
+    
+    private IDisposable _guardDisposable;
 
     public GuardFunction(PlayerBlackBoard bb, Animator animator)
     {
@@ -25,6 +30,19 @@ public class GuardFunction : IGuardable
     {
         _animator.SetBool("Guard", true);
         _bb.IsGuarding = true;
+
+        StopDispose();
+        
+        // ガード中だけ、1秒に1ずつwillを減らしていく処理
+        _guardDisposable = Observable
+            .Interval(TimeSpan.FromSeconds(1))
+            .TakeWhile(_ => _bb.IsGuarding)
+            .Subscribe(_ =>
+            {
+                _bb.CurrentWill = Math.Max(0, _bb.CurrentWill - 1);
+                UIManager.Instance.UpdatePlayerWill(_bb.CurrentWill);
+            })
+            .AddTo(_disposables);
     }
 
     /// <summary>
@@ -33,7 +51,7 @@ public class GuardFunction : IGuardable
     public void Guard()
     {
         Debug.Log("ガード中");
-        
+        if(_bb.CurrentWill < 0) _bb.CurrentWill = 0; // ガードブレイク状態にする
     }
 
     /// <summary>
@@ -42,6 +60,13 @@ public class GuardFunction : IGuardable
     public void GuardEnd()
     {
         _animator.SetBool("Guard", false);
+        StopDispose();
         _bb.IsGuarding = false;
+    }
+
+    private void StopDispose()
+    {
+        _guardDisposable?.Dispose();
+        _guardDisposable = null;
     }
 }
