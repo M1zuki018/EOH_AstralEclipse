@@ -39,6 +39,10 @@ public class PlayerBrain : CharacterBase
             blackboard: _bb,
             actionHandler: _controller.PlayerActionHandler,
             animator: GetComponent<Animator>());
+        
+        // HPスライダーの初期化
+        UIManager.Instance?.InitializePlayerHP(_bb.Status.MaxHP, _bb.CurrentHP);
+        UIManager.Instance?.InitializePlayerWill(_bb.Status.Will, _bb.CurrentWill);
     }
     
     private void Update() => _stateMachine.Update();
@@ -51,11 +55,11 @@ public class PlayerBrain : CharacterBase
 
         if (_bb.IsGuarding)
         {
-            UIManager.Instance?.UpdatePlayerWill(GetCurrentWill()); // ガード中
+            UIManager.Instance?.UpdatePlayerWill(_bb.CurrentWill); // ガード中
         }
         else
         {
-            UIManager.Instance?.UpdatePlayerHP(GetCurrentHP()); // それ以外
+            UIManager.Instance?.UpdatePlayerHP(_bb.CurrentHP); // それ以外
             CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
             AudioManager.Instance?.PlaySE(14); //ヒット時のSE
         

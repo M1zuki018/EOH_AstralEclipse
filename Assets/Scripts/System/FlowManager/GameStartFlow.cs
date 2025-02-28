@@ -23,10 +23,6 @@ public class GameStartFlow
     /// </summary>
     private async void StartPerformance()
     {
-        // HPスライダーの初期化
-        UIManager.Instance?.InitializePlayerHP(_bb.Status.MaxHP, _bb.CurrentHP);
-        UIManager.Instance?.InitializePlayerWill(_bb.Status.Will, _bb.CurrentWill);
-
         await UniTask.Delay(2700);
         
         //操作開始
