@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             mover: _mover,
             jumper: _jumper,
             steppable: new StepFunction(_animController, _brain.BB),
-            gauder: new GuardFunction(_brain.BB),
+            gauder: new GuardFunction(_brain.BB, _animator),
             attack: (IAttack) GetComponent<PlayerCombat>(),
             skill: new SkillFunction(_brain.BB, _animator));
 

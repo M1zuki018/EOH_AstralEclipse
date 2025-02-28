@@ -18,7 +18,7 @@ namespace PlayerSystem.State.Base
         {
             Debug.Log("Guard State: Enter");
             
-            BlackBoard.IsGuarding = true;
+            ActionHandler.GuardStart();
             
             await UniTask.Yield();
         }
@@ -56,7 +56,7 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Exit()
         {
-            BlackBoard.IsGuarding = false;
+            ActionHandler.GuardEnd();
             
             await UniTask.Yield();
         }

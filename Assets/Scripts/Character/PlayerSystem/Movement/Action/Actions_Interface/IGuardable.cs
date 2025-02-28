@@ -2,6 +2,8 @@ namespace PlayerSystem.ActionFunction
 {
     public interface IGuardable 
     {
-        void Gaude();
+        void GuardStart();
+        void Guard();
+        void GuardEnd();
     }
 }

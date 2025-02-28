@@ -42,9 +42,15 @@ public class PlayerActionHandler
     /// <summary>ステップ入力処理</summary>
     public void Step() => _stepper.Step();
 
+    /// <summary>ガードを始める処理</summary>
+    public void GuardStart() => _gauder.GuardStart();
+    
     /// <summary>ガード入力処理</summary>
-    public void Guard() => _gauder.Gaude();
+    public void Guard() => _gauder.Guard();
 
+    /// <summary>ガードをやめる処理</summary>
+    public void GuardEnd() => _gauder.GuardEnd();
+    
     /// <summary>通常攻撃の入力処理</summary>
     public void Attack() => _attack.Attack();
 
