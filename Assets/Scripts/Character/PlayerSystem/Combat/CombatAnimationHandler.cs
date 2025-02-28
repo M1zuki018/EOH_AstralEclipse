@@ -131,13 +131,13 @@ public class CombatAnimationHandler : MonoBehaviour
     #region フラグ管理
 
     /// <summary>Attackingフラグをfalseに戻す</summary>
-    public void AttackEnd() => _isAttacking = false;
+    public void AttackEnd() => _bb.IsAttacking = false;
 
     /// <summary>ステートマシンを変更する</summary>
     public void AttackFinish()
     {
         _bb.AttackFinishedTrigger = true;
-        _isAttacking = false;
+        _bb.IsAttacking = false;
     }
 
     #endregion
