@@ -32,22 +32,6 @@ namespace PlayerSystem.State.Base
         {
             while (StateMachine.CurrentState.Value == BaseStateEnum.Idle)
             {
-                //ActionHandler.Move();
-                
-                // 移動入力があれば Move へ
-                if (BlackBoard.MoveDirection.sqrMagnitude > 0.01f)
-                {
-                    StateMachine.ChangeState(BaseStateEnum.Move);
-                    return;
-                }
-
-                // ジャンプ入力があり、地面についていた場合 Jump へ
-                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Jump) && BlackBoard.IsGrounded)
-                {
-                    StateMachine.ChangeState(BaseStateEnum.Jump);
-                    return;
-                }
-
                 //　ステップ入力があり、ステップ回数がゼロ以上あったら Step へ
                 if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Step))
                 {
@@ -59,6 +43,13 @@ namespace PlayerSystem.State.Base
                     {
                         Debug.Log("ステップカウントが足りません！");
                     }
+                    return;
+                }
+                
+                // ジャンプ入力があり、地面についていた場合 Jump へ
+                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Jump) && BlackBoard.IsGrounded)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Jump);
                     return;
                 }
 
@@ -80,6 +71,13 @@ namespace PlayerSystem.State.Base
                 if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Guard))
                 {
                     StateMachine.ChangeState(BaseStateEnum.Guard);
+                    return;
+                }
+                
+                // 移動入力があれば Move へ
+                if (BlackBoard.MoveDirection.sqrMagnitude > 0.01f)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Move);
                     return;
                 }
 
