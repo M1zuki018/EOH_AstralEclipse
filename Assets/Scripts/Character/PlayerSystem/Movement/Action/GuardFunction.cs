@@ -12,15 +12,13 @@ public class GuardFunction : IGuardable
     //ガードブレイク＝willの値が削り切られてしまったらブレイク状態
 
     private PlayerBlackBoard _bb;
-    private Animator _animator;
     private CompositeDisposable _disposables = new CompositeDisposable();
     
     private IDisposable _guardDisposable;
 
-    public GuardFunction(PlayerBlackBoard bb, Animator animator)
+    public GuardFunction(PlayerBlackBoard bb)
     {
         _bb = bb;
-        _animator = animator;
     }
 
     /// <summary>
@@ -28,7 +26,7 @@ public class GuardFunction : IGuardable
     /// </summary>
     public void GuardStart()
     {
-        _animator.SetBool("Guard", true);
+        _bb.AnimController.Movement.PlayGuardAnimation();
         _bb.IsGuarding = true;
 
         StopDispose();
@@ -62,8 +60,8 @@ public class GuardFunction : IGuardable
     /// </summary>
     public void GuardEnd()
     {
-        _animator.SetBool("Guard", false);
         StopDispose();
+        _bb.AnimController.Movement.StopGuardAnimation();
         _bb.IsGuarding = false;
     }
 

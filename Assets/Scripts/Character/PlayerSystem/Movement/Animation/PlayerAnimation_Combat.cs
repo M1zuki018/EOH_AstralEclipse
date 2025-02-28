@@ -33,4 +33,13 @@ public class PlayerAnimation_Combat
     {
         _animator.SetTrigger("ReadyForBattle");
     }
+
+    /// <summary>
+    /// スキルアニメーションをトリガーする
+    /// </summary>
+    public void UseSkill()
+    {
+        _animator.SetTrigger("Skill");
+        _animator.SetInteger("SkillType", _bb.UsingSkillIndex - 1);
+    }
 }

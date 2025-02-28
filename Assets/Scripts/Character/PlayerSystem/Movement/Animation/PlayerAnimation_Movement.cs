@@ -48,6 +48,22 @@ namespace PlayerSystem.Animation
         {
             _animator.SetTrigger("Step");
         }
+
+        /// <summary>
+        /// ガードアニメーションを再生
+        /// </summary>
+        public void PlayGuardAnimation()
+        {
+            _animator.SetBool("Guard", true);
+        }
+
+        /// <summary>
+        /// ガードアニメーションを停止
+        /// </summary>
+        public void StopGuardAnimation()
+        {
+            _animator.SetBool("Guard", false);
+        }
         
         /// <summary>
         /// 接地判定がないときに落下モーションを再生する

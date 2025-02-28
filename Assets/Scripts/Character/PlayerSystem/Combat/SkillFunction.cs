@@ -11,12 +11,11 @@ namespace PlayerSystem.Fight
     public class SkillFunction : ISkill
     {
         private PlayerBlackBoard _bb;
-        private Animator _animator;
+        private SkillData _skill;
 
-        public SkillFunction(PlayerBlackBoard bb, Animator animator)
+        public SkillFunction(PlayerBlackBoard bb)
         {
             _bb = bb;
-            _animator = animator;
             
             _bb.CurrentTP = _bb.Status.MaxTP;
             //UIManager.Instance?.InitializePlayerTP(_bb.Status.MaxTP, _bb.Status.MaxTP); //TPゲージを初期化
@@ -27,7 +26,7 @@ namespace PlayerSystem.Fight
         /// </summary>
         public bool CanUseSkill()
         {
-            SkillData skill = _bb.Status.SkillData(_bb.UsingSkillIndex); //スキルデータを取得する
+            ChangeSkillData(); // スキルデータを取得する
             
             /*
             if (_bb.CurrentTP < skill.ResourceCost) //TPの判定を行う
@@ -45,11 +44,11 @@ namespace PlayerSystem.Fight
         /// </summary>
         public async UniTask UseSkill()
         {
-            SkillData skill = _bb.Status.SkillData(_bb.UsingSkillIndex); //スキルデータを取得する
+            // CanUseSkill が true の場合そのまま使用処理が呼ばれるので、スキルデータは取得しなおさない
+            
             UIManager.Instance.SelectedSkillIcon(_bb.UsingSkillIndex);
             
-            _animator.SetTrigger("Skill");
-            _animator.SetInteger("SkillType", _bb.UsingSkillIndex - 1);
+            _bb.AnimController.Combat.UseSkill();
             
             /*
             //発動条件がセットされているとき、条件が満たされていない場合は発動しない
@@ -60,12 +59,20 @@ namespace PlayerSystem.Fight
             }
             */
         
-            _bb.CurrentTP -= skill.ResourceCost; //TPを減らす
+            _bb.CurrentTP -= _skill.ResourceCost; //TPを減らす
         
             //UIManager.Instance?.UpdatePlayerTP(_bb.CurrentTP);
-            Debug.Log($"スキルを使った　発動：{skill.Name}");
+            Debug.Log($"スキルを使った　発動：{_skill.Name}");
             
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+        }
+
+        /// <summary>
+        /// スキルデータを取得する
+        /// </summary>
+        private void ChangeSkillData()
+        {
+            _skill = _bb.Status.SkillData(_bb.UsingSkillIndex);
         }
     }
 }
