@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -16,6 +17,15 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("ParryState: Enter");
+
+            Time.timeScale = 0.2f;
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+            
+            Time.timeScale = 1;
+            ActionHandler.Counter(); // カウンター処理を実行
+            
+            StateMachine.ChangeState(BaseStateEnum.Idle);
             
             await UniTask.Yield();
         }

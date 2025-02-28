@@ -14,7 +14,6 @@ namespace PlayerSystem.State.Base
         Parry, // パリィ
         Attack, // 攻撃
         Skill, // スキル発動状態
-        Counter, // カウンター
         Hit, // 被ダメ
         GuardBreak, // ガードブレイク
         Dead, // 死亡

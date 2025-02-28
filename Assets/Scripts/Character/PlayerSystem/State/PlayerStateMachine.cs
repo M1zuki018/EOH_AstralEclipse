@@ -31,10 +31,9 @@ namespace PlayerSystem.State
             States[BaseStateEnum.Jump] = new JumpState(this);
             States[BaseStateEnum.Step] = new StepState(this);
             States[BaseStateEnum.Guard] = new GuardState(this);
-            States[BaseStateEnum.Parry] = new ParryState(this); // 未作成
+            States[BaseStateEnum.Parry] = new ParryState(this);
             States[BaseStateEnum.Attack] = new AttackState(this);
             States[BaseStateEnum.Skill] = new SkillState(this);
-            States[BaseStateEnum.Counter] = new CounterState(this); // 未作成
             States[BaseStateEnum.Hit] = new HitState(this); // 未作成
             States[BaseStateEnum.GuardBreak] = new GuardBreakState(this);
             States[BaseStateEnum.Dead] = new DeadState(this); // 未作成

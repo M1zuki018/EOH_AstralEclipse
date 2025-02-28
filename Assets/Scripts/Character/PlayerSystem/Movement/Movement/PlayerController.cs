@@ -75,7 +75,8 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             steppable: new StepFunction(_animController, _brain.BB),
             gauder: new GuardFunction(_brain.BB),
             attack: (IAttack) GetComponent<PlayerCombat>(),
-            skill: new SkillFunction(_brain.BB));
+            skill: new SkillFunction(_brain.BB),
+            counter: new CounterFunction(_brain.BB));
 
         _playerGravity = new PlayerGravity(_brain.BB, _cc);
         _handleGrounded = (IHandleGroundedCheck) new HandleGrounded(_brain.BB, _animController);

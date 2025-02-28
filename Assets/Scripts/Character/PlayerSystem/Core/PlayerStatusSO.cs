@@ -25,6 +25,7 @@ public class PlayerStatusSO : ScriptableObject
     public int BaseAttackPower => _baseAttackPower;
     public int Defense => _defense;
     public int ParryReceptionTime => _parryReceptionTime;
+    public float CounterTime => _counterTime;
     
     /// <summary>IDで指定したスキルデータを返す</summary>
     public SkillData SkillData (int skillID) => _skill.Cast(skillID);

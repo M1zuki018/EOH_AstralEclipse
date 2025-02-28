@@ -13,9 +13,10 @@ public class PlayerActionHandler
     private readonly IGuardable _gauder; // ガード
     private readonly IAttack _attack; // 通常攻撃
     private readonly ISkill _skill; // スキル
+    private readonly ICounter _counter;
 
     public PlayerActionHandler(IMovable mover, IJumpable jumper,ISteppable steppable, 
-        IGuardable gauder, IAttack attack, ISkill skill)
+        IGuardable gauder, IAttack attack, ISkill skill, ICounter counter)
     {
         _mover = mover;
         _jumper = jumper;
@@ -23,6 +24,7 @@ public class PlayerActionHandler
         _gauder = gauder;
         _attack = attack;
         _skill = skill;
+        _counter = counter;
     }
     
     // //TODO: 不具合の原因が解明出来たらここから呼び出すことになるかも
@@ -59,4 +61,7 @@ public class PlayerActionHandler
     
     /// <summary>スキル攻撃処理</summary>
     public UniTask Skill() => _skill.UseSkill();
+
+    /// <summary>カウンター時間の処理</summary>
+    public void Counter() => _counter.CounterTask();
 }
