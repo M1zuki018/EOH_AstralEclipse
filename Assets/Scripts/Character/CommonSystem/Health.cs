@@ -3,12 +3,14 @@ using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
-/// すべてのエンティティのHPを管理するクラス
+/// プレイヤーのHPを管理するクラス
 /// </summary>
 public class Health : MonoBehaviour, IHealth
 {
-    public int MaxHP { get; private set; } = 100; //最大HP
-    public int CurrentHP { get; private set; } //現在のHP
+    public int MaxHP { get; private set; } = 100; // 最大HP
+    public int CurrentHP { get; private set; } // 現在のHP
+    public int MaxWill { get; private set; } // 最大Will
+    public int CurrentWill { get; private set; } // 現在のWill
     public bool IsDead => CurrentHP <= 0; //HPが0以下になったら死亡する
     public event Action<int, GameObject> OnDamaged; //ダメージを受けた時のイベント
     public event Action<int, GameObject> OnHealed; //回復イベント
@@ -22,8 +24,11 @@ public class Health : MonoBehaviour, IHealth
 
         //初期化する
         _brain.BB.CurrentWill = _brain.BB.Status.Will;
+        
         MaxHP = _brain.BB.Status.MaxHP;
         CurrentHP = MaxHP;
+        MaxWill = _brain.BB.Status.Will;
+        CurrentWill = MaxWill;
     }
     
     /// <summary>
@@ -33,18 +38,16 @@ public class Health : MonoBehaviour, IHealth
     {
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
-        if(attacker.tag == this.tag) return;
+        if(attacker.CompareTag(tag)) return;
 
         if(_brain.BB.IsSteping) return; //ステップ中の場合、ダメージを受けない
 
         // ガード中はWillを削る
         if (_brain.BB.IsGuarding)
-        {
-            _brain.BB.CurrentWill -= amount;
-            return;
-        }
+            CurrentWill -= amount;
+        else
+            CurrentHP -= amount;
         
-        CurrentHP -= amount;
         OnDamaged?.Invoke(amount, attacker); //ダメージイベント発火
 
         if (IsDead) //死亡判定

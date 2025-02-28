@@ -10,6 +10,8 @@ namespace PlayerSystem.Fight
     {
         int CurrentHP { get; } // HP の取得
         int MaxHP { get; }
+        int CurrentWill { get; } // Willの取得
+        int MaxWill { get; }
         
         /// <summary>死亡状態</summary>
         bool IsDead { get; }

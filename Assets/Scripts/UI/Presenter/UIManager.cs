@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     
     [SerializeField, Comment("UIの親")] private Transform _uiCanvas;
     [SerializeField] private SliderUI _playerHP; //プレイヤーのHPゲージ
+    [SerializeField] private SliderUI _playerWill; //プレイヤーのWillゲージ
     [SerializeField] private SliderUI _playerTP; //プレイヤーのTPゲージ
     [SerializeField] private List<IconUI> _skillIcons = new List<IconUI>(); //スキルアイコン
     [SerializeField] private GaugeUI _stepGauge; //ステップ用のゲージ
@@ -45,6 +46,12 @@ public class UIManager : MonoBehaviour
     
     /// <summary>プレイヤーのHPゲージを初期化する</summary>
     public void InitializePlayerHP(int maxValue, int defaultValue) => _playerHP.InitializeValue(maxValue, defaultValue);
+    
+    /// <summary>プレイヤーのWillゲージを更新する</summary>
+    public void UpdatePlayerWill(int currentWill) => _playerWill.SetValue(currentWill);
+    
+    /// <summary>プレイヤーのWillゲージを初期化する</summary>
+    public void InitializePlayerWill(int maxValue, int defaultValue) => _playerWill.InitializeValue(maxValue, defaultValue);
     
     /// <summary>プレイヤーのHPゲージを表示する</summary>
     public void ShowPlayerHP() => _playerHP.Show();

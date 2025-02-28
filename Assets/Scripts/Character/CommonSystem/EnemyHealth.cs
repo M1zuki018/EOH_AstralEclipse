@@ -10,6 +10,8 @@ public class EnemyHealth : MonoBehaviour, IHealth
     [SerializeField] private int _maxHPData = 100;
     public int MaxHP { get; private set; } = 100; //最大HP
     public int CurrentHP { get; private set; } //現在のHP
+    public int CurrentWill { get; }
+    public int MaxWill { get; }
     public bool IsDead => CurrentHP <= 0; //HPが0以下になったら死亡する
     public event Action<int, GameObject> OnDamaged; //ダメージを受けた時のイベント
     public event Action<int, GameObject> OnHealed; //回復イベント

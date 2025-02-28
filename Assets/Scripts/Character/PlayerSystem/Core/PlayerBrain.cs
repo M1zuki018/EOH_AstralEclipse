@@ -40,7 +40,7 @@ public class PlayerBrain : CharacterBase
             actionHandler: _controller.PlayerActionHandler,
             animator: GetComponent<Animator>());
     }
-
+    
     private void Update() => _stateMachine.Update();
     private void FixedUpdate() => _stateMachine.FixedUpdate();
 
@@ -48,14 +48,22 @@ public class PlayerBrain : CharacterBase
     {
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
         UIManager.Instance?.ShowDamageAmount(damage, transform);
-        UIManager.Instance?.UpdatePlayerHP(GetCurrentHP());
-        CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
-        AudioManager.Instance?.PlaySE(14); //ヒット時のSE
-        
-        if (!_health.IsDead)
+
+        if (_bb.IsGuarding)
         {
-            //死亡していないときだけダメージアニメーションをトリガー
-            _bb.AnimController.Common.PlayDamageAnimation();
+            UIManager.Instance?.UpdatePlayerWill(GetCurrentWill()); // ガード中
+        }
+        else
+        {
+            UIManager.Instance?.UpdatePlayerHP(GetCurrentHP()); // それ以外
+            CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
+            AudioManager.Instance?.PlaySE(14); //ヒット時のSE
+        
+            if (!_health.IsDead)
+            {
+                //死亡していないときだけダメージアニメーションをトリガー
+                _bb.AnimController.Common.PlayDamageAnimation();
+            }
         }
     }
 

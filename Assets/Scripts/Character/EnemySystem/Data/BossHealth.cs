@@ -13,6 +13,8 @@ public class BossHealth : MonoBehaviour, IHealth
     
     public int MaxHP { get; private set; } //最大HP
     public int CurrentHP { get; private set; } //現在のHP
+    public int CurrentWill { get; }
+    public int MaxWill { get; }
     
     public int BreakAmount{ get; private set; } //DPSチェックの最大値
     

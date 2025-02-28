@@ -23,8 +23,15 @@ public abstract class CharacterBase : MonoBehaviour
     
     /// <summary>現在のHPを取得する</summary>
     public int GetCurrentHP() => _health.CurrentHP;
+    
     /// <summary>最大HPを取得する</summary>
     public int GetMaxHP() => _health.MaxHP;
+    
+    /// <summary>現在のWillを取得する</summary>
+    public int GetCurrentWill() => _health.CurrentHP;
+    
+    /// <summary>最大HPを取得する</summary>
+    public int GetMaxWill() => _health.MaxHP;
 
     /// <summary>ダメージを受けた時の処理</summary>
     protected abstract void HandleDamage(int damage, GameObject attacker);
