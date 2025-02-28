@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,15 @@ public class EOH_DebugSystem : MonoBehaviour
     [SerializeField, Comment("開始演出をスキップする")] private bool _isTitleSkip;
     public bool IsIsTitleSkip => _isTitleSkip;
     
+    [Header("ボス戦をスタートさせる")]
+    [SerializeField] private PlayerBrain _playerBrain;
+
+    private void Start()
+    {
+        StartBossBattle();
+    }
+
+
     /// <summary>
     /// タイトルをスキップする
     /// </summary>
@@ -32,5 +42,13 @@ public class EOH_DebugSystem : MonoBehaviour
         
         // BGM
         AudioManager.Instance.ClipChange(AudioType.BGM, 1);
+    }
+
+    /// <summary>
+    /// ボス戦を始める
+    /// </summary>
+    private void StartBossBattle()
+    {
+        _playerBrain.BB.IsBossBattle = true;
     }
 }

@@ -21,6 +21,7 @@ namespace PlayerSystem.Animation
         {
             _common = new PlayerAnimation_Common(animator);
             _movement = new PlayerAnimation_Movement(animator);
+            _combat = new PlayerAnimation_Combat(animator);
             _standbyMotionFunc = new PlayerStandbyMotionFunction(bb, this);
         }
     }

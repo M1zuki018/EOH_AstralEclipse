@@ -50,7 +50,7 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     public void HandleReadyForBattle(EnemyBrain brain)
     {
         //まだ武器を構えていなかったら、以降の処理を行う
-        if (!_weaponObj.activeSelf) 
+        if (!_weaponObj.activeSelf)
         {
             _playerBrain.BB.AnimController.Combat.TriggerReadyForBattle();
             _weaponObj.SetActive(true); //武器のオブジェクトを表示する
