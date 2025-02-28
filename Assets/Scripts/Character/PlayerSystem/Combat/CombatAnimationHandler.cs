@@ -62,7 +62,7 @@ public class CombatAnimationHandler : MonoBehaviour
     {
         if(_inputBuffer.GetBufferedInput(InputNameEnum.Attack))
         {
-            _animator.SetTrigger("NormalAttack");
+            _animator.SetTrigger("Attack");
         }
     }
     

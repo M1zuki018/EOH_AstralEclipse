@@ -11,8 +11,8 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     public AttackHitDetector Detector { get; private set; } // 当たり判定
     private PlayerBlackBoard _bb;
     private ReadyForBattleChecker _battleChecker; // 臨戦状態を管理するクラス
+    private WeaponHandler _weaponHandler;
     [SerializeField] private SkillSO _skillSet;
-    [SerializeField] private GameObject _weaponObj;
     
     [Header("攻撃補正用")]
     [SerializeField, HighlightIfNull] private AdjustDirection _adjustDirection;
@@ -27,10 +27,6 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     private void Start()
     {
         InitializeComponents();
-        
-        // 武器の操作
-        _weaponObj.SetActive(false);
-        _bb.IsReadyArms = false;
         
         UIManager.Instance?.HideLockOnUI();
         UIManager.Instance?.HidePlayerBattleUI();
@@ -55,14 +51,19 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから
     }
 
+    public void Initialize(WeaponHandler weaponHandler)
+    {
+        _weaponHandler = weaponHandler;
+    }
+
     /// <summary>
     /// 臨戦状態になったときの処理。武器を取り出す
     /// </summary>
     private void HandleReadyForBattle(EnemyBrain brain)
     {
-        if (!_weaponObj.activeSelf)
+        if (!_bb.IsReadyArms)
         {
-            HandleWeaponActivation();// まだ武器を構えていなかったら武器を構える処理を行う
+            _weaponHandler.HandleWeaponActivation();// まだ武器を構えていなかったら武器を構える処理を行う
         }
 
         //ボス戦の場合に行う処理
@@ -95,9 +96,9 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
             UIManager.Instance?.HideLockOnUI(); //ロックオンアイコンを非表示にする
         }
 
-        if (_battleChecker.EnemiesInRange.Count == 0 && _weaponObj.activeSelf)
+        if (_battleChecker.EnemiesInRange.Count == 0 && _bb.IsReadyArms)
         {
-            HandleWeaponDeactivation();
+            _weaponHandler.HandleWeaponDeactivation();
         }
     }
 
@@ -106,36 +107,13 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     /// </summary>
     public void Attack()
     {
-        if (!_weaponObj.activeSelf)
+        if (!_bb.IsReadyArms)
         {
             //武器を構えてなかったら武器を構える
-            HandleWeaponActivation();
+            _weaponHandler.HandleWeaponActivation();
         }
         
         _bb.IsAttacking = true; //解除はLocoMotionのSMBから行う
         _bb.AnimController.Combat.TriggerAttack();//アニメーションのAttackをトリガーする
-    }
-    
-    /// <summary>
-    /// 武器を構える
-    /// </summary>
-    public void HandleWeaponActivation()
-    {
-        _bb.AnimController.Combat.TriggerReadyForBattle(); // 武器を構えるアニメーション
-        _bb.IsReadyArms = true;
-        _weaponObj.SetActive(true); //武器のオブジェクトを表示する
-        AudioManager.Instance.PlaySE(2);
-        UIManager.Instance?.ShowPlayerBattleUI();
-    }
-    
-    /// <summary>
-    ///  武器をしまう処理
-    /// </summary>
-    private void HandleWeaponDeactivation()
-    {
-        _weaponObj.SetActive(false);
-        _bb.IsReadyArms = false;
-        AudioManager.Instance.PlaySE(2);
-        UIManager.Instance?.HidePlayerBattleUI();
     }
 }

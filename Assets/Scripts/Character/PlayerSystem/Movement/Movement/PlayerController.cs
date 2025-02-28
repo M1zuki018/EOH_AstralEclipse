@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private CharacterController _cc;
     [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _brain;
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
+    [SerializeField][ReadOnlyOnRuntime] private GameObject _weaponObj;
     
     private FootprintEffect _footprintEffect;
     
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private ISpeedSwitchable _speedSwitcher; //歩きと走り状態の切り替え
     private ISteppable _stepFunction; //ステップ
     private PlayerCombat _combat;
+    private WeaponHandler _weaponHandler; // 武器切り替えを行うクラス
     
     private PlayerGravity _playerGravity; // 重力をかける処理
     private MovementHelper _movementHelper; // 移動処理を補助するクラス
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         _mover = new PlayerMovementFunction(_brain.BB, _animController, _trailController, _movementHelper);
         _jumper = new PlayerJumpFunction(_brain.BB, _cc, _animController,_trailController, _movementHelper);
         _speedSwitcher = new PlayerSpeedSwitchFunction(_brain.BB);
+        _weaponHandler = new WeaponHandler(_brain.BB, _weaponObj);
 
         _playerActionHandler = new PlayerActionHandler(
             mover: _mover,
@@ -77,12 +80,14 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             steppable: new StepFunction(_animController, _brain.BB),
             gauder: new GuardFunction(_brain.BB),
             attack: (IAttack) _combat,
-            skill: new SkillFunction(_brain.BB, _combat),
+            skill: new SkillFunction(_brain.BB, _weaponHandler),
             counter: new CounterFunction(_brain.BB));
 
         _playerGravity = new PlayerGravity(_brain.BB, _cc);
         _handleGrounded = (IHandleGroundedCheck) new HandleGrounded(_brain.BB, _animController);
 
+        _combat.Initialize(_weaponHandler);
+        
         _brain.BB.AnimController = _animController;
         _animator.applyRootMotion = true; //ルートモーションを有効化
     }

@@ -11,13 +11,13 @@ namespace PlayerSystem.Fight
     public class SkillFunction : ISkill
     {
         private PlayerBlackBoard _bb;
-        private PlayerCombat _combat;
+        private WeaponHandler _weaponHandler;
         private SkillData _skill;
 
-        public SkillFunction(PlayerBlackBoard bb, PlayerCombat combat)
+        public SkillFunction(PlayerBlackBoard bb, WeaponHandler weaponHandler)
         {
             _bb = bb;
-            _combat = combat;
+            _weaponHandler = weaponHandler;
             _bb.CurrentTP = _bb.Status.MaxTP;
             UIManager.Instance?.UpdatePlayerTP(_bb.Status.MaxTP); //TPゲージを初期化
         }
@@ -47,7 +47,7 @@ namespace PlayerSystem.Fight
             if (!_bb.IsReadyArms)
             {
                 // まだ武器を構えていなかったら構える
-                _combat.HandleWeaponActivation();
+                _weaponHandler.HandleWeaponActivation();
             }
             
             UIManager.Instance.SelectedSkillIcon(_bb.UsingSkillIndex);
