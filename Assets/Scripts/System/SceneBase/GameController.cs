@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject _gameManagerPrefab;
+    [SerializeField] private List<GameObject> _prefabsToInstantiate = new List<GameObject>();
+
 
     private void Start()
     {
@@ -13,37 +15,24 @@ public class GameController : MonoBehaviour
 
     private void AutoInstantiate()
     {
-        // クラス内のすべてのフィールドを取得
-        FieldInfo[] fields = this.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-
-        foreach (FieldInfo field in fields)
+        foreach (var prefab in _prefabsToInstantiate)
         {
-            // [SerializeField] が付いていて、型が GameObject なら処理する
-            if (Attribute.IsDefined(field, typeof(SerializeField)) && field.FieldType == typeof(GameObject))
+            if (prefab == null) continue;
+
+            // 推測されるコンポーネントの型を取得
+            Type inferredType = FindViewBaseType(prefab);
+            if (inferredType != null)
             {
-                GameObject prefab = (GameObject)field.GetValue(this); // プレハブ取得
+                // `GameObjectUtility.Instantiate<T>(プレハブ名)` を自動実行
+                MethodInfo instantiateMethod = typeof(GameObjectUtility).GetMethod("Instantiate")
+                    .MakeGenericMethod(inferredType);
+                var instance = instantiateMethod.Invoke(null, new object[] { prefab });
 
-                if (prefab != null)
-                {
-                    // プレハブ名を取得して_を削除
-                    string varName = field.Name.TrimStart('_');
-
-                    // 推測されるコンポーネントの型を取得
-                    Type inferredType = FindViewBaseType(prefab);
-                    if (inferredType != null)
-                    {
-                        // `GameObjectUtility.Instantiate<T>(プレハブ名)` を自動実行
-                        MethodInfo instantiateMethod = typeof(GameObjectUtility).GetMethod("Instantiate")
-                            .MakeGenericMethod(inferredType);
-                        var instance = instantiateMethod.Invoke(null, new object[] { prefab });
-
-                        Debug.Log($"{varName} ({inferredType.Name}) を自動生成しました！");
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"{varName} のコンポーネントの型が特定できません。スキップします。");
-                    }
-                }
+                Debug.Log($"{prefab.name} ({inferredType.Name}) を自動生成しました！");
+            }
+            else
+            {
+                Debug.LogWarning($"{prefab.name} のコンポーネントの型が特定できません。スキップします。");
             }
         }
     }
