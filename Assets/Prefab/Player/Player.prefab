@@ -91,6 +91,8 @@ GameObject:
   - component: {fileID: 5859501669971951918}
   - component: {fileID: 4861366130119134965}
   - component: {fileID: 4961128676218893434}
+  - component: {fileID: 7038616431000351294}
+  - component: {fileID: 7157866463996679470}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -385,7 +387,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2948384498827725439}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -632,6 +634,37 @@ MonoBehaviour:
     Duration: 1
   _moveSpeed: 1
   _useAdjustDirection: 1
+--- !u!114 &7038616431000351294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948384498827725439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bac57dee02afe74f923afebf011b505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2516049074992321550}
+  _hitDetector: {fileID: 7065331270525496237}
+  _adjustDirection: {fileID: 1503685255541221325}
+  _effectPool: {fileID: 7530174965256172709}
+  _inputManager: {fileID: 8465119267092328368}
+--- !u!114 &7157866463996679470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948384498827725439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee2821fe6f610f46ba04e0ca57a565e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectPrefab: {fileID: 8304736155750147063, guid: 97675d360d30f4440b2626383c9e69ad,
+    type: 3}
 --- !u!1 &5780614566704455532
 GameObject:
   m_ObjectHideFlags: 0
