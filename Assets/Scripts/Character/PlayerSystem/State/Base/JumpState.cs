@@ -16,10 +16,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            Debug.Log("JumpState: Enter");
-            
-            //TODO: アニメーション再生
-
             ActionHandler.Jump();
             BlackBoard.ApplyGravity = true;
             

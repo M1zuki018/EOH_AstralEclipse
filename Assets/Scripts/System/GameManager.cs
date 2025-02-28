@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         // ステート変更時に対応した処理を呼び出す
         _currentGameStateProp.Subscribe(state =>
         {
-            Debug.Log($"ゲーム状態が変更されました: {state}");
+            Debug.Log($"<color=red>【ChangeGameState】</color>　ゲーム状態が変更されました: 現在 {state}");
             HandleStateChange(state);
         }).AddTo(this);
     }
@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
         switch (state)
         {
             case GameState.Title:
-                OnEnterTitle();
                 break;
             case GameState.Movie:
                 OnMovie?.Invoke();
@@ -79,6 +78,4 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
-    private void OnEnterTitle() => Debug.Log("タイトル画面の処理");
 }

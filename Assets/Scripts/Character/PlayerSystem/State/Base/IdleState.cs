@@ -16,8 +16,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            Debug.Log("Idle entered");
-            
             BlackBoard.ApplyGravity = true;
             
             await UniTask.Yield();

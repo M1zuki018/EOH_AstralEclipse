@@ -16,9 +16,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            //TODO: アニメーション再生
-            Debug.Log("MoveState Enter");
-            
             BlackBoard.ApplyGravity = true;
             
             await UniTask.Yield();

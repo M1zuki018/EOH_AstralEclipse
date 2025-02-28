@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UniRx;
+using UnityEngine;
 
 /// <summary>
 /// 全ステートマシンのベースとなるクラス
@@ -30,6 +31,7 @@ public abstract class BaseStateMachine<TEnum, TState> where TEnum : Enum where T
         States[CurrentState.Value].Exit().Forget();
         CurrentState.Value = newState;
         States[newState].Enter().Forget();
+        Debug.Log($"<color=yellow>[ChangeState]</color>　ステートが変更されました : 現在 {newState}");
     }
 
     /// <summary>

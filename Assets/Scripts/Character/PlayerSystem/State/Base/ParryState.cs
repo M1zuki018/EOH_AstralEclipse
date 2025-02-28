@@ -16,11 +16,9 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            Debug.Log("ParryState: Enter");
-
             Time.timeScale = 0.2f;
             
-            await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
             
             Time.timeScale = 1;
             ActionHandler.Counter(); // カウンター処理を実行

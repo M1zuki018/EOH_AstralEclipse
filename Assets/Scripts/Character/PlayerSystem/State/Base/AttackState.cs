@@ -16,8 +16,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            Debug.Log("AttackState : Enter");
-            
             ActionHandler.Attack();
 
             await UniTask.Delay(TimeSpan.FromSeconds(1));

@@ -16,7 +16,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            Debug.Log("GuardBreakState: Enter");
             BlackBoard.AnimController.Movement.PlayGuardBreakAnimation();
             
             await UniTask.Delay(TimeSpan.FromSeconds(3f));

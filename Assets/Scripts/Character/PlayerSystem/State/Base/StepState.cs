@@ -16,9 +16,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            Debug.Log("Step State: Enter");
-            //TODO: アニメーション再生
-            
             // BlackBoard.ApplyGravity = true; // 多少浮く場合があるので重力を加えておく
             ActionHandler.Step(); // ステップ
             
