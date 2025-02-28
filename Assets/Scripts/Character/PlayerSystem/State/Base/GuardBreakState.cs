@@ -17,10 +17,13 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             Debug.Log("GuardBreakState: Enter");
+            BlackBoard.AnimController.Movement.PlayGuardBreakAnimation();
             
             await UniTask.Delay(TimeSpan.FromSeconds(3f));
 
             BlackBoard.IsGuardBreak = false; // ガードブレイク解除
+            BlackBoard.AnimController.Movement.StopGuardBreakAnimation();
+            
             StateMachine.ChangeState(BaseStateEnum.Idle);
         }
 

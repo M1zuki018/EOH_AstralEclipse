@@ -14,13 +14,8 @@ namespace PlayerSystem.Animation
             _animator = animator;
         }
         
-        /// <summary>
-        /// 移動速度をアニメーションに反映
-        /// </summary>
-        public void SetMoveSpeed(float speed)
-        {
-            _animator.SetFloat("Speed", speed, 0.1f, Time.deltaTime);
-        }
+        /// <summary>移動速度をアニメーションに反映</summary>
+        public void SetMoveSpeed(float speed) => _animator.SetFloat("Speed", speed, 0.1f, Time.deltaTime);
 
         /// <summary>
         /// ジャンプアニメーションを開始
@@ -41,36 +36,22 @@ namespace PlayerSystem.Animation
             _animator.applyRootMotion = true;
         }
 
-        /// <summary>
-        /// ステップアニメーションを再生
-        /// </summary>
-        public void PlayStepAnimation()
-        {
-            _animator.SetTrigger("Step");
-        }
+        /// <summary>ステップアニメーションを再生</summary>
+        public void PlayStepAnimation() => _animator.SetTrigger("Step");
 
-        /// <summary>
-        /// ガードアニメーションを再生
-        /// </summary>
-        public void PlayGuardAnimation()
-        {
-            _animator.SetBool("Guard", true);
-        }
+        /// <summary>ガードアニメーションを再生</summary>
+        public void PlayGuardAnimation() => _animator.SetBool("Guard", true);
 
-        /// <summary>
-        /// ガードアニメーションを停止
-        /// </summary>
-        public void StopGuardAnimation()
-        {
-            _animator.SetBool("Guard", false);
-        }
+        /// <summary>ガードアニメーションを停止</summary>
+        public void StopGuardAnimation() => _animator.SetBool("Guard", false);
+
+        /// <summary>ガードブレイクアニメーションを再生</summary>
+        public void PlayGuardBreakAnimation() => _animator.SetBool("GuardBreak", true);
+
+        /// <summary>ガードブレイクアニメーションを停止</summary>
+        public void StopGuardBreakAnimation() => _animator.SetBool("GuardBreak", false);
         
-        /// <summary>
-        /// 接地判定がないときに落下モーションを再生する
-        /// </summary>
-        public void PlayFallingAnimation(bool isGrounded)
-        {
-            _animator.SetBool("IsGround", isGrounded);
-        }
+        /// <summary>接地判定がないときに落下モーションを再生する</summary>
+        public void PlayFallingAnimation(bool isGrounded) => _animator.SetBool("IsGround", isGrounded);
     }
 }
