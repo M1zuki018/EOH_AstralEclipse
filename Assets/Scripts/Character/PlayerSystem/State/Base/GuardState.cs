@@ -9,6 +9,8 @@ namespace PlayerSystem.State.Base
     public class GuardState : PlayerBaseState<BaseStateEnum>
     {
         public GuardState(IPlayerStateMachine stateMachine) : base(stateMachine) { }
+
+        private int _count; // パリィ判定用のカウンター
         
         /// <summary>
         /// ステートに入るときの処理
@@ -19,6 +21,8 @@ namespace PlayerSystem.State.Base
 
             BlackBoard.ApplyGravity = true;
             ActionHandler.GuardStart();
+            _count = 0;
+            BlackBoard.ParryReception = true; // パリィ受付開始
             
             await UniTask.Yield();
         }
@@ -30,8 +34,21 @@ namespace PlayerSystem.State.Base
         {
             while (StateMachine.CurrentState.Value == BaseStateEnum.Guard)
             {
+                _count++;
+                if (_count >= BlackBoard.Status.ParryReceptionTime)
+                {
+                    BlackBoard.ParryReception = false; // パリィ受付終了
+                    Debug.Log("パリィ受付終了");
+                }
+
                 ActionHandler.Guard();
 
+                if (BlackBoard.ParryReception && BlackBoard.SuccessParry)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.Parry);
+                    return;
+                }
+                
                 if (BlackBoard.IsGuardBreak)
                 {
                     StateMachine.ChangeState(BaseStateEnum.GuardBreak);

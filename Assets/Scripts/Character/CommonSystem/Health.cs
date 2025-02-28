@@ -29,9 +29,15 @@ public class Health : MonoBehaviour, IHealth
         _brain.BB.CurrentWill = MaxWill;
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.P)) TakeDamage(25, gameObject);
+    }
+
     [ContextMenu("ダメ―ジテスト")]
     private void Test()
     {
+        _brain.BB.ParryReception = true;
         TakeDamage(25, gameObject);
     }
     
@@ -40,6 +46,14 @@ public class Health : MonoBehaviour, IHealth
     /// </summary>
     public void TakeDamage(int amount, GameObject attacker)
     {
+        if (_brain.BB.ParryReception)
+        {
+            // パリィ成功。これ以降の処理は行わない
+            Debug.Log("SuccessParry : パリィ成功");
+            _brain.BB.SuccessParry = true;
+            return;
+        }
+        
         if(IsDead) return; //死亡状態ならこれ以降の処理は行わない
         
         //if(attacker.CompareTag(tag)) return;

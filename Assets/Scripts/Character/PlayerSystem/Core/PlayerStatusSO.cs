@@ -12,9 +12,11 @@ public class PlayerStatusSO : ScriptableObject
     
     [Header("戦闘関連")]
     [SerializeField][Comment("最大TP")] private int _maxTP = 100;
-    [SerializeField] [Comment("基礎攻撃力")] private int _baseAttackPower = 10;
+    [SerializeField][Comment("基礎攻撃力")] private int _baseAttackPower = 10;
     [SerializeField][Comment("防御力")] private int _defense = 0;
     [SerializeField][Comment("スキルSO")] private SkillSO _skill = null;
+    [SerializeField][Comment("パリィ受付時間")] private int _parryReceptionTime = 200;
+    [SerializeField][Comment("カウンター時間")] private float _counterTime = 3;
     
     public int MaxHP => _maxHP;
     public int Will => _will;
@@ -22,6 +24,7 @@ public class PlayerStatusSO : ScriptableObject
     public int MaxTP => _maxTP;
     public int BaseAttackPower => _baseAttackPower;
     public int Defense => _defense;
+    public int ParryReceptionTime => _parryReceptionTime;
     
     /// <summary>IDで指定したスキルデータを返す</summary>
     public SkillData SkillData (int skillID) => _skill.Cast(skillID);
