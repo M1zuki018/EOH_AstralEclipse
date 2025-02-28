@@ -148,6 +148,7 @@ public class UIManager : MonoBehaviour
     public void ShowPlayerBattleUI()
     {
         _playerHP.ShowAndSlide();   
+        _playerWill.ShowAndSlide();
         //_playerTP.ShowAndSlide(); 
         foreach (var icon in _skillIcons)
         {
@@ -159,6 +160,7 @@ public class UIManager : MonoBehaviour
     public void HidePlayerBattleUI()
     {
         _playerHP.HideAndSlide();
+        _playerWill.HideAndSlide();
         
         //_playerTP.HideAndSlide();
         foreach (var icon in _skillIcons)
