@@ -17,6 +17,5 @@ namespace PlayerSystem.State.Base
         Hit, // 被ダメ
         GuardBreak, // ガードブレイク
         Dead, // 死亡
-        Performance, // 演出中
     }
 }
