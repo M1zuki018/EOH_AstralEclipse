@@ -16,9 +16,8 @@ namespace PlayerSystem.Fight
         public SkillFunction(PlayerBlackBoard bb)
         {
             _bb = bb;
-            
             _bb.CurrentTP = _bb.Status.MaxTP;
-            //UIManager.Instance?.InitializePlayerTP(_bb.Status.MaxTP, _bb.Status.MaxTP); //TPゲージを初期化
+            UIManager.Instance?.UpdatePlayerTP(_bb.Status.MaxTP); //TPゲージを初期化
         }
 
         /// <summary>
@@ -28,15 +27,12 @@ namespace PlayerSystem.Fight
         {
             ChangeSkillData(); // スキルデータを取得する
             
-            /*
-            if (_bb.CurrentTP < skill.ResourceCost) //TPの判定を行う
+            if (_bb.CurrentTP < _skill.ResourceCost) //TPの判定を行う
             {
-                Debug.Log($"{skill.Name} の発動にTPが足りません");
+                Debug.Log($"{_skill.Name} の発動にTPが足りません");
             }
             
-            return _bb.CurrentTP > skill.ResourceCost;
-            */
-            return true;
+            return _bb.CurrentTP > _skill.ResourceCost;
         }
 
         /// <summary>
@@ -50,21 +46,21 @@ namespace PlayerSystem.Fight
             
             _bb.AnimController.Combat.UseSkill();
             
-            /*
             //発動条件がセットされているとき、条件が満たされていない場合は発動しない
-            if(skill.CastCondition != null && !skill.CastCondition.IsSatisfied())
+            if(_skill.CastCondition != null && !_skill.CastCondition.IsSatisfied())
             {
-                Debug.Log($"{skill.Name} の発動条件が満たされていません");
+                Debug.Log($"{_skill.Name} の発動条件が満たされていません");
                 return;
             }
-            */
         
             _bb.CurrentTP -= _skill.ResourceCost; //TPを減らす
         
-            //UIManager.Instance?.UpdatePlayerTP(_bb.CurrentTP);
+            UIManager.Instance?.UpdatePlayerTP(_bb.CurrentTP);
             Debug.Log($"スキルを使った　発動：{_skill.Name}");
             
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+            
+            UIManager.Instance.DeSelectedSkillIcon(_bb.UsingSkillIndex);
         }
 
         /// <summary>

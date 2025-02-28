@@ -39,9 +39,10 @@ public class PlayerBrain : CharacterBase
             blackboard: _bb,
             actionHandler: _controller.PlayerActionHandler);
         
-        // HPスライダーの初期化
+        // スライダーの初期化
         UIManager.Instance?.InitializePlayerHP(_bb.Status.MaxHP, _bb.CurrentHP);
         UIManager.Instance?.InitializePlayerWill(_bb.Status.Will, _bb.CurrentWill);
+        UIManager.Instance?.InitializePlayerTP(_bb.Status.MaxTP, _bb.CurrentTP);
     }
     
     private void Update() => _stateMachine.Update();

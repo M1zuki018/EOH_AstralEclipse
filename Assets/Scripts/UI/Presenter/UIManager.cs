@@ -60,22 +60,16 @@ public class UIManager : MonoBehaviour
     public void HidePlayerHP() => _playerHP.Hide();
 
     /// <summary>プレイヤーのTPゲージを初期化する</summary>
-    public void InitializePlayerTP(int maxValue, int defaultValue) { }
-    //_playerTP.InitializeValue(maxValue, defaultValue);
+    public void InitializePlayerTP(int maxValue, int defaultValue) => _playerTP.InitializeValue(maxValue, defaultValue);
 
     /// <summary>プレイヤーのTPゲージを更新する</summary>
-    public void UpdatePlayerTP(int value) { }
-    //_playerTP.SetValue(value);
+    public void UpdatePlayerTP(int value) => _playerTP.SetValue(value);
 
-    /// <summary>スキルアイコンの操作を行う</summary>
-    public void SelectedSkillIcon(int index)
-    {
-        foreach (var icon in _skillIcons)
-        {
-            if (icon == _skillIcons[index - 1]) icon.Select();
-            else icon.Deselect();
-        }
-    }
+    /// <summary>スキルアイコンを拡大する/summary>
+    public void SelectedSkillIcon(int index) => _skillIcons[index].Select();
+
+    /// <summary>スキルアイコンをもとの大きさに戻す</summary>
+    public void DeSelectedSkillIcon(int index) => _skillIcons[index].Deselect();
 
     /// <summary>ステップゲージの値を更新する</summary>
     public void UpdateStepGauge(float endValue, float duration) => _stepGauge.ResetAndSetValue(endValue, duration);
@@ -149,7 +143,7 @@ public class UIManager : MonoBehaviour
     {
         _playerHP.ShowAndSlide();   
         _playerWill.ShowAndSlide();
-        //_playerTP.ShowAndSlide(); 
+        _playerTP.ShowAndSlide(); 
         foreach (var icon in _skillIcons)
         {
             icon.ShowAndSlide();
@@ -162,7 +156,7 @@ public class UIManager : MonoBehaviour
         _playerHP.HideAndSlide();
         //_playerWill.HideAndSlide();
         
-        //_playerTP.HideAndSlide();
+        _playerTP.HideAndSlide();
         foreach (var icon in _skillIcons)
         {
             icon.HideAndSlide();
