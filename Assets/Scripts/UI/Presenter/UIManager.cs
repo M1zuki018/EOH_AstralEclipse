@@ -63,13 +63,11 @@ public class UIManager : MonoBehaviour
     /// <summary>スキルアイコンの操作を行う</summary>
     public void SelectedSkillIcon(int index)
     {
-        /*
         foreach (var icon in _skillIcons)
         {
             if (icon == _skillIcons[index - 1]) icon.Select();
             else icon.Deselect();
         }
-        */
     }
 
     /// <summary>ステップゲージの値を更新する</summary>
@@ -143,26 +141,24 @@ public class UIManager : MonoBehaviour
     public void ShowPlayerBattleUI()
     {
         _playerHP.ShowAndSlide();   
-        /*
-        _playerTP.ShowAndSlide(); 
+        //_playerTP.ShowAndSlide(); 
         foreach (var icon in _skillIcons)
         {
             icon.ShowAndSlide();
         }
-        */
     }
 
     /// <summary>バトル用UIをすべて非表示にする</summary>
     public void HidePlayerBattleUI()
     {
         _playerHP.HideAndSlide();
-        /*
-        _playerTP.HideAndSlide();
+        
+        //_playerTP.HideAndSlide();
         foreach (var icon in _skillIcons)
         {
             icon.HideAndSlide();
         }
-        */
+        
         _stepGauge.Hide();
         _stepCount.Hide();
     }

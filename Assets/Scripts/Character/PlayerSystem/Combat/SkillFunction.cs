@@ -16,7 +16,7 @@ namespace PlayerSystem.Fight
         {
             _bb = bb;
             _bb.CurrentTP = _bb.Status.MaxTP;
-            UIManager.Instance?.InitializePlayerTP(_bb.Status.MaxTP, _bb.Status.MaxTP); //TPゲージを初期化
+            //UIManager.Instance?.InitializePlayerTP(_bb.Status.MaxTP, _bb.Status.MaxTP); //TPゲージを初期化
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace PlayerSystem.Fight
         
             _bb.CurrentTP -= skill.ResourceCost; //TPを減らす
         
-            UIManager.Instance?.UpdatePlayerTP(_bb.CurrentTP);
+            //UIManager.Instance?.UpdatePlayerTP(_bb.CurrentTP);
             Debug.Log($"スキルを使った　発動：{skill.Name}");
             
             await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
