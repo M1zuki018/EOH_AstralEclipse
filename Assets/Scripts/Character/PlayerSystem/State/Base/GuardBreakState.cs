@@ -19,7 +19,8 @@ namespace PlayerSystem.State.Base
             Debug.Log("GuardBreakState: Enter");
             
             await UniTask.Delay(TimeSpan.FromSeconds(3f));
-            
+
+            BlackBoard.IsGuardBreak = false; // ガードブレイク解除
             StateMachine.ChangeState(BaseStateEnum.Idle);
         }
 

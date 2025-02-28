@@ -25,7 +25,8 @@ namespace PlayerSystem.Movement
         
         public void Move()
         {
-            if (!_bb.IsAttacking)
+            // 攻撃中/ガード中/ガードブレイク中は動けない
+            if (!_bb.IsAttacking && !_bb.IsGuarding && !_bb.IsGuardBreak)
             {
                 HandleMovement();
             }

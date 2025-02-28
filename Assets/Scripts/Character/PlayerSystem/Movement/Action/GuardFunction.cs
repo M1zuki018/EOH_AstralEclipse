@@ -50,7 +50,6 @@ public class GuardFunction : IGuardable
     /// </summary>
     public void Guard()
     {
-        Debug.Log("ガード中");
         if (_bb.CurrentWill <= 0)
         {
             _bb.IsGuardBreak = true; // ガードブレイク状態にする
