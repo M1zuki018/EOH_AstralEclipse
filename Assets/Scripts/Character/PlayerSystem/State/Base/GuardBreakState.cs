@@ -1,4 +1,6 @@
+using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace PlayerSystem.State.Base
 {
@@ -14,7 +16,11 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            await UniTask.Yield();
+            Debug.Log("GuardBreakState: Enter");
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(3f));
+            
+            StateMachine.ChangeState(BaseStateEnum.Idle);
         }
 
         /// <summary>
@@ -22,7 +28,7 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Execute()
         {
-            while (StateMachine.CurrentState.Value == BaseStateEnum.Guard)
+            while (StateMachine.CurrentState.Value == BaseStateEnum.GuardBreak)
             {
                 await UniTask.Yield();
             }

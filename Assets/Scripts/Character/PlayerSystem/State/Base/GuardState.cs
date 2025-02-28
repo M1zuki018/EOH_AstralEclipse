@@ -32,6 +32,12 @@ namespace PlayerSystem.State.Base
             {
                 ActionHandler.Guard();
 
+                if (BlackBoard.IsGuardBreak)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.GuardBreak);
+                    return;
+                }
+
                 if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Guard)) // ガードをやめる
                 {
                     // 移動入力がなければ Idle へ

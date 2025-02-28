@@ -57,6 +57,7 @@ namespace PlayerSystem.State
         public bool IsJumping { get; set; } //ジャンプ中か
 
         public bool IsGuarding { get; set; } //ガード中か
+        public bool IsGuardBreak{ get; set; } //ガードブレイク中か
         public bool IsAttacking { get; set; } //攻撃中か
         public bool IsSteping { get; set; } //ステップ中か
         

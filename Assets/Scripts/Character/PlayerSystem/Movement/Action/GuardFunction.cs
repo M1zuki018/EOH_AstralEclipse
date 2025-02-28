@@ -51,7 +51,11 @@ public class GuardFunction : IGuardable
     public void Guard()
     {
         Debug.Log("ガード中");
-        if(_bb.CurrentWill < 0) _bb.CurrentWill = 0; // ガードブレイク状態にする
+        if (_bb.CurrentWill <= 0)
+        {
+            _bb.IsGuardBreak = true; // ガードブレイク状態にする
+            GuardEnd();
+        }
     }
 
     /// <summary>
