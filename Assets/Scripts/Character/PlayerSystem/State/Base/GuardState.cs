@@ -17,8 +17,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            Debug.Log("Guard State: Enter");
-
             BlackBoard.ApplyGravity = true;
             ActionHandler.GuardStart();
             _count = 0;
@@ -45,6 +43,8 @@ namespace PlayerSystem.State.Base
 
                 if (BlackBoard.ParryReception && BlackBoard.SuccessParry)
                 {
+                    BlackBoard.ParryReception = false;
+                    BlackBoard.SuccessParry = false;
                     StateMachine.ChangeState(BaseStateEnum.Parry);
                     return;
                 }

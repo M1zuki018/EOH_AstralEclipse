@@ -63,5 +63,5 @@ public class PlayerActionHandler
     public UniTask Skill() => _skill.UseSkill();
 
     /// <summary>カウンター時間の処理</summary>
-    public void Counter() => _counter.CounterTask();
+    public void Counter() => _counter.CounterTask().Forget();
 }
