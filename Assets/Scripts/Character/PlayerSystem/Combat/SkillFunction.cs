@@ -11,10 +11,13 @@ namespace PlayerSystem.Fight
     public class SkillFunction : ISkill
     {
         private PlayerBlackBoard _bb;
+        private Animator _animator;
 
-        public SkillFunction(PlayerBlackBoard bb)
+        public SkillFunction(PlayerBlackBoard bb, Animator animator)
         {
             _bb = bb;
+            _animator = animator;
+            
             _bb.CurrentTP = _bb.Status.MaxTP;
             //UIManager.Instance?.InitializePlayerTP(_bb.Status.MaxTP, _bb.Status.MaxTP); //TPゲージを初期化
         }
@@ -25,12 +28,16 @@ namespace PlayerSystem.Fight
         public bool CanUseSkill()
         {
             SkillData skill = _bb.Status.SkillData(_bb.UsingSkillIndex); //スキルデータを取得する
+            
+            /*
             if (_bb.CurrentTP < skill.ResourceCost) //TPの判定を行う
             {
                 Debug.Log($"{skill.Name} の発動にTPが足りません");
             }
             
             return _bb.CurrentTP > skill.ResourceCost;
+            */
+            return true;
         }
 
         /// <summary>
@@ -40,6 +47,9 @@ namespace PlayerSystem.Fight
         {
             SkillData skill = _bb.Status.SkillData(_bb.UsingSkillIndex); //スキルデータを取得する
             UIManager.Instance.SelectedSkillIcon(_bb.UsingSkillIndex);
+            
+            _animator.SetTrigger("Skill");
+            _animator.SetInteger("SkillType", _bb.UsingSkillIndex - 1);
             
             /*
             //発動条件がセットされているとき、条件が満たされていない場合は発動しない
