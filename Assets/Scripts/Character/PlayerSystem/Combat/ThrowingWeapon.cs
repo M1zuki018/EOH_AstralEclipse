@@ -13,6 +13,7 @@ public class ThrowingWeapon
     private Rigidbody _rb;
     private Collider _col;
     private Transform _weaponParent; // 武器オブジェクトの親
+    private Vector3 _initialLocalPos; // 初期位置
 
     public ThrowingWeapon(PlayerBlackBoard bb, GameObject weaponObj)
     {
@@ -22,6 +23,7 @@ public class ThrowingWeapon
         _rb = weaponObj.GetComponent<Rigidbody>();
         _col = weaponObj.GetComponent<Collider>();
         _weaponParent = _weaponObj.transform.parent; // 親のオブジェクトの情報を保存しておく
+        _initialLocalPos = _weaponObj.transform.localPosition;
     }
 
     /// <summary>
@@ -29,17 +31,15 @@ public class ThrowingWeapon
     /// </summary>
     public void ThrowWeapon()
     {
-        if (_rb == null)
-        {
-            _rb = _weaponObj.GetComponent<Rigidbody>();
-            _col = _weaponObj.GetComponent<Collider>();
-        }
+        // 参照が取れていなかった場合
+        if (_rb == null) _rb = _weaponObj.GetComponent<Rigidbody>();
+        if (_col == null) _col = _weaponObj.GetComponent<Collider>();
 
         _weaponObj.transform.SetParent(null); // 親子関係解消
         
-        _rb.useGravity = true;
-        _col.enabled = true;
-        _rb.transform.rotation = Quaternion.Euler(0, 0, 0);
+        _rb.useGravity = true; // 重力を使用
+        _col.enabled = true; // 刀オブジェクトに当たり判定を適用
+        _rb.transform.rotation = Quaternion.Euler(0, 0, 0); // 水平に飛び出すように回転を修正する
         _rb.AddForce(Vector3.forward * _throwForce, ForceMode.Impulse);
     }
 
@@ -48,9 +48,16 @@ public class ThrowingWeapon
     /// </summary>
     public void RecastWeapon()
     {
-        if (_rb == null)
-        {
-            _rb = _weaponObj.GetComponent<Rigidbody>();
-        }
+        // 参照が取れていなかった場合
+        if (_rb == null) _rb = _weaponObj.GetComponent<Rigidbody>();
+        if (_col == null) _col = _weaponObj.GetComponent<Collider>();
+        
+        _rb.useGravity = false; // 重力は使用しない
+        _col.enabled = false; // 当たり判定は切っておく
+        
+        // 位置の調整
+        _weaponObj.transform.SetParent(_weaponParent);
+        _weaponObj.transform.localPosition = _initialLocalPos;
+        _weaponObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }

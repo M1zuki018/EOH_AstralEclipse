@@ -63,6 +63,12 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         Attack();
         _throwingWeapon.ThrowWeapon();
     }
+
+    [ContextMenu("刀回収テスト")]
+    public void RecastTest()
+    {
+        _throwingWeapon.RecastWeapon();
+    }
     
     /// <summary>
     /// 臨戦状態になったときの処理。武器を取り出す
