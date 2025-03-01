@@ -19,6 +19,7 @@ public class AttackSMB : StateMachineBehaviour
     //アニメーションが開始されたとき
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.SetInteger("AttackType", _attackIndex);
         if (_combat == null) //nullだったら取得する
         {
             _combat = animator.GetComponent<ICombat>();

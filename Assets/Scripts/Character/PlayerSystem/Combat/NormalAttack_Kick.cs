@@ -15,7 +15,7 @@ public class NormalAttack_Kick : AttackAdjustBase
 
     public override async void StartAttack()
     {
-        _target = _adjustDirection.Target;
+        _target = _adjustDirection?.Target;
         _isAttacking = true;
         _cts = new CancellationTokenSource();
         
@@ -36,8 +36,8 @@ public class NormalAttack_Kick : AttackAdjustBase
             AudioManager.Instance?.PlaySE(5);
         
             await UniTask.Delay(80);
-        
-            _hitDetector.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
+            
+            _hitDetector?.DetectHit(_hitDetectionInfo); //当たり判定を発生させる
         }
         catch (OperationCanceledException)
         {
