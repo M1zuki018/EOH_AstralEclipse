@@ -142,7 +142,7 @@ public class UIManager : MonoBehaviour
     public void ShowPlayerBattleUI()
     {
         _playerHP.ShowAndSlide();   
-        _playerWill.ShowAndSlide();
+        //_playerWill.ShowAndSlide();
         _playerTP.ShowAndSlide(); 
         foreach (var icon in _skillIcons)
         {

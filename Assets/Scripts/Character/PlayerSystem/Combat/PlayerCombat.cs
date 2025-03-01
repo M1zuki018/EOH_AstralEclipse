@@ -11,7 +11,8 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     public AttackHitDetector Detector { get; private set; } // 当たり判定
     private PlayerBlackBoard _bb;
     private ReadyForBattleChecker _battleChecker; // 臨戦状態を管理するクラス
-    private WeaponHandler _weaponHandler;
+
+    [SerializeField][ReadOnlyOnRuntime] private GameObject _weaponObj;
     [SerializeField] private SkillSO _skillSet;
     
     [Header("攻撃補正用")]
@@ -19,6 +20,7 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     
     public int BaseAttackPower { get; set; }
     
+    private WeaponHandler _weaponHandler;
     
     private DamageHandler _damageHandler; // ダメージを与える処理があるクラス
     public DamageHandler DamageHandler => _damageHandler;
@@ -49,11 +51,8 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         _damageHandler = new DamageHandler();
         Detector = GetComponentInChildren<AttackHitDetector>();
         _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから
-    }
-
-    public void Initialize(WeaponHandler weaponHandler)
-    {
-        _weaponHandler = weaponHandler;
+        _weaponHandler = new WeaponHandler(_bb, _weaponObj);
+        _bb.WeaponHandler = _weaponHandler;
     }
 
     /// <summary>

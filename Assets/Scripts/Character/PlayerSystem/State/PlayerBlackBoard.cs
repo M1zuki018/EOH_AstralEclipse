@@ -81,6 +81,9 @@ namespace PlayerSystem.State
         /// AnimationEventでtrueにし、AttackStateでfalseにする
         /// </summary>
         public bool AttackFinishedTrigger{ get; set; }
+        
+        /// <summary>武器を構える/解除を管理するクラス</summary>
+        public WeaponHandler WeaponHandler { get; set; }
     }
 }
 
