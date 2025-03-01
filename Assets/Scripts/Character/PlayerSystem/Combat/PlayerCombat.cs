@@ -21,6 +21,7 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     public int BaseAttackPower { get; set; }
     
     private WeaponHandler _weaponHandler;
+    private ThrowingWeapon _throwingWeapon;
     
     private DamageHandler _damageHandler; // ダメージを与える処理があるクラス
     public DamageHandler DamageHandler => _damageHandler;
@@ -53,8 +54,16 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         _battleChecker = GetComponentInChildren<ReadyForBattleChecker>(); //子オブジェクトから
         _weaponHandler = new WeaponHandler(_bb, _weaponObj);
         _bb.WeaponHandler = _weaponHandler;
+        _throwingWeapon = new ThrowingWeapon(_bb, _weaponObj);
     }
 
+    [ContextMenu("刀投げテスト")]
+    public void ThrowTest()
+    {
+        Attack();
+        _throwingWeapon.ThrowWeapon();
+    }
+    
     /// <summary>
     /// 臨戦状態になったときの処理。武器を取り出す
     /// </summary>
