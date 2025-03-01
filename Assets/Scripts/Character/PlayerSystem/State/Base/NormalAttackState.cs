@@ -1,10 +1,9 @@
-using System;
 using Cysharp.Threading.Tasks;
 
 namespace PlayerSystem.State.Base
 {
     /// <summary>
-    /// 通常攻撃状態
+    /// 地面での攻撃状態
     /// </summary>
     public class NormalAttackState : PlayerBaseState<BaseStateEnum>
     {

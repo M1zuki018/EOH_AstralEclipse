@@ -18,6 +18,7 @@ public class UseRootMotionSMB : StateMachineBehaviour
         // Attack状態が解除されていなかったときの保険
         // （ゲーム開始時にステートがもどらないバグ対策。攻撃が落下によってキャンセルされると起こっている可能性）
         _animationHandler.AttackFinish();
+        animator.SetBool("IsThrow", false);
         
         animator.applyRootMotion = true;
     }

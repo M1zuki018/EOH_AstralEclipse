@@ -18,21 +18,12 @@ public class PlayerAnimation_Combat
     /// <summary>
     /// 攻撃アニメーションをトリガーする
     /// </summary>
-    public void TriggerAttack()
-    {
-        if(_bb.IsGrounded) // 地面にいたら通常攻撃
-            _animator.SetTrigger("Attack"); 
-        else 
-            _animator.SetTrigger("AttackAir");
-    }
+    public void TriggerAttack() => _animator.SetTrigger("Attack"); 
 
     /// <summary>
     /// 臨戦状態アニメーションをトリガーする
     /// </summary>
-    public void TriggerReadyForBattle()
-    {
-        _animator.SetTrigger("ReadyForBattle");
-    }
+    public void TriggerReadyForBattle() => _animator.SetTrigger("ReadyForBattle");
 
     /// <summary>
     /// スキルアニメーションをトリガーする
