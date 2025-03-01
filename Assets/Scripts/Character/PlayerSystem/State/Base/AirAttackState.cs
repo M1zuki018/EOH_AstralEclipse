@@ -17,13 +17,13 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            BlackBoard.ApplyGravity = true;
+            //BlackBoard.ApplyGravity = true;
             
             ActionHandler.Attack();
             
             await UniTask.Delay(TimeSpan.FromSeconds(0.6f));
             
-            BlackBoard.ApplyGravity = false;
+            //BlackBoard.ApplyGravity = false;
         }
 
         /// <summary>
@@ -37,6 +37,11 @@ namespace PlayerSystem.State.Base
                 {
                     BlackBoard.AttackFinishedTrigger = false;
                     StateMachine.ChangeState(BaseStateEnum.Idle);
+                }
+
+                if (BlackBoard.IsGrounded)
+                {
+                    StateMachine.ChangeState(BaseStateEnum.NormalAttack);
                 }
                 
                 await UniTask.Yield();

@@ -32,6 +32,12 @@ namespace PlayerSystem.State.Base
                 StateMachine.ChangeState(BaseStateEnum.Idle);
                 return;
             }
+
+            if (!BlackBoard.IsGrounded)
+            {
+                StateMachine.ChangeState(BaseStateEnum.AirAttack);
+                return;
+            }
             
             await UniTask.Yield();
         }

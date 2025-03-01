@@ -14,8 +14,6 @@ namespace PlayerSystem.State.Base
         Parry, // パリィ
         NormalAttack, // 通常攻撃
         AirAttack, // 空中攻撃
-        MarshallAttack, // 通常体術
-        AirMarshallAttack, // 空中体術
         Skill, // スキル発動状態
         Hit, // 被ダメ
         GuardBreak, // ガードブレイク

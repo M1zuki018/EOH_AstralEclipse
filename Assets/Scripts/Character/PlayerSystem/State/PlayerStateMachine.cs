@@ -35,8 +35,6 @@ namespace PlayerSystem.State
             States[BaseStateEnum.GuardBreak] = new GuardBreakState(this);
             States[BaseStateEnum.NormalAttack] = new NormalAttackState(this);
             States[BaseStateEnum.AirAttack] = new AirAttackState(this);
-            States[BaseStateEnum.MarshallAttack] = new MarshallAttackState(this);
-            States[BaseStateEnum.AirMarshallAttack] = new AirMarshallAttackState(this);
             States[BaseStateEnum.Skill] = new SkillState(this);
             States[BaseStateEnum.Hit] = new HitState(this); // 未作成
             States[BaseStateEnum.Dead] = new DeadState(this); // 未作成
