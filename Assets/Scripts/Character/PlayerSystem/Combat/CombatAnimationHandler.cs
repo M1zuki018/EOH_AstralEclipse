@@ -22,6 +22,7 @@ public class CombatAnimationHandler : MonoBehaviour
     private CancellationTokenSource _cts; // キャンセルトークン
     private PlayerBlackBoard _bb;
     private PlayerStateMachine _stateMachine;
+    private PlayerActionHandler _playerActionHandler;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class CombatAnimationHandler : MonoBehaviour
         PlayerBrain brain = _animator.GetComponent<PlayerBrain>();
         _bb = brain.BB;
         _stateMachine = brain.StateMachine;
+        _playerActionHandler = _animator.GetComponent<PlayerController>().PlayerActionHandler;
     }
     
     /// <summary>
@@ -64,19 +66,23 @@ public class CombatAnimationHandler : MonoBehaviour
     /// </summary>
     public void Check()
     {
+        // 最優先・ジャンプ。地面についている場合だけジャンプ入力を受け付ける
+        if (_inputBuffer.GetBufferedInput(InputNameEnum.Jump) && _bb.IsGrounded)
+        {
+            _playerActionHandler.Jump();
+            return;
+        }
+        
+        // 二番・刀投げアクション
         if (_inputBuffer.GetBufferedInput(InputNameEnum.Action))
         {
-            // 刀投げ
-            _animator.SetTrigger("AttackMacial");
-            _stateMachine.ChangeState(BaseStateEnum.MarshallAttack);
+            // 現在と逆のbool値をセットする
+            // 手放していなかったら手放す＝true / 手放していたら回収する＝false
+            _animator.SetBool("IsThrow", !_animator.GetBool("IsThrow")); 
             return;
         }
-        if (_inputBuffer.GetBufferedInput(InputNameEnum.Jump))
-        {
-            //空中攻撃
-            _stateMachine.ChangeState(BaseStateEnum.AirAttack);
-            return;
-        }
+        
+        // 三番・攻撃
         if(_inputBuffer.GetBufferedInput(InputNameEnum.Attack))
         {
             _animator.SetTrigger("Attack");

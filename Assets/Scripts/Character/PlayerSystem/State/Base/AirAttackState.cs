@@ -17,7 +17,6 @@ namespace PlayerSystem.State.Base
         /// </summary>
         public override async UniTask Enter()
         {
-            ActionHandler.Jump(); // ジャンプ処理
             BlackBoard.ApplyGravity = true;
             
             ActionHandler.Attack();
