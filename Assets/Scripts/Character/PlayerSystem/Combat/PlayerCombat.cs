@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using PlayerSystem.Fight;
 using PlayerSystem.State;
 using UnityEngine;
@@ -57,18 +56,15 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         _throwingWeapon = new ThrowingWeapon(_bb, _weaponObj);
     }
 
-    [ContextMenu("刀投げテスト")]
-    public void ThrowTest()
-    {
-        Attack();
-        _throwingWeapon.ThrowWeapon();
-    }
+    /// <summary>
+    /// 武器を投げる
+    /// </summary>
+    public void ThrowWeapon() => _throwingWeapon.ThrowWeapon();
 
-    [ContextMenu("刀回収テスト")]
-    public void RecastTest()
-    {
-        _throwingWeapon.RecastWeapon();
-    }
+    /// <summary>
+    /// 武器を投げる
+    /// </summary>
+    public void RecastTest() => _throwingWeapon.RecastWeapon();
     
     /// <summary>
     /// 臨戦状態になったときの処理。武器を取り出す

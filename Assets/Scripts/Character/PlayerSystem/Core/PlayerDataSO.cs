@@ -21,6 +21,9 @@ namespace PlayerSystem.Core
         [SerializeField][Comment("ステップの最大回数")] private int _maxSteps = 10;
         [SerializeField][Comment("ステップ数の回復間隔")] private float _recoveryTime = 5f;
         
+        [Header("その他")]
+        [SerializeField][Comment("刀を投げる強さ")] private float _throwForce = 20f;
+        
         [Header("カメラ関連")]
         [SerializeField][Comment("カメラが回る速さ")] private float _rotationSpeed = 10f;
         
@@ -33,7 +36,7 @@ namespace PlayerSystem.Core
         
         public int MaxSteps => _maxSteps;
         public float RecoveryTime => _recoveryTime;
-        
+        public float ThrowForce => _throwForce;
         public float RotationSpeed => _rotationSpeed;
     }
 }

@@ -19,4 +19,5 @@ MonoBehaviour:
   _gravity: -17.5
   _maxSteps: 10
   _recoveryTime: 5
+  _throwForce: 20
   _rotationSpeed: 10

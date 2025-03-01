@@ -53,15 +53,16 @@ namespace PlayerSystem.State
         public float MoveSpeed { get; set; }
 
         public ReactiveProperty<bool> IsWalking { get; set; } = new ReactiveProperty<bool>(true);　//歩いているか
-        public bool IsGrounded { get; set; } //地面についているか
-        public bool IsJumping { get; set; } //ジャンプ中か
+        public bool IsGrounded { get; set; } // 地面についているか
+        public bool IsJumping { get; set; } // ジャンプ中か
 
-        public bool IsGuarding { get; set; } //ガード中か
+        public bool IsGuarding { get; set; } // ガード中か
         public bool IsGuardBreak{ get; set; } //ガードブレイク中か
         public bool ParryReception{ get; set; } // パリィ受付時間中か
         public bool SuccessParry { get; set; } // パリィ成功か
         public bool IsAttacking { get; set; } // 攻撃中か
         public bool IsReadyArms { get; set; } // 武器を構えているか
+        public bool IsThrown { get; set; } // 武器を投げて手放した状態か
         public bool IsSteping { get; set; } // ステップ中か
         public bool IsBossBattle { get; set; } //ボス戦中か
         public bool DebugMode { get; set; } //デバッグ中か

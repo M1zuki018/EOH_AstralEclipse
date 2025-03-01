@@ -9,7 +9,6 @@ public class ThrowingWeapon
     private PlayerBlackBoard _bb;
     private readonly GameObject _weaponObj; // 武器のオブジェクト
     
-    private readonly float _throwForce = 20f; // 投げる力
     private Rigidbody _rb;
     private Collider _col;
     private Transform _weaponParent; // 武器オブジェクトの親
@@ -37,10 +36,12 @@ public class ThrowingWeapon
 
         _weaponObj.transform.SetParent(null); // 親子関係解消
         
-        _rb.useGravity = true; // 重力を使用
+        _rb.isKinematic = false; // 演算する
         _col.enabled = true; // 刀オブジェクトに当たり判定を適用
         _rb.transform.rotation = Quaternion.Euler(0, 0, 0); // 水平に飛び出すように回転を修正する
-        _rb.AddForce(Vector3.forward * _throwForce, ForceMode.Impulse);
+        _rb.AddForce(Vector3.forward * _bb.Data.ThrowForce, ForceMode.Impulse);
+        
+        _bb.IsThrown = true;
     }
 
     /// <summary>
@@ -52,12 +53,14 @@ public class ThrowingWeapon
         if (_rb == null) _rb = _weaponObj.GetComponent<Rigidbody>();
         if (_col == null) _col = _weaponObj.GetComponent<Collider>();
         
-        _rb.useGravity = false; // 重力は使用しない
+        _rb.isKinematic = true; // 物理演算を止める
         _col.enabled = false; // 当たり判定は切っておく
         
         // 位置の調整
         _weaponObj.transform.SetParent(_weaponParent);
         _weaponObj.transform.localPosition = _initialLocalPos;
         _weaponObj.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        
+        _bb.IsThrown = false;
     }
 }

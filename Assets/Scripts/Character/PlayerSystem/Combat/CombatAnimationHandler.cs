@@ -78,7 +78,17 @@ public class CombatAnimationHandler : MonoBehaviour
         {
             // 現在と逆のbool値をセットする
             // 手放していなかったら手放す＝true / 手放していたら回収する＝false
-            _animator.SetBool("IsThrow", !_animator.GetBool("IsThrow")); 
+            if (!_animator.GetBool("IsThrow"))
+            {
+                _animator.SetBool("IsThrow", true); 
+                _playerActionHandler.ThrowWeapon();
+            }
+            else
+            {
+                _animator.SetBool("IsThrow", false);
+                _playerActionHandler.RecastWeapon();
+            }
+            
             return;
         }
         
@@ -86,6 +96,16 @@ public class CombatAnimationHandler : MonoBehaviour
         if(_inputBuffer.GetBufferedInput(InputNameEnum.Attack))
         {
             _animator.SetTrigger("Attack");
+        }
+    }
+
+    /// <summary>Locoモーション再生時に武器を手放していたら手元に戻す</summary>
+    public void RecastWeapon()
+    {
+        if (_bb.IsThrown)
+        {
+            _animator.SetBool("IsThrow", false);
+            _playerActionHandler.RecastWeapon();
         }
     }
     

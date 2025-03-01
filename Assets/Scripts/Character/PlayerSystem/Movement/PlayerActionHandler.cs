@@ -14,6 +14,8 @@ public class PlayerActionHandler
     private readonly IAttack _attack; // 通常攻撃
     private readonly ISkill _skill; // スキル
     private readonly ICounter _counter;
+    
+    private readonly PlayerCombat _combat;
 
     public PlayerActionHandler(IMovable mover, IJumpable jumper,ISteppable steppable, 
         IGuardable gauder, IAttack attack, ISkill skill, ICounter counter)
@@ -25,6 +27,7 @@ public class PlayerActionHandler
         _attack = attack;
         _skill = skill;
         _counter = counter;
+        _combat = _attack as PlayerCombat;
     }
     
     // //TODO: 不具合の原因が解明出来たらここから呼び出すことになるかも
@@ -64,4 +67,10 @@ public class PlayerActionHandler
 
     /// <summary>カウンター時間の処理</summary>
     public void Counter() => _counter.CounterTask().Forget();
+    
+    /// <summary>刀を投げる処理</summary>
+    public void ThrowWeapon() => _combat.ThrowWeapon();
+    
+    /// <summary>刀を回収する処理</summary>
+    public void RecastWeapon() => _combat.RecastTest();
 }
