@@ -18,6 +18,7 @@ public class PlayerBrain : CharacterBase
     // 黒板登録用
     [SerializeField] private PlayerDataSO _data;
     [SerializeField] private PlayerStatusSO _status;
+    [SerializeField] private PlayerSettingsSO _settings;
     
     // 実行中に変更されるデータを格納した黒板
     private PlayerBlackBoard _bb;
@@ -31,7 +32,7 @@ public class PlayerBrain : CharacterBase
     {
         base.Awake();
 
-        _bb = new PlayerBlackBoard(_data, _status, GetComponent<PlayerInputManager>());
+        _bb = new PlayerBlackBoard(_data, _status, _settings, GetComponent<PlayerInputManager>());
     }
     
     private void Start()

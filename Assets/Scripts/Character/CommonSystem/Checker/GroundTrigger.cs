@@ -1,57 +1,34 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
-/// 足元が地面/壁か判定する
+/// 接地判定を管理するクラス
 /// </summary>
 public class GroundTrigger : MonoBehaviour
 {
     [SerializeField] private float _rayLength = 1f; // Rayの長さ
     [SerializeField] private float _rayOffset; // Rayをどれくらい身体にめり込ませるか
     [SerializeField] private LayerMask _layerMask = default; // Rayの判定に用いるLayer
-    [SerializeField] private PlayerBrain _playerBrain;
+    [SerializeField] private PlayerBrain _brain;
     private RaycastHit _hit;
-    
-    private void FixedUpdate()
-    {
-        CheckGrounded();
-    }
 
     /// <summary>
     /// 接地判定
     /// </summary>
-    private void CheckGrounded()
+    public void CheckGrounded()
     {
         // 放つ光線の初期位置と姿勢
         // 若干身体にめり込ませた位置から発射しないと正しく判定できない時がある
         if (Physics.Raycast(transform.position + Vector3.up * _rayOffset, Vector3.down,
                 out _hit, _rayLength, _layerMask, QueryTriggerInteraction.Ignore))
         {
-            if (_hit.collider.gameObject.CompareTag("Ground") || _hit.collider.gameObject.CompareTag("JumpObject"))
+            if (_hit.collider.gameObject.CompareTag("Ground"))
             {
-                _playerBrain.BB.IsGrounded = true;
-            }
-            else if (_hit.collider.gameObject.CompareTag("Wall"))
-            {
-                _playerBrain.BB.IsGrounded = false;
+                _brain.BB.IsGrounded = true;
             }
         }
         else
         {
-            _playerBrain.BB.IsGrounded = false;
+            _brain.BB.IsGrounded = false;
         }
     }
-
-    /*
-    /// <summary>
-    /// デバッグ用
-    /// </summary>
-    private void OnDrawGizmos()
-    {
-        // 接地判定時は緑、空中にいるときは赤にする
-        Gizmos.color = _playerMovement.PlayerState.IsGrounded ? Color.green : Color.red; 
-        Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
-    }
-    */
-    
 }

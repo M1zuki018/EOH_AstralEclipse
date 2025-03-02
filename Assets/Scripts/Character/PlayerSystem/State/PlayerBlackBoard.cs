@@ -14,11 +14,13 @@ namespace PlayerSystem.State
     {
         private PlayerDataSO _data;
         private PlayerStatusSO _status;
+        private PlayerSettingsSO _settings;
 
-        public PlayerBlackBoard(PlayerDataSO data, PlayerStatusSO status, Input.PlayerInputManager inputManager)
+        public PlayerBlackBoard(PlayerDataSO data, PlayerStatusSO status, PlayerSettingsSO settings, Input.PlayerInputManager inputManager)
         {
             _data = data;
             _status = status;
+            _settings = settings;
             MoveActions = inputManager.MoveActions;
         }
         
