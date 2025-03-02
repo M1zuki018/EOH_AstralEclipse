@@ -12,18 +12,15 @@ namespace PlayerSystem.Movement
         private PlayerBlackBoard _bb;
         private CharacterController _cc;
         private PlayerAnimationController _animController;
-        private PlayerTrailController _trailController;
         
         private MovementHelper _helper;
 
         public PlayerJumpFunction(
-            PlayerBlackBoard bb, CharacterController cc, PlayerAnimationController animController,
-            PlayerTrailController trailController, MovementHelper helper)
+            PlayerBlackBoard bb, CharacterController cc, PlayerAnimationController animController, MovementHelper helper)
         {
             _bb = bb;
             _cc = cc;
             _animController = animController;
-            _trailController = trailController;
             _helper = helper;
         }
         
@@ -45,8 +42,6 @@ namespace PlayerSystem.Movement
         {
             if (_bb.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合
             {
-                _trailController.EnableTrail(); //軌跡をつける
-
                 _helper.RotateCharacter(_helper.CalculateMoveDirection());
 
                 //ルートモーションがオフなので、CharacterControllerのMoveメソッドを使用する

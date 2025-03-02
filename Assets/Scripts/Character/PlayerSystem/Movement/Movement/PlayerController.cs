@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     [SerializeField][ReadOnlyOnRuntime] private CharacterController _cc;
     [SerializeField][ReadOnlyOnRuntime] private PlayerBrain _brain;
     [SerializeField][ReadOnlyOnRuntime] private Animator _animator;
-    [SerializeField] private Transform _footTransform;
     
     private FootprintEffect _footprintEffect;
     
@@ -35,7 +34,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     private MovementHelper _movementHelper; // 移動処理を補助するクラス
     private IHandleGroundedCheck _handleGrounded; // 地面にいるときの処理を行うクラス
     private PlayerAnimationController _animController; // アニメーションを制御するクラス
-    private PlayerTrailController _trailController; // トレイルを管理するクラス
     private GroundTrigger _groundTrigger; // 接地判定を管理するクラス
     
     private PlayerActionHandler _playerActionHandler; // ステートマシンと処理をつなぐ
@@ -65,14 +63,13 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     {
         _movementHelper = new MovementHelper(_playerCamera, _brain.BB, _cc);
         _animController = new PlayerAnimationController(_brain.BB, _animator);
-        _trailController = new PlayerTrailController(GetComponent<TrailRenderer>());
-        _groundTrigger = new GroundTrigger(_brain.BB, _footTransform);
+        _groundTrigger = new GroundTrigger(_brain.BB, transform);
         
         _combat = GetComponent<PlayerCombat>();
         
         // インスタンスを生成
-        _mover = new PlayerMovementFunction(_brain.BB, _animController, _trailController, _movementHelper);
-        _jumper = new PlayerJumpFunction(_brain.BB, _cc, _animController,_trailController, _movementHelper);
+        _mover = new PlayerMovementFunction(_brain.BB, _animController, _movementHelper);
+        _jumper = new PlayerJumpFunction(_brain.BB, _cc, _animController,_movementHelper);
         _speedSwitcher = new PlayerSpeedSwitchFunction(_brain.BB);
 
         _playerActionHandler = new PlayerActionHandler(
@@ -95,16 +92,11 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     {
         _speedSwitcher.DisposeWalkSubscription(); // 移動速度切り替えのObservableを購読解除
     }
-
-    private void Update()
-    {
-        _groundTrigger.CheckGrounded(); // 接地判定
-    }
     
     private void FixedUpdate()
     {
         _playerGravity.ApplyGravity();
-        //_groundTrigger.CheckGrounded(); // 接地判定
+        _groundTrigger.CheckGrounded(); // 接地判定
         
         if (_brain.BB.IsJumping)
         {

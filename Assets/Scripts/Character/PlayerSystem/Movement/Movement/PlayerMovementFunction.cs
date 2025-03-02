@@ -11,15 +11,12 @@ namespace PlayerSystem.Movement
     {
         private PlayerBlackBoard _bb;
         private PlayerAnimationController _animController;
-        private PlayerTrailController _trailController;
         private MovementHelper _helper;
 
-        public PlayerMovementFunction(PlayerBlackBoard bb, PlayerAnimationController animController, 
-            PlayerTrailController trailController, MovementHelper helper)
+        public PlayerMovementFunction(PlayerBlackBoard bb, PlayerAnimationController animController, MovementHelper helper)
         {
             _bb = bb;
             _animController = animController;
-            _trailController = trailController;
             _helper = helper;
         }
         
@@ -39,7 +36,7 @@ namespace PlayerSystem.Movement
         {
             if (_bb.MoveDirection.sqrMagnitude > 0.01f)　//入力がある場合のみ処理を行う
             {
-                _trailController.EnableTrail(); //軌跡をつける
+                //_trailController.EnableTrail(); //軌跡をつける
                 
                 _helper.RotateCharacter(_helper.CalculateMoveDirection());
                     
@@ -56,11 +53,11 @@ namespace PlayerSystem.Movement
                 {
                     //減速がほぼ終了していたら、スピードにはゼロを入れる
                     _animController.Movement.SetMoveSpeed(0);
-                    _trailController.DisableTrail(); //TrailRendererの描写は行わない
+                    //_trailController.DisableTrail(); //TrailRendererの描写は行わない
                 }
                 else
                 {
-                    _trailController.EnableTrail();
+                    //_trailController.EnableTrail();
                     _animController.Movement.SetMoveSpeed(speed);   
                 }
             }
