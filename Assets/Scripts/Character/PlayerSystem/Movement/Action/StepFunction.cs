@@ -10,10 +10,9 @@ using PlayerSystem.State;
 /// </summary>
 public class StepFunction : ISteppable
 {
-    private PlayerAnimationController _animController;
-    private PlayerBlackBoard _bb;
-    
-    private CompositeDisposable _disposable = new CompositeDisposable(); //Subscribeを登録しておく
+    private readonly PlayerAnimationController _animController;
+    private readonly PlayerBlackBoard _bb;
+    private IDisposable _stepRecoverySubscription; //Subscribeを登録しておく
 
     public StepFunction(PlayerAnimationController animController, PlayerBlackBoard bb)
     {
@@ -49,25 +48,28 @@ public class StepFunction : ISteppable
     /// </summary>
     private void StartStepRecovery()
     {
+        // 既に回復処理が行われていれば何もしない
+        if(_stepRecoverySubscription != null) return;
+        
         UIManager.Instance.ShowStepUI(); //UIを見せる
         
         // 一定間隔でステップを回復する
-        Observable.Interval(TimeSpan.FromSeconds(_bb.Data.RecoveryTime))
-            .Where(_ => _bb.CurrentSteps < _bb.Data.MaxSteps)  // ステップが最大値以下の場合のみ回復
+        _stepRecoverySubscription = Observable.Interval(TimeSpan.FromSeconds(_bb.Data.RecoveryTime))
+            .Where(_ => _bb.CurrentSteps < _bb.Data.MaxSteps) // ステップが最大値以下の場合のみ回復
             .Subscribe(_ =>
             {
                 _bb.CurrentSteps++;
                 UIManager.Instance?.UpdateStepCount(_bb.CurrentSteps);
-                
+
                 if (_bb.CurrentSteps >= _bb.Data.MaxSteps)
                 {
                     StopStepRecovery(); //もし最大回数になっていたら購読を解除する
-                    return;
                 }
-                
-                UIManager.Instance?.UpdateStepGauge(1,_bb.Data.RecoveryTime);
-            })
-            .AddTo(_disposable); // GameObjectが破棄されるときに購読を解除
+                else
+                {
+                    UIManager.Instance?.UpdateStepGauge(1, _bb.Data.RecoveryTime);
+                }
+            });
     }
 
     /// <summary>
@@ -75,7 +77,7 @@ public class StepFunction : ISteppable
     /// </summary>
     private void StopStepRecovery()
     {
-        _disposable.Clear(); //購読を解除する
+        _stepRecoverySubscription?.Dispose(); // 購読解除
         UIManager.Instance?.HideStepUI(); //UIを隠す
     }
 }
