@@ -111,18 +111,10 @@ public class PlayerController : MonoBehaviour, IMatchTarget
             //落下中の判定
         }
 
-        HandleFalling(); //落下中の判定
+        _animController.Movement.PlayFallingAnimation(_bb.IsGrounded); //落下中の判定
         _handleGrounded.HandleGroundedCheck();
     }
-
-    /// <summary>
-    /// 落下中かどうかの判定を行う
-    /// </summary>
-    private void HandleFalling()
-    {
-        _animController.Movement.PlayFallingAnimation(_bb.IsGrounded);
-    }
-
+    
     public Vector3 TargetPosition => _collider.ClosestPoint(_targetTransform.position);
 
     /// <summary>アニメーションイベントでSEを再生するためのメソッド</summary>
