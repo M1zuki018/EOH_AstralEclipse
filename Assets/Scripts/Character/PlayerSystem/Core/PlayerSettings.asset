@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc8ef8a51e015f459b0b75903ca4cec, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
+  _rayLength: 0.2
+  _rayOffset: 0.1
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1

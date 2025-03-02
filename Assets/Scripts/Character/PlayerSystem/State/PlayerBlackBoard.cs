@@ -30,6 +30,8 @@ namespace PlayerSystem.State
         /// <summary>ステータス</summary>
         public PlayerStatusSO Status => _status;
         
+        public PlayerSettingsSO Settings => _settings;
+        
         /// <summary>現在のHP</summary>
         public int CurrentHP { get; set; }
         
