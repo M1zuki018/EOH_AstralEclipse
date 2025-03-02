@@ -59,10 +59,10 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         
         // インスタンスを生成
         _animController = new PlayerAnimationController(_bb, _animator);
+        _movementHelper = new MovementHelper(_playerCamera, _bb, _cc);
         _mover = new PlayerMovementFunction(_bb, _animController, _movementHelper);
         _jumper = new PlayerJumpFunction(_bb, _cc, _animController,_movementHelper);
         _speedSwitcher = new PlayerSpeedSwitchFunction(_bb);
-        _movementHelper = new MovementHelper(_playerCamera, _bb, _cc);
         _groundTrigger = new GroundTrigger(_bb, transform);
         _playerGravity = new PlayerGravity(_bb, _cc);
         _handleGrounded = (IHandleGroundedCheck) new HandleGrounded(_bb, _animController);
@@ -94,11 +94,6 @@ public class PlayerController : MonoBehaviour, IMatchTarget
         }
     }
     #endregion
-
-    private void OnDestroy()
-    {
-        _speedSwitcher.DisposeWalkSubscription(); // 移動速度切り替えのObservableを購読解除
-    }
     
     private void FixedUpdate()
     {

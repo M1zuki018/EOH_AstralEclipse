@@ -9,9 +9,9 @@ namespace PlayerSystem.Movement
     /// </summary>
     public class PlayerMovementFunction : IMovable
     {
-        private PlayerBlackBoard _bb;
-        private PlayerAnimationController _animController;
-        private MovementHelper _helper;
+        private readonly PlayerBlackBoard _bb;
+        private readonly PlayerAnimationController _animController;
+        private readonly MovementHelper _helper;
 
         public PlayerMovementFunction(PlayerBlackBoard bb, PlayerAnimationController animController, MovementHelper helper)
         {

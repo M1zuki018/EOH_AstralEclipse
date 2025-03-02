@@ -7,10 +7,9 @@ namespace PlayerSystem.Movement
     /// <summary>
     /// プレイヤーの歩き/走りの切り替え処理を行うクラス
     /// </summary>
-    public class PlayerSpeedSwitchFunction : ISpeedSwitchable
+    public class PlayerSpeedSwitchFunction : ISpeedSwitchable, IDisposable
     {
-        private PlayerBlackBoard _bb;
-        
+        private readonly PlayerBlackBoard _bb;
         private IDisposable _walkChangedSubscription;
         
         public PlayerSpeedSwitchFunction(PlayerBlackBoard bb)
@@ -24,16 +23,20 @@ namespace PlayerSystem.Movement
         /// </summary>
         public void Walk()
         {
-            // 黒板のWalkingのbool値が変更されたとき、移動速度を変更する
-            _walkChangedSubscription = _bb.IsWalking
-                .DistinctUntilChanged()
-                .Subscribe(_ => _bb.MoveSpeed = _bb.IsWalking.Value ? _bb.Data.WalkSpeed : _bb.Data.RunSpeed);
+            // まだ購読していなかった場合にだけ処理を行う
+            if (_walkChangedSubscription == null)
+            {
+                // 黒板のWalkingのbool値が変更されたとき、移動速度を変更する
+                _walkChangedSubscription = _bb.IsWalking
+                    .DistinctUntilChanged()
+                    .Subscribe(_ => _bb.MoveSpeed = _bb.IsWalking.Value ? _bb.Data.WalkSpeed : _bb.Data.RunSpeed);
+            }
         }
 
         /// <summary>
         /// 購読解除
         /// </summary>
-        public void DisposeWalkSubscription()
+        public void Dispose()
         {
             _walkChangedSubscription?.Dispose();
         }

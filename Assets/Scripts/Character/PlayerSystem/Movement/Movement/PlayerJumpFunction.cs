@@ -9,11 +9,10 @@ namespace PlayerSystem.Movement
     /// </summary>
     public class PlayerJumpFunction : IJumpable
     {
-        private PlayerBlackBoard _bb;
-        private CharacterController _cc;
-        private PlayerAnimationController _animController;
-        
-        private MovementHelper _helper;
+        private readonly PlayerBlackBoard _bb;
+        private readonly CharacterController _cc;
+        private readonly PlayerAnimationController _animController;
+        private readonly MovementHelper _helper;
 
         public PlayerJumpFunction(
             PlayerBlackBoard bb, CharacterController cc, PlayerAnimationController animController, MovementHelper helper)

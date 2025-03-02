@@ -8,9 +8,9 @@ namespace PlayerSystem.Movement
     /// </summary>
     public class MovementHelper
     {
-        private Transform _cameraTransform;
-        private PlayerBlackBoard _bb;
-        private CharacterController _cc;
+        private readonly Transform _cameraTransform;
+        private readonly PlayerBlackBoard _bb;
+        private readonly CharacterController _cc;
 
         public MovementHelper(Transform cameraTransform, PlayerBlackBoard bb,
             CharacterController cc)

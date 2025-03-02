@@ -6,8 +6,6 @@ namespace PlayerSystem.Movement
     public interface ISpeedSwitchable
     {
         public void Walk();
-
-        public void DisposeWalkSubscription();
     }
 }
 
