@@ -17,10 +17,8 @@ namespace PlayerSystem.State.Base
         public override async UniTask Enter()
         {
             ActionHandler.Step(); // ステップ
-            
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
 
-            BlackBoard.ApplyGravity = true; // ステップが終わったら重力をかけ始める
+            await UniTask.Yield();
         }
 
         /// <summary>
@@ -30,41 +28,36 @@ namespace PlayerSystem.State.Base
         {
             if (StateMachine.CurrentState.Value == BaseStateEnum.Step)
             {
-                if (BlackBoard.IsSteping)
+                if (!BlackBoard.IsSteping)
                 {
-                    // ステップが終わったら重力をかけ始める
-                    // フラグはStateMachineBehaviorで管理
-                    BlackBoard.ApplyGravity = true;
-                }
-
-                // Attack ステートへ
-                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
-                {
-                    StateMachine.ChangeState(BlackBoard.IsGrounded // 地面にいるか判定
-                        ? BaseStateEnum.NormalAttack // 通常攻撃
-                        : BaseStateEnum.AirAttack); // 空中攻撃
-                    return;
-                }
+                    // Attack ステートへ
+                    if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Attack))
+                    {
+                        StateMachine.ChangeState(BlackBoard.IsGrounded // 地面にいるか判定
+                            ? BaseStateEnum.NormalAttack // 通常攻撃
+                            : BaseStateEnum.AirAttack); // 空中攻撃
+                        return;
+                    }
                 
-                // 地面についている　かつ　ジャンプ入力があったら Jump へ
-                if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Jump) && BlackBoard.IsGrounded)
-                {
-                    StateMachine.ChangeState(BaseStateEnum.Jump);
-                    return;
-                }
+                    // 地面についている　かつ　ジャンプ入力があったら Jump へ
+                    if (InputProcessor.InputBuffer.GetBufferedInput(InputNameEnum.Jump) && BlackBoard.IsGrounded)
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Jump);
+                        return;
+                    }
 
-                // 移動入力がなくなれば Idle へ。入力があれば Move 遷移する
-                if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
-                {
-                    StateMachine.ChangeState(BaseStateEnum.Idle);
-                    return;
+                    // 移動入力がなくなれば Idle へ。入力があれば Move へ遷移する
+                    if (BlackBoard.MoveDirection.sqrMagnitude < 0.01f)
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Idle);
+                        return;
+                    }
+                    else
+                    {
+                        StateMachine.ChangeState(BaseStateEnum.Move);
+                        return;
+                    }
                 }
-                else
-                {
-                    StateMachine.ChangeState(BaseStateEnum.Move);
-                    return;
-                }
-
             }
 
             await UniTask.Yield();

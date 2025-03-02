@@ -30,18 +30,15 @@ public class GroundTrigger : MonoBehaviour
             if (_hit.collider.gameObject.CompareTag("Ground") || _hit.collider.gameObject.CompareTag("JumpObject"))
             {
                 _playerBrain.BB.IsGrounded = true;
-                //_playerMovement.PlayerState.IsClimbing = false;
             }
             else if (_hit.collider.gameObject.CompareTag("Wall"))
             {
-                //_playerMovement.IsWall = true;
                 _playerBrain.BB.IsGrounded = false;
             }
         }
         else
         {
             _playerBrain.BB.IsGrounded = false;
-            //_playerMovement.IsWall = false;
         }
     }
 
