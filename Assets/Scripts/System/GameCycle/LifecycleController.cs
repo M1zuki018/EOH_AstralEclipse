@@ -22,10 +22,10 @@ public class LifecycleController : MonoBehaviour
     
     private async void Start()
     {
-        if (!_debugMode && SceneManager.GetActiveScene().name != "Title")
+        if (!_debugMode && SceneManager.GetActiveScene().name != "Dev_State")
         {
-            Debug.Log($"\ud83d\udd34 本番環境: Titleシーンに強制遷移します");
-            SceneManager.LoadScene("Title");
+            Debug.Log($"\ud83d\udd34 本番環境に強制遷移します");
+            SceneManager.LoadScene("Dev_State");
             return;
         }
         

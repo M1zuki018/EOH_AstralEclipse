@@ -37,6 +37,7 @@ public class StepCorrectionSMB : StateMachineBehaviour
             //入力がなかったらキャラクターの正面方向を保存しておく
             _moveDirection = animator.gameObject.transform.forward;
         }
+        
         _moveDirection.y = 0; //Y成分を除く
         animator.gameObject.transform.rotation = Quaternion.LookRotation(_moveDirection); //プレイヤーの向きを変更する
 
@@ -52,7 +53,7 @@ public class StepCorrectionSMB : StateMachineBehaviour
                     .Subscribe(__ =>
                     {
                         animator.gameObject.transform.rotation = Quaternion.LookRotation(_moveDirection);
-                        _cc.Move(animator.transform.forward * Time.deltaTime * _correctionSpeed);
+                        _cc.Move(animator.transform.forward * Time.deltaTime * _correctionSpeed); // TODO:ここでマイナスをかけてうしろに行くようにする
                     })
                     .AddTo(_disposables);
             })
