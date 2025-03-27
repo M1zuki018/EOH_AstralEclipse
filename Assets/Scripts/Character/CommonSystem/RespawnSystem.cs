@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
@@ -32,15 +33,5 @@ public class RespawnSystem : ViewBase
                 OnRespawn?.Invoke();
             })
             .AddTo(this);
-    }
-
-    public override void OnAwake()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void OnStart()
-    {
-        throw new NotImplementedException();
     }
 }

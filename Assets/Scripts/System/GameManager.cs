@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -78,9 +79,4 @@ public class GameManager : ViewBase
                 break;
         }
     }
-    
-    // シーン基盤で実行されるメソッド
-    public override void OnAwake() { }
-
-    public override void OnStart() { }
 }
