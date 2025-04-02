@@ -2,12 +2,11 @@ using System;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 /// <summary>
 /// ゲーム全体を管理する
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager : ViewBase
 {
     public static GameManager Instance;
     
@@ -22,7 +21,7 @@ public class GameManager : MonoBehaviour
     public event Action OnGameOver; //ゲームオーバー
     public event Action OnClear; //ゲームクリア
     
-    private void Awake()
+    public override UniTask OnAwake()
     {
         if (Instance == null)
         {
@@ -40,6 +39,8 @@ public class GameManager : MonoBehaviour
             Debug.Log($"<color=red>【ChangeGameState】</color>　ゲーム状態が変更されました: 現在 {state}");
             HandleStateChange(state);
         }).AddTo(this);
+        
+        return  base.OnAwake();
     }
     
     /// <summary>

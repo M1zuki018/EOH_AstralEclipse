@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Sceneの読み込みを行うクラス
+/// Sceneの読み込みを行うクラス(仮作成)
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
