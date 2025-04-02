@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,19 +9,36 @@ using UnityEngine.Audio;
 /// <summary>
 /// Audio全体を管理するクラス
 /// </summary>
-public class AudioManager : MonoBehaviour
+public class AudioManager : ViewBase
 {
     public static AudioManager Instance;
     
+    [Header("再生するBGMの設定")]
+    [SerializeField] private int _defaultBGMIndex = 0;
+    private AudioType _myType = AudioType.BGM;
+    
+    [Header("Sound系の設定")]
     [SerializeField] private List<AudioSource> _audioSources = new List<AudioSource>();
     [SerializeField] private List<AudioDataSO> _audioDatas = new List<AudioDataSO>();
     [SerializeField] private AudioMixer _bgmMixer;
 
-    private void Awake()
+    public override UniTask OnAwake()
     {
         Instance = this;
+        return base.OnAwake();
     }
-    
+
+    public override UniTask OnBind()
+    {
+        GameManager.Instance.OnMovie += GameStart;
+        return base.OnBind();
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnMovie -= GameStart;
+    }
+
     /// <summary>
     /// AudioSourceのクリップを変更する
     /// </summary>
@@ -35,6 +54,15 @@ public class AudioManager : MonoBehaviour
         source.loop = clip.Loop;
         
         source.Play();
+    }
+    
+    /// <summary>
+    /// ゲーム開始時にBGMを初期化する処理
+    /// </summary>
+    private void GameStart()
+    {
+        ClipChange(_myType, _defaultBGMIndex); //BGMを初期化
+        FadeIn(_myType);
     }
 
     /// <summary>

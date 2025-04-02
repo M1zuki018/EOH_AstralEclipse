@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debugMode: 1
-  _isLogFormatEnabled: 1
+  _isLogFormatEnabled: 0
   _isLoggingEnabled: 1
-  _prefabsToInstantiate: []
+  _prefabsToInstantiate:
+  - {fileID: 8948447720653825605, guid: 757bf7bafbed1ef4da44a5a9a3131dad, type: 3}
+  - {fileID: 5216540509706333491, guid: 25af22304fea19b40bb23e257590e88c, type: 3}
