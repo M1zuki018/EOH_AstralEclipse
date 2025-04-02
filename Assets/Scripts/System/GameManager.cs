@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// ゲーム全体を管理する
 /// </summary>
-public class GameManager : ViewBase
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     
