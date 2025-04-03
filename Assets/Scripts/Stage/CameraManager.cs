@@ -10,7 +10,7 @@ using UnityEngine.Rendering.Universal;
 /// <summary>
 /// カメラの管理を行うクラス
 /// </summary>
-public class CameraManager : MonoBehaviour
+public class CameraManager : ViewBase
 {
     public static CameraManager Instance;
 
@@ -30,11 +30,12 @@ public class CameraManager : MonoBehaviour
     private Bloom _bloom;
     
     //そのほか
-    [SerializeField] private HitStop _hitStop;
+    private HitStop _hitStop;
     
-    private void Awake()
+    public override UniTask OnAwake()
     {
         Instance = this;
+        _hitStop = new HitStop();
         
         _volume.profile.TryGet(out _motionBlur);
         _volume.profile.TryGet(out _vignette);
@@ -51,6 +52,8 @@ public class CameraManager : MonoBehaviour
             _noise.m_AmplitudeGain = 0f; // 初期状態ではシェイクなし
             _noise.m_FrequencyGain = 0f; // 振動なし
         }
+        
+        return base.OnAwake();
     }
 
     /// <summary>
@@ -80,7 +83,7 @@ public class CameraManager : MonoBehaviour
     /// <summary>
     /// カメラのインデックスと値を指定してFOVを変更する
     /// </summary>
-    public void SetFOV(int cameraIndex, float value)
+    private void SetFOV(int cameraIndex, float value)
     {
         _virtualCameras[cameraIndex].m_Lens.FieldOfView = value;
     }

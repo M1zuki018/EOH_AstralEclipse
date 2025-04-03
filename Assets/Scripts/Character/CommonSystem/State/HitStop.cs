@@ -4,9 +4,9 @@ using UnityEngine;
 /// <summary>
 /// ヒットストップ機能を提供するクラス
 /// </summary>
-public class HitStop : MonoBehaviour
+public class HitStop
 {
-    private float _initialTimeScale;
+    private float _initialTimeScale; // 現在のタイムスケールを保存するための変数
 
     public async void ApplyHitStop(float duration = 0.01f)
     {
