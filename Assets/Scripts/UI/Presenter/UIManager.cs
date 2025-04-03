@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UI.View;
 using UnityEngine;
 
 /// <summary>
 /// 全UIを管理するクラス
 /// </summary>
-public class UIManager : MonoBehaviour
+public class UIManager : ViewBase
 {
     public static UIManager Instance;
     
@@ -36,9 +37,10 @@ public class UIManager : MonoBehaviour
     
     private Dictionary<EnemyBrain, EnemyHPSliderUI> _enemyHpSliders = new Dictionary<EnemyBrain, EnemyHPSliderUI>();
 
-    private void Awake()
+    public override UniTask OnAwake()
     {
         Instance = this;
+        return base.OnAwake();
     }
 
     /// <summary>プレイヤーのHPゲージを更新する</summary>

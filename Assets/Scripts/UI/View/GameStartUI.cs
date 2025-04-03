@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// プレイ開始時の「GameStart」赤文字のアニメーションクラス
 /// </summary>
-public class GameStartUI : MonoBehaviour, IUIElement
+public class GameStartUI : ViewBase, IUIElement
 {
     [SerializeField] CanvasGroup _canvasGroup;
     [SerializeField] private TMP_Text _text;
