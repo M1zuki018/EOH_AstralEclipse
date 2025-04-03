@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// UE風のログを表示するクラス
+/// </summary>
 public class DebugOverlay : MonoBehaviour
 {
     private static List<string> logs = new List<string>();

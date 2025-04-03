@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
-using UnityEngine.InputSystem.Utilities;
 using Observable = UniRx.Observable;
 
-public class SkinManager : MonoBehaviour
+public class SkinManager : ViewBase
 {
     public static SkinManager Instance;
     
     [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
     [SerializeField] private List<SkinPatterns> _skinPatterns;
 
-    private void Awake()
+    public override UniTask OnAwake()
     {
         Instance = this;
-
         if (_skinnedMeshRenderer == null) _skinnedMeshRenderer = GameObject.Find("Face").GetComponent<SkinnedMeshRenderer>();
+        return base.OnAwake();
     }
 
     /// <summary>

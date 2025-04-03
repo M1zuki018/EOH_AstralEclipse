@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 /// <summary>
 /// ブラッシュアップ中のデバッグシステム
 /// </summary>
-public class EOH_DebugSystem : MonoBehaviour
+public class EOH_DebugSystem : ViewBase
 {
     [FormerlySerializedAs("_titleSkip")]
     [Header("開始演出関連")]
@@ -17,9 +18,10 @@ public class EOH_DebugSystem : MonoBehaviour
     [Header("ボス戦をスタートさせる")]
     [SerializeField] private PlayerBrain _playerBrain;
 
-    private void Start()
+    public override UniTask OnStart()
     {
         StartBossBattle();
+        return base.OnStart();
     }
 
 
