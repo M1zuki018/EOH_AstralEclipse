@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.Animation;
@@ -9,7 +10,7 @@ using PlayerSystem.State;
 /// プレイヤーの移動・空中移動などの処理を行う機能
 /// ※PlayerBrainで黒板が生成されるまで動かない
 /// </summary>
-public class PlayerController : MonoBehaviour, IMatchTarget
+public class PlayerController : ViewBase, IMatchTarget
 { 
     [Header("コンポーネント")]
     [SerializeField][ReadOnlyOnRuntime] private Transform _playerCamera; // カメラ
@@ -40,12 +41,14 @@ public class PlayerController : MonoBehaviour, IMatchTarget
     public PlayerActionHandler PlayerActionHandler => _playerActionHandler;
     #endregion
     
-    private void Awake()
+    public override UniTask OnAwake()
     {
         InitializeComponents(); // 各コンポ―ネントを初期化
         SetupAnimator(); // アニメーションの設定を行う
 
         _speedSwitcher.Walk(); // 移動速度切り替えのObservableを購読する
+        
+        return base.OnAwake();
     }
 
     #region Awakeの中の処理

@@ -310,12 +310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605383528469faa4680cdd926abaf0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 452623936381996790}
   _playerCamera: {fileID: 0}
   _cc: {fileID: 8756747814978474630}
-  _brain: {fileID: 5777550406998585245}
   _animator: {fileID: 2516049074992321550}
-  _footTransform: {fileID: 0}
   _targetTransform: {fileID: 0}
 --- !u!114 &2466618307262140181
 MonoBehaviour:

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
 
@@ -21,18 +22,18 @@ public class EnemyBrain : CharacterBase, IMatchTarget
     public EnemyMovement EnemyMovement { get; private set; }
     public bool IsBossEnemy => _isBossEnemy;
 
-    protected override void Awake()
+    public override UniTask OnAwake()
     {
-        base.Awake();
-        
         //コンポーネントを取得する Start関数より前に実行したい
         EnemyMovement = GetComponent<EnemyMovement>();
         _combat = GetComponent<EnemyCombat>();
         _collider = GetComponent<Collider>();
         Animator = GetComponent<Animator>();
+        
+        return base.OnAwake();
     }
     
-    private void Start() 
+    public override UniTask OnStart() 
     {
         if (!_isBossEnemy)
         {
@@ -55,6 +56,8 @@ public class EnemyBrain : CharacterBase, IMatchTarget
             MatchPositionSMB smb = Animator.GetBehaviour<MatchPositionSMB>();
             smb._target = this;
         }
+        
+        return base.OnStart();
     }
     
     protected override void HandleDamage(int damage, GameObject attacker)

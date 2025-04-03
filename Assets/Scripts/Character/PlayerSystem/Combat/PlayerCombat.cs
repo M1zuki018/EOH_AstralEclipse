@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using PlayerSystem.State;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// プレイヤーの攻撃に関する処理
 /// </summary>
-public class PlayerCombat : MonoBehaviour, ICombat, IAttack
+public class PlayerCombat : ViewBase, ICombat, IAttack
 {
     public AttackHitDetector Detector { get; private set; } // 当たり判定
     private PlayerBlackBoard _bb;
@@ -26,7 +27,7 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
     public DamageHandler DamageHandler => _damageHandler;
     public AdjustDirection AdjustDirection => _adjustDirection; // 攻撃時にプレイヤーの向きをターゲットに合わせる
     
-    private void Start()
+    public override UniTask OnStart()
     {
         InitializeComponents();
         
@@ -34,6 +35,8 @@ public class PlayerCombat : MonoBehaviour, ICombat, IAttack
         UIManager.Instance?.HidePlayerBattleUI();
         _battleChecker.OnReadyForBattle += HandleReadyForBattle; //イベント登録
         _battleChecker.OnRescission += HandleRescission;
+        
+        return base.OnStart();
     }
 
     private void OnDestroy()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +9,7 @@ namespace PlayerSystem.Input
     /// <summary>
     /// PlayerのInputSystemを管理するクラス
     /// </summary>
-    public class PlayerInputManager : MonoBehaviour
+    public class PlayerInputManager : ViewBase
     {
         [SerializeField, HighlightIfNull] private List<InputActionReference> _moveActions; //InputSystemのアクション参照
         public List<InputActionReference> MoveActions => _moveActions;
@@ -19,7 +20,7 @@ namespace PlayerSystem.Input
         private IPlayerInputReceiver _iPlayerInputReceiver; 
         public IPlayerInputReceiver IPlayerInputReceiver => _iPlayerInputReceiver;
 
-        private void Awake()
+        public override UniTask OnAwake()
         {
             _playerInput = GetComponent<PlayerInput>();
             _iPlayerInputReceiver = new PlayerInputProcessor(GetComponent<PlayerBrain>().BB);
@@ -29,6 +30,8 @@ namespace PlayerSystem.Input
             GameManager.Instance.CurrentGameStateProp
                 .Subscribe(newState => InputRestrictions(newState))
                 .AddTo(this);
+            
+            return base.OnAwake();
         }
 
         private void OnDestroy()

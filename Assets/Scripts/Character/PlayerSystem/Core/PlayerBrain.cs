@@ -28,14 +28,13 @@ public class PlayerBrain : CharacterBase
     private PlayerStateMachine _stateMachine;
     public PlayerStateMachine StateMachine => _stateMachine;
     
-    protected override void Awake()
+    public override UniTask OnAwake()
     {
-        base.Awake();
-
         _bb = new PlayerBlackBoard(_data, _status, _settings, GetComponent<PlayerInputManager>());
+        return base.OnAwake();
     }
     
-    private void Start()
+    public override UniTask OnStart()
     {
         _controller = GetComponent<PlayerController>(); //Animator、State取得用
         _stateMachine = new PlayerStateMachine(
@@ -47,6 +46,8 @@ public class PlayerBrain : CharacterBase
         UIManager.Instance?.InitializePlayerHP(_bb.Status.MaxHP, _bb.CurrentHP);
         UIManager.Instance?.InitializePlayerWill(_bb.Status.Will, _bb.CurrentWill);
         UIManager.Instance?.InitializePlayerTP(_bb.Status.MaxTP, _bb.CurrentTP);
+        
+        return base.OnStart();
     }
     
     private void Update() => _stateMachine.Update();

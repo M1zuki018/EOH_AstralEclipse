@@ -1,11 +1,12 @@
 using System;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UnityEngine;
 
 /// <summary>
 /// プレイヤーのHPを管理するクラス
 /// </summary>
-public class Health : MonoBehaviour, IHealth
+public class Health : ViewBase, IHealth
 {
     public int MaxHP => _brain.BB.Status.MaxHP; // 最大HP
     public int CurrentHP => _brain.BB.CurrentHP; // 現在のHP
@@ -18,7 +19,7 @@ public class Health : MonoBehaviour, IHealth
 
     private PlayerBrain _brain;
     
-    private void Awake()
+    public override UniTask OnAwake()
     { 
         _brain = GetComponent<PlayerBrain>();
 
@@ -27,6 +28,8 @@ public class Health : MonoBehaviour, IHealth
         
         _brain.BB.CurrentHP = MaxHP;
         _brain.BB.CurrentWill = MaxWill;
+        
+        return base.OnAwake();
     }
 
     private void Update()

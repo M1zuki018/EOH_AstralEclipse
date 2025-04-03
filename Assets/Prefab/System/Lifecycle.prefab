@@ -50,3 +50,4 @@ MonoBehaviour:
   _prefabsToInstantiate:
   - {fileID: 8948447720653825605, guid: 757bf7bafbed1ef4da44a5a9a3131dad, type: 3}
   - {fileID: 5216540509706333491, guid: 25af22304fea19b40bb23e257590e88c, type: 3}
+  - {fileID: 2948384498827725439, guid: 61b5c3d1d439235478cb934b8c6599cc, type: 3}

@@ -1,4 +1,5 @@
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Input;
 using PlayerSystem.State;
 using PlayerSystem.State.Base;
@@ -7,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// アニメーションイベントを補助するクラス
 /// </summary>
-public class CombatAnimationHandler : MonoBehaviour
+public class CombatAnimationHandler : ViewBase
 {
     [SerializeField] private Animator _animator;
     [SerializeField, Comment("当たり判定制御クラス")] private AttackHitDetector _hitDetector;
@@ -24,7 +25,7 @@ public class CombatAnimationHandler : MonoBehaviour
     private PlayerStateMachine _stateMachine;
     private PlayerActionHandler _playerActionHandler;
 
-    private void Start()
+    public override UniTask OnStart()
     {
         PlayerInputProcessor processor = _inputManager.IPlayerInputReceiver as PlayerInputProcessor;
         _inputBuffer = processor.InputBuffer;
@@ -32,6 +33,8 @@ public class CombatAnimationHandler : MonoBehaviour
         _bb = brain.BB;
         _stateMachine = brain.StateMachine;
         _playerActionHandler = _animator.GetComponent<PlayerController>().PlayerActionHandler;
+        
+        return base.OnStart(); 
     }
     
     /// <summary>

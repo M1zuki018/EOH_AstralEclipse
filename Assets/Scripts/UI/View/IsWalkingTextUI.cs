@@ -12,19 +12,22 @@ using UnityEngine;
 /// 歩行中/走行中の切り替えをわかりやすくするUI
 /// </summary>
 [RequireComponent(typeof(CanvasGroup))]
-public class IsWalkingTextUI : MonoBehaviour
+public class IsWalkingTextUI : ViewBase
 {
     [SerializeField] private PlayerBrain _playerBrain;
     private CanvasGroup _canvasGroup;
     private IDisposable _subscription;
     
-    private void Start()
+    public override UniTask OnStart()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         var blackboard = _playerBrain.BB;
         _subscription = blackboard.IsWalking.Subscribe(_ => Show().Forget()); // 移動速度が変更されたら表示
         _canvasGroup.alpha = 0;
+        
+        return base.OnStart();
     }
+    
     private async UniTask Show()
     {
         _canvasGroup.DOFade(1, 0.3f).SetEase(Ease.OutQuad);

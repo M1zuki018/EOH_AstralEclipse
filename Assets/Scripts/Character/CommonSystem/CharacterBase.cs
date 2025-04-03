@@ -1,18 +1,21 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using PlayerSystem.Fight;
 
 /// <summary>
 /// 全キャラクターの基底クラス
 /// </summary>
-public abstract class CharacterBase : MonoBehaviour
+public abstract class CharacterBase : ViewBase
 {
     protected IHealth _health; //体力の管理
     
-    protected virtual void Awake() 
+    public override UniTask OnAwake() 
     { 
         _health = GetComponent<IHealth>(); 
         _health.OnDamaged += HandleDamage; //イベント登録
         _health.OnDeath += HandleDeath;
+        
+        return base.OnAwake();
     }
 
     protected virtual void OnDestroy()
