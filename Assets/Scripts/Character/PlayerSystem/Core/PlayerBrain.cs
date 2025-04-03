@@ -31,6 +31,7 @@ public class PlayerBrain : CharacterBase
     // 補助クラス
     private PlayerUIController _uiController;
     private PlayerCameraController _cameraController;
+    private PlayerAudioController _audioController;
     
     public override UniTask OnAwake()
     {
@@ -39,6 +40,7 @@ public class PlayerBrain : CharacterBase
         // 補助クラスのインスタンスを作成
         _uiController = new PlayerUIController(_bb);
         _cameraController = new PlayerCameraController();
+        _audioController = new PlayerAudioController();
         
         return base.OnAwake();
     }
@@ -74,7 +76,7 @@ public class PlayerBrain : CharacterBase
         {
             _uiController.UpdateHP(); // それ以外
             _cameraController.Shake(); //カメラを揺らす
-            AudioManager.Instance?.PlaySE(14); //ヒット時のSE
+            _audioController.HitSE();
         
             if (!_health.IsDead)
             {
@@ -90,11 +92,8 @@ public class PlayerBrain : CharacterBase
         //_playerInput.DeactivateInput(); //入力制限
         //TODO:死亡エフェクト等の処理
 
-        AudioManager.Instance.FadeOut(AudioType.BGM);
-        AudioManager.Instance.FadeOut(AudioType.SE);
-        
+        _audioController.FadeOut();
         _uiController.WhenDeath(); //UI処理
-        
         _cameraController.WhenDeath();
         
         await UniTask.Delay(3000);
