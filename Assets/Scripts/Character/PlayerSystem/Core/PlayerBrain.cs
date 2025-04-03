@@ -28,6 +28,8 @@ public class PlayerBrain : CharacterBase
     private PlayerStateMachine _stateMachine;
     public PlayerStateMachine StateMachine => _stateMachine;
     
+    private PlayerUIController _uiController;
+    
     public override UniTask OnAwake()
     {
         _bb = new PlayerBlackBoard(_data, _status, _settings, GetComponent<PlayerInputManager>());
@@ -36,16 +38,16 @@ public class PlayerBrain : CharacterBase
     
     public override UniTask OnStart()
     {
-        _controller = GetComponent<PlayerController>(); //Animator、State取得用
+        _controller = GetComponent<PlayerController>(); // Animator、State取得用
+        _uiController = new PlayerUIController(_bb); // UIを管理する補助クラス
+        
+        // ステートマシン作成
         _stateMachine = new PlayerStateMachine(
             inputProcessor: GetComponent<PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
             blackboard: _bb,
             actionHandler: _controller.PlayerActionHandler);
         
-        // スライダーの初期化
-        UIManager.Instance?.InitializePlayerHP(_bb.Status.MaxHP, _bb.CurrentHP);
-        UIManager.Instance?.InitializePlayerWill(_bb.Status.Will, _bb.CurrentWill);
-        UIManager.Instance?.InitializePlayerTP(_bb.Status.MaxTP, _bb.CurrentTP);
+        _uiController.Initialized(); // 初期化
         
         return base.OnStart();
     }
@@ -56,15 +58,15 @@ public class PlayerBrain : CharacterBase
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
-        UIManager.Instance?.ShowDamageAmount(damage, transform);
+        _uiController.ShowDamage(damage, transform);
 
         if (_bb.IsGuarding)
         {
-            UIManager.Instance?.UpdatePlayerWill(_bb.CurrentWill); // ガード中
+            _uiController.UpdateWill(); // ガード中
         }
         else
         {
-            UIManager.Instance?.UpdatePlayerHP(_bb.CurrentHP); // それ以外
+            _uiController.UpdateHP(); // それ以外
             CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
             AudioManager.Instance?.PlaySE(14); //ヒット時のSE
         
@@ -85,17 +87,13 @@ public class PlayerBrain : CharacterBase
         AudioManager.Instance.FadeOut(AudioType.BGM);
         AudioManager.Instance.FadeOut(AudioType.SE);
         
-        //UI処理
-        UIManager.Instance.HidePlayerBattleUI();
-        UIManager.Instance.HideRightUI();
-        UIManager.Instance.HideLockOnUI();
-        UIManager.Instance.HideBossUI();
+        _uiController.WhenDeath(); //UI処理
         
         CameraManager.Instance.PlayerDeath();
         
         await UniTask.Delay(3000);
         
-        UIManager.Instance.ShowDeathPanel();
+        _uiController.ShowDeathPanel(); // 死亡時のパネルを非表示にする
         
         //スローモーションにする
         Time.timeScale = 0.3f; 
