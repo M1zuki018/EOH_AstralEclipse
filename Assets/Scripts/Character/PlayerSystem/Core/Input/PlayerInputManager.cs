@@ -14,7 +14,7 @@ namespace PlayerSystem.Input
         [SerializeField, HighlightIfNull] private List<InputActionReference> _moveActions; //InputSystemのアクション参照
         public List<InputActionReference> MoveActions => _moveActions;
         
-        private PlayerInput _playerInput; // PlayerInput コンポーネント
+        private PlayerInput _playerInput; 
         
         // 入力情報
         private IPlayerInputReceiver _iPlayerInputReceiver; 

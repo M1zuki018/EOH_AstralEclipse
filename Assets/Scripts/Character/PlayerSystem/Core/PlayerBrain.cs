@@ -62,6 +62,9 @@ public class PlayerBrain : CharacterBase
     private void Update() => _stateMachine.Update();
     private void FixedUpdate() => _stateMachine.FixedUpdate();
 
+    /// <summary>
+    /// ダメージを喰らった時の処理
+    /// </summary>
     protected override void HandleDamage(int damage, GameObject attacker)
     {
         Debug.Log($"{attacker.name}から{damage}ダメージ受けた！！");
@@ -87,6 +90,9 @@ public class PlayerBrain : CharacterBase
         }
     }
 
+    /// <summary>
+    /// 死亡時の処理
+    /// </summary>
     protected override async void HandleDeath(GameObject attacker)
     {
         _bb.AnimController.Common.PlayDeathAnimation(); // アニメーション
