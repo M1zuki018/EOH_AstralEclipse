@@ -1,12 +1,11 @@
 using Cysharp.Threading.Tasks;
 using UnityEditor;
-using UnityEngine;
 
 /// <summary>
 /// ゲームクリア後の処理を書いたクラス
 /// ゲームクリアのステートはEnemyBrainで変更される
 /// </summary>
-public class GameClearPerformance
+public class GameClearFlow
 {
     /// <summary>
     /// イベント登録
@@ -19,7 +18,7 @@ public class GameClearPerformance
     /// <summary>
     /// イベント解除
     /// </summary>
-    public void Release()
+    public void Dispose()
     {
         GameManager.Instance.OnClear -= HandleClearPerformance; //解除
     }
