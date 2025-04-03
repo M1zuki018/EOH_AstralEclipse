@@ -34,7 +34,10 @@ namespace PlayerSystem.Input
         #region 黒板を書き換えて、PlayerControllerのFixedUpdateで動くもの
 
         /// <summary>移動入力処理。Vector3への変換だけ行う</summary>
-        public void HandleMoveInput(Vector2 input) => _bb.MoveDirection = new Vector3(input.x, 0, input.y);
+        public void HandleMoveInput(Vector2 input)
+        {
+            _bb.MoveDirection = new Vector3(input.x, 0, input.y);
+        }
         
         /// <summary>歩き状態にする入力処理</summary>
         public void HandleWalkInput() => _bb.IsWalking.Value = !_bb.IsWalking.Value;

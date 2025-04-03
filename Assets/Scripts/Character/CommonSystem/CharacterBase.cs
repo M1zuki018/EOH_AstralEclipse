@@ -20,8 +20,11 @@ public abstract class CharacterBase : ViewBase
 
     protected virtual void OnDestroy()
     {
-        _health.OnDamaged -= HandleDamage; //イベント解除
-        _health.OnDeath -= HandleDeath;
+        if (_health != null)
+        {
+            _health.OnDamaged -= HandleDamage; //イベント解除
+            _health.OnDeath -= HandleDeath;
+        }
     }
     
     /// <summary>現在のHPを取得する</summary>
