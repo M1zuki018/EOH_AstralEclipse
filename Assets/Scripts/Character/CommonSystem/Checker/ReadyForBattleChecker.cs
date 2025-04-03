@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.Fight;
 using UniRx;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine;
 /// 臨戦態勢を判定するクラス
 /// </summary>
 [RequireComponent(typeof(SphereCollider))]
-public class ReadyForBattleChecker : MonoBehaviour
+public class ReadyForBattleChecker : ViewBase
 {
     [SerializeField] float _radius; //コライダーの半径
     [SerializeField, HighlightIfNull] private LockOnFunction _lockOnFunction;
@@ -23,9 +24,10 @@ public class ReadyForBattleChecker : MonoBehaviour
     public event Action<EnemyBrain> OnReadyForBattle; //臨戦状態になったときのイベント
     public event Action<EnemyBrain> OnRescission; //臨戦状態が解除されたときのイベント
 
-    private void Awake()
+    public override UniTask OnAwake()
     {
         InitializeSphereCollider();
+        return base.OnAwake();
     }
 
     /// <summary>
