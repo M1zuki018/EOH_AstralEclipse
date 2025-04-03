@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
 /// エフェクトのオブジェクトプールを管理する
 /// </summary>
-public class EffectPool : MonoBehaviour
+public class EffectPool : ViewBase
 {
     [SerializeField] private GameObject _effectPrefab; // 剣のエフェクトプレハブ
     [SerializeField] private int _poolSize = 5; // プールの初期サイズ
 
     private Queue<GameObject> _effectPool = new Queue<GameObject>();
 
-    private void Start()
+    public override UniTask OnStart()
     {
         // 事前にエフェクトオブジェクトを生成し、プールに格納
         for (int i = 0; i < _poolSize; i++)
@@ -21,6 +22,8 @@ public class EffectPool : MonoBehaviour
             effect.SetActive(false);
             _effectPool.Enqueue(effect);
         }
+        
+        return base.OnStart();
     }
     
     /// <summary>

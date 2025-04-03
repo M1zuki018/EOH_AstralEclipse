@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using PlayerSystem.Fight;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 攻撃判定を行い、指定されたコライダーを、指定されたフレームの間発生させる
 /// </summary>
-public class AttackHitDetector : MonoBehaviour
+public class AttackHitDetector : ViewBase
 {
     //TODO: システム基盤を変更していく場合、Updateのタイミングを指定できるようにする
 
@@ -60,6 +59,8 @@ public class AttackHitDetector : MonoBehaviour
                     var target = hit.gameObject.GetComponent<IDamageable>();
                     if (target != null)
                     {
+                        //TODO: 現状敵に当たる処理が壊れている
+                        
                         _combat.DamageHandler.ApplyDamage(
                             target:target, //攻撃対象
                             baseDamage:_brain.BB.Status.BaseAttackPower, //攻撃力 

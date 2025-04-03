@@ -82,7 +82,7 @@ public class LockOnFunction : ViewBase, ILockOnable
         
         Transform nextTarget = SelectNextLockOnTarget(); //別の敵をロックオンする
         _lockedOnEnemy.Value = nextTarget;
-        _adjustDirection.Target = nextTarget;
+        _adjustDirection.SetTarget(nextTarget);
         //CameraManager.Instance.UseTargetGroup(nextTarget.transform.GetChild(3), 1f, 0.3f);
         //CameraManager.Instance.UseCamera(1);
     }
@@ -97,13 +97,13 @@ public class LockOnFunction : ViewBase, ILockOnable
             UIManager.Instance?.SetLockOnUI(newTarget);
             //CameraManager.Instance?.UseCamera(4);
             AudioManager.Instance.PlaySE(2);
-            _adjustDirection.Target = newTarget; //攻撃対象を書き換える
+            _adjustDirection.SetTarget(newTarget); //攻撃対象を書き換える
             //CameraManager.Instance.UseTargetGroup(newTarget.transform.GetChild(3), 1f, 0.3f);
         }
         else //次のターゲットがいない場合
         {
             Debug.Log("ロックオン可能な敵がいません");
-            _adjustDirection.Target = null;
+            _adjustDirection.SetTarget(null);
             _lockedOnEnemy.Value = null;
             UIManager.Instance?.HideLockOnUI();
             //CameraManager.Instance.UseCamera(0);

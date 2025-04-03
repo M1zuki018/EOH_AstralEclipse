@@ -13,7 +13,7 @@ public class BossAttack_First : AttackAdjustBase
     {
         if(_player == null) _player = GameObject.FindGameObjectWithTag("Player").transform; 
         _target = _player;
-        _adjustDirection.Target = _target;
+        _adjustDirection.SetTarget(_target);
         
         if (_target != null)
         {

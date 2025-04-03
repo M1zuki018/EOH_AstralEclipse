@@ -1,18 +1,28 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
 /// 攻撃の向き補正を行うスクリプト
 /// </summary>
-public class AdjustDirection : MonoBehaviour
+public class AdjustDirection : ViewBase
 {
     [SerializeField] private Transform _player;
-    public Transform Target { get; set; } // ターゲットのTransform
+    public Transform Target { get; private set; } // ターゲットのTransform
     private Quaternion _initialRotation;
     public Quaternion InitialRotation => _initialRotation;
 
-    public void Start()
+    public override UniTask OnStart()
     {
         _initialRotation = transform.rotation;
+        return base.OnStart();
+    }
+
+    /// <summary>
+    /// 外のクラスからターゲットを設定する
+    /// </summary>
+    public void SetTarget(Transform target)
+    {
+        Target = target;
     }
     
     /// <summary>
