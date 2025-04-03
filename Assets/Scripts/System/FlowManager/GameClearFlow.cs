@@ -6,14 +6,20 @@ using UnityEngine;
 /// ゲームクリア後の処理を書いたクラス
 /// ゲームクリアのステートはEnemyBrainで変更される
 /// </summary>
-public class GameClearPerformance : MonoBehaviour
+public class GameClearPerformance
 {
-    private void Start()
+    /// <summary>
+    /// イベント登録
+    /// </summary>
+    public void Bind()
     {
-        GameManager.Instance.OnClear += HandleClearPerformance; //登録
+        GameManager.Instance.OnClear += HandleClearPerformance;
     }
 
-    private void OnDestroy()
+    /// <summary>
+    /// イベント解除
+    /// </summary>
+    public void Release()
     {
         GameManager.Instance.OnClear -= HandleClearPerformance; //解除
     }

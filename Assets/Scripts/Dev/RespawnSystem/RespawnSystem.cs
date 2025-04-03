@@ -14,9 +14,10 @@ public class RespawnSystem : ViewBase
     
     public event Action OnRespawn; //落下時のイベント
 
-    private void Start()
+    public override UniTask OnStart()
     {
         MonitorFall();
+        return base.OnStart();
     }
 
     /// <summary>
