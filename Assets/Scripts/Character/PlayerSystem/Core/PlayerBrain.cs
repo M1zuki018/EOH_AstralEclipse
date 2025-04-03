@@ -35,6 +35,7 @@ public class PlayerBrain : CharacterBase
     
     public override UniTask OnAwake()
     {
+        _controller = GetComponent<PlayerController>(); // Animator、State取得用
         _bb = new PlayerBlackBoard(_data, _status, _settings, GetComponent<PlayerInputManager>());
         
         // 補助クラスのインスタンスを作成
@@ -47,8 +48,6 @@ public class PlayerBrain : CharacterBase
     
     public override UniTask OnStart()
     {
-        _controller = GetComponent<PlayerController>(); // Animator、State取得用
-        
         // ステートマシン作成
         _stateMachine = new PlayerStateMachine(
             inputProcessor: GetComponent<PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor,
@@ -70,12 +69,14 @@ public class PlayerBrain : CharacterBase
 
         if (_bb.IsGuarding)
         {
-            _uiController.UpdateWill(); // ガード中
+            // ガード中はWillを減らす処理を行う
+            _uiController.UpdateWill();
         }
         else
         {
-            _uiController.UpdateHP(); // それ以外
-            _cameraController.Shake(); //カメラを揺らす
+            // HPを減らす処理、カメラシェイク、ダメージSE
+            _uiController.UpdateHP();
+            _cameraController.Shake();
             _audioController.HitSE();
         
             if (!_health.IsDead)
@@ -88,10 +89,8 @@ public class PlayerBrain : CharacterBase
 
     protected override async void HandleDeath(GameObject attacker)
     {
-        _bb.AnimController.Common.PlayDeathAnimation();
+        _bb.AnimController.Common.PlayDeathAnimation(); // アニメーション
         //_playerInput.DeactivateInput(); //入力制限
-        //TODO:死亡エフェクト等の処理
-
         _audioController.FadeOut();
         _uiController.WhenDeath(); //UI処理
         _cameraController.WhenDeath();
@@ -106,6 +105,5 @@ public class PlayerBrain : CharacterBase
             .SetEase(Ease.OutQuad)
             .SetUpdate(true) // TimeScaleの影響を受けずにアニメーションする
             .OnComplete(() => Debug.Log("完全停止"));
-        
     }
 }
