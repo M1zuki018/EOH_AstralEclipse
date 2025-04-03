@@ -28,18 +28,24 @@ public class PlayerBrain : CharacterBase
     private PlayerStateMachine _stateMachine;
     public PlayerStateMachine StateMachine => _stateMachine;
     
+    // 補助クラス
     private PlayerUIController _uiController;
+    private PlayerCameraController _cameraController;
     
     public override UniTask OnAwake()
     {
         _bb = new PlayerBlackBoard(_data, _status, _settings, GetComponent<PlayerInputManager>());
+        
+        // 補助クラスのインスタンスを作成
+        _uiController = new PlayerUIController(_bb);
+        _cameraController = new PlayerCameraController();
+        
         return base.OnAwake();
     }
     
     public override UniTask OnStart()
     {
         _controller = GetComponent<PlayerController>(); // Animator、State取得用
-        _uiController = new PlayerUIController(_bb); // UIを管理する補助クラス
         
         // ステートマシン作成
         _stateMachine = new PlayerStateMachine(
@@ -67,7 +73,7 @@ public class PlayerBrain : CharacterBase
         else
         {
             _uiController.UpdateHP(); // それ以外
-            CameraManager.Instance?.TriggerCameraShake(); //カメラを揺らす
+            _cameraController.Shake(); //カメラを揺らす
             AudioManager.Instance?.PlaySE(14); //ヒット時のSE
         
             if (!_health.IsDead)
@@ -89,7 +95,7 @@ public class PlayerBrain : CharacterBase
         
         _uiController.WhenDeath(); //UI処理
         
-        CameraManager.Instance.PlayerDeath();
+        _cameraController.WhenDeath();
         
         await UniTask.Delay(3000);
         
