@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 攻撃補正の基底クラス
 /// </summary>
-public abstract class AttackAdjustBase : MonoBehaviour, IAdjustableAttack, IAttackCorrection
+public abstract class AttackAdjustBase : ViewBase, IAdjustableAttack, IAttackCorrection
 {
     protected Animator _animator; //プレイヤーのAnimator
     protected CharacterController _cc; //プレイヤーのCharacterController
@@ -15,7 +15,7 @@ public abstract class AttackAdjustBase : MonoBehaviour, IAdjustableAttack, IAtta
     protected AdjustDirection _adjustDirection;
     protected EffectPool _effectPool;
     
-    protected virtual void Awake()
+    public override UniTask OnAwake()
     {
         _animator = GetComponent<Animator>();
         _cc = GetComponent<CharacterController>();
@@ -23,6 +23,8 @@ public abstract class AttackAdjustBase : MonoBehaviour, IAdjustableAttack, IAtta
         _combat = GetComponent<ICombat>();
         _adjustDirection = GetComponentInChildren<AdjustDirection>();
         _effectPool = GetComponentInChildren<EffectPool>();
+        
+        return base.OnAwake();
     }
 
     public abstract void StartAttack(); //攻撃時に呼び出される処理

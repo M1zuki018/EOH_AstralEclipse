@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 足跡エフェクトを生成する機能
 /// </summary>
-public class FootprintEffect : MonoBehaviour
+public class FootprintEffect : ViewBase
 {
     [SerializeField] private GameObject _effectPrefab;
 

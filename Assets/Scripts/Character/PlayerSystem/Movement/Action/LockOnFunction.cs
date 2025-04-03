@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 using PlayerSystem.ActionFunction;
 using PlayerSystem.Fight;
 using PlayerSystem.Input;
@@ -10,7 +11,7 @@ using UnityEngine;
 /// <summary>
 /// ロックオン機能を提供する
 /// </summary>
-public class LockOnFunction : MonoBehaviour, ILockOnable
+public class LockOnFunction : ViewBase, ILockOnable
 {
     [SerializeField, HighlightIfNull] private CinemachineTargetGroup _targetGroup; //シネマシーンのカメラ
     [SerializeField, Comment("判定を行うカメラ")] private Camera _camera; 
@@ -24,7 +25,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
 
     private PlayerInputProcessor _inputProcessor;
     
-    private void Start()
+    public override UniTask OnStart()
     {
         _inputProcessor = GetComponent<PlayerInputManager>().IPlayerInputReceiver as PlayerInputProcessor;
         _inputProcessor.OnLockOn += LockOn; // InputProcessorのロックオンイベントに登録
@@ -32,7 +33,7 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         if (_battleChecker == null)
         {
             Debug.Assert(_battleChecker != null);
-            return;
+            return base.OnStart();
         }
         
         //0.5秒おきに呼ばれるメソッド。ロックオンしている敵がいないときの処理
@@ -53,6 +54,8 @@ public class LockOnFunction : MonoBehaviour, ILockOnable
         
         //ロックオン状態の監視
         _lockedOnEnemy.Subscribe(OnLockOnTargetChanged).AddTo(this);
+        
+        return base.OnStart();
     }
     
     private void OnDestroy()

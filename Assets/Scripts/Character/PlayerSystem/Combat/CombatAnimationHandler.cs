@@ -2,7 +2,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using PlayerSystem.Input;
 using PlayerSystem.State;
-using PlayerSystem.State.Base;
 using UnityEngine;
 
 /// <summary>
