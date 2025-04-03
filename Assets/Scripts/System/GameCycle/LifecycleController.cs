@@ -52,24 +52,27 @@ public class LifecycleController : MonoBehaviour
             if (prefab == null) continue;
 
             // 推測されるコンポーネントの型を取得
-            Type viewType = GetViewBaseType(prefab);
+            List<Type> viewBaseTypes = GetViewBaseType(prefab);
 
-            if (viewType == null)
+            if (viewBaseTypes == null)
             {
                 Debug.LogWarning($"{prefab.name} のコンポーネントの型が特定できません。スキップします");
                 return;
             }
 
-            // 既存インスタンスを確認
-            var existingInstance = FindObjectOfType(viewType) as ViewBase;
-            if (existingInstance != null)
+            foreach (var viewType in viewBaseTypes)
             {
-                DebugLogHelper.LogObjectCreation("{0} の既存インスタンスが見つかったため、再生成しません", prefab.name);
-                RegisterViewBase(existingInstance);
-            }
-            else // 既存インスタンスがなかったら作成する
-            {
-                CreateAndRegisterInstance(viewType, prefab);
+                // 既存インスタンスを確認
+                var existingInstance = FindObjectOfType(viewType) as ViewBase;
+                if (existingInstance != null)
+                {
+                    DebugLogHelper.LogObjectCreation("{0} の既存インスタンスが見つかったため、再生成しません", prefab.name);
+                    RegisterViewBase(existingInstance);
+                }
+                else // 既存インスタンスがなかったら作成する
+                {
+                    CreateAndRegisterInstance(viewType, prefab);
+                }
             }
         }
         
@@ -108,9 +111,12 @@ public class LifecycleController : MonoBehaviour
     /// <summary>
     /// プレハブから ViewBase を取得
     /// </summary>
-    private Type GetViewBaseType(GameObject prefab)
+    private List<Type> GetViewBaseType(GameObject prefab)
     {
-        return prefab.GetComponents<Component>().FirstOrDefault(c => c is ViewBase)?.GetType();
+        return prefab.GetComponents<Component>()
+            .Where(c => c is ViewBase)
+            .Select(c => c.GetType())
+            .ToList();
     }
     
     /// <summary>
